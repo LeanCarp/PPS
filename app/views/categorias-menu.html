@@ -1,0 +1,79 @@
+<main class="container">
+  <div class="row row-margin-top">
+    <div class="col s12">
+      <a class="waves-effect waves-light btn" href="#/categorias-menu/agregar">
+        <i class="material-icons left">add_circle</i>Nueva categoría del menú
+      </a>
+    </div>
+  </div>
+  <h2 class="title">Listado de <strong>categorías del menú</strong></h2>
+  <div class="row row-white-background">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img class="table-item-img" src="https://image.flaticon.com/icons/svg/27/27305.svg" alt=""></td>
+          <td>Pizzas</td>
+          <td class="table-item-actions">
+            <a href="#"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-click="openModal('#modal1')"><i class="material-icons table-icon">delete</i> Eliminar</a>
+            <a href="#"><i class="material-icons table-icon">restaurant_menu</i> Ver elementos</a>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="table-item-img" src="https://image.flaticon.com/icons/svg/26/26852.svg" alt=""></td>
+          <td>Pastas</td>
+          <td class="table-item-actions">
+            <a href="#"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-click="openModal('#modal1')"><i class="material-icons table-icon">delete</i> Eliminar</a>
+            <a href="#"><i class="material-icons table-icon">restaurant_menu</i> Ver elementos</a>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="table-item-img" src="https://image.flaticon.com/icons/svg/93/93104.svg" alt=""></td>
+          <td>Hamburguesas</td>
+          <td class="table-item-actions">
+            <a href="#"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-click="openModal('#modal1')"><i class="material-icons table-icon">delete</i> Eliminar</a>
+            <a href="#"><i class="material-icons table-icon">restaurant_menu</i> Ver elementos</a>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="table-item-img" src="https://image.flaticon.com/icons/svg/18/18482.svg" alt=""></td>
+          <td>Panchos</td>
+          <td class="table-item-actions">
+            <a href="#"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-click="openModal('#modal1')"><i class="material-icons table-icon">delete</i> Eliminar</a>
+            <a href="#"><i class="material-icons table-icon">restaurant_menu</i> Ver elementos</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Eliminar categoría del menú <strong>[nombre]</strong></h4>
+    <p>¿Está seguro que desea eliminar esta categoría del menú?</p>
+    <p>Se borrarán con ella todos los elementos que pertencen a la misma.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">No, conservar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Sí, eliminar</a>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.modal').modal();
+  })
+</script>

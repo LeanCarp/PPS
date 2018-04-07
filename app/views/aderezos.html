@@ -1,0 +1,74 @@
+<main class="container">
+  <div class="row row-margin-top">
+    <div class="col s12">
+      <a class="waves-effect waves-light btn" href="#/aderezos/agregar">
+        <i class="material-icons left">add_circle</i>Nuevo aderezo
+      </a>
+    </div>
+  </div>
+  <h2 class="title">Listado de <strong>aderezos</strong></h2>
+  <div class="row row-white-background">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <!-- <th>Costo</th> -->
+          <!-- <th>Por defecto</th> -->
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aderezo 1</td>
+          <td>Categoría 1</td>
+          <!-- <td>$5,00</td> -->
+          <!-- <td class="green-text text-darken-4"><i class="material-icons table-icon">check_circle</i> Sí</td> -->
+          <td class="table-item-actions">
+            <a href="#"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-click="openModal('#modal1')"><i class="material-icons table-icon">delete</i> Eliminar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Aderezo 2</td>
+          <td>Categoría 6</td>
+          <!-- <td>$12,00</td> -->
+          <!-- <td class="green-text text-darken-4"><i class="material-icons table-icon">check_circle</i> Sí</td> -->
+          <td class="table-item-actions">
+            <a href="#"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-click="openModal('#modal1')"><i class="material-icons table-icon">delete</i> Eliminar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Aderezo 3</td>
+          <td>Categoría 1</td>
+          <!-- <td>$8,00</td> -->
+          <!-- <td class="red-text text-darken-4"><i class="material-icons table-icon">highlight_off</i> No</td> -->
+          <td class="table-item-actions">
+            <a href="#"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-click="openModal('#modal1')"><i class="material-icons table-icon">delete</i> Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Eliminar aderezo <strong>[nombre]</strong></h4>
+    <p>¿Está seguro que desea eliminar este aderezo?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">No, conservar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Sí, eliminar</a>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.modal').modal();
+  })
+</script>

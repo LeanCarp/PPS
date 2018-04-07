@@ -1,0 +1,49 @@
+<nav>
+  <div class="nav-wrapper red lighten-1">
+    <a href="#!" class="brand-logo">
+      <img src="assets/img/logo_piopio_small.png" alt="">
+    </a>
+    <span class="location">
+      <a href="#/" class="breadcrumb">Cajero</a>
+      <a class="breadcrumb" ng-bind="title"></a>
+    </span>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="#/estado-pedidos" class="waves-effect waves-light btn">Pedidos <i class="material-icons right">dashboard</i></a></li>
+      <li><a href="#/estado-mesas" class="waves-effect waves-light btn">Mesas <i class="material-icons right">announcement</i></a></li>
+      <li>
+        <a class="dropdown-button" data-activates="secciones">
+          Opciones de configuración
+          <i class="material-icons right">menu</i>
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-button" data-activates="opciones-usuario">
+          <img src="assets/img/default-user-image.png" alt="" class="circle img-profile-small">
+          Juan Miguel Pérez
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul id="secciones" class="dropdown-content">
+    <li><a href="#/categorias-menu">Categorías del Menú</a></li>
+    <li><a href="#/elementos-menu">Elementos del Menú</a></li>
+    <li><a href="#/categorias-aderezos">Categorías de Aderezos</a></li>
+    <li><a href="#/aderezos">Aderezos</a></li>
+    <li><a href="#/mesas">Mesas</a></li>
+  </ul>
+
+  <ul id="opciones-usuario" class="dropdown-content">
+    <li><a href="#/"><i class="material-icons">settings</i>Configuración</a></li>
+    <li><a href="#/"><i class="material-icons">face</i>Editar perfil</a></li>
+    <li class="divider"></li>
+    <li><a href="javascript:void(0)" onclick="location.href=(BASE_URL+'auth/logout');"><i class="material-icons">exit_to_app</i>Cerrar sesión</a></li>
+  </ul>
+</nav>
+
+<script>
+  $(document).ready(function () {
+    $(".dropdown-button").dropdown();
+  })
+</script>

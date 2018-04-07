@@ -1,0 +1,63 @@
+<main class="container">
+  <div class="row row-margin-top">
+    <div class="col s12">
+      <a class="waves-effect waves-light btn" href="#/categorias-aderezos/agregar">
+        <i class="material-icons left">add_circle</i>Nueva categoría de aderezos
+      </a>
+    </div>
+  </div>
+  <h2 class="title">Listado de <strong>categorías de aderezos</strong></h2>
+  <div class="row row-white-background">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr ng-repeat="cat in categorias">
+          <td>{{ cat.nombre }}</td>
+          <td class="table-item-actions">
+            <a ng-href="#/categorias-aderezos/modificar/{{ cat.id }}">
+              <i class="material-icons table-icon">mode_edit</i> Modificar
+            </a>
+            <a ng-click="eliminarCategoriaAderezo( cat )">
+              <i class="material-icons table-icon">delete</i> Eliminar
+            </a>
+            <a ng-href="#/aderezos/{{ cat.id }}">
+              <i class="material-icons table-icon">restaurant</i> Ver aderezos
+            </a>
+          </td>
+        </tr>
+
+        <tr ng-show="categorias.length==0">
+          <td colspan="2">
+            No hay categoria de aderezos para mostrar.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Eliminar categoría de aderezos <strong>[nombre]</strong></h4>
+    <p>¿Está seguro que desea eliminar esta categoría de aderezos?</p>
+    <p>Se borrarán con ella todos los aderezos que pertencen a la misma.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">No, conservar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Sí, eliminar</a>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.modal').modal();
+  })
+</script>

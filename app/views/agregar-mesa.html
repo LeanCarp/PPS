@@ -1,0 +1,30 @@
+<main class="container">
+  <div class="row row-margin-top">
+    <div class="col s12">
+      <a href="#/mesas" class="btn-flat"><i class="material-icons left">keyboard_arrow_left</i>Volver al listado</a>
+    </div>
+  </div>
+  <h2 class="title"><span ng-bind="isAdding ? 'Agregar' : 'Modificar'"></span> <strong>mesa</strong></h2>
+  <div class="row row-white-background">
+    <form name="formMesa" class="col s6" novalidate>
+      <div class="row">
+        <div class="input-field col s12">
+          <input ng-model="mesa.numero" placeholder="Ingrese el número correspondiente a la mesa" id="numero_mesa" name="numero_mesa" type="number" min="1" required>
+          <label for="numero_mesa" class="active">Número</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <input ng-model="mesa.habilitada" type="checkbox" class="filled-in" id="habilitar_mesa" checked="checked" />
+          <label for="habilitar_mesa">Habilitar mesa</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a ng-click="addMesa(mesa)" ng-if="isAdding" ng-disabled="formMesa.$invalid" class="waves-effect waves-light btn"><i class="material-icons left">save</i>Agregar</a>
+          <a ng-click="updateMesa(mesa)" ng-if="!isAdding" ng-disabled="formMesa.$invalid" class="waves-effect waves-light btn"><i class="material-icons left">save</i>Modificar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

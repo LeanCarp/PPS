@@ -1,0 +1,54 @@
+<main class="container">
+  <div class="row row-margin-top">
+    <div class="col s12">
+      <a class="waves-effect waves-light btn" href="#/mesas/agregar"><i class="material-icons left">add_circle</i>Nueva mesa</a>
+      <a class="waves-effect waves-light btn" href="#">
+        <svg style="width: 19px; height: 19px; vertical-align: middle; margin: -3px 11px 0 0;" viewBox="0 0 24 24">
+          <path class="svg-icon" d="M3,11H5V13H3V11M11,5H13V9H11V5M9,11H13V15H11V13H9V11M15,11H17V13H19V11H21V13H19V15H21V19H19V21H17V19H13V21H11V17H15V15H17V13H15V11M19,19V15H17V19H19M15,3H21V9H15V3M17,5V7H19V5H17M3,3H9V9H3V3M5,5V7H7V5H5M3,15H9V21H3V15M5,17V19H7V17H5Z"/>
+        </svg>
+        Códigos QR de todas las mesas
+      </a>
+    </div>
+  </div>
+  <h2 class="title">Listado de <strong>mesas</strong></h2>
+  <div class="row row-white-background">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>¿Está habilitada?</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="mesa in mesas">
+          <td>{{ mesa.numero }}</td>
+          <td ng-if="mesa.habilitada" class="green-text text-darken-4"><i class="material-icons table-icon">check_circle</i> Habilitada</td>
+          <td ng-if="!mesa.habilitada" class="red-text text-darken-4"><i class="material-icons table-icon">highlight_off</i> Deshabilitada</td>
+          <td class="table-item-actions">
+            <a href="#/mesas/modificar/{{ mesa.id }}"><i class="material-icons table-icon">mode_edit</i> Modificar</a>
+            <a ng-if="!mesa.habilitada" ng-click="toggleEstadoMesa(mesa)"><i class="material-icons table-icon">check_circle</i> Habilitar</a>
+            <a ng-if="mesa.habilitada" ng-click="toggleEstadoMesa(mesa)"><i class="material-icons table-icon">highlight_off</i> Deshabilitar</a>
+            <a ng-click="openQRCode(mesa)">
+              <svg style="width:24px;height:24px; vertical-align: middle;" viewBox="0 0 24 24">
+                <path class="svg-icon" d="M3,11H5V13H3V11M11,5H13V9H11V5M9,11H13V15H11V13H9V11M15,11H17V13H19V11H21V13H19V15H21V19H19V21H17V19H13V21H11V17H15V15H17V13H15V11M19,19V15H17V19H19M15,3H21V9H15V3M17,5V7H19V5H17M3,3H9V9H3V3M5,5V7H7V5H5M3,15H9V21H3V15M5,17V19H7V17H5Z" />
+              </svg>
+              Código QR
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<div id="modalQRCode" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Código QR de la <strong>mesa {{ numeroMesa }}</strong></h4>
+    <div id="qrcode"></div>
+  </div>
+  <div class="modal-footer">
+    <a ng-click="closeQRCode()" class="modal-action modal-close waves-effect waves-red btn-flat">Cerrar</a>
+    <a ng-click="printQRCode()" class="modal-action modal-close waves-effect waves-green btn-flat">Imprimir</a>
+  </div>
+</div>

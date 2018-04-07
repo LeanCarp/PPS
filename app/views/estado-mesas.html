@@ -1,0 +1,123 @@
+<main class="main tables">
+
+  <div class="table" ng-repeat="m in mesas">
+    <div class="table__body">
+      <div class="table__info">
+        <div class="table__data">
+          <div class="table__number">
+            <span>Mesa</span>
+            <strong>{{ m.numero }}</strong>
+          </div>
+          <div ng-class="classTableFreeOrTaken(m)" class="table__time-taken">
+            <span>{{ ( mesaLibre(m) ? 'Disponible': 'Ocupado') }}</span>
+            <!-- Clase "dateTimeTaken" no es para CSS, solo para utilizar en JS -->
+            <strong class="dateTimeTaken" data-taken="{{ getFechaHoraMesaTomada( m) }}"></strong>
+          </div>
+        </div>
+        <div class="table__icons">
+          <i class="material-icons" ng-class="hasPayByCashNotifications(m)">monetization_on</i>
+          <i class="material-icons" ng-class="hasWaiterNotifications(m)">person</i>
+          <i class="material-icons" ng-class="hasPayByCardNotifications(m)">credit_card</i>
+        </div>
+      </div>
+      <div class="table__status">
+        <p>Sin tomar: <span>{{ countPedidosSinTomar(m) }}</span></p>
+        <p>En cocina: <span>{{ countPedidosEnCocina(m) }}</span></p>
+        <p>Entregado: <span>{{ countPedidosEntregados(m) }}</span></p>
+      </div>
+      <div class="table__footer">
+        <a class="waves-effect waves-light btn green darken-1 btn-cash" ng-disabled="mesaLibre(m)" ng-click="cobrar(m)">
+          <span>{{ getTotalDelTicketDeLaMesa(m) | moneySpanishFormat:'$' }}<br>Cobrar</span>
+        </a>
+        <a class="btn-detail" ng-disabled="mesaLibre(m)" ng-click="openModalPedidos(m)">
+          Ver detalle
+        </a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Modal del detalle INICIO -->
+  <!-- Modal Structure -->
+  <div id="modal-detalles" class="modal">
+    <div class="modal-content">
+      <h3>Mesa Nº {{ detalleMesa.numero }}</h3>
+      <hr/>
+      <b>Pedidos:</b>
+      <table class="striped highlight responsive-table">
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Sub-Total</th>
+              <th>Estado</th>
+              <th>Detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="linea in detalleMesa.ticket.lineas | orderBy:'estado' ">
+            <th>{{ $index + 1 }}</th>
+            <th>{{ $parent.comidaNombre( linea.comidaID ) }}</th>
+            <th>{{ (linea.precioFinalActual / linea.cantidad) | moneySpanishFormat }}</th>
+            <th>{{ linea.cantidad }}</th>
+            <th>{{ linea.precioFinalActual | moneySpanishFormat }}</th>
+            <th>{{ $parent.textoEstadoPedido( linea.estado ) }}</th>
+            <th>
+              <ul>
+                <li ng-repeat="concepto in linea.conceptosAplicados">
+                  {{ concepto.nombre }} {{ concepto.costoAgregado | moneySpanishFormat }}
+                </li>
+              </ul>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      
+    </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-blue-grey btn-flat">Cerrar</a>
+    </div>
+  </div>
+<!-- Modal del detalle FIN -->
+
+<script>
+  $(document).ready( function(argument){
+    setInterval( calculateTimeElapsed, 1000);
+  });
+
+  // Recorre todas las mesas y calcula el tiempo transcurrido de ocupada
+  function calculateTimeElapsed(){
+    $('.dateTimeTaken').each(
+      function( index ){
+        let elem = $(this);
+        let timeString = elem.data('taken');
+        elem.text( 
+          isNaN( Date.parse(timeString) )?
+          timeString :
+          milisecondsToHMS( new Date(timeString) )
+        );
+      }
+    );
+  }
+
+  // 12344589389398 -> HH:mm:ss
+  function milisecondsToHMS( time)
+  {
+    let duration = Date.now() - time;
+    let milliseconds = parseInt((duration%1000)/100)
+    , seconds = parseInt((duration/1000)%60)
+    , minutes = parseInt((duration/(1000*60))%60)
+    //, hours = parseInt((duration/(1000*60*60))%24);//Horas restantes del dia
+    ,hours = parseInt((duration/(1000*60*60))) // Horas totales sin separar por dia
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds; //+ "." + milliseconds;
+  }
+
+</script>

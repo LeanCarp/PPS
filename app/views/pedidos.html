@@ -1,0 +1,71 @@
+    <main class="main">
+      <section class="section section_sin-tomar">
+        <h1 class="section__title">Sin tomar</h1>
+        <div class="section__body">
+          <div ng-repeat="notificacion in notificaciones" ng-if="notificacion.tipoNotificacion == '1'" class="notification">
+            <div class="notification__body">
+              <img class="notification__image" src="http://lorempixel.com/60/60/food/1"></img>
+              <div class="notification__info">
+                <span>hace 11 minutos</span>
+                <strong>{{notificacion.momentoAtendida}}</strong>
+              </div>
+              <div class="notification__quantity">× 3</div>
+            </div>
+            <div class="notification__buttons">
+              <a class="detalle">Ver detalles</a>
+              <a ng-click="aCocina(notificacion.id)" class="cocina">Pasar a cocina <i class="material-icons">arrow_forward</i></a>
+            </div>
+            <div class="notification__table">Mesa 09</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section_en-cocina">
+        <h1 class="section__title">En cocina</h1>
+        <div class="section__body">
+          <div ng-repeat="notificacion in notificaciones" ng-if="notificacion.tipoNotificacion == '2'" class="notification">
+            <div class="notification__body">
+              <img class="notification__image" src="http://lorempixel.com/60/60/food/2"></img>
+              <div class="notification__info">
+                <span>hace 23 minutos</span>
+                <strong>{{notificacion.momentoAtendida}}</strong>
+              </div>
+              <div class="notification__quantity">× 2</div>
+            </div>
+            <div class="notification__buttons">
+              <a class="detalle">Ver detalles</a>
+              <a ng-click="enCamino(notificacion.id)" class="mesa">Enviado a mesa <i class="material-icons">call_missed_outgoing</i></a>
+            </div>
+            <div class="notification__table">Mesa 11</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section_necesitan-mozo">
+        <h1 class="section__title">Necesitan mozo</h1>
+        <div class="section__body">
+          <div ng-repeat="notificacion in notificaciones" ng-if="notificacion.tipoNotificacion == '10'" class="notification">
+            <div class="notification__body">
+              <img class="notification__image rounded" src="http://lorempixel.com/60/60/"></img>
+              <div class="notification__info">
+                <span>hace 5 minutos</span>
+                <strong>Efectivo: <em>$250,00</em> <br> Vuelto: <em>$5,00</em></strong>
+              </div>
+            </div>
+            <div class="notification__buttons">
+              <a ng-click="atender(notificacion.id)" class="atendido">Atendido <i class="material-icons">done_all</i></a>
+            </div>
+            <div class="notification__table">Mesa 02</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".dropdown-button").dropdown();
+      })
+    </script>
+  </body>
+</html>
