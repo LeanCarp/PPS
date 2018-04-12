@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2018 a las 17:15:43
+-- Tiempo de generación: 12-04-2018 a las 21:41:38
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -163,6 +163,14 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `description` varchar(100) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(1, 'admin', 'Administrador'),
+(2, 'alumnos', 'Alumnos');
+
 -- --------------------------------------------------------
 
 --
@@ -292,10 +300,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `anioIngreso` int(11) NOT NULL,
-  `carrera` varchar(3) NOT NULL,
-  `idEscuela` int(11) NOT NULL
+  `anioIngreso` int(11) DEFAULT NULL,
+  `carrera` varchar(3) DEFAULT NULL,
+  `idEscuela` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `anioIngreso`, `carrera`, `idEscuela`) VALUES
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1523561968, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -308,6 +323,14 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   `user_id` int(11) unsigned NOT NULL,
   `group_id` mediumint(8) unsigned NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `users_groups`
+--
+
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 --
 -- Índices para tablas volcadas
