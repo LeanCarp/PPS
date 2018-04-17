@@ -10,7 +10,7 @@ class RunAngular extends OWN_Controller {
 	public function index()
 	{
 		$userLoggedIn = $this->ion_auth->user()->row();
-		$this->load->view('index.php', ['casadecomidaID' => $userLoggedIn->casadecomidaID]);
+		$this->load->view('index.php'/*, ['casadecomidaID' => $userLoggedIn->casadecomidaID]*/);
 	}
 }
 ?>

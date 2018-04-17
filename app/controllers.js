@@ -400,7 +400,7 @@ app.controller('MesasCtr', ['$scope', '$location', '$routeParams', 'customServic
   }
 
   // Abre una modal con el código QR de la mesa correspondiente.
-  $scope.openQRCode = mesa => {sssss
+  $scope.openQRCode = mesa => {
     $scope.numeroMesa = mesa.numero;
     $scope.QRCode.makeCode(mesa.dataQR);
     $('#modalQRCode').modal('open');
