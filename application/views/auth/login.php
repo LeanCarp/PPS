@@ -13,8 +13,8 @@
   <main class="container-login z-depth-2">
     <div class="row">
       <div class="col s12">
-        <h1 class="title-login">Cajero</h1>
-        <p>Por favor, ingresa tu email y contraseña.</p>
+        <h1 class="title-login"><img src="<?php echo BASE_URL().'assets/img/logo-login-utn.png'?>" alt=""></h1>
+        <p>Por favor, ingresa tu usuario y contraseña.</p>
 
         <div id="infoMessage"><?php echo $message;?></div>
       </div>
@@ -24,7 +24,7 @@
       <div class="row">
         <div class="input-field col s12">
           <input type="text" name="identity" value="" id="identity">
-          <label for="identity" class="active">Email</label>
+          <label for="identity" class="active">Usuario</label>
         </div>
         <div class="input-field col s12">
           <input type="password" name="password" value="" id="password">

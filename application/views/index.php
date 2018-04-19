@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="<?php echo BASE_URL()?>assets/css/main.css">
  
     <!-- jQuery, Angular, Angular Route, Materialize, Angular-Materialize. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -33,18 +34,17 @@
     </script>
 
     <!-- App JS -->
-    <!-- <script src="<?php echo BASE_URL().'app/app.js'?>"></script>
+    <script src="<?php echo BASE_URL().'app/app.js'?>"></script>
     <script src="<?php echo BASE_URL().'app/filters.js'?>"></script>
     <script src="<?php echo BASE_URL().'app/routes.js'?>"></script>
-    <script src="<?php echo BASE_URL().'app/customService.js'?>"></script>
-    <script src="<?php echo BASE_URL().'app/controllers.js'?>"></script> -->
-    <script src="<?php echo BASE_URL().'app/controllersAlumnos.js'?>"></script>
-    <script src="<?php echo BASE_URL().'app/alumnoService.js'?>"></script>
+    <script src="<?php echo BASE_URL().'app/service.js'?>"></script>
+    <script src="<?php echo BASE_URL().'app/controllers.js'?>"></script>
+    
   </head>
   <body>
     <div ng-include='"<?php echo BASE_URL()?>app/views/header.html"'></div>
-    <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_agregar.html"'></div>
-    <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_listar.html"'></div> -->
-    <!--<div ng-view></div>-->
+    <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_agregar.html"'></div>
+    <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_listar.html"'></div> -->
+    <div ng-view></div>
   </body>
 </html>
