@@ -10,11 +10,63 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/inicio.html",
       controller: "DefaultCtr"
     })
-    .when("/estado-pedidos", {
+    .when("/alumnos-agregar", {
       title: 'Estado de los pedidos',
-      templateUrl: BASE_URL + "app/views/estado-pedidos.html",
-      controller: "PedidosCtr"
+      templateUrl: BASE_URL + "app/views/alumno_agregar.html",
+      controller: "AlumnoAgregarCtr"
     })
+    .when("/alumnos-listar", {
+      title: 'Estado de los pedidos',
+      templateUrl: BASE_URL + "app/views/alumno_listar.html",
+      controller: "AlumnoAgregarCtr"
+    })
+    .when("/informes-listar/:dni", {
+      title: 'Informes',
+      templateUrl: BASE_URL + "app/views/alumno_informe_listar.html",
+      controller: "InformeListarCtr"
+    })
+    .when("/materias-listar", {
+      title: 'Materias - Listar',
+      templateUrl: BASE_URL + "app/views/materia_listar.html",
+      controller: "MateriaCtr"
+    })
+    .when("/materias-agregar", {
+      title: 'Materias - Agregar',
+      templateUrl: BASE_URL + "app/views/materia_agregar.html",
+      controller: "MateriaCtr"
+    })
+    .when("/profesores-listar", {
+      title: 'Profesor - Listar',
+      templateUrl: BASE_URL + "app/views/profesor_listar.html",
+      controller: "ProfesorCtr"
+    })
+    .when("/profesores-agregar", {
+      title: 'Profesor - Agregar',
+      templateUrl: BASE_URL + "app/views/profesor_agregar.html",
+      controller: "ProfesorCtr"
+    })
+    .when("/cursadas-listar/:dni", {
+      title: 'Cursadas - Listar',
+      templateUrl: BASE_URL + "app/views/alumno_cursada_listar.html",
+      controller: "CursadasCtr"
+    })
+    .when("/comisiones-listar", {
+      title: 'Comisiones - Listar',
+      templateUrl: BASE_URL + "app/views/comision_listar.html",
+      controller: "ComisionesCtr"
+    })
+    .when("/comisiones-agregar", {
+      title: 'Comisiones - Listar',
+      templateUrl: BASE_URL + "app/views/comision_agregar.html",
+      controller: "ComisionesCtr"
+    })
+
+
+
+
+
+
+
     .when("/estado-mesas", {
       title: 'Estado de las mesas',
       templateUrl: BASE_URL + "app/views/estado-mesas.html",

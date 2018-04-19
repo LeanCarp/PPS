@@ -46,19 +46,9 @@
       <a href="#!" class="brand-logo"><img src="assets/img/logo-utn.png" alt=""></a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> <!-- Icono menú responsive -->
       <ul class="right hide-on-med-and-down">
-          <li><a class="dropdown-button" href="#!" data-activates="dropdownAlumnos">Alumnos<i class="material-icons right">arrow_drop_down</i></a></li>
-          <li>
-            <a class="dropdown-button" data-activates="secciones">
-              Opciones de configuración
-              <i class="material-icons right">menu</i>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-button" data-activates="dropdownUsuario">
-              <img src="assets/img/default-user-image.png" alt="" class="circle img-profile-small">
-              <i class="material-icons right">arrow_drop_down</i>
-            </a>
-          </li>
+          <li><a class="dropdown-button" data-activates="dropdownAlumnos">Alumnos<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a class="dropdown-button" data-activates="dropdownConfiguracion">Configuración<i class="material-icons right">menu</i></a></li>
+          <li><a class="dropdown-button" data-activates="dropdownUsuario"><img src="assets/img/default-user-image.png" alt="" class="circle img-profile-small"><i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
           <li><a href="sass.html">Sass</a></li>
@@ -70,15 +60,23 @@
   </nav>    
   
   <ul id="dropdownAlumnos" class="dropdown-content">
-      <li><a href="#!">Agregar</a></li>
-      <li class="divider"></li>
-      <li><a href="#!">Listar</a></li>
-    </ul>
-    <ul id="dropdownUsuario" class="dropdown-content">
-      <li><a href="#!">Perfil</a></li>
-      <li class="divider"></li>
-      <li><a href="#!">Salir</a></li>
-    </ul>
+     <li><a href="#/alumnos-listar">Administrar</a></li>
+    <li class="divider"></li>
+    <li><a href="#/alumnos-agregar">Agregar</a></li>
+    
+    
+  </ul>
+  <ul id="dropdownUsuario" class="dropdown-content">
+    <li><a href="#!">Perfil</a></li>
+    <li class="divider"></li>
+    <li><a href="javascript:void(0)" onclick="location.href=(BASE_URL+'auth/logout');">Salir</a></li>
+  </ul>
+  <ul id="dropdownConfiguracion" class="dropdown-content">
+    <li><a href="#/materias-listar">Materias</a></li>
+    <li><a href="#/profesores-listar">Profesores</a></li>
+    <li><a href="#/comisiones-listar">Comisiones</a></li>
+    <li class="divider"></li>
+  </ul>
 
 <script>
     $(document).ready(function () {   
