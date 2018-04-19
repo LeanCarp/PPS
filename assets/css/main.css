@@ -507,7 +507,7 @@ nav {
 }
 
 .body-login {
-  background: #eee;
+  background: #333333;/* era #eee */
   min-height: 100vh;
   display: flex;
   justify-content: center;

@@ -1,0 +1,40 @@
+<main class="container">
+        <h2>Agregar comisión</h2>
+    
+        <div class="row">
+            <form id="formMateria" name="formMateria" class="col s12" ng-submit="agregarMateria(materia)">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input class="elementos" id="nombre" name="nombre" type="text" class="" ng-model="materia.nombre" ng-required="true">
+                        <label for="nombre">Nombre</label>
+                        <p class="advertencia" ng-show="formMateria.nombre.$error.required && !formMateria.nombre.$pristine" class="help-block">El nombre no puede ser vacío</p>
+                    </div>
+                </div>
+                <input type="submit" class="btn" value="Agregar" ng-disabled="formMateria.$invalid">
+            </form>
+        </div>
+    </main>
+    
+    <script>
+        $(document).ready(function() {
+        $('select').material_select();
+      });
+    
+    
+    </script>
+    
+    <style>
+        .selects{
+            padding: 0 !important;
+        }
+    
+        .advertencia{
+            margin: 0;
+            font-size: 12px;
+            color: #EA2E49;
+        }
+    
+        .elementos{
+            margin: 0 !important;
+        }
+    </style>

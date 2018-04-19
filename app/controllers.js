@@ -1,5 +1,91 @@
-app.controller('PedidosCtr', ['$scope','customService', function ($scope, customService) {
-  customService.getNotificaciones().success(function(data){
+app.controller('AlumnoAgregarCtr', ['$scope', '$location', 'service', function ($scope, $location, service) {
+  service.getAlumnos().success(function (data){
+      $scope.alumnos = data.alumnos;
+  })
+
+  $scope.agregarAlumno = function(alumno){
+    console.log(alumno);
+    //service.agregarAlumno(alumno);
+
+    $location.path('/alumnos-listar');
+  }
+}]);
+
+app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+    var cursada1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos', 'estado': 'Cursando'};
+    var cursadas = [cursada1];
+
+    $scope.cursadas = cursadas;
+}]);
+
+app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  var comision1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos'};
+  var comisiones = [comision1];
+
+  $scope.comisiones = comisiones;
+}]);
+
+app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', function ($scope, $routeParams, service) {
+  var dni = $routeParams.dni;
+  console.log(dni);
+
+  var informe1 = {'fecha': '23-01-2018', 
+                  'titulo': 'No aprueba', 
+                  'descripcion': 'No aprueba desde 2013'
+                 };
+
+  var informes = [informe1];
+
+  $scope.informes = informes;
+
+    /* service.getInformesAlumno(dni).success(function (data){
+    console.log(data);
+    $scope.informes = data.informes;
+  }) */
+}]);
+
+app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  /* var materia1 = {'nombre': 'Simulación'};
+
+  var materias = [materia1];
+
+  $scope.materias = materias; */
+
+  service.getMaterias().success(function (data){
+    console.log(data);
+    $scope.materias = data.materias;
+  })
+
+  $scope.agregarMateria = function(materia){
+    console.log(materia);
+
+    //agregar post>>>>
+
+    $location.path('/materias-listar');
+  }
+
+}]);
+
+app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  var profesor1 = {'nombre': 'Claudio',
+                  'apellido': 'Alvarez'};
+
+  var profesores = [profesor1];
+
+  $scope.profesores = profesores;
+
+  $scope.agregarProfesor = function(profesor){
+    console.log(profesor);
+
+    //agregar post>>>>
+
+    $location.path('/profesores-listar');
+  }
+
+}]);
+
+app.controller('PedidosCtr', ['$scope','service', function ($scope, service) {
+  service.getNotificaciones().success(function(data){
     if(data.code===200){
       $scope.notificaciones=data.notificaciones;
     }
@@ -16,7 +102,7 @@ app.controller('PedidosCtr', ['$scope','customService', function ($scope, custom
   };
 
   $scope.atender=function(idNotificacion){
-    customService.atendNotifications(idNotificacion).success(function(data){
+    service.atendNotifications(idNotificacion).success(function(data){
       if(data.code===200){
         console.log(idNotificacion);
         let notificacion  = $scope.notificaciones.find(notificacion => notificacion.id==idNotificacion);
@@ -27,13 +113,13 @@ app.controller('PedidosCtr', ['$scope','customService', function ($scope, custom
   };
 }]);
 
-app.controller('EstadoMesasController', ["$scope", "$http", "customService", "$location", "$route", "$interval", function ($scope, $http, customService, $location, $route, $interval) {
+app.controller('EstadoMesasController', ["$scope", "$http", "service", "$location", "$route", "$interval", function ($scope, $http, service, $location, $route, $interval) {
   // https://github.com/Paco-Cervantes/Materialize-Messages
   // https://www.jqueryscript.net/other/Tiny-jQuery-Modal-Extension-For-Materialize-Framework-materializeMessages-js.html
  
   // Llamadas al CutosmService Inicio
     $scope.loadMesasData = ( firstTimeLoad = true ) => {
-      customService.getMesasPorEstado()
+      service.getMesasPorEstado()
       .success(function(data){
         switch(data.code) {
             case 200:
@@ -82,7 +168,7 @@ app.controller('EstadoMesasController', ["$scope", "$http", "customService", "$l
     $scope.loadElementosMenu = () => {
       //Obtenemos las categorias con sus elementos para mostrar en el detalle PERO
       //Depuramos y dejamos solo un Array con todos los productos sin distingir por Categoria
-      customService.getElementoMenu().success(
+      service.getElementoMenu().success(
         (d) => { 
           $scope.elementosDelMenu = d.categorias
             .map(e => e.comidas)
@@ -232,7 +318,7 @@ app.controller('EstadoMesasController', ["$scope", "$http", "customService", "$l
       return false;
     }
 
-    customService.closeMesaAndTicket( mesa.id, mesa.ticket.id)
+    service.closeMesaAndTicket( mesa.id, mesa.ticket.id)
     .success(function(data){
       if(data.code==200){
         Materialize.toast('Mesa '+mesa.numero+' cerrada exitosamente !', 3500);
@@ -313,8 +399,8 @@ app.controller('EstadoMesasController', ["$scope", "$http", "customService", "$l
 
 }]);
 
-app.controller('CategoriasAderezosCtr', ["$scope", "$http", "customService", "$location", "$route", "$interval", function ($scope, $http, customService, $location, $route, $interval) {
-  customService.getConceptos()
+app.controller('CategoriasAderezosCtr', ["$scope", "$http", "service", "$location", "$route", "$interval", function ($scope, $http, service, $location, $route, $interval) {
+  service.getConceptos()
     .success( data => {
       if(data.code==200)
         $scope.categorias = data.tipos;
@@ -333,20 +419,20 @@ app.controller('DefaultCtr', ['$scope','$location', '$routeParams', function ($s
   }
 }]);
 
-app.controller('MesasCtr', ['$scope', '$location', '$routeParams', 'customService', function ($scope, $location, $routeParams, customService) {
+app.controller('MesasCtr', ['$scope', '$location', '$routeParams', 'service', function ($scope, $location, $routeParams, service) {
 
   // Indica si se está agregando o modificando. Útil para reutilizar la vista de agregar/modificar mesa.
   $scope.isAdding = $location.path().split('/')[2] === 'agregar';
   
   // Obtiene todas las mesas.
-  customService.getMesasPorEstado()
+  service.getMesasPorEstado()
     .success(data => $scope.mesas = data.mesas)
     .error(() => Materialize.toast('Error al obtener las mesas.', 3500));
         
   // Si hay un parámetro "id" en la ruta, se está modificando, así que busca la mesa correspondinte.
   // Si no, define una mesa sin número pero habilitada (valor por defecto) para agregar una nueva.
   if ($routeParams.id)
-    customService.getMesa($routeParams.id)
+    service.getMesa($routeParams.id)
       .success(data => {
         $scope.mesa = data.mesa;
         $scope.mesa.numero = parseInt($scope.mesa.numero);
@@ -360,7 +446,7 @@ app.controller('MesasCtr', ['$scope', '$location', '$routeParams', 'customServic
   $scope.toggleEstadoMesa = mesa => {
     mesa.habilitada = !mesa.habilitada;
 
-    customService.updateMesa(mesa)
+    service.updateMesa(mesa)
       .success(() => Materialize.toast(`Mesa ${mesa.numero} ${mesa.habilitada ? '' : 'des'}habilitada`, 3500))
       .error(() => {
         mesa.habilitada = !mesa.habilitada;
@@ -370,7 +456,7 @@ app.controller('MesasCtr', ['$scope', '$location', '$routeParams', 'customServic
 
   // Agrega una nueva mesa.
   $scope.addMesa = mesa => {
-    customService.addMesa(mesa)
+    service.addMesa(mesa)
       .success(() => Materialize.toast(`Mesa ${mesa.numero} agregada correctamente.`, 3500))
       .error(() => Materialize.toast(`Error. No se pudo agregar la mesa ${mesa.numero}.`, 3500));
 
@@ -379,7 +465,7 @@ app.controller('MesasCtr', ['$scope', '$location', '$routeParams', 'customServic
 
   // Actualiza una mesa existente.
   $scope.updateMesa = mesa => {
-    customService.updateMesa(mesa)
+    service.updateMesa(mesa)
       .success(() => Materialize.toast(`Mesa ${mesa.numero} modificada correctamente.`, 3500))
       .error(() => Materialize.toast(`Error. No se pudo modificar la mesa ${mesa.numero}.`, 3500));
 

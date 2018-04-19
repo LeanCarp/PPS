@@ -1,9 +1,51 @@
-<!-- <ul class="collection with-header">
-    <li ng-repeat="alumno in alumnos" class="collection-header"><h4>First Names</h4></li>
-    {{alumno.dni}} {{alumno.nombre}} {{alumno.apellido}}
-  </ul> -->
- <!--  <div ng-controller="AlumnoController">
-    <form id="formAlumno" class="col s12" ng-submit="obtenerAlumnos()"></form>
-      <input type="submit" class="btn" value="Agregar">
+<main class="listar-container">
+  <div class="nav-wrapper">
+    <form>
+      <div class="input-field">
+        <input id="search" type="search" required ng-model="buscar">
+        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+        <i class="material-icons">close</i>
+      </div>
     </form>
-  </div> -->
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+          <th>DNI</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Opciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="alumno in alumnos | filter: buscar">
+        <td>{{alumno.username}}</td>
+        <td>{{alumno.first_name}}</td>
+        <td>{{alumno.last_name}}</td>
+        <td><a title="Cursadas" href="#/cursadas-listar/{{alumno.username}}"><i class="listar-iconos material-icons">class</i></a><a title="Ver informes" href="#/informes-listar/{{alumno.username}}"><i class="listar-iconos material-icons">library_books</i></a><a href=""><i title="Editar" class="listar-iconos material-icons">edit</i></a></td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<style>
+  .listar-container{
+    margin: 0 auto;
+    width: 80% !important;
+  }
+  .elemento-lista{
+    display: flex;
+    justify-content: space-between;
+  }
+  .listar-iconos{
+    margin-top: 10px;
+    padding: 5px;
+  }
+  @media screen and (max-width:800px){
+    .listar-container{
+      width:100% !important;
+    }
+  }
+</style>
