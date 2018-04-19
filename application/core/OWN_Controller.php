@@ -5,9 +5,9 @@ class OWN_Controller extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->tienePermisos();
+		//$this->tienePermisos();
 	}
-
+	/*
 	private function tienePermisos()
 	{
 		if (!$this->ion_auth->logged_in())
@@ -16,7 +16,7 @@ class OWN_Controller extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 	}
-
+	*/
 	protected function responseJson( $obj=[] )
 	{
 		header('Content-Type: application/json');
