@@ -5,12 +5,21 @@ class User_model extends OWN_Model
 {
 	public $table = 'users'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
-	public $fillable = array('username','password','email','first_name','last_name'); // If you want, you can set an array with the fields that can be filled by insert/update
+	public $fillable = array('username','password','email','first_name','last_name','idEscuela','anioIngreso','carrera'); // If you want, you can set an array with the fields that can be filled by insert/update
 	public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
     
     public function __construct()
 	{
 		parent::__construct();
+		$this->timestamps = FALSE;
+		$this->has_one['comision'] = array('foreign_model'=>'Comision_model','foreign_table'=>'comision','foreign_key'=>'id','local_key'=>'idComision');
+		$this->has_one['escuela'] = array('foreign_model'=>'Escuela_model','foreign_table'=>'escuela','foreign_key'=>'id','local_key'=>'idEscuela');
+		$this->has_many['cursada'] = array('foreign_model'=>'Cursada_model','foreign_table'=>'cursada','foreign_key'=>'idUsuario','local_key'=>'id');
+		$this->has_many['informe'] = array('foreign_model'=>'Informe_model','foreign_table'=>'informe','foreign_key'=>'idUsuario','local_key'=>'id');
+		$this->has_many['actividad'] = array('foreign_model'=>'Actividad_model','foreign_table'=>'actividad','foreign_key'=>'idUsuario','local_key'=>'id');
+		$this->has_many['mensajeForo'] = array('foreign_model'=>'Mensajeforo_model','foreign_table'=>'mensajeforo','foreign_key'=>'idUsuario','local_key'=>'id');
+
+
 	}
 
 	public $rules = array(
@@ -75,8 +84,8 @@ class User_model extends OWN_Model
 								'valid_email' => 'El campo es inválido')
 				),
 				
-		)                    
-	));
+		                    
+	);
 	
 
 }
