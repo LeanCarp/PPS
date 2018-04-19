@@ -13,12 +13,12 @@ class Profesor  extends OWN_Controller{
         $this->bedelia->AgregarProfesor($insert_data);
     }
 
-   /* public function Leer()
+   public function Leer()
     {
-         $data = $this->Profesor_model->with_dicta('fields:nombre')->get();
+         $data = $this->bedelia->ObtenerProfesor();
          var_dump($data);
         
-    }*/
+    }
 
 }
 ?>

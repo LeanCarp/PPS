@@ -37,12 +37,47 @@ class Bedelia {
                 $this->CI->Materia_model->insert($data);
         } 
 
+        public function ObtenerMateria($id=NULL)
+        {
+                $this->CI->load->model('Materia_model');
+                //Si se pasó un id se busca la comision correspondiente.
+                if(is_null($id))
+                        return  $this->CI->Materia_model->with_archivo()->get_all();
+                //Si no se pasó nada, se buscan todas.
+                 return  $this->CI->Materia_model->with_archivo()->get($id);
+        }
+
+        public function EliminarMateria($id)
+        {
+                $this->CI->load->model('Materia_model');
+                $this->CI->Materia_model->delete($id);
+        }
+
+
         public function AgregarProfesor($data)
         {
                 $this->CI->load->model('Profesor_model');
                 $this->CI->Profesor_model->insert($data);
         
         }
+
+        public function ObtenerProfesor($id=NULL)
+        {
+                 $this->CI->load->model('Profesor_model');
+                //Si se pasó un id se busca la comision correspondiente.
+                if(is_null($id))
+                        return  $this->CI->Profesor_model->with_dicta()->get_all();
+                //Si no se pasó nada, se buscan todas.
+                 return  $this->CI->Profesor_model->with_dicta()->get($id);
+        }
+
+         public function EliminarProfesor($id)
+        {
+                $this->CI->load->model('Profesor_model');
+                $this->CI->Profesor_model->delete($id);
+        
+        }
+
 
         public function AgregarComision($data)
         {       
@@ -70,11 +105,21 @@ class Bedelia {
                 $this->CI->load->model('Comision_model');
                 //Si se pasó un id se busca la comision correspondiente.
                 if(is_null($id))
-                        return  $this->CI->Comision_model->with_materia('fields:nombre')->with_cursa()->with_horario()->get();
+                        return  $this->CI->Comision_model->with_materia('fields:nombre')->with_cursa()->with_horario()->get_all();
                 //Si no se pasó nada, se buscan todas.
                  return  $this->CI->Comision_model->with_materia('fields:nombre')->with_cursa()->with_horario()->get($id);
         
         }
+
+        
+         public function EliminarComision($id)
+        {
+                $this->CI->load->model('Comision_model');
+                $this->CI->Comision_model->delete($id);
+        
+        }
+
+        
 
         //Alta de un dicta.
         public function AgregarDicta($data)
@@ -82,9 +127,12 @@ class Bedelia {
                 $this->CI->load->model('Dicta_model');
                 $this->CI->Dicta_model->insert($data);
         } 
-
+        public function EliminarDicta($id)
+        {
+                $this->CI->load->model('Dicta_model');
+                $this->CI->Dicta_model->delete($id);
+        } 
         
-
 
         //Alta de una cursada.
         public function AgregarCursada($data)
@@ -99,10 +147,29 @@ class Bedelia {
                 $this->CI->load->model('Cursada_model');
                 //Si se pasó un id se busca la comision correspondiente.
                 if(is_null($id))
-                        return  $this->CI->Cursada_model->with_comision()->get();
+                        return  $this->CI->Cursada_model->with_comision()->with_examen()->get_all();
                 //Si no se pasó nada, se buscan todas.
-                 return  $this->CI->Cursada_model->with_comision()->get($id);
+                 return  $this->CI->Cursada_model->with_comision()->with_examen()->get($id);
         
+        }
+
+         public function EliminarCursada($id)
+        {
+                $this->CI->load->model('Cursada_model');
+                $this->CI->Cursada_model->delete($id);
+        } 
+
+
+        public function AgregarExamen($data)
+        {
+                $this->CI->load->model('Examen_model');
+                $this->CI->Examen_model->insert($data);
+        }
+
+         public function EliminarExamen($id)
+        {
+                $this->CI->load->model('Examen_model');
+                $this->CI->Examen_model->delete($id);
         }
 
 }
