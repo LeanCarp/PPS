@@ -5,7 +5,7 @@ class OWN_Controller extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->tienePermisos();
+		//$this->tienePermisos();
 	}
 	/*
 	private function tienePermisos()

@@ -28,26 +28,35 @@ class SecurityMiddleware {
   }
 
   public function applySecurityRoutesByUser()
-  {       
-    $primerParametroUrl = strtolower( $this->CI->uri->segment(1, '') );
-    if( $primerParametroUrl != '' && $primerParametroUrl != 'auth' )
+  {      
+    //echo "fddfdf<br/>"; 
+    $primerParametroUrl = strtolower($this->CI->uri->segment(1, ''));
+    //var_dump( $primerParametroUrl );
+    
+    // Si la ruta no es la del controlador de AUTENTICACIÓN, que gestiona de forma independiente si el usuario esta logueado o no
+    if( $primerParametroUrl != 'auth' )
     {
-      if( $this->CI->ion_auth->logged_in() )
+      $logueado = $this->CI->ion_auth->logged_in();
+      //echo "Esta logueado ";
+      //var_dump($logueado);
+      
+      if( $logueado )
       {
         //Si NO es usuario administrador
         if( ! $this->CI->ion_auth->in_group($this->adminGroup) )
         {
-          if( $this->CI->ion_auth->in_group($this->alumnoGroup) && $primerParametroUrl != 'alumno' )
-            redirect('auth/login', 'refresh'); // redirect them to the login page
-        
+          if( $this->CI->ion_auth->in_group($this->alumnoGroup) && ( $primerParametroUrl != '' && $primerParametroUrl != 'alumno' ) )
+            redirect('auth/login', 'refresh'); // echo "ACA1"; // redirect them to the login page
         }
       }
       else
       {
         // redirect them to the login page
         redirect('auth/login', 'refresh');
+        //echo "ACA2";
       }
     }
+    //die();
     return;
   }
 }
