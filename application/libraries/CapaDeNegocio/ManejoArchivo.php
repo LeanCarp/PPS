@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-// Uso de la libreria en DOS pasos
-// $this->load->library('Bedelia');
-// $this->Bedelia->LaFuncion();
-class Bedelia {
+
+class ManejoArchivo {
     protected $CI;
     protected $parametros;
 
@@ -33,7 +31,7 @@ class Bedelia {
     public function ObtenerCategoria($id=NULL)
     {
         $this->CI->load->model('Categoriaarchivo_model');
-        //Si se pasó un id se busca la comision correspondiente.
+        //Si se pasó un id se busca la categoria correspondiente.
         if(is_null($id))
                 return  $this->CI->Categoriaarchivo_model->with_archivo()->get_all();
         //Si no se pasó nada, se buscan todas.
