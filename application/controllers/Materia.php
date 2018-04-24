@@ -4,13 +4,13 @@ class Materia  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('Materia_model');
+		$this->load->library('CapaDeNegocio/Bedelia');
 	}
 
     public function Agregar()
     {
-         $insert_data = array('nombre'=>'Analisis 2');
-        $this->Materia_model->insert($insert_data);
+         $data = array('nombre'=>'probando');
+        $this->bedelia->AgregarMateria($data);
     }
 
    /* public function Leer()
