@@ -1,16 +1,71 @@
-<main class="container">
-        <h2>Agregar comisión</h2>
+<main id="container" class="container">
+        <h2 ng-show="!isAdding">Agregar <strong>comisión</strong></h2>
+        <h2 ng-show="isAdding">Modificar <strong>comisión</strong></h2>
     
         <div class="row">
-            <form id="formMateria" name="formMateria" class="col s12" ng-submit="agregarMateria(materia)">
+            <form id="formComision" name="formComision" class="col s12" ng-submit="agregarComision(comision)">
                 <div class="row">
-                    <div class="input-field col s6">
-                        <input class="elementos" id="nombre" name="nombre" type="text" class="" ng-model="materia.nombre" ng-required="true">
-                        <label for="nombre">Nombre</label>
-                        <p class="advertencia" ng-show="formMateria.nombre.$error.required && !formMateria.nombre.$pristine" class="help-block">El nombre no puede ser vacío</p>
+                    <div class="input-field col s8 m4">
+                        <input class="elementos" id="anio" name="anio" min="1" type="number" class="" ng-model="comision.anio" ng-required="true">
+                        <label class="active" for="anio">Año:</label>
+                        <p class="advertencia" ng-show="formComision.anio.$error.required && !formComision.anio.$pristine" class="help-block">El año no puede ser vacío</p>
+                        <p class="advertencia" ng-show="formComision.anio.$invalid && !formComision.anio.$pristine" class="help-block">El año debe ser numérico</p>
                     </div>
                 </div>
-                <input type="submit" class="btn" value="Agregar" ng-disabled="formMateria.$invalid">
+                <div class="row">
+                    <div class="input-field col s8 m4">
+                        <select id="cuatrimestre" name="cuatrimestre" ng-model="comision.cuatrimestre" ng-required="true">
+                            <option value="anual">Anual</option> 
+                            <option value="primero">Primero</option> 
+                            <option value="segundo">Segundo</option>               
+                        </select>
+                        <label for="cuatrimestre">Seleccione un cuatrimestre:</label>
+                        <p class="advertencia" ng-show="formComision.cuatrimestre.$error.required && !formComision.cuatrimestre.$pristine" class="help-block">Debe seleccionar un período</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select id="materia" name="materia" ng-model="comision.materia" ng-options="materia as materia.nombre for materia in materias" ng-required="true">       
+                        </select>
+                        <label for="materia">Materia:</label>
+                        <p class="advertencia" ng-show="formComision.materia.$error.required && !formComision.materia.$pristine" class="help-block">Debe seleccionar una materia</p>
+                    </div>
+                    <div class="input-field col s6">
+                        <select id="profesor" name="profesor" multiple ng-model="comision.profesores" 
+                            ng-options="profesor as profesor.apellido + ', ' + profesor.nombre for profesor in profesores" ng-required="true"></select>
+                        <label for="profesor">Profesores:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4 m4">
+                            <select name="dias" id="dias" ng-model="dias" ng-required="true">
+                                <option value="1">Lunes</option>
+                                <option value="2">Martes</option>
+                                <option value="3">Miércoles</option>
+                                <option value="4">Jueves</option>
+                                <option value="5">Viernes</option>     
+                                <option value="6">Sábado</option>
+                                <option value="7">Domingo</option>                          
+                            </select>
+                            <label for="">Días:</label>
+                    </div>
+                    <div class="input-field col s3 m3">
+                        <input type="time" name="horaDesde" ng-model="horaDesde" ng-required="true">
+                        <label class="active" for="horaDesde">Hora inicio:</label>
+                    </div>
+                    <div class="input-field col s3 m3">
+                        <input type="time" name="horaHasta" ng-model="horaHasta" ng-required="true">
+                        <label class="active" for="horaHasta">Hora fin:</label>
+                    </div>
+                    <input class="btn botonHorario col s1 m1" type="button" value="+" ng-click="agregarHorario(dias, horaDesde, horaHasta)">
+                </div>
+                <div class="row">
+                    <ul>
+                        <li ng-repeat="horario in horarios">Día: {{horario.dia}} - Hora inicio: {{horario.horaDesde}} Hora fin: {{horario.horaHasta}} <input class="botonCancelarHorario" type="button" value="X" ng-click="eliminarHorario(horario)"></li>
+                    </ul>
+                </div>
+                <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formComision.$invalid">
+                <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formComision.$invalid">
             </form>
         </div>
     </main>
@@ -24,6 +79,9 @@
     </script>
     
     <style>
+        .botonHorario{
+            margin: 17px;
+        }
         .selects{
             padding: 0 !important;
         }

@@ -8,7 +8,7 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
     return {
 
     getMaterias: () => {
-        var materia1 = {'nombre': 'Simulación'};
+        var materia1 = {'id': 1, 'nombre': 'Simulación'};
 
         var materias = {'materias': [materia1]};
       

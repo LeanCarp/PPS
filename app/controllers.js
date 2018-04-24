@@ -1,7 +1,21 @@
-app.controller('AlumnoAgregarCtr', ['$scope', '$location', 'service', function ($scope, $location, service) {
-  service.getAlumnos().success(function (data){
-      $scope.alumnos = data.alumnos;
-  })
+app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  $scope.isAdding = false;
+
+  if ($routeParams.id)
+  {
+    //obtener usuario por iD
+    var usuario = {'nombre': 'Leandro', 'apellido': 'Lonardi', 'dni': 38570658, 'email': 'leandrolonardi@gmail.com', 'telefono': 429912, 'anioIngreso': 2013, 'carrera': 'ISI'};
+    $scope.alumno = usuario;
+    
+    $scope.isAdding = true;
+  }
+  else{
+    service.getAlumnos().success(function (data){
+    console.log(data.alumnos[1]);
+    $scope.alumnos = data.alumnos;
+    })
+  }
+
 
   $scope.agregarAlumno = function(alumno){
     console.log(alumno);
@@ -14,15 +28,104 @@ app.controller('AlumnoAgregarCtr', ['$scope', '$location', 'service', function (
 app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
     var cursada1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos', 'estado': 'Cursando'};
     var cursadas = [cursada1];
+    
+    var comision1 = {'id': 1, 'materia': 'Álgebra', 'anio': 2013, 'cuatrimestre': 'Primero', 'profesores': 'Acosta; Lonardi'};
+    var comisiones = [comision1];
 
     $scope.cursadas = cursadas;
+    $scope.comisiones = comisiones;
+
+    $scope.agregarCursada = function(cursada){
+      console.log(cursada);
+    }
 }]);
 
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  $scope.isAdding = false;
+
   var comision1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos'};
   var comisiones = [comision1];
 
   $scope.comisiones = comisiones;
+
+  var materia1 = {'id': 1, 'nombre': 'Álgebra'};
+  var materia2 = {'id': 2, 'nombre': 'Simulación'};
+  var materias = [materia1, materia2];
+
+  $scope.materias = materias;
+
+  var profesor1 = {'dni': '12345798', 'apellido': 'Villar', 'nombre': 'Justo'};
+  var profesor2 = {'dni': '45678912', 'apellido': 'Aimar', 'nombre': 'José'};
+  var profesores = [profesor1, profesor2];
+
+  var horarios = [];
+
+  $scope.profesores = profesores;
+  profesoresSelecc = [];
+
+  if ($routeParams.id){
+    $scope.isAdding = true;
+
+    //obtener comision con el ID
+    var comision = {'id': 1, 'anio': 2013, 'cuatrimestre': 'anual', 'horarios': [{'dia': 1, 'horaDesde': '08:45', 'horaHasta': '12:00'}]}
+    horarios = comision.horarios;
+    $scope.horarios = horarios;
+    $scope.comision = comision;
+  }
+  else{
+
+  }
+
+  $scope.agregarProfesor = function(profesor){
+    profesoresSelecc.push(profesor);
+    $scope.profesoresSelecc = profesoresSelecc;
+    console.log(profesores);
+  }
+
+  $scope.agregarHorario = function(dias, horaDesde, horaHasta){
+    if (dias == null || horaDesde == null || horaHasta == null){
+      Materialize.toast("La configuración horaria tiene un error", 3500);
+    }
+    else{
+      var d = new Date(horaDesde);
+      var horaDesde = d.getHours()+':'+obtenerMinutos(d);
+      var d = new Date(horaHasta);
+      var horaHasta = d.getHours()+':'+obtenerMinutos(d);
+  
+      var horario = {'dia': dias, 'horaDesde': horaDesde, 'horaHasta': horaHasta};
+      horarios.push(horario);
+      $scope.horarios = horarios;
+    }
+  }
+
+  $scope.eliminarHorario = function(horario){
+    var index = horarios.indexOf(horario);
+    horarios.splice(index, 1);
+  }
+
+  $scope.agregarComision = function(comision){
+    if(horarios.length == 0){
+      Materialize.toast("Debe configurar por lo menos un horario", 3500);
+    }
+    else{
+      comision.horarios = horarios;
+
+      // agregar.....
+    }
+  }
+
+  obtenerMinutos = function(hora){
+    var d = new Date(hora);
+    var minutos = d.getMinutes();
+    if (minutos < 10){
+      return '0'+minutos;
+    }
+    else
+    {
+      return minutos;
+    }
+  }
+
 }]);
 
 app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', function ($scope, $routeParams, service) {
@@ -45,11 +148,23 @@ app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', functio
 }]);
 
 app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  $scope.isAdding = false;
   /* var materia1 = {'nombre': 'Simulación'};
 
   var materias = [materia1];
 
   $scope.materias = materias; */
+
+  if ($routeParams.id){
+    $scope.isAdding = true;
+    
+    // obtener materia por id
+    var materia = {'nombre': 'Simulacion'};
+    $scope.materia = materia;
+  }
+  else{
+
+  }
 
   service.getMaterias().success(function (data){
     console.log(data);
@@ -67,12 +182,20 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
 }]);
 
 app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
-  var profesor1 = {'nombre': 'Claudio',
-                  'apellido': 'Alvarez'};
+  $scope.isAdding = false;
+  var profesor1 = {'dni': 35698741, 'nombre': 'Claudio', 'apellido': 'Alvarez'};
 
   var profesores = [profesor1];
 
   $scope.profesores = profesores;
+
+  if($routeParams.id){
+    $scope.isAdding = true;
+
+    //obtener profesor
+    var profesor = {'dni': 35698741, 'nombre': 'Claudio', 'apellido': 'Alvarez'};
+    $scope.profesor = profesor;
+  }
 
   $scope.agregarProfesor = function(profesor){
     console.log(profesor);

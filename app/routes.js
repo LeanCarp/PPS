@@ -11,14 +11,19 @@ app.config(['$routeProvider', function ($routeProvider) {
       controller: "DefaultCtr"
     })
     .when("/alumnos-agregar", {
-      title: 'Estado de los pedidos',
+      title: 'Alumnos - Agregar',
       templateUrl: BASE_URL + "app/views/alumno_agregar.html",
-      controller: "AlumnoAgregarCtr"
+      controller: "AlumnosCtr"
+    })
+    .when("/alumnos-agregar/:id", {
+      title: 'Alumnos - Modificar',
+      templateUrl: BASE_URL + "app/views/alumno_agregar.html",
+      controller: "AlumnosCtr"
     })
     .when("/alumnos-listar", {
       title: 'Estado de los pedidos',
       templateUrl: BASE_URL + "app/views/alumno_listar.html",
-      controller: "AlumnoAgregarCtr"
+      controller: "AlumnosCtr"
     })
     .when("/informes-listar/:dni", {
       title: 'Informes',
@@ -35,6 +40,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/materia_agregar.html",
       controller: "MateriaCtr"
     })
+    .when("/materias-agregar/:id", {
+      title: 'Materias - Modificar',
+      templateUrl: BASE_URL + "app/views/materia_agregar.html",
+      controller: "MateriaCtr"
+    })
     .when("/profesores-listar", {
       title: 'Profesor - Listar',
       templateUrl: BASE_URL + "app/views/profesor_listar.html",
@@ -45,9 +55,19 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/profesor_agregar.html",
       controller: "ProfesorCtr"
     })
+    .when("/profesores-agregar/:id", {
+      title: 'Profesor - Modificar',
+      templateUrl: BASE_URL + "app/views/profesor_agregar.html",
+      controller: "ProfesorCtr"
+    })
     .when("/cursadas-listar/:dni", {
       title: 'Cursadas - Listar',
-      templateUrl: BASE_URL + "app/views/alumno_cursada_listar.html",
+      templateUrl: BASE_URL + "app/views/cursada_listar.html",
+      controller: "CursadasCtr"
+    })
+    .when("/cursadas-agregar", {
+      title: 'Cursadas - Agregar',
+      templateUrl: BASE_URL + "app/views/cursada_agregar.html",
       controller: "CursadasCtr"
     })
     .when("/comisiones-listar", {
@@ -57,6 +77,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     })
     .when("/comisiones-agregar", {
       title: 'Comisiones - Listar',
+      templateUrl: BASE_URL + "app/views/comision_agregar.html",
+      controller: "ComisionesCtr"
+    })
+    .when("/comisiones-agregar/:id", {
+      title: 'Comisiones - Modificar',
       templateUrl: BASE_URL + "app/views/comision_agregar.html",
       controller: "ComisionesCtr"
     })

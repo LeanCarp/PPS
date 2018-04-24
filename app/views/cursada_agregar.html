@@ -1,0 +1,61 @@
+<main id="container" class="container">
+    <h2>Agregar <strong>cursada</strong></h2>
+    
+    <div class="row">
+        <form id="formCursada" name="formCursada" class="col s12" ng-submit="agregarCursada(cursada)">
+            <div class="row">
+                <div class="input-field col s12 selects">
+                    <select id="comision" name="comision" ng-model="cursada.comision" ng-options="comision as 'Año: '+comision.anio + '; Cuatrimestre: ' + comision.cuatrimestre + '; Profesores: ' + comision.profesores for comision in comisiones" ng-required="true">              
+                    </select>
+                    <label for="comision">Seleccione una comisión:</label>
+                    <p class="advertencia" ng-show="formCursada.comision.$error.required && !formCursada.comision.$pristine" class="help-block">Debe seleccionar una cursada</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 selects">
+                    <select id="estado" name="estado" ng-model="cursada.estado" ng-required="true">
+                        <option value="Libre">Libre</option>
+                        <option value="Cursando">Cursando</option>
+                        <option value="Desaprobado">Desaprobado</option>
+                        <option value="Regular">Regular</option>
+                        <option value="Promocionado">Promocionado</option>
+                        <option value="Aprobado">Aprobado</option>              
+                    </select>
+                    <label for="comision">Seleccione un estado:</label>
+                    <p class="advertencia" ng-show="formCursada.estado.$error.required && !formCursada.estado.$pristine" class="help-block">Debe seleccionar una cursada</p>
+                </div>
+                <div class="input-field col s4">
+                    <input type="number" id="nota" name="nota" ng-model="cursada.nota" ng-required="false">
+                    <label class="active" for="comision">Ingrese una nota: (No obligatorio)</label>
+                    <p class="advertencia" ng-show="formCursada.comision.$error.required && !formCursada.comision.$pristine" class="help-block">Debe seleccionar una cursada</p>
+                </div>
+            </div>
+            <input type="submit" class="btn" value="Agregar" ng-disabled="formCursada.$invalid">
+        </form>
+    </div>
+</main>
+
+<script>
+    $(document).ready(function() {
+    $('select').material_select();
+    });
+</script>
+
+<style>
+    .botonHorario{
+        margin: 17px;
+    }
+    .selects{
+        padding: 0 !important;
+    }
+
+    .advertencia{
+        margin: 0;
+        font-size: 12px;
+        color: #EA2E49;
+    }
+
+    .elementos{
+        margin: 0 !important;
+    }
+</style>

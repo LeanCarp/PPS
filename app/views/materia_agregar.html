@@ -1,16 +1,18 @@
 <main class="container">
-        <h2>Agregar materia</h2>
+        <h2 ng-show="!isAdding">Agregar <strong>materia</strong></h2>
+        <h2 ng-show="isAdding">Modificar <strong>materia</strong></h2>
     
         <div class="row">
             <form id="formMateria" name="formMateria" class="col s12" ng-submit="agregarMateria(materia)">
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s8 m6">
                         <input class="elementos" id="nombre" name="nombre" type="text" class="" ng-model="materia.nombre" ng-required="true">
-                        <label for="nombre">Nombre</label>
+                        <label class="active" for="nombre">Nombre</label>
                         <p class="advertencia" ng-show="formMateria.nombre.$error.required && !formMateria.nombre.$pristine" class="help-block">El nombre no puede ser vacío</p>
                     </div>
                 </div>
-                <input type="submit" class="btn" value="Agregar" ng-disabled="formMateria.$invalid">
+                <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formMateria.$invalid">
+                <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formMateria.$invalid">
             </form>
         </div>
     </main>
