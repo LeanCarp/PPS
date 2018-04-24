@@ -47,6 +47,12 @@ class Extras {
             return  $this->CI->Actividad_model->with_horario()->get($id);
     }
 
+    public function EliminarActividad($id)
+    {
+        $this->CI->load->model('Actividad_model');
+        $this->CI->Actividad_model->delete($id);
+    }
+
     public function AgregarInforme($data)
     {
         $this->CI->load->model('Informe_model');
@@ -61,6 +67,18 @@ class Extras {
                 return  $this->CI->Informe_model->get_all();
         //Si no se pasó nada, se buscan todos.
             return  $this->CI->Informe_model->get($id);
+    }
+
+      public function ActualizarInforme($data)
+    {
+        $this->CI->load->model('Informe_model');
+        $this->CI->Informe_model->update($data);
+    }
+
+      public function EliminarInforme($id)
+    {
+        $this->CI->load->model('Informe_model');
+        $this->CI->Informe_model->delete($id);
     }
 
     public function AgregarPais($data)
@@ -79,6 +97,18 @@ class Extras {
             return  $this->CI->Pais_model->with_ciudad()->get($id);
     }
 
+      public function ActualizarPais($data)
+    {
+        $this->CI->load->model('Pais_model');
+        $this->CI->Pais_model->update($data);
+    }
+
+     public function EliminarPais($id)
+    {
+        $this->CI->load->model('Pais_model');
+        $this->CI->Pais_model->delete($id);
+    }
+
     public function AgregarCiudad($data)
     {
          $this->CI->load->model('Ciudad_model');
@@ -93,6 +123,18 @@ class Extras {
                 return  $this->CI->Ciudad_model->with_pais()->with_escuela()->get_all();
         //Si no se pasó nada, se buscan todas.
             return  $this->CI->Ciudad_model->with_pais()->with_escuela()->get($id);
+    }
+
+    public function Actualizariudad($data)
+    {
+         $this->CI->load->model('Ciudad_model');
+        $this->CI->Ciudad_model->update($data);
+    }
+
+     public function EliminarCiudad($id)
+    {
+         $this->CI->load->model('Ciudad_model');
+        $this->CI->Ciudad_model->delete($id);
     }
 
     public function AgregarEscuela($data)
@@ -110,6 +152,19 @@ class Extras {
         //Si no se pasó nada, se buscan todas.
             return  $this->CI->Escuela_model->with_ciudad()->with_alumnos()->get($id);
     }
+
+      public function ActualizarEscuela($data)
+    {
+        $this->CI->load->model('Escuela_model');
+        $this->CI->Escuela_model->update($data);
+    }
+
+      public function EliminarEscuela($id)
+    {
+        $this->CI->load->model('Escuela_model');
+        $this->CI->Escuela_model->delete($id);
+    }
+
 
 
 }

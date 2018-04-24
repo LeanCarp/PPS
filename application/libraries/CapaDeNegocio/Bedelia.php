@@ -47,6 +47,12 @@ class Bedelia {
                  return  $this->CI->Materia_model->with_archivo()->get($id);
         }
 
+        public function ActualizarMateria($data)
+        {
+                $this->CI->load->model('Materia_model');
+                $this->CI->Materia_model->update($data);
+        }
+
         public function EliminarMateria($id)
         {
                 $this->CI->load->model('Materia_model');
@@ -63,12 +69,18 @@ class Bedelia {
 
         public function ObtenerProfesor($id=NULL)
         {
-                 $this->CI->load->model('Profesor_model');
+                $this->CI->load->model('Profesor_model');
                 //Si se pasó un id se busca la comision correspondiente.
                 if(is_null($id))
                         return  $this->CI->Profesor_model->with_dicta()->get_all();
                 //Si no se pasó nada, se buscan todas.
                  return  $this->CI->Profesor_model->with_dicta()->get($id);
+        }
+
+        public function ActualizarProfesor($data)
+        {
+                $this->CI->load->model('Profesor_model');
+                $this->CI->Profesor_model->update($data);
         }
 
          public function EliminarProfesor($id)
@@ -91,7 +103,7 @@ class Bedelia {
                         return $id;
 
                 //Si se agregó la comision correctamente, se procede a agregar los horarios de la misma.
-                //horario deberá contener el formato: horario => array('dia'=>'3','horaInicio'=>'20:00:00', 'horaFin'=>'23:00:00');
+                //cada horario del array deberá contener el formato: horario => array('dia'=>'3','horaInicio'=>'20:00:00', 'horaFin'=>'23:00:00');
                 for ($i = 0; $i < count($data['horarios']) ; $i++)             
                 {
                         $data['horarios'][$i]['idComision']=$id;
@@ -111,8 +123,14 @@ class Bedelia {
         
         }
 
+        public function ActualizarComision($data)
+        {
+                $this->CI->load->model('Comision_model');
+                $this->CI->Comision_model->update($data);
         
-         public function EliminarComision($id)
+        }
+
+        public function EliminarComision($id)
         {
                 $this->CI->load->model('Comision_model');
                 $this->CI->Comision_model->delete($id);
@@ -127,6 +145,13 @@ class Bedelia {
                 $this->CI->load->model('Dicta_model');
                 $this->CI->Dicta_model->insert($data);
         } 
+
+        public function ActualizarDicta($data)
+        {
+                $this->CI->load->model('Dicta_model');
+                $this->CI->Dicta_model->update($data);
+        } 
+
         public function EliminarDicta($id)
         {
                 $this->CI->load->model('Dicta_model');
@@ -141,7 +166,7 @@ class Bedelia {
                 $this->CI->Cursada_model->insert($data);
         }
 
-        //Devuelve cursada con los datos de la comision
+        //Devuelve cursada con los datos de la comision y los examenes.
         public function ObtenerCursada($id=NULL)
         {
                 $this->CI->load->model('Cursada_model');
@@ -153,7 +178,13 @@ class Bedelia {
         
         }
 
-         public function EliminarCursada($id)
+        public function ActualizarCursada($data)
+        {
+                $this->CI->load->model('Cursada_model');
+                $this->CI->Cursada_model->update($data);
+        }
+
+        public function EliminarCursada($id)
         {
                 $this->CI->load->model('Cursada_model');
                 $this->CI->Cursada_model->delete($id);
@@ -166,10 +197,18 @@ class Bedelia {
                 $this->CI->Examen_model->insert($data);
         }
 
+        public function ActualizarExamen($data)
+        {
+                $this->CI->load->model('Examen_model');
+                $this->CI->Examen_model->update($data);
+        }
+
          public function EliminarExamen($id)
         {
                 $this->CI->load->model('Examen_model');
                 $this->CI->Examen_model->delete($id);
         }
+
+
 
 }

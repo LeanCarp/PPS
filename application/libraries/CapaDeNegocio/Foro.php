@@ -32,6 +32,18 @@ class Foro {
             return  $this->CI->Categoriaforo_model->with_tema()->get($id);
     }
 
+     public function ActualizarCategoria($data)
+    {
+        $this->CI->load->model('Categoriaforo_model');
+        $this->CI->Categoriaforo_model->update($data);
+    }
+
+     public function EliminarCategoria($id)
+    {
+        $this->CI->load->model('Categoriaforo_model');
+        $this->CI->Categoriaforo_model->delete($id);
+    }
+
     public function AgregarTema($data)
     {
         $this->CI->load->model('Tema_model');
@@ -48,6 +60,18 @@ class Foro {
             return  $this->CI->Tema_model->with_categoria()->with_mensajeForo()->get($id);
     }
 
+     public function ActualizarTema($data)
+    {
+        $this->CI->load->model('Tema_model');
+        $this->CI->Tema_model->update($data);
+    }
+
+     public function EliminarTema($id)
+    {
+        $this->CI->load->model('Tema_model');
+        $this->CI->Tema_model->delete($id);
+    }
+
     public function AgregarMensaje($data)
     {
         $this->CI->load->model('Mensajeforo_model');
@@ -58,6 +82,12 @@ class Foro {
     {
         $this->CI->load->model('Mensajeforo_model');
         return  $this->CI->Mensajeforo_model->with_usuario()->with_tema()->get($id);
+    }
+
+      public function EliminarMensaje($id)
+    {
+        $this->CI->load->model('Mensajeforo_model');
+        $this->CI->Mensajeforo_model->delete($id);
     }
 
 
