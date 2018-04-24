@@ -1,6 +1,6 @@
 <main class="listar-container">
 
-        <a href="#/comision-agregar" class="btn btn-agregar">Agregar comisión</a>
+        <a href="#/comisiones-agregar" class="btn btn-agregar">Agregar comisión</a>
     
         <div class="nav-wrapper">
           <form>
@@ -27,7 +27,7 @@
               <td>{{comision.anio}}</td>
               <td>{{comision.cuatrimestre}}</td>
               <td>{{comision.materia}}</td>
-              <td><a title="Editar" href=""><i class="listar-iconos material-icons">edit</i></a></td>
+              <td><a title="Editar" href="#/comisiones-agregar/:id"><i class="listar-iconos material-icons">edit</i></a></td>
             </tr>
           </tbody>
         </table>
@@ -48,6 +48,7 @@
         }
         .btn-agregar{
             margin-top: 20px;
+            margin-left: 20px;
         }
         @media screen and (max-width:800px){
           .listar-container{
