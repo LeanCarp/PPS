@@ -20,13 +20,13 @@ class Comision  extends OWN_Controller{
                             'horarios'=>$horarios,
                             //'horarios'=>[array('dia'=>'4','horaInicio'=>'20:00:00','horaFin'=>'23:00:00')],
                         ];
-        $this->bedelia->AgregarComision($insert_data);
+          return $this->responseJson(['exito'=>$this->bedelia->AgregarComision($insert_data)]);
     }
 
     public function Leer($id=NULL)
     {
-         $data = $this->bedelia->ObtenerComision(2);
-         var_dump($data);
+         $data = $this->bedelia->ObtenerComision($id);
+          return $this->responseJson(['datos'=>$data]);
         
     }
 

@@ -7,18 +7,22 @@ class Materia  extends OWN_Controller{
 		$this->load->library('CapaDeNegocio/Bedelia');
 	}
 
-    public function Agregar()
+    public function AgregarMateria()
     {
-         $data = array('nombre'=>'probando');
-        $this->bedelia->AgregarMateria($data);
+        /*$nombre = $this->rest->post('nombre');
+        $data = array('nombre'=> $nombre); */
+
+        $data = array('nombre'=>'probando');
+        
+        return $this->responseJson(['exito'=>$this->bedelia->AgregarMateria($insert_data)]);
     }
 
-   /* public function Leer()
+    public function Leer()
     {
          $data = $this->Materia_model->with_dicta('fields:nombre')->get();
-         var_dump($data);
+        return $this->responseJson(['comisiones'=>$data]);
         
-    }*/
+    }
 
 }
 ?>
