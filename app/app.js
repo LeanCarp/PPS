@@ -1,4 +1,3 @@
-@ -1,7 +0,0 @@
 var app = angular.module('AlumnosApp', [ 'ngRoute']);
 
 app.run(['$rootScope', function($rootScope) {
