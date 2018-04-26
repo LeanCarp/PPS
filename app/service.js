@@ -7,6 +7,29 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
   
     return {
 
+    agregarComision: (comision) => {
+      let urlComisionAgregar='administrador/Comision/Agregar';
+      return  $http.post(urlComisionAgregar, comision, { responseType: 'json' });
+      //return {success: (otrafun) => { return otrafun(comision); }};
+    },
+    agregarMateria: (materia) => {
+      let urlMateriaAgregar = 'administrador/Materia/Agregar';
+      return $http.post(urlMateriaAgregar, materia, { responseType: 'json' });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     getMaterias: () => {
         var materia1 = {'id': 1, 'nombre': 'Simulación'};
 
@@ -16,7 +39,7 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
     },
   
     getAlumnos: () => {
-        let urlAlumnosObtener='Alumnos/obtenerTodos';
+        let urlAlumnosObtener='administrador/Alumnos/obtenerTodos';
         return  $http.get(urlAlumnosObtener, { responseType: 'json' }); 
     },
 
