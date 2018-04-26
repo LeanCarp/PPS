@@ -27,7 +27,7 @@ class Extras {
                 return $id;
 
         //Si se agregó la actividad correctamente, se procede a agregar los horarios de la misma.
-        //horario deberá contener el formato: horario => array('dia'=>'3','horaInicio'=>'20:00:00', 'horaFin'=>'23:00:00');
+        //cada horario del array deberá contener el formato: horario => array('dia'=>'3','horaInicio'=>'20:00:00', 'horaFin'=>'23:00:00');
         for ($i = 0; $i < count($data['horarios']) ; $i++)             
         {
                 $data['horarios'][$i]['idActividad']=$id;

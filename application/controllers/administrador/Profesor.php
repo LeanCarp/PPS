@@ -7,16 +7,18 @@ class Profesor  extends OWN_Controller{
 		$this->load->library('CapaDeNegocio/Bedelia');
 	}
 
-    public function Agregar()
+    public function AgregarProfesor()
     {
-         $insert_data = array('nombre'=>'Enrique','apellido'=>'Proyecto');
-        $this->bedelia->AgregarProfesor($insert_data);
+        $nombre = $this->rest->post('nombre');
+        $apellido = $this->rest->post('apellido');
+        $insert_data = array('nombre'=>$nombre ,'apellido'=>$apellido);
+         return $this->responseJson(['exito'=>$this->bedelia->AgregarProfesor($insert_data)]);
     }
 
    public function Leer()
     {
-         $data = $this->bedelia->ObtenerProfesor();
-         var_dump($data);
+        $data = $this->bedelia->ObtenerProfesor();
+        return $this->responseJson(['datos'=>$data]);
         
     }
 

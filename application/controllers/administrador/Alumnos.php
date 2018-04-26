@@ -4,6 +4,8 @@ class Alumnos extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
+        $this->load->library('CapaDeNegocio/Bedelia');
+        $this->load->library('CapaDeNegocio/Extras');
     }
 
     public function agregar(){
@@ -50,5 +52,19 @@ class Alumnos extends OWN_Controller{
         $this->db->from('users');
         $alumnos = $this->db->get();
         return $this->responseJson(['alumnos'=>$alumnos->result()]);
+    }
+
+    public function AgregarActividad()
+    {
+        $descripcion = $this->rest->post('descripcion');
+        $idAlumno = $this->rest->post('idAlumno');
+        $horarios = $this->rest->post('horarios');
+
+        $insert_data = [
+                    'actividad'=>array('descripcion'=>$descripcion ,'idUsuario'=>$idAlumno),
+                    'horarios'=>$horarios,
+                    //'horarios'=>[array('dia'=>'4','horaInicio'=>'20:00:00','horaFin'=>'23:00:00')],
+                ];
+        return $this->responseJson(['exito'=>$this->extras->AgregarActividad($insert_data)]);
     }
 }

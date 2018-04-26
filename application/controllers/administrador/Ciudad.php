@@ -9,14 +9,20 @@ class Ciudad  extends OWN_Controller{
 
     public function Agregar()
     {
-         $insert_data = array('nombre'=>'Cuba','idPais'=>'1');
+      /*  $nombre = $this->rest->post('nombre');
+        $idPais = $this->rest->post('idPais');
+        $insert_data = array('nombre'=>$nombre,'idPais'=>$idPais);*/
+
+        $insert_data = array('nombre'=>'Cuba','idPais'=>'1');
         $this->Ciudad_model->insert($insert_data);
     }
 
     public function Leer()
     {
-         $data = $this->Ciudad_model->with_pais('fields:nombre')->get(6);
-         var_dump($data);
+        //$id = $this->rest->post('id');
+        $id=6;
+        $data = $this->Ciudad_model->with_pais('fields:nombre')->get($id);
+        var_dump($data);
         
     }
 
