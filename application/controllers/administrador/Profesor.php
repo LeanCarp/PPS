@@ -17,7 +17,9 @@ class Profesor  extends OWN_Controller{
 
    public function Leer()
     {
-        $data = $this->bedelia->ObtenerProfesor();
+
+         $id = $this->rest->post('id');
+        $data = $this->bedelia->ObtenerProfesor($id);
         return $this->responseJson(['datos'=>$data]);
         
     }

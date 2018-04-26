@@ -109,7 +109,7 @@ class Bedelia {
                                 'idProfesor'=>$data['profesores'][$i]['id'],
                                 'nombreProfesor'=>$data['profesores'][$i]['nombre'],
                                 'idComision'=>$id
-                        )
+                        );
                         $this->CI->Dicta_model->insert($dicta);
                 }
 
