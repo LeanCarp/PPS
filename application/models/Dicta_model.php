@@ -5,7 +5,7 @@ class Dicta_model extends OWN_Model
 {
 	public $table = 'dicta'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
-	public $fillable = array('idProfesor','idComision','nombreProfesor','rol'); // If you want, you can set an array with the fields that can be filled by insert/update
+	public $fillable = array('idProfesor','idComision','nombreProfesor'); // If you want, you can set an array with the fields that can be filled by insert/update
 	public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
     
     public function __construct()
@@ -33,10 +33,6 @@ class Dicta_model extends OWN_Model
 						'field'=>'nombreProfesor',
 						'label'=>'NombreProfesor',
 						'rules'=>'trim|required'),
-				'rol' => array(
-						'field'=>'rol',
-						'label'=>'Rol',
-						'rules'=>'trim|required'),
 		),
 		
 		'update' => array(
@@ -51,10 +47,6 @@ class Dicta_model extends OWN_Model
                 'nombreProfesor' => array(
 						'field'=>'nombreProfesor',
 						'label'=>'NombreProfesor',
-						'rules'=>'trim|required'),
-				'rol' => array(
-						'field'=>'rol',
-						'label'=>'Rol',
 						'rules'=>'trim|required'),
 			
 		),

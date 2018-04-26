@@ -56,7 +56,7 @@ class Extras {
     public function AgregarInforme($data)
     {
         $this->CI->load->model('Informe_model');
-        $this->CI->Informe_model->insert($data);
+        return $this->CI->Informe_model->insert($data);
     }
 
     public function ObtenerInforme($id=NULL)
@@ -84,7 +84,7 @@ class Extras {
     public function AgregarPais($data)
     {
         $this->CI->load->model('Pais_model');
-        $this->CI->Pais_model->insert($data);
+        return $this->CI->Pais_model->insert($data);
     }
 
     public function ObtenerPais($id=NULL)
@@ -111,8 +111,8 @@ class Extras {
 
     public function AgregarCiudad($data)
     {
-         $this->CI->load->model('Ciudad_model');
-        $this->CI->Ciudad_model->insert($data);
+        $this->CI->load->model('Ciudad_model');
+        return $this->CI->Ciudad_model->insert($data);
     }
 
     public function ObtenerCiudad($id=NULL)
@@ -140,7 +140,7 @@ class Extras {
     public function AgregarEscuela($data)
     {
         $this->CI->load->model('Escuela_model');
-        $this->CI->Escuela_model->insert($data);
+        return $this->CI->Escuela_model->insert($data);
     }
 
     public function ObtenerEscuela($id=NULL)
