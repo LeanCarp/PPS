@@ -34,7 +34,7 @@ class Bedelia {
         public function AgregarMateria($data)
         {
                 $this->CI->load->model('Materia_model');
-                $this->CI->Materia_model->insert($data);
+                return  $this->CI->Materia_model->insert($data);
         } 
 
         public function ObtenerMateria($id=NULL)
@@ -63,7 +63,7 @@ class Bedelia {
         public function AgregarProfesor($data)
         {
                 $this->CI->load->model('Profesor_model');
-                $this->CI->Profesor_model->insert($data);
+                return $this->CI->Profesor_model->insert($data);
         
         }
 
@@ -94,6 +94,7 @@ class Bedelia {
         public function AgregarComision($data)
         {       
                 $this->CI->load->model('Comision_model');
+                $this->CI->load->model('Dicta_model');
                 $this->CI->load->model('Horario_model');
 
                 //comision deberá contener el formato: comision => array('cuatrimestre'=>'1ro','anio'=>'2018','idMateria'=>'1','nombreMateria'=>'Analisis 2' );
@@ -101,6 +102,17 @@ class Bedelia {
                
                 if($id === FALSE)
                         return $id;
+                
+                for ($i=0;$i < count($data['profesores']) ; $i++)
+                {
+                        $dicta=array(
+                                'idProfesor'=>$data['profesores'][$i]['id'],
+                                'nombreProfesor'=>$data['profesores'][$i]['nombre'],
+                                'idComision'=>$id
+                        )
+                        $this->CI->Dicta_model->insert($dicta);
+                }
+
 
                 //Si se agregó la comision correctamente, se procede a agregar los horarios de la misma.
                 //cada horario del array deberá contener el formato: horario => array('dia'=>'3','horaInicio'=>'20:00:00', 'horaFin'=>'23:00:00');
@@ -109,7 +121,7 @@ class Bedelia {
                         $data['horarios'][$i]['idComision']=$id;
                         $this->CI->Horario_model->insert($data['horarios'][$i]);
                 }
-                return TRUE;
+                return $id;
         }  
 
         public function ObtenerComision($id=NULL)
@@ -143,7 +155,7 @@ class Bedelia {
         public function AgregarDicta($data)
         {
                 $this->CI->load->model('Dicta_model');
-                $this->CI->Dicta_model->insert($data);
+                return $this->CI->Dicta_model->insert($data);
         } 
 
         public function ActualizarDicta($data)
@@ -163,7 +175,7 @@ class Bedelia {
         public function AgregarCursada($data)
         {
                 $this->CI->load->model('Cursada_model');
-                $this->CI->Cursada_model->insert($data);
+                return $this->CI->Cursada_model->insert($data);
         }
 
         //Devuelve cursada con los datos de la comision y los examenes.
@@ -194,7 +206,7 @@ class Bedelia {
         public function AgregarExamen($data)
         {
                 $this->CI->load->model('Examen_model');
-                $this->CI->Examen_model->insert($data);
+                return $this->CI->Examen_model->insert($data);
         }
 
         public function ActualizarExamen($data)

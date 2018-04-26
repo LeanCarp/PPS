@@ -19,7 +19,7 @@ class Foro {
     public function AgregarCategoria($data)
     {
         $this->CI->load->model('Categoriaforo_model');
-        $this->CI->Categoriaforo_model->insert($data);
+        return $this->CI->Categoriaforo_model->insert($data);
     }
 
     public function ObtenerCategoria($id=NULL)
@@ -47,7 +47,7 @@ class Foro {
     public function AgregarTema($data)
     {
         $this->CI->load->model('Tema_model');
-        $this->CI->Tema_model->insert($data);
+        return $this->CI->Tema_model->insert($data);
     }
     
     public function ObtenerTema($id=NULL)
@@ -75,7 +75,7 @@ class Foro {
     public function AgregarMensaje($data)
     {
         $this->CI->load->model('Mensajeforo_model');
-        $this->CI->Mensajeforo_model->insert($data);
+        return $this->CI->Mensajeforo_model->insert($data);
     }
     
     public function ObtenerMensaje($id)
