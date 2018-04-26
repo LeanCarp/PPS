@@ -41,7 +41,8 @@ app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service',
 }]);
 
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
-  $scope.isAdding = false;
+  
+  /*   $scope.isAdding = false;
 
   var comision1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos'};
   var comisiones = [comision1];
@@ -61,7 +62,20 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
   var horarios = [];
 
   $scope.profesores = profesores;
-  profesoresSelecc = [];
+  profesoresSelecc = []; */
+    $scope.obtenerDatosAgregar = function() {
+
+    }
+
+    $scope.obtenerComisiones = function() {
+      service.obtenerComisiones().success(function(data){
+        console.log(data);
+        $scope.comisiones = angular.fromJson(data.datos);
+        /* console.log(angular.fromJson(data));
+        var prueba = angular.fromJson(data);
+        $scope.comisiones = angular.fromJson(data.datos); */
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
+      }
 
   if ($routeParams.id){
     $scope.isAdding = true;
@@ -110,10 +124,17 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
     else{
       comision.horarios = horarios;
 
-      service.agregarComision(comision).success(function(data){
-        //Condicional por éxito.
-      });
+        service.agregarComision(comision).success(function(data){
+        if(!data.exito){
+          Materialize.toast("No se pudo cargar la comisión", 3500);
+        }
+        else{
+          Materialize.toast("Comisión cargada con éxito", 3500);
+        }
+      }).error( () => Materialize.toast('Erro al guardar', 3500) );
     }
+
+    $location.path('/comisiones-listar');
   }
 
   obtenerMinutos = function(hora){

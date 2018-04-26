@@ -1,4 +1,4 @@
-<main class="listar-container">
+<main class="listar-container" ng-init="obtenerComisiones()">
 
         <a href="#/comisiones-agregar" class="btn btn-agregar">Agregar comisión</a>
     
@@ -23,10 +23,10 @@
           </thead>
       
           <tbody>
-            <tr ng-repeat="comision in comisiones | filter: buscar">
+            <tr ng-repeat="comision in comisiones">  <!-- | filter: buscar -->
               <td>{{comision.anio}}</td>
               <td>{{comision.cuatrimestre}}</td>
-              <td>{{comision.materia}}</td>
+              <td>{{comision.nombreMateria}}</td>
               <td><a title="Editar" href="#/comisiones-agregar/:id"><i class="listar-iconos material-icons">edit</i></a></td>
             </tr>
           </tbody>

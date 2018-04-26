@@ -8,10 +8,22 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
     return {
 
     agregarComision: (comision) => {
+      const comis = {
+        'anio': comision.anio,
+        'cuatrimestre': comision.cuatrimestre,
+        'idMateria': comision.materia.id,
+        'nombreMateria': comision.materia.nombre,
+        'horarios': comision.horarios
+      }
       let urlComisionAgregar='administrador/Comision/Agregar';
-      return  $http.post(urlComisionAgregar, comision, { responseType: 'json' });
+      return  $http.post(urlComisionAgregar, comis, { responseType: 'json' });
       //return {success: (otrafun) => { return otrafun(comision); }};
     },
+    obtenerComisiones: () => {
+      let urlComisionObtener = 'administrador/Comision/Leer';
+      return  $http.post(urlComisionObtener, { responseType: 'json' });
+    },
+
     agregarMateria: (materia) => {
       let urlMateriaAgregar = 'administrador/Materia/Agregar';
       return $http.post(urlMateriaAgregar, materia, { responseType: 'json' });
