@@ -92,7 +92,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
       var d = new Date(horaHasta);
       var horaHasta = d.getHours()+':'+obtenerMinutos(d);
   
-      var horario = {'dia': dias, 'horaDesde': horaDesde, 'horaHasta': horaHasta};
+      var horario = {'dia': dias, 'horaInicio': horaDesde, 'horaFin': horaHasta};
       horarios.push(horario);
       $scope.horarios = horarios;
     }
@@ -110,7 +110,9 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
     else{
       comision.horarios = horarios;
 
-      // agregar.....
+      service.agregarComision(comision).success(function(data){
+        //Condicional por éxito.
+      });
     }
   }
 
@@ -172,11 +174,17 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
   })
 
   $scope.agregarMateria = function(materia){
-    console.log(materia);
 
-    //agregar post>>>>
+    service.agregarMateria(materia).success(function(data){
+/*       if (data==null){
+        Materialize.toast("No se pudo agregar la materia", 3500);
+      }
+      else{
+        Materialize.toast("Materia agregada correctamente", 3500);
+      } */
+    });
 
-    $location.path('/materias-listar');
+    //$location.path('/materias-listar');
   }
 
 }]);
