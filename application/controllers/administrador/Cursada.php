@@ -9,12 +9,11 @@ class Cursada  extends OWN_Controller{
 
     public function AgregarCursada()
     {
-       /* $estado = $this->rest->post('estado');
+        $estado = $this->rest->post('estado');
         $idAlumno = $this->rest->post('idAlumno');
-        $idComision = $this->rest->post('idComision'); 
-        $insert_data = array('estado'=>$estado ,'idUsuario'=> $idAlumno,'idComision'=> $idComision);*/
+        $idComision = $this->rest->post('comision'); 
+        $insert_data = array('estado'=>$estado ,'idUsuario'=> $idAlumno,'idComision'=> $idComision);
         
-        $insert_data = array('estado'=>'Cursando','idUsuario'=>'1','idComision'=>'2');
         return $this->responseJson(['exito'=>$this->bedelia->AgregarCursada($insert_data)]);
     }
 

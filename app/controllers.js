@@ -26,35 +26,24 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 }]);
 
 app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
-    var cursada1 = {'id':2,'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos', 'estado': 'Cursando'};
-    var cursadas = [cursada1];
     
-    //var comision1 = {'id': 1, 'materia': 'Álgebra', 'anio': 2013, 'cuatrimestre': 'Primero', 'profesores': 'Acosta; Lonardi'};
-    //var comisiones = [comision1];
-
-    //$scope.cursadas = cursadas;
-    //$scope.comisiones = comisiones;
+    $scope.idAlumno = $routeParams.id;
 
     $scope.agregarCursada = function(cursada){
+      cursada.idAlumno = $routeParams.id;
       console.log(cursada);
-    
-
+      service.agregarCursada(cursada).success(function(data){
+        if(!data.exito){
+          Materialize.toast("No se pudo cargar la comisión", 3500);
+        }
+        else{
+          Materialize.toast("Comisión cargada con éxito", 3500);
+        }
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
-    let stringHorarios = '';
 
     $scope.obtenerComisiones = function() {
       service.obtenerComisiones().success(function(data){
-        console.log(data.datos);
-
-        var comisiones = [];
-
-        var log = [];
-        angular.forEach(data.datos, function(value, key) {
-          console.log();
-            this.push(key + ': ' + value);
-        }, log);
-
-
         $scope.comisiones = data.datos;
         setTimeout(() => $('select').material_select() , 100);
       }).error( () => Materialize.toast('Erro al obtener', 3500) );

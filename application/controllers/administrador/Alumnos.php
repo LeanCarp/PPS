@@ -48,7 +48,7 @@ class Alumnos extends OWN_Controller{
     }
     public function obtenerTodos(){
         $this->load->database();
-        $this->db->select('username, first_name, last_name');
+        $this->db->select('id, username, first_name, last_name');
         $this->db->from('users');
         $alumnos = $this->db->get();
         return $this->responseJson(['alumnos'=>$alumnos->result()]);

@@ -60,12 +60,12 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/profesor_agregar.html",
       controller: "ProfesorCtr"
     })
-    .when("/cursadas-listar/:dni", {
+    .when("/cursadas-listar/:id", {
       title: 'Cursadas - Listar',
       templateUrl: BASE_URL + "app/views/cursada_listar.html",
       controller: "CursadasCtr"
     })
-    .when("/cursadas-agregar", {
+    .when("/cursadas-agregar/:id", {
       title: 'Cursadas - Agregar',
       templateUrl: BASE_URL + "app/views/cursada_agregar.html",
       controller: "CursadasCtr"

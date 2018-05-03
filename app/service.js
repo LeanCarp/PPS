@@ -50,27 +50,37 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       let urlComisionAgregar='administrador/Comision/Agregar';
       return  $http.post(urlComisionAgregar, comis, { responseType: 'json' });
     },
+
     obtenerComisiones: () => {
       let urlComisionObtener = 'administrador/Comision/Leer';
       return  $http.post(urlComisionObtener, { responseType: 'json' });
     },
 
-
-
-   getExamenes: (idCursada) => {
-      let urlExamenesObtener = 'administrador/Examen/ObtenerExamenesCursada';
-      return $http.post(urlExamenesObtener, 1,{ responseType: 'json' });
-    },
-      agregarExamen: (examen) => {
-      const exam = {
-        'fecha': examen.fecha,
-        'tipo': examen.tipo,
-        'idCursada': examen.idCursada,
-        'comentario': examen.comentario,
-        'descripcion': examen.descripcion
+    agregarCursada: (cursada) => {
+      let urlComisionAgregar = 'administrador/Cursada/AgregarCursada';
+      const cursa = {
+        'comision': cursada.comision,
+        'estado': cursada.estado,
+        'idAlumno': cursada.idAlumno
       }
-      let urlExamenAgregar='administrador/Examen/Agregar';
-      return  $http.post(urlExamenAgregar, exam, { responseType: 'json' });
+      return  $http.post(urlComisionAgregar, cursa, { responseType: 'json' });
+    },
+
+    getExamenes: (idCursada) => {
+        let urlExamenesObtener = 'administrador/Examen/ObtenerExamenesCursada';
+        return $http.post(urlExamenesObtener, 1,{ responseType: 'json' });
+      },
+
+    agregarExamen: (examen) => {
+    const exam = {
+      'fecha': examen.fecha,
+      'tipo': examen.tipo,
+      'idCursada': examen.idCursada,
+      'comentario': examen.comentario,
+      'descripcion': examen.descripcion
+    }
+    let urlExamenAgregar='administrador/Examen/Agregar';
+    return  $http.post(urlExamenAgregar, exam, { responseType: 'json' });
     },
 
 

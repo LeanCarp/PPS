@@ -8,8 +8,7 @@
                     <select id="comision" name="comision" ng-model="cursada.comision"  ng-required="true"> <!-- ng-options="comision as 'Año: '+comision.anio + '; Cuatrimestre: ' + comision.cuatrimestre + '; Profesores: ' + comision.dicta[0].nombreProfesor for comision in comisiones" -->
                         <option ng-repeat="comision in comisiones" 
                                 ng-selected="infoComision(comision)" 
-                                value="{{comision.id}}"> 
-                                    {{comision.anio}} {{comision.cuatrimestre}} {{comision.materia.nombre}}
+                                value="{{comision.id}}">Año: {{comision.anio}}; Cuatrimestre: {{comision.cuatrimestre}}; Materia: {{comision.materia.nombre}};
                         </option>
                     </select>
                     <label for="comision">Seleccione una comisión:</label>
@@ -27,12 +26,11 @@
                         <option value="Aprobado">Aprobado</option>              
                     </select>
                     <label for="comision">Seleccione un estado:</label>
-                    <p class="advertencia" ng-show="formCursada.estado.$error.required && !formCursada.estado.$pristine" class="help-block">Debe seleccionar una cursada</p>
+                    <p class="advertencia" ng-show="formCursada.estado.$error.required && !formCursada.estado.$pristine" class="help-block">Debe seleccionar un estado</p>
                 </div>
                 <div class="input-field col s4">
                     <input type="number" id="nota" name="nota" ng-model="cursada.nota" ng-required="false">
                     <label class="active" for="comision">Ingrese una nota: (No obligatorio)</label>
-                    <p class="advertencia" ng-show="formCursada.comision.$error.required && !formCursada.comision.$pristine" class="help-block">Debe seleccionar una cursada</p>
                 </div>
             </div>
             <input type="submit" class="btn" value="Agregar" ng-disabled="formCursada.$invalid">
