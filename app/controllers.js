@@ -26,7 +26,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 }]);
 
 app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
-    var cursada1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos', 'estado': 'Cursando'};
+    var cursada1 = {'id':2,'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos', 'estado': 'Cursando'};
     var cursadas = [cursada1];
     
     var comision1 = {'id': 1, 'materia': 'Álgebra', 'anio': 2013, 'cuatrimestre': 'Primero', 'profesores': 'Acosta; Lonardi'};
@@ -38,6 +38,16 @@ app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service',
     $scope.agregarCursada = function(cursada){
       console.log(cursada);
     }
+}]);
+
+app.controller('ExamenesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+    // var examen1 = {'id':1, 'fecha': new Date(), 'nota': '9', 'tipo': 'Parcial', 'descripcion': 'Aprobado','comentario':'', 'idCursada':2 };
+    // var examenes = [examen1];
+    
+    service.getExamenes($routeParams.id).success(function (data){
+    $scope.examenes = data['datos'][0].examen;
+    })
+
 }]);
 
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {

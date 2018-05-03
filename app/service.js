@@ -31,7 +31,21 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
 
 
 
-
+   getExamenes: (idCursada) => {
+      let urlExamenesObtener = 'administrador/Examen/ObtenerExamenesCursada';
+      return $http.post(urlExamenesObtener, 1,{ responseType: 'json' });
+    },
+      agregarExamen: (examen) => {
+      const exam = {
+        'fecha': examen.fecha,
+        'tipo': examen.tipo,
+        'idCursada': examen.idCursada,
+        'comentario': examen.comentario,
+        'descripcion': examen.descripcion
+      }
+      let urlExamenAgregar='administrador/Examen/Agregar';
+      return  $http.post(urlExamenAgregar, exam, { responseType: 'json' });
+    },
 
 
 

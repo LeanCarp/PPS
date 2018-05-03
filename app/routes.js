@@ -85,6 +85,16 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/comision_agregar.html",
       controller: "ComisionesCtr"
     })
+      .when("/examenes-listar/:idCursada", {
+      title: 'Examenes - Listar',
+      templateUrl: BASE_URL + "app/views/examenes_listar.html",
+      controller: "ExamenesCtr"
+    })
+    .when("/examenes-agregar", {
+      title: 'Examenes - Agregar',
+      templateUrl: BASE_URL + "app/views/examenes_agregar.html",
+      controller: "ExamenesCtr"
+    })
 
 
 

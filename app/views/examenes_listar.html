@@ -1,6 +1,6 @@
 <main class="listar-container">
 
-        <a href="#/cursadas-agregar" class="btn btn-agregar">Agregar cursada</a>
+        <a href="#/examenes-agregar" class="btn btn-agregar">Agregar examen</a>
 
         <div class="nav-wrapper">
             <form>
@@ -15,21 +15,22 @@
           <table>
             <thead>
               <tr>
-                  <th>Año</th>
-                  <th>Cuatrimestre</th>
-                  <th>Materia</th>
-                  <th>Estado</th>
-                  <th>Opciones</th>
+                  <th>Fecha</th>
+                  <th>Nota</th>
+                  <th>Tipo</th>
+                  <th>Descripcion</th>
+                  <th>Comentario</th>
               </tr>
             </thead>
     
             <tbody>
-              <tr ng-repeat="cursada in cursadas | filter: buscar">
-                <td>{{cursada.anio}}</td>
-                <td>{{cursada.cuatrimestre}}</td>
-                <td>{{cursada.materia}}</td>
-                <td>{{cursada.estado}}</td>
-                <td><a title="Ver Examenes" href="#/examenes-listar/{{cursada.id}}"><i class="listar-iconos material-icons">find_in_page</i></a></td>
+              <tr ng-repeat="examen in examenes ">
+                <td>{{examen.fecha}}</td>
+                <td>{{examen.nota}}</td>
+                <td>{{examen.tipo}}</td>
+                <td>{{examen.descripcion}}</td>
+                <td>{{examen.comentario}}</td>
+                <!-- <td><a title="Ver cursada" href="#/cursada-ver/{{cursada.id}}"><i class="listar-iconos material-icons">find_in_page</i></a></td> -->
               </tr>
             </tbody>
           </table>
