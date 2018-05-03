@@ -1,4 +1,4 @@
-<main id="container" class="container">
+<main id="container" class="container" ng-init="obtenerDatosAgregarComision()">
         <h2 ng-show="!isAdding">Agregar <strong>comisión</strong></h2>
         <h2 ng-show="isAdding">Modificar <strong>comisión</strong></h2>
     
@@ -25,15 +25,17 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <select id="materia" name="materia" ng-model="comision.materia" ng-options="materia as materia.nombre for materia in materias" ng-required="true">       
+                        <select id="materia" name="materia" ng-model="comision.materia"  ng-required="true">       
+                            <option ng-repeat="materia in materias" value="{{materia.id}}-{{materia.nombre}}">{{materia.nombre}}</option>
                         </select>
                         <label for="materia">Materia:</label>
                         <p class="advertencia" ng-show="formComision.materia.$error.required && !formComision.materia.$pristine" class="help-block">Debe seleccionar una materia</p>
                     </div>
                     <div class="input-field col s6">
-                        <select id="profesor" name="profesor" multiple ng-model="comision.profesores" 
-                            ng-options="profesor as profesor.apellido + ', ' + profesor.nombre for profesor in profesores" ng-required="true"></select>
-                        <label for="profesor">Profesores:</label>
+                        <select id="profesor" name="profesor" multiple ng-required="true" ng-model="comision.profesores">
+                            <option ng-repeat="profesor in profesores" value="{{profesor.id}}-{{profesor.apellido}}, {{profesor.nombre}}">{{profesor.apellido}}, {{profesor.nombre}}</option>
+                        </select>
+                        <label for="profesor">Profesores:</label><!-- ng-options="profesor as profesor.apellido + ', ' + profesor.nombre for profesor in profesores track by profesor.id" -->
                     </div>
                 </div>
                 <div class="row">
@@ -61,7 +63,7 @@
                 </div>
                 <div class="row">
                     <ul>
-                        <li ng-repeat="horario in horarios">Día: {{horario.dia}} - Hora inicio: {{horario.horaDesde}} Hora fin: {{horario.horaHasta}} <input class="botonCancelarHorario" type="button" value="X" ng-click="eliminarHorario(horario)"></li>
+                        <li ng-repeat="horario in horarios">Día: {{horario.dia}} - Hora inicio: {{horario.horaInicio}} Hora fin: {{horario.horaFin}} <input class="botonCancelarHorario" type="button" value="X" ng-click="eliminarHorario(horario)"></li>
                     </ul>
                 </div>
                 <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formComision.$invalid">
@@ -69,14 +71,6 @@
             </form>
         </div>
     </main>
-    
-    <script>
-        $(document).ready(function() {
-        $('select').material_select();
-      });
-    
-    
-    </script>
     
     <style>
         .botonHorario{

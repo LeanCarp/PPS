@@ -106,10 +106,10 @@ class Bedelia {
                 for ($i=0;$i < count($data['profesores']) ; $i++)
                 {
                         $dicta=array(
-                                'idProfesor'=>$data['profesores'][$i]['id'],
-                                'nombreProfesor'=>$data['profesores'][$i]['nombre'],
+                                'idProfesor'=>$data['profesores'][$i][0],
+                                'nombreProfesor'=>$data['profesores'][$i][1],
                                 'idComision'=>$id
-                        )
+                        );
                         $this->CI->Dicta_model->insert($dicta);
                 }
 
@@ -129,9 +129,9 @@ class Bedelia {
                 $this->CI->load->model('Comision_model');
                 //Si se pasó un id se busca la comision correspondiente.
                 if(is_null($id))
-                        return  $this->CI->Comision_model->with_materia('fields:nombre')->with_cursa()->with_horario()->get_all();
+                        return  $this->CI->Comision_model->with_materia('fields:nombre')->with_cursa()->with_horario()->with_dicta()->get_all();
                 //Si no se pasó nada, se buscan todas.
-                 return  $this->CI->Comision_model->with_materia('fields:nombre')->with_cursa()->with_horario()->get($id);
+                 return  $this->CI->Comision_model->with_materia()->with_cursa()->with_horario()->with_dicta()->get($id);
         
         }
 

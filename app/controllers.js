@@ -26,50 +26,60 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 }]);
 
 app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
-    var cursada1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos', 'estado': 'Cursando'};
-    var cursadas = [cursada1];
+    //var cursada1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos', 'estado': 'Cursando'};
+    //var cursadas = [cursada1];
     
-    var comision1 = {'id': 1, 'materia': 'Álgebra', 'anio': 2013, 'cuatrimestre': 'Primero', 'profesores': 'Acosta; Lonardi'};
-    var comisiones = [comision1];
+    //var comision1 = {'id': 1, 'materia': 'Álgebra', 'anio': 2013, 'cuatrimestre': 'Primero', 'profesores': 'Acosta; Lonardi'};
+    //var comisiones = [comision1];
 
-    $scope.cursadas = cursadas;
-    $scope.comisiones = comisiones;
+    //$scope.cursadas = cursadas;
+    //$scope.comisiones = comisiones;
 
     $scope.agregarCursada = function(cursada){
       console.log(cursada);
+    }
+
+    let stringHorarios = '';
+
+    $scope.obtenerComisiones = function() {
+      service.obtenerComisiones().success(function(data){
+        console.log(data.datos);
+
+        var comisiones = [];
+
+        var log = [];
+        angular.forEach(data.datos, function(value, key) {
+          console.log();
+            this.push(key + ': ' + value);
+        }, log);
+
+
+        $scope.comisiones = data.datos;
+        setTimeout(() => $('select').material_select() , 100);
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
 }]);
 
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   
-  /*   $scope.isAdding = false;
-
-  var comision1 = {'anio': 2013, 'cuatrimestre': 'Anual', 'materia': 'Administración de Recursos'};
-  var comisiones = [comision1];
-
-  $scope.comisiones = comisiones;
-
-  var materia1 = {'id': 1, 'nombre': 'Álgebra'};
-  var materia2 = {'id': 2, 'nombre': 'Simulación'};
-  var materias = [materia1, materia2];
-
-  $scope.materias = materias;
-
-  var profesor1 = {'dni': '12345798', 'apellido': 'Villar', 'nombre': 'Justo'};
-  var profesor2 = {'dni': '45678912', 'apellido': 'Aimar', 'nombre': 'José'};
-  var profesores = [profesor1, profesor2];
+  $scope.isAdding = false;
 
   var horarios = [];
 
-  $scope.profesores = profesores;
-  profesoresSelecc = []; */
-    $scope.obtenerDatosAgregar = function() {
+    $scope.obtenerDatosAgregarComision = function() {
+      service.obtenerProfesores().success(function(data){
+        $scope.profesores = data.datos;
+        setTimeout(() => $('select').material_select() , 100);
+       }).error( () => Materialize.toast('Erro al obtener', 3500) );
 
+      service.obtenerMaterias().success(function(data){
+        $scope.materias = data.datos;
+        setTimeout(() => $('select').material_select() , 100);
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
 
     $scope.obtenerComisiones = function() {
       service.obtenerComisiones().success(function(data){
-        console.log(data);
         $scope.comisiones = angular.fromJson(data.datos);
         /* console.log(angular.fromJson(data));
         var prueba = angular.fromJson(data);
@@ -90,12 +100,6 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
 
   }
 
-  $scope.agregarProfesor = function(profesor){
-    profesoresSelecc.push(profesor);
-    $scope.profesoresSelecc = profesoresSelecc;
-    console.log(profesores);
-  }
-
   $scope.agregarHorario = function(dias, horaDesde, horaHasta){
     if (dias == null || horaDesde == null || horaHasta == null){
       Materialize.toast("La configuración horaria tiene un error", 3500);
@@ -105,7 +109,6 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
       var horaDesde = d.getHours()+':'+obtenerMinutos(d);
       var d = new Date(horaHasta);
       var horaHasta = d.getHours()+':'+obtenerMinutos(d);
-  
       var horario = {'dia': dias, 'horaInicio': horaDesde, 'horaFin': horaHasta};
       horarios.push(horario);
       $scope.horarios = horarios;
@@ -118,6 +121,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
   }
 
   $scope.agregarComision = function(comision){
+    console.log(comision);
     if(horarios.length == 0){
       Materialize.toast("Debe configurar por lo menos un horario", 3500);
     }
@@ -172,68 +176,58 @@ app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', functio
 
 app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
-  /* var materia1 = {'nombre': 'Simulación'};
-
-  var materias = [materia1];
-
-  $scope.materias = materias; */
 
   if ($routeParams.id){
     $scope.isAdding = true;
-    
-    // obtener materia por id
-    var materia = {'nombre': 'Simulacion'};
-    $scope.materia = materia;
+
+
   }
   else{
 
   }
 
-  service.getMaterias().success(function (data){
-    console.log(data);
-    $scope.materias = data.materias;
-  })
-
   $scope.agregarMateria = function(materia){
-
     service.agregarMateria(materia).success(function(data){
-/*       if (data==null){
+      if (!data.exito){
         Materialize.toast("No se pudo agregar la materia", 3500);
       }
       else{
-        Materialize.toast("Materia agregada correctamente", 3500);
-      } */
+        Materialize.toast("Materia cargada con éxito", 3500);
+      }
     });
 
-    //$location.path('/materias-listar');
+    $location.path('/materias-listar');
+  }
+
+  $scope.obtenerMaterias = function(){
+    service.obtenerMaterias().success(function(data){
+        $scope.materias = angular.fromJson(data.datos);
+    }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
 
 }]);
 
 app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
-  var profesor1 = {'dni': 35698741, 'nombre': 'Claudio', 'apellido': 'Alvarez'};
-
-  var profesores = [profesor1];
-
-  $scope.profesores = profesores;
-
-  if($routeParams.id){
-    $scope.isAdding = true;
-
-    //obtener profesor
-    var profesor = {'dni': 35698741, 'nombre': 'Claudio', 'apellido': 'Alvarez'};
-    $scope.profesor = profesor;
-  }
 
   $scope.agregarProfesor = function(profesor){
-    console.log(profesor);
+      service.agregarProfesor(profesor).success(function(data){
+        if(!data.exito){
+          Materialize.toast("No se pudo cargar el profesor", 3500);
+        }
+        else{
+          Materialize.toast("Profesor cargado con éxito", 3500);
+        }
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
 
-    //agregar post>>>>
+      $location.path('/profesores-listar');
+      }
 
-    $location.path('/profesores-listar');
+  $scope.obtenerProfesores = function(){
+      service.obtenerProfesores().success(function(data){
+          $scope.profesores = data.datos;
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
-
 }]);
 
 app.controller('PedidosCtr', ['$scope','service', function ($scope, service) {

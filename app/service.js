@@ -7,26 +7,52 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
   
     return {
 
+    agregarProfesor: (profesor) => {
+      const prof = {
+        'nombre': profesor.nombre,
+        'apellido': profesor.apellido
+      }
+
+      let urlProfesorAgregar = 'administrador/Profesor/AgregarProfesor';
+      return  $http.post(urlProfesorAgregar, prof, { responseType: 'json' });
+    },
+
+    obtenerProfesores: () => {
+      let urlProfesorObtener = 'administrador/Profesor/Leer';
+      return  $http.post(urlProfesorObtener, { responseType: 'json' });
+    },
+
+    agregarMateria: (materia) => {
+      let urlMateriaAgregar = 'administrador/Materia/AgregarMateria';
+      return $http.post(urlMateriaAgregar, materia, { responseType: 'json' });
+    },
+
+    obtenerMaterias: () => {
+      let urlMateriaObtener = 'administrador/Materia/Leer';
+      return $http.post(urlMateriaObtener, { responseType: 'json' });
+    },
+
     agregarComision: (comision) => {
+      var materia = comision.materia.split('-');
+      var profesores = [];
+      angular.forEach(comision.profesores, function(value, key) {
+        var profe = value.split('-');
+        this.push([profe[0], profe[1]]);
+      }, profesores);
       const comis = {
         'anio': comision.anio,
         'cuatrimestre': comision.cuatrimestre,
-        'idMateria': comision.materia.id,
-        'nombreMateria': comision.materia.nombre,
-        'horarios': comision.horarios
+        'idMateria': materia[0],
+        'nombreMateria': materia[1],
+        'horarios': comision.horarios,
+        'profesores': profesores
       }
       let urlComisionAgregar='administrador/Comision/Agregar';
       return  $http.post(urlComisionAgregar, comis, { responseType: 'json' });
-      //return {success: (otrafun) => { return otrafun(comision); }};
     },
     obtenerComisiones: () => {
       let urlComisionObtener = 'administrador/Comision/Leer';
       return  $http.post(urlComisionObtener, { responseType: 'json' });
-    },
-
-    agregarMateria: (materia) => {
-      let urlMateriaAgregar = 'administrador/Materia/Agregar';
-      return $http.post(urlMateriaAgregar, materia, { responseType: 'json' });
     },
 
 
