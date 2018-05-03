@@ -1,54 +1,19 @@
 <main class="container">
-    <h2 ng-show="isAdding">Modificar <strongalumnoe</strong></h2>
-    <h2 ng-show="!isAdding">Agregar <strong>ealumno/strong></h2>
+    <h2 ng-show="isAdding">Modificar <strong>Examen</strong></h2>
+    <h2 ng-show="!isAdding">Agregar <strong>Examen</strong></h2>
 
     <div class="row">
         <form id="formExamen" name="formExamen" class="col s12" ng-submit="agregarExamen(examen)">
-            <div class="row">
-                <div class="input-fecha col s6">
-                    <input class="elementos" id="fecha" name="fecha" type="text" ng-model="examen.fecha" ng-required="true">
-                    <label class="active" for="fecha">Fecha</label>
-                    <p class="advertencia" ng-show="formExamen.fecha.$error.required && !formExamen.fecha.$pristine" class="help-block">La fecha no puede ser vacía</p>
-                </div>
-                <div class="input-field col s6">
-                    <input class="elementos" id="tipo" name="tipo" type="text" class="" ng-model="examen.tipo" ng-required="true">
-                    <label class="active" for="apellido">Apellido</label>
-                    <p class="advertencia" ng-show="formExamen.apellido.$error.required && !formExamen.apellido.$pristine" class="help-block">El apellido no puede ser vacío</p>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="input-field col s12">
-                    <input class="elementos" id="dni" name="dni" type="number" min="1" class="" ng-model="examen.dni" ng-required="true">
-                    <label class="active" for="dni">DNI</label>
-                    <p class="advertencia" ng-show="formExamen.dni.$error.required && !formAlumno.dni.$pristine" class="help-block">El DNI no puede ser vacío</p>
+                <input class="elementos" id="descripcion" name="descripcion" type="text" ng-model="examen.descripcion" ng-required="true">
+                <label class="active" for="descripcion">Descripcion</label>
+                <p class="advertencia" ng-show="formExamen.descripcion.$error.required && !formExamen.descripcion.$pristine" class="help-block">La descripción no puede ser vacía</p>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input class="elementos" id="email" name="email" type="email" class="" ng-model="alumno.email" ng-required="true">
-                    <label class="active" for="email">Email</label>
-                    <p class="advertencia" ng-show="formAlumno.email.$error.required && !formAlumno.email.$pristine" class="help-block">El email no puede ser vacío</p>
-                    <p class="advertencia" ng-show="formAlumno.email.$invalid && !formAlumno.email.$pristine" class="help-block">Ingrese un email correcto</p>
-                </div>
-            </div>
-            <div class="row">
-                    <div class="input-field col s6">
-                      <input class="elementos" id="telefono" name="telefono" min="1" type="number" class="" ng-model="alumno.telefono"> <!-- No required -->
-                      <label class="active" for="icon_telephone">Teléfono</label>
-                      <!-- <p class="advertencia" ng-show="formAlumno.telefono.$error.required && !formAlumno.telefono.$pristine" class="help-block">El teléfono no puede ser vacío</p> -->
-                      <p class="advertencia" ng-show="formAlumno.telefono.$invalid && !formAlumno.telefono.$pristine" class="help-block">El teléfono debe ser numérico</p>
-                    </div>
-                  </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input class="elementos" id="anioIngreso" name="anioIngreso" min="1" type="number" class="" ng-model="alumno.anioIngreso" ng-required="true">
-                    <label class="active" for="anioIngreso">Año de ingreso</label>
-                    <p class="advertencia" ng-show="formAlumno.anioIngreso.$error.required && !formAlumno.anioIngreso.$pristine" class="help-block">El año de ingreso no puede ser vacío</p>
-                    <p class="advertencia" ng-show="formAlumno.anioIngreso.$invalid && !formAlumno.anioIngreso.$pristine" class="help-block">El año de ingreso debe ser numérico</p>
-                </div>
-            </div>
+            </div>         
             <div class="input-field col s12 selects">
-                <select id="tipo" name="tipo" ng-model="examen.carrera" ng-required="true">
+                <select id="tipo" name="tipo" ng-model="examen.tipo" ng-required="true">
                     <option value="" disabled selected>Seleccione un tipo de examen:</option>
                     <option value="Parcial">Parcial</option>
                     <option value="Recuperatorio">Recuperatorio</option>
@@ -56,17 +21,29 @@
                     <option value="Diagnóstico">Diagnóstico</option>
                     <option value="Otro">Otro</option>                    
                 </select>
-                <p class="advertencia" ng-show="formAlumno.carrera.$error.required && !formAlumno.carrera.$pristine" class="help-block">Debe seleccionar una carrera</p>
+                <p class="advertencia" ng-show="formExamenformExamen.tipo.$error.required && !formExamen.tipo.$pristine" class="help-block">Debe seleccionar un tipo</p>
             </div>
-            <div class="input-field col s12 selects">
-                    <select id="escuela" name="escuela" ng-model="alumno.escuela" ng-model="alumno.escuela"> <!-- No required -->
-                        <option value="" disabled selected>Seleccione una escuela:</option>
-                        <option value="1">Villa Malvina</option>                  
-                    </select>
-                    <!-- <p class="advertencia" ng-show="formAlumno.escuela.$error.required && !formAlumno.escuela.$pristine" class="help-block">Debe seleccionar una escuela</p> -->
+            <div class="row">
+                <div class="input-field col s2">
+                    <input class="elementos" id="fecha" name="fecha" type="date" ng-model="examen.fecha" ng-required="true">
+                    <label class="active" for="fecha">Fecha</label>
+                    <p class="advertencia" ng-show="formExamen.fecha.$error.required && !formExamen.fecha.$pristine" class="help-block">La fecha no puede ser vacía</p>
                 </div>
-            <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formAlumno.$invalid">
-            <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formAlumno.$invalid">
+                <div class="input-field col s1">
+                    <input class="elementos" id="nota" name="nota" type="number" min="1"  max="10"   class="" ng-model="examen.nota" ng-required="true">
+                    <label class="active" for="nota">nota</label>
+                    <p class="advertencia" ng-show="formExamen.nota.$error.required && !formExamen.nota.$pristine" class="help-block">La nota no puede ser vacía</p>
+                </div>
+             </div>
+            <div class="row">
+                 <div class="input-field col s12">
+                <input class="elementos" id="comentario" name="comentario" type="text" ng-model="examen.comentario" ng-required="false">
+                <label class="active" for="comentario">Comentario</label>
+                </div>
+            </div>
+            
+            <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formExamen.$invalid">
+            <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formExamen.$invalid">
         </form>
     </div>
 </main>
