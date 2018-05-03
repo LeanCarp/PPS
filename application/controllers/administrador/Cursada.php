@@ -25,6 +25,18 @@ class Cursada  extends OWN_Controller{
         
     }
 
+    public function ActualizarCursada()
+    {
+       $estado = $this->rest->post('estado');
+        $idAlumno = $this->rest->post('idAlumno');
+        $idComision = $this->rest->post('idComision'); 
+
+        $insert_data = array('estado'=>$estado ,'idUsuario'=> $idAlumno,'idComision'=> $idComision);
+        
+        return $this->responseJson(['exito'=>$this->bedelia->ActualizarCursada($insert_data)]);
+    }
+
+
     public function AgregarExamen()
     {
         $nota = $this->rest->post('nota');
@@ -36,7 +48,21 @@ class Cursada  extends OWN_Controller{
 
         $insert_data = array('nota'=>$nota,'descripcion'=>$descripcion,'tipo'=>$tipo,'fecha'=>$fecha,'idCursada'=>$idCursada,'comentario'=>$comentario);
        
-        return $this->responseJson(['exito'=>$this->bedelia->AgregarCursada($insert_data)]);
+        return $this->responseJson(['exito'=>$this->bedelia->AgregarExamen($insert_data)]);
+    }
+
+    public function ActualizarExamen()
+    {
+        $nota = $this->rest->post('nota');
+        $descripcion = $this->rest->post('descripcion');
+        $tipo = $this->rest->post('tipo');
+        $fecha = $this->rest->post('fecha');
+        $idCursada = $this->rest->post('idCursada');
+        $comentario = $this->rest->post('comentario'); 
+
+        $update_data = array('nota'=>$nota,'descripcion'=>$descripcion,'tipo'=>$tipo,'fecha'=>$fecha,'idCursada'=>$idCursada,'comentario'=>$comentario);
+       
+        return $this->responseJson(['exito'=>$this->bedelia->ActualizarExamen($update_data)]);
     }
 
         

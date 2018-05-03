@@ -1,6 +1,6 @@
 <?php
 
-class Informe extends OWN_Controller{	
+class Actividad extends OWN_Controller{	
 
 	public function __construct() {
         parent::__construct();
@@ -8,26 +8,24 @@ class Informe extends OWN_Controller{
         $this->load->library('CapaDeNegocio/Extras');
     }
 
-    public function AgregarInforme()
+    public function AgregarActividad()
     {
-        $descripcion = $this->rest->post('descripcion');
-        $titulo = $this->rest->post('titulo');
-        $fecha = $this->rest->post('fecha');
+        $descripcion = $this->rest->post('descripcion');;
+        $horarios = $this->rest->post('horarios');
         $idAlumno = $this->rest->post('idAlumno');
 
         $insert_data = [
                             'descripcion'=>$descripcion,
-                            'titulo'=>$titulo,
-                            'fecha'=>$fecha,
+                            'horario'=>$horarios,
                             'idUsuario'$idAlumno,
                 ];
-        return $this->responseJson(['exito'=>$this->extras->AgregarInforme($insert_data)]);
+        return $this->responseJson(['exito'=>$this->extras->AgregarActividad($insert_data)]);
     }
 
     public function Leer()
     {
         $id = $this->rest->post('id');
-        $data = $this->extras->ObtenerInforme($id);
+        $data = $this->extras->ObtenerActividad($id);
         return $this->responseJson(['datos'=>$data]);
         
     }
