@@ -1,14 +1,19 @@
-<main id="container" class="container">
+<main id="container" class="container" ng-init="obtenerComisiones()">
     <h2>Agregar <strong>cursada</strong></h2>
     
     <div class="row">
         <form id="formCursada" name="formCursada" class="col s12" ng-submit="agregarCursada(cursada)">
             <div class="row">
                 <div class="input-field col s12 selects">
-                    <select id="comision" name="comision" ng-model="cursada.comision" ng-options="comision as 'Año: '+comision.anio + '; Cuatrimestre: ' + comision.cuatrimestre + '; Profesores: ' + comision.profesores for comision in comisiones" ng-required="true">              
+                    <select id="comision" name="comision" ng-model="cursada.comision"  ng-required="true"> <!-- ng-options="comision as 'Año: '+comision.anio + '; Cuatrimestre: ' + comision.cuatrimestre + '; Profesores: ' + comision.dicta[0].nombreProfesor for comision in comisiones" -->
+                        <option ng-repeat="comision in comisiones" 
+                                ng-selected="infoComision(comision)" 
+                                value="{{comision.id}}"> 
+                                    {{comision.anio}} {{comision.cuatrimestre}} {{comision.materia.nombre}}
+                        </option>
                     </select>
                     <label for="comision">Seleccione una comisión:</label>
-                    <p class="advertencia" ng-show="formCursada.comision.$error.required && !formCursada.comision.$pristine" class="help-block">Debe seleccionar una cursada</p>
+                    <p class="advertencia" ng-show="formCursada.comision.$error.required && !formCursada.comision.$pristine" class="help-block">Debe seleccionar una comisión</p>
                 </div>
             </div>
             <div class="row">
@@ -34,12 +39,6 @@
         </form>
     </div>
 </main>
-
-<script>
-    $(document).ready(function() {
-    $('select').material_select();
-    });
-</script>
 
 <style>
     .botonHorario{

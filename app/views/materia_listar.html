@@ -1,4 +1,4 @@
-<main class="listar-container">
+<main class="listar-container" ng-init="obtenerMaterias()">
 
     <a href="#/materias-agregar" class="btn btn-agregar">Agregar materia</a>
 
@@ -21,7 +21,7 @@
       </thead>
   
       <tbody>
-        <tr ng-repeat="materia in materias | filter: buscar">
+        <tr ng-repeat="materia in materias"> <!--  | filter: buscar -->
           <td>{{materia.nombre}}</td>
           <td><a title="Editar" href="#/materias-agregar/{{materia.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
         </tr>

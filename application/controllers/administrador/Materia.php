@@ -9,18 +9,17 @@ class Materia  extends OWN_Controller{
 
     public function AgregarMateria()
     {
-        /*$nombre = $this->rest->post('nombre');
-        $data = array('nombre'=> $nombre); */
-
-        $data = array('nombre'=>'probando');
-        
-        return $this->responseJson(['exito'=>$this->bedelia->AgregarMateria($insert_data)]);
+        $nombre = $this->rest->post('nombre');
+        $data = array('nombre'=> $nombre);
+ 
+        return $this->responseJson(['exito'=>$this->bedelia->AgregarMateria($data)]);
     }
 
     public function Leer()
     {
-         $data = $this->Materia_model->with_dicta('fields:nombre')->get();
-        return $this->responseJson(['comisiones'=>$data]);
+        $id = $this->rest->post('id');
+        $data = $this->bedelia->obtenerMateria();
+        return $this->responseJson(['datos'=>$data]);
         
     }
 
