@@ -69,6 +69,21 @@ app.controller('ExamenesCtr', ['$scope', '$routeParams', '$location', 'service',
     $scope.examenes = data['datos'][0].examen;
     })
 
+     $scope.isAdding = false;
+
+  $scope.agregarExamen = function(examen){
+    console.log(examen);
+      service.agregarProfesor(examen).success(function(data){
+        if(!data.exito){
+          Materialize.toast("No se pudo cargar el examen", 3500);
+        }
+        else{
+          Materialize.toast("Examen cargado con éxito", 3500);
+        }
+      }).error( () => Materialize.toast('Error al agregar examen', 3500) );
+
+      $location.path('/examenes-listar/'+$routeParams.id);
+      }
 }]);
 
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-04-2018 a las 20:35:18
+-- Tiempo de generación: 04-05-2018 a las 01:28:16
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 5.6.33
 
@@ -125,6 +125,13 @@ CREATE TABLE `cursada` (
   `idComision` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+--
+-- Volcado de datos para la tabla `cursada`
+--
+
+INSERT INTO `cursada` (`id`, `estado`, `nota`, `idUsuario`, `idComision`) VALUES
+(1, 'cursando', NULL, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -135,8 +142,7 @@ CREATE TABLE `dicta` (
   `id` int(11) NOT NULL,
   `idProfesor` int(11) NOT NULL,
   `idComision` int(11) NOT NULL,
-  `nombreProfesor` varchar(120) COLLATE utf8_spanish2_ci NOT NULL,
-  `rol` varchar(80) COLLATE utf8_spanish2_ci NOT NULL
+  `nombreProfesor` varchar(120) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -170,10 +176,17 @@ CREATE TABLE `examen` (
   `idCursada` int(11) NOT NULL,
   `tipo` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `descripcion` text COLLATE utf8_spanish2_ci NOT NULL,
-  `nota` int(11) NOT NULL,
+  `nota` int(11) DEFAULT NULL,
   `comentario` text COLLATE utf8_spanish2_ci,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `examen`
+--
+
+INSERT INTO `examen` (`id`, `idCursada`, `tipo`, `descripcion`, `nota`, `comentario`, `fecha`) VALUES
+(1, 1, 'Parcial', 'primer parcial', 0, NULL, '2018-05-02');
 
 -- --------------------------------------------------------
 
@@ -355,7 +368,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `anioIngreso`, `carrera`, `idEscuela`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1523973328, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, NULL);
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1525372057, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -572,7 +585,7 @@ ALTER TABLE `comision`
 -- AUTO_INCREMENT de la tabla `cursada`
 --
 ALTER TABLE `cursada`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `dicta`
@@ -590,7 +603,7 @@ ALTER TABLE `escuela`
 -- AUTO_INCREMENT de la tabla `examen`
 --
 ALTER TABLE `examen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `groups`
