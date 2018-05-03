@@ -32,7 +32,7 @@ class Comision  extends OWN_Controller{
         $id = $this->rest->post('id');
 
         $data = $this->bedelia->ObtenerComision($id);
-        return $this->responseJson(['datos'=>$data]);
+        return as_array($this->responseJson(['datos'=>$data]));
     }
 
 }
