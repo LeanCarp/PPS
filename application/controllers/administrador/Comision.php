@@ -35,5 +35,13 @@ class Comision  extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);
     }
 
+    
+    public function ObtenerCursadasComision()
+    {
+        $id = $this->rest->post('idComision')
+        $data = $this->bedelia->ObtenerComision($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
 }
 ?>

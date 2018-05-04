@@ -66,20 +66,30 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return  $http.post(urlComisionAgregar, cursa, { responseType: 'json' });
     },
 
+    getCursadas: (idUsuario) => {
+      let urlComisionObtener = 'administrador/Cursada/ObtenerCursadasUsuario';
+      return $http.post(urlComisionObtener, idUsuario,{ responseType: 'json' });
+    },
+
     getExamenes: (idCursada) => {
+      const id=
+      {
+        'idCursada':idCursada,
+      }
         let urlExamenesObtener = 'administrador/Examen/ObtenerExamenesCursada';
-        return $http.post(urlExamenesObtener, 1,{ responseType: 'json' });
+        return $http.post(urlExamenesObtener, id,{ responseType: 'json' });
       },
 
     agregarExamen: (examen) => {
     const exam = {
       'fecha': examen.fecha,
+      'nota': examen.nota,
       'tipo': examen.tipo,
       'idCursada': examen.idCursada,
       'comentario': examen.comentario,
       'descripcion': examen.descripcion
     }
-    let urlExamenAgregar='administrador/Examen/Agregar';
+    let urlExamenAgregar='administrador/Examen/AgregarExamen';
     return  $http.post(urlExamenAgregar, exam, { responseType: 'json' });
     },
 

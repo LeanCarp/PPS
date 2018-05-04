@@ -1,4 +1,4 @@
-<main class="listar-container">
+<main class="listar-container" ng-init="getCursadas(idAlumno)">
 
         <a href="#/cursadas-agregar/{{idAlumno}}" class="btn btn-agregar">Agregar cursada</a>
         <div class="nav-wrapper">
@@ -23,7 +23,7 @@
             </thead>
     
             <tbody>
-              <tr ng-repeat="cursada in cursadas | filter: buscar">
+              <tr ng-repeat="cursada in cursadas ">
                 <td>{{cursada.anio}}</td>
                 <td>{{cursada.cuatrimestre}}</td>
                 <td>{{cursada.materia}}</td>

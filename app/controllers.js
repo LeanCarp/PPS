@@ -42,6 +42,12 @@ app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service',
       }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
 
+    $scope.getCursadas = function(idCursada){
+      service.getCursadas(idCursada).success(function (data){
+      $scope.cursadas = data['datos'][0].cursada;
+      })
+    }
+
     $scope.obtenerComisiones = function() {
       service.obtenerComisiones().success(function(data){
         $scope.comisiones = data.datos;
@@ -50,19 +56,22 @@ app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service',
     }
 }]);
 
-app.controller('ExamenesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
     // var examen1 = {'id':1, 'fecha': new Date(), 'nota': '9', 'tipo': 'Parcial', 'descripcion': 'Aprobado','comentario':'', 'idCursada':2 };
     // var examenes = [examen1];
     
-    service.getExamenes($routeParams.id).success(function (data){
-    $scope.examenes = data['datos'][0].examen;
-    })
-
+   $rootScope.idCursada =$routeParams.idCursada !=undefined ?  $routeParams.idCursada : $rootScope.idCursada;
+   console.log($rootScope.idCursada);
+    service.getExamenes($routeParams.idCursada).success(function (data){
+    $scope.examenes = data['datos'].examen;
+     }).error( () => Materialize.toast('Error al obtener los examenes', 3500) );
+  
      $scope.isAdding = false;
 
   $scope.agregarExamen = function(examen){
-    console.log(examen);
-      service.agregarProfesor(examen).success(function(data){
+    
+      examen.idCursada=$rootScope.idCursada;
+      service.agregarExamen(examen).success(function(data){
         if(!data.exito){
           Materialize.toast("No se pudo cargar el examen", 3500);
         }

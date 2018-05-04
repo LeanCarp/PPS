@@ -53,7 +53,7 @@ class User_model extends OWN_Model
 								'trim' => 'No puede contener espacios',
 								'valid_email' => 'El campo es inválido')
 				),
-		
+		),
 		'update' => array(
 				'username' => array(
 						'field'=>'username',
@@ -85,6 +85,7 @@ class User_model extends OWN_Model
 				),
 				
 		                    
+		)
 	);
 	
 
