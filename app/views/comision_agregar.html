@@ -52,18 +52,18 @@
                             <label for="">Días:</label>
                     </div>
                     <div class="input-field col s3 m3">
-                        <input type="time" name="horaDesde" ng-model="horaDesde" ng-required="true">
-                        <label class="active" for="horaDesde">Hora inicio:</label>
+                        <input type="time" name="horaInicio" ng-model="horaInicio" ng-required="true">
+                        <label class="active" for="horaInicio">Hora inicio:</label>
                     </div>
                     <div class="input-field col s3 m3">
-                        <input type="time" name="horaHasta" ng-model="horaHasta" ng-required="true">
-                        <label class="active" for="horaHasta">Hora fin:</label>
+                        <input type="time" name="horaFin" ng-model="horaFin" ng-required="true">
+                        <label class="active" for="horaFin">Hora fin:</label>
                     </div>
-                    <input class="btn botonHorario col s1 m1" type="button" value="+" ng-click="agregarHorario(dias, horaDesde, horaHasta)">
+                    <input class="btn botonHorario col s1 m1" type="button" value="+" ng-click="agregarHorario(dias, horaInicio, horaFin)">
                 </div>
                 <div class="row">
                     <ul>
-                        <li ng-repeat="horario in horarios">Día: {{horario.dia}} - Hora inicio: {{horario.horaInicio}} Hora fin: {{horario.horaFin}} <input class="botonCancelarHorario" type="button" value="X" ng-click="eliminarHorario(horario)"></li>
+                        <li ng-repeat="hora in horarios">Día: {{hora.dia}} - Hora inicio: {{hora.horaInicio}} Hora fin: {{hora.horaFin}} <input class="botonCancelarHorario" type="button" value="X" ng-click="eliminarHorario(horario)"></li>
                     </ul>
                 </div>
                 <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formComision.$invalid">

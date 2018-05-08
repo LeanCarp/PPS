@@ -29,18 +29,18 @@ class Comision  extends OWN_Controller{
 
     public function Leer()
     {
-        //$id = $this->rest->post('id');
 
-        $data = $this->bedelia->ObtenerComision();
+        $id = $this->rest->post('id');
+        $data = $this->bedelia->ObtenerComision($id);
         return $this->responseJson(['datos'=>$data]);
     }
 
     
     public function ObtenerCursadasComision()
     {
-        $id = $this->rest->post('idComision')
+       /*  $id = $this->rest->post('idComision')
         $data = $this->bedelia->ObtenerComision($id);
-        return $this->responseJson(['datos'=>$data]);
+        return $this->responseJson(['datos'=>$data]); */
     }
 
 }

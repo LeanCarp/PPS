@@ -50,7 +50,7 @@ class Bedelia {
         public function ActualizarMateria($data)
         {
                 $this->CI->load->model('Materia_model');
-                $this->CI->Materia_model->update($data);
+                return $this->CI->Materia_model->update($data);
         }
 
         public function EliminarMateria($id)
@@ -225,12 +225,14 @@ class Bedelia {
         //Devuelve cursada del usuario
         public function ObtenerCursadasUsuario($id=NULL)
         {
-                $this->CI->load->model('User_model');
+               // $this->CI->load->model('User_model');
                 //Si se pasó un id se busca la comision correspondiente.
-                if(is_null($id))
-                        return  $this->CI->User_model->with_cursada()->get_all();
+                //if(is_null($id))
+                //        return  $this->CI->User_model->with_cursada()->get_all();
                 //Si no se pasó nada, se buscan todas.
-                 return  $this->CI->User_model->with_cursada()->get($id);
+                // return  $this->CI->User_model->with_cursada()->get($id);
+                $this->CI->load->model('Cursada_model');
+                return $this->CI->Cursada_model->with_comision()->with_usuario('where: id='.$id)->get_all();
         
         }
 

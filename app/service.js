@@ -27,9 +27,22 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlMateriaAgregar, materia, { responseType: 'json' });
     },
 
-    obtenerMaterias: () => {
+    obtenerMaterias: (idMateria) => {
       let urlMateriaObtener = 'administrador/Materia/Leer';
-      return $http.post(urlMateriaObtener, { responseType: 'json' });
+      const id = {
+        'id':idMateria
+        }
+      return $http.post(urlMateriaObtener, id, { responseType: 'json' });
+    },
+
+    actualizarMateria: (materia) => {
+      console.log(materia);
+      let urlMateriaActualizar = 'administrador/Materia/ActualizarMateria';
+/*       const materia = {
+        'id': materia.id,
+        'nombre': materia.nombre
+      } */
+      return $http.post(urlMateriaActualizar, materia, { responseType: 'json' });
     },
 
     agregarComision: (comision) => {
@@ -51,9 +64,12 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return  $http.post(urlComisionAgregar, comis, { responseType: 'json' });
     },
 
-    obtenerComisiones: () => {
+    obtenerComisiones: (idComision) => {
       let urlComisionObtener = 'administrador/Comision/Leer';
-      return  $http.post(urlComisionObtener, { responseType: 'json' });
+      const id = {
+        'id': idComision
+      }
+      return  $http.post(urlComisionObtener, id, { responseType: 'json' });
     },
 
     agregarCursada: (cursada) => {
