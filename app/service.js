@@ -168,7 +168,7 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
     },
   
     getAlumnos: () => {
-        let urlAlumnosObtener='administrador/Alumnos/obtenerTodos';
+        let urlAlumnosObtener='administrador/Alumnos/ObtenerAlumnos';
         return  $http.get(urlAlumnosObtener, { responseType: 'json' }); 
     },
 
@@ -183,9 +183,9 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
             'carrera': alumno.carrera,
             'escuela': alumno.escuela
         }
+      let urlAlumnoAgregar = 'administrador/Alumnos/AgregarAlumno';
+      return $http.post(urlAlumnoAgregar, alumn, { responseType: 'json' });
 
-        console.log(alumn);
-        // post>>>
     },
 
     getInformesAlumno: (dni) => {

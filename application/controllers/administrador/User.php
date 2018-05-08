@@ -1,14 +1,13 @@
 <?php
 
-class Alumnos extends OWN_Controller{	
+
+class User extends OWN_Controller{	
 
 	public function __construct() {
-        parent::__construct();
-        $this->load->library('CapaDeNegocio/Bedelia');
-        $this->load->library('CapaDeNegocio/Extras');
-         $this->load->library('CapaDeNegocio/Usuario');
+		parent::__construct();
+        $this->load->library('CapaDeNegocio/Usuario');
 
-    }
+	}
 
     public function AgregarAlumno()
     {
@@ -35,17 +34,5 @@ class Alumnos extends OWN_Controller{
         return $this->responseJson(['datos'=>$this->usuario->users($group)->result()]);   
     }
 
-    public function AgregarActividad()
-    {
-        $descripcion = $this->rest->post('descripcion');
-        $idAlumno = $this->rest->post('idAlumno');
-        $horarios = $this->rest->post('horarios');
-
-        $insert_data = [
-                    'actividad'=>array('descripcion'=>$descripcion ,'idUsuario'=>$idAlumno),
-                    'horarios'=>$horarios,
-                    //'horarios'=>[array('dia'=>'4','horaInicio'=>'20:00:00','horaFin'=>'23:00:00')],
-                ];
-        return $this->responseJson(['exito'=>$this->extras->AgregarActividad($insert_data)]);
-    }
 }
+?>
