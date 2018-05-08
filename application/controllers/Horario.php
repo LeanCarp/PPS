@@ -5,6 +5,8 @@ class Horario  extends OWN_Controller{
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Horario_model');
+
+        $this->load->library('CapaDeNegocio/Usuario');
 	}
 /*
     public function Agregar()
@@ -19,6 +21,10 @@ class Horario  extends OWN_Controller{
          var_dump($data);
         
     }*/
+    public function index()
+    {
+        var_dump($this->usuario->user(1));
+    }
 
 }
 ?>
