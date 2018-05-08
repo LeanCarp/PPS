@@ -47,10 +47,10 @@ class Bedelia {
                  return  $this->CI->Materia_model->with_archivo()->get($id);
         }
 
-        public function ActualizarMateria($data)
+        public function ActualizarMateria($data,$id)
         {
                 $this->CI->load->model('Materia_model');
-                return $this->CI->Materia_model->update($data);
+                return $this->CI->Materia_model->update($data,$id);
         }
 
         public function EliminarMateria($id)
@@ -77,10 +77,10 @@ class Bedelia {
                  return  $this->CI->Profesor_model->with_dicta()->get($id);
         }
 
-        public function ActualizarProfesor($data)
+        public function ActualizarProfesor($data,$id)
         {
                 $this->CI->load->model('Profesor_model');
-                $this->CI->Profesor_model->update($data);
+                $this->CI->Profesor_model->update($data,$id);
         }
 
          public function EliminarProfesor($id)
@@ -135,10 +135,10 @@ class Bedelia {
         
         }
 
-        public function ActualizarComision($data)
+        public function ActualizarComision($data,$id)
         {
                 $this->CI->load->model('Comision_model');
-                $this->CI->Comision_model->update($data);
+                $this->CI->Comision_model->update($data,$id);
         
         }
 
@@ -158,10 +158,10 @@ class Bedelia {
                 return $this->CI->Dicta_model->insert($data);
         } 
 
-        public function ActualizarDicta($data)
+        public function ActualizarDicta($data,$id)
         {
                 $this->CI->load->model('Dicta_model');
-                $this->CI->Dicta_model->update($data);
+                $this->CI->Dicta_model->update($data,$id);
         } 
 
         public function EliminarDicta($id)
@@ -190,10 +190,10 @@ class Bedelia {
         
         }
 
-        public function ActualizarCursada($data)
+        public function ActualizarCursada($data,$id)
         {
                 $this->CI->load->model('Cursada_model');
-                $this->CI->Cursada_model->update($data);
+                $this->CI->Cursada_model->update($data,$id);
         }
 
         public function EliminarCursada($id)
@@ -209,10 +209,10 @@ class Bedelia {
                 return $this->CI->Examen_model->insert($data);
         }
 
-        public function ActualizarExamen($data)
+        public function ActualizarExamen($data,$id)
         {
                 $this->CI->load->model('Examen_model');
-                $this->CI->Examen_model->update($data);
+                $this->CI->Examen_model->update($data,$id);
         }
 
          public function EliminarExamen($id)

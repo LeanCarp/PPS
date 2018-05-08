@@ -68,7 +68,7 @@ class Usuario {
                 );
         }
         
-        //Si el metodo no fue encontrade y ejecutado en ningun objeto, se lanza una excepsion
+        //Si el metodo no fue encontrade y ejecutado en ningun objeto, se lanza una excepción
         throw new Exception("Metodo ".$method_name." no encontrado en Ion_auth/User_model."); 
     }
 }

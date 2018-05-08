@@ -1,16 +1,34 @@
 <?php
 
+
 class User extends OWN_Controller{	
 
 	public function __construct() {
 		parent::__construct();
+        $this->load->library('Usuario');
+        
 		$this->load->model('User_model');
 	}
 
-    public function Agregar()
+    public function AgregarAlumno()
     {
-         $insert_data = array('username'=>'38570363','password'=>'probando','email'=>'email@email.com','first_name'=>'Martin','last_name'=>'Cuba');
-        $this->User_model->insert($insert_data);
+        $username = $this->rest->post('usuario');
+		$password = $this->rest->post('contraseña');
+		$email = $this->rest->post('email');
+		$additional_data = array(
+								'first_name' => $this->rest->post('nombre');,
+								'last_name' => $this->rest->post('apellido');,
+								);
+		$group = array('2'); // Sets user to alumno.
+
+        return $this->responseJson(['exito'=>$this->Usuario->register($username, $password, $email, $additional_data, $group)]); 
+       
+    }
+
+    public function ObtenerAlumnos()
+    {
+        $group = 2;
+        return $this->responseJson(['datos'=>$this->Usuario->users($group)->result()]);   
     }
 
 }

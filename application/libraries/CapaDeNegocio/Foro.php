@@ -32,10 +32,10 @@ class Foro {
             return  $this->CI->Categoriaforo_model->with_tema()->get($id);
     }
 
-     public function ActualizarCategoria($data)
+     public function ActualizarCategoria($data,$id)
     {
         $this->CI->load->model('Categoriaforo_model');
-        $this->CI->Categoriaforo_model->update($data);
+        $this->CI->Categoriaforo_model->update($data,$id);
     }
 
      public function EliminarCategoria($id)
@@ -60,10 +60,10 @@ class Foro {
             return  $this->CI->Tema_model->with_categoria()->with_mensajeForo()->get($id);
     }
 
-     public function ActualizarTema($data)
+     public function ActualizarTema($data,$id)
     {
         $this->CI->load->model('Tema_model');
-        $this->CI->Tema_model->update($data);
+        $this->CI->Tema_model->update($data,$id);
     }
 
      public function EliminarTema($id)
