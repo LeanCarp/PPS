@@ -17,9 +17,22 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return  $http.post(urlProfesorAgregar, prof, { responseType: 'json' });
     },
 
-    obtenerProfesores: () => {
+    obtenerProfesores: (idProfesor) => {
       let urlProfesorObtener = 'administrador/Profesor/Leer';
-      return  $http.post(urlProfesorObtener, { responseType: 'json' });
+      const id = {
+        'id':idProfesor
+      }
+      return  $http.post(urlProfesorObtener, id, { responseType: 'json' });
+    },
+
+    actualizarProfesor: (profesor) => {
+      let urlProfesorActualizar = 'administrador/Profesor/ActualizarProfesor';
+      const profe = {
+        'id': profesor.id,
+        'nombre': profesor.nombre,
+        'apellido': profesor.apellido
+      }
+      return $http.post(urlProfesorActualizar, profe, { responseType: 'json' });
     },
 
     agregarMateria: (materia) => {
@@ -31,18 +44,17 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       let urlMateriaObtener = 'administrador/Materia/Leer';
       const id = {
         'id':idMateria
-        }
+      }
       return $http.post(urlMateriaObtener, id, { responseType: 'json' });
     },
 
     actualizarMateria: (materia) => {
-      console.log(materia);
       let urlMateriaActualizar = 'administrador/Materia/ActualizarMateria';
-/*       const materia = {
+      const mater = {
         'id': materia.id,
         'nombre': materia.nombre
-      } */
-      return $http.post(urlMateriaActualizar, materia, { responseType: 'json' });
+      }
+      return $http.post(urlMateriaActualizar, mater, { responseType: 'json' });
     },
 
     agregarComision: (comision) => {
@@ -109,7 +121,36 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
     return  $http.post(urlExamenAgregar, exam, { responseType: 'json' });
     },
 
+    agregarInforme: (informe) => {
+      let urlInformeAgregar='administrador/Informe/AgregarInforme';
+      const infor = {
+        'titulo': informe.titulo,
+        'fecha': informe.fecha,
+        'descripcion': informe.descripcion,
+        'idAlumno': informe.idAlumno
+      }
+      return $http.post(urlInformeAgregar, infor, { responseType: 'json' });
+    },
 
+    obtenerInformes: (idInforme) => {
+      let urlInformeObtener='administrador/Informe/Leer';
+      const id = {
+        'id': idInforme
+      }
+      return  $http.post(urlInformeObtener, id, { responseType: 'json' });
+    },
+
+    actualizarInforme: () => {
+      let urlInformeActualizar='administrador/Informe/ActualizarInforme';
+      const infor = {
+        'titulo': informe.titulo,
+        'fecha': informe.fecha,
+        'descripcion': informe.descripcion,
+        'idAlumno': informe.idAlumno,
+        'idInforme': informe.id
+      }
+      return $http.post(urlInformeActualizar, infor, { responseType: 'json' });
+    },
 
 
 

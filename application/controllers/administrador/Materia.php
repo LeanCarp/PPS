@@ -22,10 +22,10 @@ class Materia  extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);  
     }
 
-     public function ActualizarMateria()
+    public function ActualizarMateria()
     {
         $id = $this->rest->post('id');
-         $nombre = $this->rest->post('nombre');
+        $nombre = $this->rest->post('nombre');
         $data = array('nombre'=> $nombre);
         
         return $this->responseJson(['exito'=>$this->bedelia->ActualizarMateria($data,$id)]);  

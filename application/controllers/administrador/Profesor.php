@@ -22,5 +22,15 @@ class Profesor  extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);
     }
 
+    public function ActualizarProfesor()
+    {
+        $id = $this->rest->post('id');
+        $nombre = $this->rest->post('nombre');
+        $apellido = $this->rest->post('apellido');
+        $data = array('nombre'=> $nombre, 'apellido' => $apellido);
+        
+        return $this->responseJson(['exito'=>$this->bedelia->ActualizarProfesor($data, $id)]); 
+    }
+
 }
 ?>

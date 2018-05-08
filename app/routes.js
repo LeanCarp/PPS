@@ -25,7 +25,12 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno_listar.html",
       controller: "AlumnosCtr"
     })
-    .when("/informes-listar/:dni", {
+    .when("/informes-agregar/:id", {
+      title: 'Informes',
+      templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
+      controller: "InformeListarCtr"
+    })
+    .when("/informes-listar/:id", {
       title: 'Informes',
       templateUrl: BASE_URL + "app/views/alumno_informe_listar.html",
       controller: "InformeListarCtr"

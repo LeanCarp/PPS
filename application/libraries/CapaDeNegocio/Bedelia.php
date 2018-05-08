@@ -80,7 +80,7 @@ class Bedelia {
         public function ActualizarProfesor($data,$id)
         {
                 $this->CI->load->model('Profesor_model');
-                $this->CI->Profesor_model->update($data,$id);
+                return $this->CI->Profesor_model->update($data,$id);
         }
 
          public function EliminarProfesor($id)
