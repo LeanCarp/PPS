@@ -11,15 +11,21 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
   else{
     service.getAlumnos().success(function (data){
-    console.log(data.alumnos[1]);
-    $scope.alumnos = data.alumnos;
+    console.log(data.datos);
+    $scope.alumnos = data.datos;
     })
   }
 
 
   $scope.agregarAlumno = function(alumno){
-    console.log(alumno);
-    //service.agregarAlumno(alumno);
+   service.agregarAlumno(alumno).success(function(data){
+        if(!data.exito){
+          Materialize.toast("No se pudo cargar el almuno", 3500);
+        }
+        else{
+          Materialize.toast("Alumno cargado con éxito", 3500);
+        }
+      }).error( () => Materialize.toast('Erro al obtener alumnos', 3500) );
 
     $location.path('/alumnos-listar');
   }

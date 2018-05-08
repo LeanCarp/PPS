@@ -18,18 +18,7 @@ class Bedelia {
                 // Assign of the received parameters
                 $this->parametros = $parametros_libreria;
         }
-        /*
-        public function foo()
-        {
-                $this->CI->load->helper('url');
-                $this->CI->load->model('blablablabla');
-                redirect();
-        }
 
-        public function bar()
-        {
-                echo $this->CI->config->item('base_url');
-        }*/
 
         public function AgregarMateria($data)
         {
