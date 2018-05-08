@@ -24,9 +24,9 @@
     
             <tbody>
               <tr ng-repeat="cursada in cursadas ">
-                <td>{{cursada.anio}}</td>
-                <td>{{cursada.cuatrimestre}}</td>
-                <td>{{cursada.materia}}</td>
+                <td>{{cursada.comision.anio}}</td>
+                <td>{{cursada.comision.cuatrimestre}}</td>
+                <td>{{cursada.comision.nombreMateria}}</td>
                 <td>{{cursada.estado}}</td>
                 <td><a title="Ver Examenes" href="#/examenes-listar/{{cursada.id}}"><i class="listar-iconos material-icons">find_in_page</i></a></td>
               </tr>
