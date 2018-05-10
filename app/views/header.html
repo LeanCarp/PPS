@@ -51,10 +51,16 @@
           <li><a class="dropdown-button" data-activates="dropdownUsuario"><img src="assets/img/default-user-image.png" alt="" class="circle img-profile-small"><i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
-          <li><a href="sass.html">Sass</a></li>
-          <li><a href="badges.html">Components</a></li>
-          <li><a href="collapsible.html">Javascript</a></li>
-          <li><a href="mobile.html">Mobile</a></li>
+          <li><a href="#!" class="disabled">Alumnos</a></li>
+          <li><a href="#/alumnos-listar" class="subitem">Administrar</a></li>
+          <li><a href="#/alumnos-agregar" class="subitem">Agregar</a></li>
+          <li><a href="#!" class="disabled">Configuración</a></li>
+          <li><a href="#/materias-listar" class="subitem">Materias</a></li>
+          <li><a href="#/profesores-listar" class="subitem">Profesores</a></li>
+          <li><a href="#/comisiones-listar" class="subitem">Comisiones</a></li>
+          <li><a href="#/comisiones-listar" class="subitem">Escuelas</a></li>
+          <li><a href="#/comisiones-listar" class="subitem">Ciudades</a></li>
+          <li><a href="#/comisiones-listar" class="subitem">Países</a></li>
         </ul>
     </div>
   </nav>    
@@ -75,6 +81,9 @@
     <li><a href="#/materias-listar">Materias</a></li>
     <li><a href="#/profesores-listar">Profesores</a></li>
     <li><a href="#/comisiones-listar">Comisiones</a></li>
+    <li><a href="#/ciudades-listar">Escuelas</a></li>
+    <li><a href="#/ciudades-listar">Ciudades</a></li>
+    <li><a href="#/paises-listar">Países</a></li>
     <li class="divider"></li>
   </ul>
 
@@ -89,5 +98,15 @@
   .menu{
     background: #333333;
   }
-
+  #sidenav-overlay{
+    z-index: 0;
+  }
+  .disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+  }
+  .subitem{
+    margin-left: 15px;
+  }
 </style>

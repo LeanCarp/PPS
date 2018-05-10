@@ -151,6 +151,27 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return $http.post(urlInformeActualizar, infor, { responseType: 'json' });
     },
+    agregarPais: (pais) => {
+      let urlPaisAgregar = 'administrador/Pais/AgregarPais';
+      return $http.post(urlPaisAgregar, pais, { responseType: 'json' });
+    },
+
+    obtenerMaterias: (idMateria) => {
+      let urlMateriaObtener = 'administrador/Materia/Leer';
+      const id = {
+        'id':idMateria
+      }
+      return $http.post(urlMateriaObtener, id, { responseType: 'json' });
+    },
+
+    actualizarMateria: (materia) => {
+      let urlMateriaActualizar = 'administrador/Materia/ActualizarMateria';
+      const mater = {
+        'id': materia.id,
+        'nombre': materia.nombre
+      }
+      return $http.post(urlMateriaActualizar, mater, { responseType: 'json' });
+    },
 
 
 

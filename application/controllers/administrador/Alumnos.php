@@ -26,7 +26,6 @@ class Alumnos extends OWN_Controller{
 		$group = array('2'); // Sets user to alumno.
 
         return $this->responseJson(['exito'=>$this->usuario->register($username, $password, $email, $additional_data, $group)]); 
-       
     }
 
     public function ObtenerAlumnos()

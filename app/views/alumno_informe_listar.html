@@ -1,5 +1,5 @@
 <main class="listar-container" ng-init="obtenerInformes()">
-    <a href="#/alumnos-listar" class="btn btn-agregar">Volver</a>
+    <a href="#/alumnos-listar" class="btn btn-volver">Volver</a>
     <a href="#/informes-agregar/{{idAlumno}}" class="btn btn-agregar">Agregar informe</a>
     <div class="nav-wrapper">
         <form>
@@ -48,6 +48,9 @@
     .btn-agregar{
             margin-top: 20px;
             margin-left: 20px;
+    }
+    .btn-volver{
+            margin-top: 20px;
     }
     @media screen and (max-width:800px){
       .listar-container{

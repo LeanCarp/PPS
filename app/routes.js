@@ -100,6 +100,16 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/examenes_agregar.html",
       controller: "ExamenesCtr"
     })
+    .when("/paises-agregar", {
+      title: 'Países - Agregar',
+      templateUrl: BASE_URL + "app/views/pais_agregar.html",
+      controller: "PaisesCtr"
+    })
+    .when("/paises-listar", {
+      title: 'Países - Listar',
+      templateUrl: BASE_URL + "app/views/pais_listar.html",
+      controller: "PaisesCtr"
+    })
 
 
 

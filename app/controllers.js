@@ -344,6 +344,59 @@ app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service',
   }
 }]);
 
+app.controller('PaisesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  $scope.isAdding = false;
+
+  if ($routeParams.id){
+    $scope.isAdding = true;
+    var idMateria = $routeParams.id;
+
+    service.obtenerMaterias(idMateria).success(function(data){
+      $scope.materia = data.datos;
+    });
+  }
+
+  $scope.agregarPais = function(pais){
+    // Si está modificando actualiza
+    if ($scope.isAdding){
+      service.actualizarPais(pais).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar la materia", 3500);
+        }
+        else{
+          Materialize.toast("Materia modificada con éxito", 3500);
+        }
+      });
+    }
+    else{
+      service.agregarPais(pais).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar la materia", 3500);
+        }
+        else{
+          Materialize.toast("Materia cargada con éxito", 3500);
+        }
+      });
+    }
+    $scope.obtenerPaises();
+    $location.path('/paises-listar');
+  }
+
+  $scope.obtenerPaises = function(){
+    service.obtenerPaises(null).success(function(data){
+/*         var materias = [];
+
+        angular.forEach(data.datos, function(value, key) {
+          this.push(value);
+        }, materias);
+        console.log(materias);
+        $scope.materias = materias; */
+        $scope.paises = data.datos;
+    }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
+
+}]);
+
 app.controller('PedidosCtr', ['$scope','service', function ($scope, service) {
   service.getNotificaciones().success(function(data){
     if(data.code===200){
