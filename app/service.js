@@ -159,6 +159,24 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlPaisAgregar, pais, { responseType: 'json' });
     },
 
+       agregarActividad: (actividad) => {
+      let urActividadAgregar='administrador/Actividad/AgregarActividad';
+      const acti = {
+        'horarios':actividad.horarios,
+        'descripcion': actividad.descripcion,
+        'idAlumno': actividad.idAlumno
+      }
+      return $http.post(urlInformeAgregar, acti, { responseType: 'json' });
+    },
+
+    obtenerActividades: (idAlumno) => {
+      let urActividadAgregar='administrador/Actividad/ObtenerActividadesUsuario';
+      const id = {
+        'idUsuario': idAlumno
+      }
+      return  $http.post(urlInformeObtener, id, { responseType: 'json' });
+    },
+
     obtenerPaises: (idPais) => {
       let urlPaisObtener = 'administrador/Pais/Leer';
       const id = {

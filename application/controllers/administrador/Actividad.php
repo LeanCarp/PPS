@@ -30,4 +30,11 @@ class Actividad extends OWN_Controller{
         
     }
 
+      public function ObtenerActividadesUsuario()
+    {
+        $id = $this->rest->post('idUsuario');
+        $data = $this->extras->ObtenerActividadesUsuario($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
 }
