@@ -47,6 +47,10 @@ class Usuario {
         }
     */
    
+   // https://www.anexia-it.com/blog/de/mit-codeigniter-zum-eigenen-online-chat/
+   // https://github.com/abuzer/ci-chat
+   // 
+   
    //Metodo V 0.2 
     public function __call($method_name, $args)
     {
