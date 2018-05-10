@@ -47,9 +47,9 @@ class Extras {
             return  $this->CI->Actividad_model->with_horario()->get($id);
     }
 
-      public function ObtenerActividadessUsuario($id)
+      public function ObtenerActividadesUsuario($id)
     {
-        $this->CI->load->model('Informe_model');
+        $this->CI->load->model('Actividad_model');
          return  $this->CI->Actividad_model->where('idUsuario', $id)->get_all();
     }
 

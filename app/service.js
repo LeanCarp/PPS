@@ -174,7 +174,7 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       const id = {
         'idUsuario': idAlumno
       }
-      return  $http.post(urlInformeObtener, id, { responseType: 'json' });
+      return  $http.post(urActividadAgregar, id, { responseType: 'json' });
     },
 
     obtenerPaises: (idPais) => {

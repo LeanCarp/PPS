@@ -284,8 +284,8 @@ app.controller('ActividadCtr', ['$scope', '$routeParams', 'service', function ($
   }
 
   $scope.obtenerActividades = function(idActividad){
-    service.obtenerInformes(idActividad).success(function(data){
-      $scope.informes = data.datos;
+    service.obtenerActividades(idActividad).success(function(data){
+      $scope.actividades = data.datos;
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
   }
 

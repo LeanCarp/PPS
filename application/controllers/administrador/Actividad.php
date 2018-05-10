@@ -15,10 +15,9 @@ class Actividad extends OWN_Controller{
         $idAlumno = $this->rest->post('idAlumno');
 
         $insert_data = [
-                            'descripcion'=>$descripcion,
+                            'actividad'=>array('descripcion'=>$descripcion,'idUsuario'=>$idAlumno),
                             'horario'=>$horarios,
-                            'idUsuario'$idAlumno,
-                ];
+                        ];
         return $this->responseJson(['exito'=>$this->extras->AgregarActividad($insert_data)]);
     }
 
