@@ -166,7 +166,7 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         'descripcion': actividad.descripcion,
         'idAlumno': actividad.idAlumno
       }
-      return $http.post(urlInformeAgregar, acti, { responseType: 'json' });
+      return $http.post(urActividadAgregar, acti, { responseType: 'json' });
     },
 
     obtenerActividades: (idAlumno) => {

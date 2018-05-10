@@ -256,6 +256,8 @@ app.controller('ActividadCtr', ['$scope', '$routeParams', 'service', function ($
   $scope.isAdding = false;
 
   $scope.idAlumno = $routeParams.id;
+
+  var horarios = [];
   
   $scope.agregarActividad = function(actividad){
     actividad.idAlumno = $routeParams.id;
@@ -285,6 +287,40 @@ app.controller('ActividadCtr', ['$scope', '$routeParams', 'service', function ($
     service.obtenerInformes(idActividad).success(function(data){
       $scope.informes = data.datos;
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
+  }
+
+  $scope.agregarHorario = function(dias, horaDesde, horaHasta){
+    console.log(dias);
+    if (dias == null || horaDesde == null || horaHasta == null){
+      Materialize.toast("La configuración horaria tiene un error", 3500);
+    }
+    else{
+      var d = new Date(horaDesde);
+      var horaDesde = d.getHours()+':'+obtenerMinutos(d);
+      var d = new Date(horaHasta);
+      var horaHasta = d.getHours()+':'+obtenerMinutos(d);
+      var horario = {'dia': dias, 'horaInicio': horaDesde, 'horaFin': horaHasta};
+      horarios.push(horario);
+      $scope.horarios = horarios;
+    }
+  }
+
+  $scope.eliminarHorario = function(horario){
+    var index = horarios.indexOf(horario);
+    horarios.splice(index, 1);
+  }
+
+  // Da un formato "correcto" a la hora. (EJ: 10:1 => 10:01)
+  obtenerMinutos = function(hora){
+    var d = new Date(hora);
+    var minutos = d.getMinutes();
+    if (minutos < 10){
+      return '0'+minutos;
+    }
+    else
+    {
+      return minutos;
+    }
   }
 
 }]);
