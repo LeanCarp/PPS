@@ -11,8 +11,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
   else{
     service.getAlumnos().success(function (data){
-    console.log(data.datos);
-    $scope.alumnos = data.datos;
+      $scope.alumnos = data.datos;
     })
   }
 
@@ -28,6 +27,13 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
       }).error( () => Materialize.toast('Erro al obtener alumnos', 3500) );
 
     $location.path('/alumnos-listar');
+  }
+
+  $scope.obtenerDatosAlumnoAgregar = function(){
+    service.obtenerEscuelas().success(function(data){
+        $scope.colegios = data.datos;
+        setTimeout(() => $('select').material_select() , 100);
+    });
   }
 }]);
 
@@ -51,8 +57,9 @@ app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service',
     }
 
     $scope.getCursadas = function(idAlumno){
+      console.log("idAlumno: "+idAlumno);
       service.getCursadas(idAlumno).success(function (data){
-        $scope.cursadas = data['datos'];
+        $scope.cursadas = data.datos;
       })
     }
 

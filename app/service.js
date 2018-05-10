@@ -94,9 +94,12 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return  $http.post(urlComisionAgregar, cursa, { responseType: 'json' });
     },
 
-    getCursadas: (idUsuario) => {
+    getCursadas: (idAlumno) => {
       let urlComisionObtener = 'administrador/Cursada/ObtenerCursadasUsuario';
-      return $http.post(urlComisionObtener, idUsuario,{ responseType: 'json' });
+      const idUsuario = {
+        'idUsuario': idAlumno
+      }
+      return $http.post(urlComisionObtener, idUsuario, { responseType: 'json' });
     },
 
     getExamenes: (idCursada) => {
