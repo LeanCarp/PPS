@@ -49,4 +49,11 @@ class Informe extends OWN_Controller{
         return $this->responseJson(['exito'=>$this->bedelia->ActualizarProfesor($data, $id)]); 
     }
 
+    public function ObtenerInformesUsuario()
+    {
+        $id = $this->rest->post('idUsuario');
+        $data = $this->extras->ObtenerInformesUsuario($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
 }
