@@ -136,9 +136,9 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
     },
 
     obtenerInformes: (idInforme) => {
-      let urlInformeObtener='administrador/Informe/Leer';
+      let urlInformeObtener='administrador/Informe/ObtenerInformesUsuario';
       const id = {
-        'id': idInforme
+        'idUsuario': idInforme
       }
       return  $http.post(urlInformeObtener, id, { responseType: 'json' });
     },
