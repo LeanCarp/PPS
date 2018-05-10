@@ -245,8 +245,8 @@ app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', functio
     }
   }
 
-  $scope.obtenerInformes = function(idInforme){
-    service.obtenerInformes(idInforme).success(function(data){
+  $scope.obtenerInformes = function(idAlumno){
+    service.obtenerInformes($scope.idAlumno).success(function(data){
       $scope.informes = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
