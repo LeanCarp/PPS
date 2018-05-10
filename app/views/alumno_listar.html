@@ -24,7 +24,11 @@
         <td>{{alumno.username}}</td>
         <td>{{alumno.first_name}}</td>
         <td>{{alumno.last_name}}</td>
-        <td><a title="Cursadas" href="#/cursadas-listar/{{alumno.id}}"><i class="listar-iconos material-icons">class</i></a><a title="Ver informes" href="#/informes-listar/{{alumno.id}}"><i class="listar-iconos material-icons">library_books</i></a><a href="#/alumnos-agregar/{{alumno.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a></td>
+        <td>
+          <a title="Cursadas" href="#/cursadas-listar/{{alumno.id}}"><i class="listar-iconos material-icons">class</i></a>
+          <a title="Ver informes" href="#/informes-listar/{{alumno.id}}"><i class="listar-iconos material-icons">library_books</i></a>
+          <a title="Ver Actividades" href="#/actividades-listar/{{alumno.id}}"><i class="listar-iconos material-icons">watch_later</i></a>
+          <a href="#/alumnos-agregar/{{alumno.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a> </td>
       </tr>
     </tbody>
   </table>

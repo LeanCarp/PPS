@@ -246,6 +246,43 @@ app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', functio
 
 }]);
 
+app.controller('ActividadCtr', ['$scope', '$routeParams', 'service', function ($scope, $routeParams, service) {
+  $scope.isAdding = false;
+
+  $scope.idAlumno = $routeParams.id;
+  
+  $scope.agregarActividad = function(actividad){
+    actividad.idAlumno = $routeParams.id;
+    if($scope.isAdding){
+      service.actualizarActividad(informe).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar la actividad", 3500);
+        }
+        else{
+          Materialize.toast("Actividad modificada con éxito", 3500);
+        }
+      });
+    }
+    else{
+      service.agregarActividad(actividad).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar la actividad", 3500);
+        }
+        else{
+          Materialize.toast("Actividad cargada  con éxito", 3500);
+        }
+      });
+    }
+  }
+
+  $scope.obtenerActividades = function(idActividad){
+    service.obtenerInformes(idActividad).success(function(data){
+      $scope.informes = data.datos;
+    }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
+
+}]);
+
 app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
