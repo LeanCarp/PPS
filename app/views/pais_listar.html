@@ -1,6 +1,6 @@
-<main class="listar-container" ng-init="getCursadas(idAlumno)">
-        <a href="#/alumnos-listar" class="btn btn-volver">Volver</a>
-        <a href="#/cursadas-agregar/{{idAlumno}}" class="btn btn-agregar">Agregar cursada</a>
+<main class="listar-container" ng-init="obtenerPaises()">
+
+        <a href="#/paises-agregar" class="btn btn-agregar">Agregar país</a>
         <div class="nav-wrapper">
             <form>
               <div class="input-field">
@@ -14,21 +14,15 @@
           <table>
             <thead>
               <tr>
-                  <th>Año</th>
-                  <th>Cuatrimestre</th>
-                  <th>Materia</th>
-                  <th>Estado</th>
+                  <th>Nombre</th>
                   <th>Opciones</th>
               </tr>
             </thead>
     
             <tbody>
-              <tr ng-repeat="cursada in cursadas ">
-                <td>{{cursada.comision.anio}}</td>
-                <td>{{cursada.comision.cuatrimestre}}</td>
-                <td>{{cursada.comision.nombreMateria}}</td>
-                <td>{{cursada.estado}}</td>
-                <td><a title="Ver Examenes" href="#/examenes-listar/{{cursada.id}}"><i class="listar-iconos material-icons">find_in_page</i></a></td>
+              <tr ng-repeat="pais in paises ">
+                <td>{{pais.nombre}}</td>
+                <td><a title="Editar" href="#/paises-agregar/{{pais.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
               </tr>
             </tbody>
           </table>

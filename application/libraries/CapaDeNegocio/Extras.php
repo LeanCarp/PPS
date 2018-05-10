@@ -69,10 +69,17 @@ class Extras {
             return  $this->CI->Informe_model->get($id);
     }
 
-      public function ActualizarInforme($data)
+    public function ObtenerInformesUsuario($id)
     {
         $this->CI->load->model('Informe_model');
-        $this->CI->Informe_model->update($data);
+        //Si se pasó un id se busca el informe correspondiente.
+        return  $this->CI->Informe_model->where('idUsuario', $id)->get_all();
+    }
+
+      public function ActualizarInforme($data,$id)
+    {
+        $this->CI->load->model('Informe_model');
+        $this->CI->Informe_model->update($data,$id);
     }
 
       public function EliminarInforme($id)
@@ -97,10 +104,10 @@ class Extras {
             return  $this->CI->Pais_model->with_ciudad()->get($id);
     }
 
-      public function ActualizarPais($data)
+      public function ActualizarPais($data,$id)
     {
         $this->CI->load->model('Pais_model');
-        $this->CI->Pais_model->update($data);
+        return $this->CI->Pais_model->update($data,$id);
     }
 
      public function EliminarPais($id)
@@ -125,10 +132,10 @@ class Extras {
             return  $this->CI->Ciudad_model->with_pais()->with_escuela()->get($id);
     }
 
-    public function Actualizariudad($data)
+    public function ActualizarCiudad($data,$id)
     {
-         $this->CI->load->model('Ciudad_model');
-        $this->CI->Ciudad_model->update($data);
+        $this->CI->load->model('Ciudad_model');
+        return $this->CI->Ciudad_model->update($data,$id);
     }
 
      public function EliminarCiudad($id)
@@ -153,10 +160,10 @@ class Extras {
             return  $this->CI->Escuela_model->with_ciudad()->with_alumnos()->get($id);
     }
 
-      public function ActualizarEscuela($data)
+      public function ActualizarEscuela($data,$id)
     {
         $this->CI->load->model('Escuela_model');
-        $this->CI->Escuela_model->update($data);
+        return $this->CI->Escuela_model->update($data,$id);
     }
 
       public function EliminarEscuela($id)

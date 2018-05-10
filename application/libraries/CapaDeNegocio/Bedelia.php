@@ -18,18 +18,7 @@ class Bedelia {
                 // Assign of the received parameters
                 $this->parametros = $parametros_libreria;
         }
-        /*
-        public function foo()
-        {
-                $this->CI->load->helper('url');
-                $this->CI->load->model('blablablabla');
-                redirect();
-        }
 
-        public function bar()
-        {
-                echo $this->CI->config->item('base_url');
-        }*/
 
         public function AgregarMateria($data)
         {
@@ -47,10 +36,10 @@ class Bedelia {
                  return  $this->CI->Materia_model->with_archivo()->get($id);
         }
 
-        public function ActualizarMateria($data)
+        public function ActualizarMateria($data,$id)
         {
                 $this->CI->load->model('Materia_model');
-                return $this->CI->Materia_model->update($data);
+                return $this->CI->Materia_model->update($data,$id);
         }
 
         public function EliminarMateria($id)
@@ -77,10 +66,10 @@ class Bedelia {
                  return  $this->CI->Profesor_model->with_dicta()->get($id);
         }
 
-        public function ActualizarProfesor($data)
+        public function ActualizarProfesor($data,$id)
         {
                 $this->CI->load->model('Profesor_model');
-                $this->CI->Profesor_model->update($data);
+                return $this->CI->Profesor_model->update($data,$id);
         }
 
          public function EliminarProfesor($id)
@@ -135,10 +124,10 @@ class Bedelia {
         
         }
 
-        public function ActualizarComision($data)
+        public function ActualizarComision($data,$id)
         {
                 $this->CI->load->model('Comision_model');
-                $this->CI->Comision_model->update($data);
+                $this->CI->Comision_model->update($data,$id);
         
         }
 
@@ -158,10 +147,10 @@ class Bedelia {
                 return $this->CI->Dicta_model->insert($data);
         } 
 
-        public function ActualizarDicta($data)
+        public function ActualizarDicta($data,$id)
         {
                 $this->CI->load->model('Dicta_model');
-                $this->CI->Dicta_model->update($data);
+                $this->CI->Dicta_model->update($data,$id);
         } 
 
         public function EliminarDicta($id)
@@ -190,10 +179,10 @@ class Bedelia {
         
         }
 
-        public function ActualizarCursada($data)
+        public function ActualizarCursada($data,$id)
         {
                 $this->CI->load->model('Cursada_model');
-                $this->CI->Cursada_model->update($data);
+                $this->CI->Cursada_model->update($data,$id);
         }
 
         public function EliminarCursada($id)
@@ -209,10 +198,10 @@ class Bedelia {
                 return $this->CI->Examen_model->insert($data);
         }
 
-        public function ActualizarExamen($data)
+        public function ActualizarExamen($data,$id)
         {
                 $this->CI->load->model('Examen_model');
-                $this->CI->Examen_model->update($data);
+                $this->CI->Examen_model->update($data,$id);
         }
 
          public function EliminarExamen($id)
@@ -225,14 +214,14 @@ class Bedelia {
         //Devuelve cursada del usuario
         public function ObtenerCursadasUsuario($id=NULL)
         {
-               // $this->CI->load->model('User_model');
+                //$this->CI->load->model('User_model');
                 //Si se pasó un id se busca la comision correspondiente.
                 //if(is_null($id))
-                //        return  $this->CI->User_model->with_cursada()->get_all();
+                        //return  $this->CI->User_model->with_cursada()->get_all();
                 //Si no se pasó nada, se buscan todas.
-                // return  $this->CI->User_model->with_cursada()->get($id);
+                //return  $this->CI->User_model->with_cursada()->get($id);
                 $this->CI->load->model('Cursada_model');
-                return $this->CI->Cursada_model->with_comision()->with_usuario('where: id='.$id)->get_all();
+                return $this->CI->Cursada_model->where('idUsuario', $id)->with_comision()->get_all();
         
         }
 

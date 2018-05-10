@@ -1,11 +1,16 @@
-<main class="listar-container">
+<main class="listar-container" ng-init="getCursadas()">
+
+  <a href="#/alumnos-agregar" class="btn btn-agregar">Agregar alumno</a>
+
   <div class="nav-wrapper">
     <form>
-      <div class="input-field">
-        <input id="search" type="search" required ng-model="buscar">
-        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-        <i class="material-icons">close</i>
-      </div>
+        <div class="row">
+            <div class="input-field col s8 m4">
+                <input id="search" type="search" required ng-model="buscar">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </div>
     </form>
   </div>
 
@@ -20,11 +25,15 @@
     </thead>
 
     <tbody>
-      <tr ng-repeat="alumno in alumnos | filter: buscar">
+      <tr ng-repeat="alumno in alumnos ">
         <td>{{alumno.username}}</td>
         <td>{{alumno.first_name}}</td>
         <td>{{alumno.last_name}}</td>
-        <td><a title="Cursadas" href="#/cursadas-listar/{{alumno.id}}"><i class="listar-iconos material-icons">class</i></a><a title="Ver informes" href="#/informes-listar/{{alumno.username}}"><i class="listar-iconos material-icons">library_books</i></a><a href="#/alumnos-agregar/{{alumno.username}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a></td>
+        <td>
+          <a title="Cursadas" href="#/cursadas-listar/{{alumno.id}}"><i class="listar-iconos material-icons">class</i></a>
+          <a title="Ver informes" href="#/informes-listar/{{alumno.id}}"><i class="listar-iconos material-icons">library_books</i></a>
+          <a title="Ver Actividades" href="#/actividades-listar/{{alumno.id}}"><i class="listar-iconos material-icons">watch_later</i></a>
+          <a href="#/alumnos-agregar/{{alumno.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a> </td>
       </tr>
     </tbody>
   </table>
@@ -42,6 +51,10 @@
   .listar-iconos{
     margin-top: 10px;
     padding: 5px;
+  }
+  .btn-agregar{
+    margin-top: 20px;
+    margin-left: 20px;
   }
   @media screen and (max-width:800px){
     .listar-container{

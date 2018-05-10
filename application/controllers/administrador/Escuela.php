@@ -4,20 +4,33 @@ class Escuela  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('Escuela_model');
+		$this->load->library('CapaDeNegocio/Extras');
 	}
 
     public function Agregar()
     {
-         $insert_data = array('nombre'=>'Pio 12','orientacion'=>'humanidades','idCiudad'=>'6');
-        $this->Escuela_model->insert($insert_data);
+        $nombre = $this->rest->post('nombre');
+        $orientacion = $this->rest->post('orientacion');
+        $idCiudad = $this->rest->post('idCiudad');
+        $data = array('nombre'=>$nombre, 'orientacion'=>$orientacion, 'idCiudad'=>$idCiudad);
+        return $this->responseJson(['exito'=>$this->extras->AgregarEscuela($data)]);
     }
 
     public function Leer()
     {
-         $data = $this->Escuela_model->with_ciudad('fields:nombre')->get();
-         var_dump($data);
-        
+        $id = $this->rest->post('id');
+        $data = $this->extras->ObtenerEscuela($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
+    public function ActualizarEscuela()
+    {
+        $id = $this->rest->post('id');
+        $nombre = $this->rest->post('nombre');
+        $orientacion = $this->rest->post('orientacion');
+        $idCiudad = $this->rest->post('idCiudad');
+        $data = array('nombre'=>$nombre, 'orientacion'=>$orientacion, 'idCiudad'=>$idCiudad);
+        return $this->responseJson(['exito'=>$this->extras->ActualizarEscuela($data, $id)]);  
     }
 
 }

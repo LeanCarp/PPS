@@ -1,4 +1,7 @@
-<main class="container">
+<main class="container" ng-init="obtenerDatosAlumnoAgregar()">
+    
+    <a href="#/alumnos-listar" class="btn btn-volver">Volver</a>
+
     <h2 ng-show="!isAdding">Agregar <strong>alumno</strong></h2>
     <h2 ng-show="isAdding">Modificar <strong>alumno</strong></h2>
 
@@ -60,9 +63,8 @@
                 <p class="advertencia" ng-show="formAlumno.carrera.$error.required && !formAlumno.carrera.$pristine" class="help-block">Debe seleccionar una carrera</p>
             </div>
             <div class="input-field col s12 selects">
-                    <select id="escuela" name="escuela" ng-model="alumno.escuela" ng-model="alumno.escuela"> <!-- No required -->
-                        <option value="" disabled selected>Seleccione una escuela:</option>
-                        <option value="1">Villa Malvina</option>                  
+                    <select id="escuela" name="escuela" ng-model="alumno.escuela" ng-required="true"> <!-- No required -->
+                        <option ng-repeat="colegio in colegios" value="{{colegio.id}}">{{colegio.nombre}} </option>
                     </select>
                     <!-- <p class="advertencia" ng-show="formAlumno.escuela.$error.required && !formAlumno.escuela.$pristine" class="help-block">Debe seleccionar una escuela</p> -->
                 </div>
@@ -71,14 +73,6 @@
         </form>
     </div>
 </main>
-
-<script>
-    $(document).ready(function() {
-    $('select').material_select();
-  });
-
-
-</script>
 
 <style>
     .selects{
@@ -90,7 +84,9 @@
         font-size: 12px;
         color: #EA2E49;
     }
-
+    .btn-volver{
+        margin-top: 20px;
+    }
     .elementos{
         margin: 0 !important;
     }
