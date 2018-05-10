@@ -1,11 +1,16 @@
-<main class="listar-container">
+<main class="listar-container" ng-init="getCursadas()">
+
+  <a href="#/alumnos-agregar" class="btn btn-agregar">Agregar alumno</a>
+
   <div class="nav-wrapper">
     <form>
-      <div class="input-field">
-        <input id="search" type="search" required ng-model="buscar">
-        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-        <i class="material-icons">close</i>
-      </div>
+        <div class="row">
+            <div class="input-field col s8 m4">
+                <input id="search" type="search" required ng-model="buscar">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </div>
     </form>
   </div>
 
@@ -42,6 +47,10 @@
   .listar-iconos{
     margin-top: 10px;
     padding: 5px;
+  }
+  .btn-agregar{
+    margin-top: 20px;
+    margin-left: 20px;
   }
   @media screen and (max-width:800px){
     .listar-container{
