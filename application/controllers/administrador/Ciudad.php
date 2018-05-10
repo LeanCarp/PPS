@@ -4,26 +4,30 @@ class Ciudad  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('Ciudad_model');
+		$this->load->library('CapaDeNegocio/Extras');
 	}
 
     public function Agregar()
     {
-      /*  $nombre = $this->rest->post('nombre');
+        $nombre = $this->rest->post('nombre');
         $idPais = $this->rest->post('idPais');
-        $insert_data = array('nombre'=>$nombre,'idPais'=>$idPais);*/
-
-        $insert_data = array('nombre'=>'Cuba','idPais'=>'1');
-        $this->Ciudad_model->insert($insert_data);
+        $data = array('nombre'=>$nombre, 'idPais'=>$idPais);
+        return $this->responseJson(['exito'=>$this->extras->AgregarCiudad($data)]);
     }
 
     public function Leer()
     {
-        //$id = $this->rest->post('id');
-        $id=6;
-        $data = $this->Ciudad_model->with_pais('fields:nombre')->get($id);
-        var_dump($data);
-        
+        $id = $this->rest->post('id');
+        $data = $this->extras->ObtenerCiudad($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
+    public function ActualizarCiudad()
+    {
+        $id = $this->rest->post('id');
+        $nombre = $this->rest->post('nombre');
+        $data = array('nombre'=> $nombre);
+        return $this->responseJson(['exito'=>$this->extras->ActualizarCiudad($data,$id)]);  
     }
 
 }

@@ -105,10 +105,45 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/pais_agregar.html",
       controller: "PaisesCtr"
     })
+    .when("/paises-agregar/:id", {
+      title: 'Países - Modificar',
+      templateUrl: BASE_URL + "app/views/pais_agregar.html",
+      controller: "PaisesCtr"
+    })
     .when("/paises-listar", {
       title: 'Países - Listar',
       templateUrl: BASE_URL + "app/views/pais_listar.html",
       controller: "PaisesCtr"
+    })
+    .when("/ciudades-agregar", {
+      title: 'Ciudades - Agregar',
+      templateUrl: BASE_URL + "app/views/ciudad_agregar.html",
+      controller: "CiudadesCtr"
+    })
+    .when("/ciudades-agregar/:id", {
+      title: 'Ciudades - Modificar',
+      templateUrl: BASE_URL + "app/views/ciudad_agregar.html",
+      controller: "CiudadesCtr"
+    })
+    .when("/ciudades-listar", {
+      title: 'Países - Listar',
+      templateUrl: BASE_URL + "app/views/ciudad_listar.html",
+      controller: "CiudadesCtr"
+    })
+    .when("/escuelas-agregar", {
+      title: 'Escuelas - Agregar',
+      templateUrl: BASE_URL + "app/views/escuela_agregar.html",
+      controller: "EscuelasCtr"
+    })
+    .when("/escuelas-agregar/:id", {
+      title: 'Ciudades - Modificar',
+      templateUrl: BASE_URL + "app/views/escuela_agregar.html",
+      controller: "EscuelasCtr"
+    })
+    .when("/escuelas-listar", {
+      title: 'Países - Listar',
+      templateUrl: BASE_URL + "app/views/escuela_listar.html",
+      controller: "EscuelasCtr"
     })
 
 

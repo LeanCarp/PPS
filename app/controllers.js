@@ -349,10 +349,10 @@ app.controller('PaisesCtr', ['$scope', '$routeParams', '$location', 'service', f
 
   if ($routeParams.id){
     $scope.isAdding = true;
-    var idMateria = $routeParams.id;
+    var idPais = $routeParams.id;
 
-    service.obtenerMaterias(idMateria).success(function(data){
-      $scope.materia = data.datos;
+    service.obtenerPaises(idPais).success(function(data){
+      $scope.pais = data.datos;
     });
   }
 
@@ -361,20 +361,20 @@ app.controller('PaisesCtr', ['$scope', '$routeParams', '$location', 'service', f
     if ($scope.isAdding){
       service.actualizarPais(pais).success(function(data){
         if (!data.exito){
-          Materialize.toast("No se pudo modificar la materia", 3500);
+          Materialize.toast("No se pudo modificar el país", 3500);
         }
         else{
-          Materialize.toast("Materia modificada con éxito", 3500);
+          Materialize.toast("País modificado con éxito", 3500);
         }
       });
     }
     else{
       service.agregarPais(pais).success(function(data){
         if (!data.exito){
-          Materialize.toast("No se pudo agregar la materia", 3500);
+          Materialize.toast("No se pudo agregar el país", 3500);
         }
         else{
-          Materialize.toast("Materia cargada con éxito", 3500);
+          Materialize.toast("País cargado con éxito", 3500);
         }
       });
     }
@@ -392,6 +392,135 @@ app.controller('PaisesCtr', ['$scope', '$routeParams', '$location', 'service', f
         console.log(materias);
         $scope.materias = materias; */
         $scope.paises = data.datos;
+    }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
+
+}]);
+
+app.controller('CiudadesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  $scope.isAdding = false;
+
+  if ($routeParams.id){
+    $scope.isAdding = true;
+    var idCiudad = $routeParams.id;
+    
+    service.obtenerCiudades(idCiudad).success(function(data){
+      const ciudad = {
+        'nombre': data.datos.nombre,
+        'pais': data.datos.idPais
+      }
+      $scope.ciudad = ciudad;
+    });
+  }
+
+  $scope.obtenerDatosAgregarCiudad = function() {
+    service.obtenerPaises().success(function(data){
+      $scope.paises = data.datos;
+      setTimeout(() => $('select').material_select() , 100);
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
+
+  $scope.agregarCiudad = function(ciudad){
+    // Si está modificando actualiza
+    if ($scope.isAdding){
+      service.actualizarCiudad(ciudad).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar la ciudad", 3500);
+        }
+        else{
+          Materialize.toast("Ciudad modificada con éxito", 3500);
+        }
+      });
+    }
+    else{
+      service.agregarCiudad(ciudad).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar la ciudad", 3500);
+        }
+        else{
+          Materialize.toast("Ciudad cargada con éxito", 3500);
+        }
+      });
+    }
+    $scope.obtenerCiudades();
+    $location.path('/ciudades-listar');
+  }
+
+  $scope.obtenerCiudades = function(){
+    service.obtenerCiudades(null).success(function(data){
+/*         var materias = [];
+
+        angular.forEach(data.datos, function(value, key) {
+          this.push(value);
+        }, materias);
+        console.log(materias);
+        $scope.materias = materias; */
+        $scope.ciudades = data.datos;
+    }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
+
+}]);
+
+app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  $scope.isAdding = false;
+
+  if ($routeParams.id){
+    $scope.isAdding = true;
+    var idEscuela = $routeParams.id;
+    
+    service.obtenerEscuelas(idEscuela).success(function(data){
+      const escuela = {
+        'nombre': data.datos.nombre,
+        'orientacion': data.datos.orientacion,
+        'ciudad': data.datos.idCiudad
+      }
+      $scope.escuela = escuela;
+    });
+  }
+
+  $scope.obtenerDatosAgregarEscuela = function() {
+    service.obtenerCiudades().success(function(data){
+      $scope.ciudades = data.datos;
+      setTimeout(() => $('select').material_select() , 100);
+      }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
+
+  $scope.agregarEscuela = function(escuela){
+    // Si está modificando actualiza
+    if ($scope.isAdding){
+      service.actualizarEscuela(escuela).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar la escuela", 3500);
+        }
+        else{
+          Materialize.toast("Escuela modificada con éxito", 3500);
+        }
+      });
+    }
+    else{
+      service.agregarEscuela(escuela).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar la escuela", 3500);
+        }
+        else{
+          Materialize.toast("Escuela cargada con éxito", 3500);
+        }
+      });
+    }
+    $scope.obtenerEscuelas();
+    $location.path('/escuelas-listar');
+  }
+
+  $scope.obtenerEscuelas = function(){
+    service.obtenerEscuelas(null).success(function(data){
+/*         var materias = [];
+
+        angular.forEach(data.datos, function(value, key) {
+          this.push(value);
+        }, materias);
+        console.log(materias);
+        $scope.materias = materias; */
+        $scope.escuelas = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
 

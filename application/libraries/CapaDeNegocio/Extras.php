@@ -100,7 +100,7 @@ class Extras {
       public function ActualizarPais($data,$id)
     {
         $this->CI->load->model('Pais_model');
-        $this->CI->Pais_model->update($data,$id);
+        return $this->CI->Pais_model->update($data,$id);
     }
 
      public function EliminarPais($id)
@@ -125,10 +125,10 @@ class Extras {
             return  $this->CI->Ciudad_model->with_pais()->with_escuela()->get($id);
     }
 
-    public function Actualizariudad($data,$id)
+    public function ActualizarCiudad($data,$id)
     {
-         $this->CI->load->model('Ciudad_model');
-        $this->CI->Ciudad_model->update($data,$id);
+        $this->CI->load->model('Ciudad_model');
+        return $this->CI->Ciudad_model->update($data,$id);
     }
 
      public function EliminarCiudad($id)
@@ -156,7 +156,7 @@ class Extras {
       public function ActualizarEscuela($data,$id)
     {
         $this->CI->load->model('Escuela_model');
-        $this->CI->Escuela_model->update($data,$id);
+        return $this->CI->Escuela_model->update($data,$id);
     }
 
       public function EliminarEscuela($id)

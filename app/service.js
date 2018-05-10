@@ -152,25 +152,79 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlInformeActualizar, infor, { responseType: 'json' });
     },
     agregarPais: (pais) => {
-      let urlPaisAgregar = 'administrador/Pais/AgregarPais';
+      let urlPaisAgregar = 'administrador/Pais/Agregar';
       return $http.post(urlPaisAgregar, pais, { responseType: 'json' });
     },
 
-    obtenerMaterias: (idMateria) => {
-      let urlMateriaObtener = 'administrador/Materia/Leer';
+    obtenerPaises: (idPais) => {
+      let urlPaisObtener = 'administrador/Pais/Leer';
       const id = {
-        'id':idMateria
+        'id': idPais
       }
-      return $http.post(urlMateriaObtener, id, { responseType: 'json' });
+      return $http.post(urlPaisObtener, id, { responseType: 'json' });
     },
 
-    actualizarMateria: (materia) => {
-      let urlMateriaActualizar = 'administrador/Materia/ActualizarMateria';
-      const mater = {
-        'id': materia.id,
-        'nombre': materia.nombre
+    actualizarPais: (datos) => {
+      let urlPaisActualizar = 'administrador/Pais/ActualizarPais';
+      const pais = {
+        'id': datos.id,
+        'nombre': datos.nombre
       }
-      return $http.post(urlMateriaActualizar, mater, { responseType: 'json' });
+      return $http.post(urlPaisActualizar, pais, { responseType: 'json' });
+    },
+    agregarCiudad: (ciudad) => {
+      let urlCiudadAgregar = 'administrador/Ciudad/Agregar';
+      const ciud = {
+        'idPais': ciudad.pais,
+        'nombre': ciudad.nombre
+      }
+      return $http.post(urlCiudadAgregar, ciud, { responseType: 'json' });
+    },
+
+    obtenerCiudades: (idCiudad) => {
+      let urlCiudadObtener = 'administrador/Ciudad/Leer';
+      const id = {
+        'id': idCiudad
+      }
+      return $http.post(urlCiudadObtener, id, { responseType: 'json' });
+    },
+
+    actualizarCiudad: (datos) => {
+      let urlCiudadActualizar = 'administrador/Ciudad/ActualizarCiudad';
+      const ciudad = {
+        'id': datos.id,
+        'nombre': datos.nombre,
+        'idPais': datos.idPais
+      }
+      return $http.post(urlCiudadActualizar, ciudad, { responseType: 'json' });
+    },
+    agregarEscuela: (escuela) => {
+      let urlEscuelaAgregar = 'administrador/Escuela/Agregar';
+      const colegio = {
+        'nombre': escuela.nombre,
+        'orientacion': escuela.orientacion,
+        'idCiudad': escuela.ciudad
+      }
+      return $http.post(urlEscuelaAgregar, colegio, { responseType: 'json' });
+    },
+
+    obtenerEscuelas: (idEscuela) => {
+      let urlEscuelaObtener = 'administrador/Escuela/Leer';
+      const id = {
+        'id': idEscuela
+      }
+      return $http.post(urlEscuelaObtener, id, { responseType: 'json' });
+    },
+
+    actualizarEscuela: (datos) => {
+      let urlEscuelactualizar = 'administrador/Escuela/ActualizarEscuela';
+      const escuela = {
+        'id': datos.id,
+        'nombre': datos.nombre,
+        'orientacion': datos.orientacion,
+        'idCiudad': datos.ciudad
+      }
+      return $http.post(urlEscuelactualizar, escuela, { responseType: 'json' });
     },
 
 
