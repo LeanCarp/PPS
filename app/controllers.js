@@ -57,7 +57,6 @@ app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service',
     }
 
     $scope.getCursadas = function(idAlumno){
-      console.log("idAlumno: "+idAlumno);
       service.getCursadas(idAlumno).success(function (data){
         $scope.cursadas = data.datos;
       })
