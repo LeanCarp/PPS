@@ -60,6 +60,21 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/materia_agregar.html",
       controller: "MateriaCtr"
     })
+    .when("/archivo-listar", {
+      title: 'Archivos - Listar',
+      templateUrl: BASE_URL + "app/views/archivo_listar.html",
+      controller: "ArchivoCtr"
+    })
+    .when("/archivo-agregar", {
+      title: 'Archivo - Agregar',
+      templateUrl: BASE_URL + "app/views/archivo_agregar.html",
+      controller: "ArchivoCtr"
+    })
+    .when("/archivo-agregar/:id", {
+      title: 'Archivo - Modificar',
+      templateUrl: BASE_URL + "app/views/archivo_agregar.html",
+      controller: "ArchivoCtr"
+    })
     .when("/profesores-listar", {
       title: 'Profesor - Listar',
       templateUrl: BASE_URL + "app/views/profesor_listar.html",

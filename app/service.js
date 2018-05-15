@@ -57,6 +57,37 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlMateriaActualizar, mater, { responseType: 'json' });
     },
 
+    agregarArchivo: (archivo) => {
+      let urlArchivoAgregar = 'administrador/Archivo/AgregarArchivo';
+      return $http.post(urlArchivoAgregar, archivo, { responseType: 'json' });
+    },
+
+    obtenerArchivo: (idArchivo) => {
+      let urlArchivoObtener = 'administrador/Archivo/Leer';
+      const id = {
+        'id':idArchivo
+      }
+      return $http.post(urlArchivoObtener, id, { responseType: 'json' });
+    },
+     obtenerArchivosMateria: (idMateria) => {
+      let urlArchivoObtener = 'administrador/Archivo/ObtenerArchivosMateria';
+      const id = {
+        'id':idMateria
+      }
+      return $http.post(urlArchivoObtener, id, { responseType: 'json' });
+    },
+
+    actualizarArchivo: (archivo) => {
+      let urlArchivoctualizar = 'administrador/Archivo/ActualizarArchivo';
+      const archi = {
+        'id': archivo.id,
+        'titulo': archivo.titulo,
+        'descripcion': archivo.descripcion,
+        'fuente': archivo.titulo,
+      }
+      return $http.post(urlArchivoctualizar, archi, { responseType: 'json' });
+    },
+
     agregarComision: (comision) => {
       var materia = comision.materia.split('-');
       var profesores = [];

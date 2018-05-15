@@ -46,12 +46,12 @@ app.controller('CursadasCtr', ['$scope', '$routeParams', '$location', 'service',
       cursada.idAlumno = $routeParams.id;
       service.agregarCursada(cursada).success(function(data){
         if(!data.exito){
-          Materialize.toast("No se pudo cargar la comisión", 3500);
+          Materialize.toast("No se pudo cargar la cursada", 3500);
         }
         else{
-          Materialize.toast("Comisión cargada con éxito", 3500);
+          Materialize.toast("Cursada cargada con éxito", 3500);
         }
-      }).error( () => Materialize.toast('Erro al obtener', 3500) );
+      }).error( () => Materialize.toast('Error al obtener Cursadas', 3500) );
 
       $location.path('/cursadas-listar/idAlumno');
     }
@@ -218,6 +218,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
 app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', function ($scope, $routeParams, service) {
   $scope.isAdding = false;
 
+
   $scope.idAlumno = $routeParams.id;
   
   $scope.agregarInforme = function(informe){
@@ -252,7 +253,7 @@ app.controller('InformeListarCtr', ['$scope', '$routeParams', 'service', functio
 
 }]);
 
-app.controller('ActividadCtr', ['$scope', '$routeParams', 'service', function ($scope, $routeParams, service) {
+app.controller('ActividadCtr', ['$scope', '$routeParams','$location', 'service', function ($scope, $routeParams,$location, service) {
   $scope.isAdding = false;
 
   $scope.idAlumno = $routeParams.id;
@@ -281,6 +282,8 @@ app.controller('ActividadCtr', ['$scope', '$routeParams', 'service', function ($
         }
       });
     }
+  $location.path('actividades-listar/actividad.idAlumno');
+  
   }
 
   $scope.obtenerActividades = function(idActividad){
@@ -375,6 +378,54 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
         $scope.materias = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
+
+}]);
+
+
+app.controller('ArchivoCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+  $scope.isAdding = false;
+
+if ($routeParams.id){
+    $scope.isAdding = true;
+    var idArchivo = $routeParams.id;
+
+    service.obtenerArchivo(idArchivo).success(function(data){
+      $scope.archivo = data.datos;
+    });
+  }
+
+  $scope.agregarArchivo= function(archivo){
+    // Si está modificando actualiza
+    if ($scope.isAdding){
+      service.actualizarArchivo(archivo).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar el archivo", 3500);
+        }
+        else{
+          Materialize.toast("Archivo modificado con éxito", 3500);
+        }
+      });
+    }
+    else{
+      service.agregarArchivo(materia).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar el archivo", 3500);
+        }
+        else{
+          Materialize.toast("Archivo cargado con éxito", 3500);
+        }
+      });
+    }
+    $scope.obtenerArchivosMateria();
+    $location.path('/materias-listar');
+  }
+
+  $scope.obtenerArchivosMateria = function(){
+    service.obtenerArchivosMateria($routeParams.id).success(function(data){
+        $scope.archivos = data.datos;
+    }).error( () => Materialize.toast('Error al obtener Archivos', 3500) );
+  }
+
 
 }]);
 
