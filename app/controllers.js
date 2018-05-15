@@ -414,20 +414,23 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
 }]);
 
 
-app.controller('ArchivoCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   $scope.isAdding = false;
+ 
+   $rootScope.idMateria =$routeParams.id !=undefined ?  $routeParams.id  : $rootScope.idMateria;
 
 if ($routeParams.id){
     $scope.isAdding = true;
-    var idArchivo = $routeParams.id;
+    var idMateria = $routeParams.id;
 
-    service.obtenerArchivo(idArchivo).success(function(data){
-      $scope.archivo = data.datos;
+    service.obtenerArchivosMateria(idMateria).success(function(data){
+      $scope.archivo = data.datos[0].archivo;
     });
   }
 
   $scope.agregarArchivo= function(archivo){
     // Si está modificando actualiza
+      archivo.idMateria=$rootScope.idMateria;
     if ($scope.isAdding){
       service.actualizarArchivo(archivo).success(function(data){
         if (!data.exito){
@@ -439,7 +442,7 @@ if ($routeParams.id){
       });
     }
     else{
-      service.agregarArchivo(materia).success(function(data){
+      service.agregarArchivo(archivo).success(function(data){
         if (!data.exito){
           Materialize.toast("No se pudo agregar el archivo", 3500);
         }
@@ -449,12 +452,12 @@ if ($routeParams.id){
       });
     }
     $scope.obtenerArchivosMateria();
-    $location.path('/materias-listar');
+    $location.path('/archivo-listar/archivo.idMateria');
   }
 
   $scope.obtenerArchivosMateria = function(){
     service.obtenerArchivosMateria($routeParams.id).success(function(data){
-        $scope.archivos = data.datos;
+        $scope.archivos =data.datos[0].archivo;
     }).error( () => Materialize.toast('Error al obtener Archivos', 3500) );
   }
 

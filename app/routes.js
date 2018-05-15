@@ -65,7 +65,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/materia_agregar.html",
       controller: "MateriaCtr"
     })
-    .when("/archivo-listar", {
+    .when("/archivo-listar/:id", {
       title: 'Archivos - Listar',
       templateUrl: BASE_URL + "app/views/archivo_listar.html",
       controller: "ArchivoCtr"

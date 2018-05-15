@@ -59,7 +59,15 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
 
     agregarArchivo: (archivo) => {
       let urlArchivoAgregar = 'administrador/Archivo/AgregarArchivo';
-      return $http.post(urlArchivoAgregar, archivo, { responseType: 'json' });
+     const archi = {
+        'id': archivo.id,
+        'titulo': archivo.titulo,
+        'descripcion': archivo.descripcion,
+        'fuente': archivo.fuente,
+        'idMateria': archivo.idMateria,
+        'tipo':archivo.tipo
+      }
+      return $http.post(urlArchivoAgregar, archi, { responseType: 'json' });
     },
 
     obtenerArchivo: (idArchivo) => {
@@ -83,7 +91,9 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         'id': archivo.id,
         'titulo': archivo.titulo,
         'descripcion': archivo.descripcion,
-        'fuente': archivo.titulo,
+        'fuente': archivo.fuente,
+        'idMateria': archivo.idMateria,
+        'tipo':archivo.tipo
       }
       return $http.post(urlArchivoctualizar, archi, { responseType: 'json' });
     },

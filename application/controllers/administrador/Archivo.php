@@ -5,19 +5,26 @@ class Archivo extends OWN_Controller{
 	public function __construct() {
         parent::__construct();
         $this->load->library('CapaDeNegocio/Bedelia');
-        $this->load->library('CapaDeNegocio/Extras');
+        $this->load->library('CapaDeNegocio/ManejoArchivo');
     }
 
     public function AgregarArchivo()
     {
-        /*$descripcion = $this->rest->post('descripcion');;
+        $titulo = $this->rest->post('titulo');
+        $descripcion = $this->rest->post('descripcion');
+        $ruta = $this->rest->post('fuente');
+        $idMateria = $this->rest->post('idMateria');
+        $tipo=$this->rest->post('tipo');
 
 
         $insert_data = [
-                            'archivo'=>array('descripcion'=>$descripcion,'idUsuario'=>$idAlumno),
-
+                            'titulo'=>$titulo,
+                            'descripcion'=>$descripcion,
+                            'idMateria'=>$idMateria,
+                            'ruta'=>$ruta,
+                            'idCategoriaArchivo'=> $tipo                        
                         ];
-        return $this->responseJson(['exito'=>$this->extras->AgregarArchivo($insert_data)]);*/
+        return $this->responseJson(['exito'=>$this->manejoarchivo->AgregarArchivo($insert_data)]);
     }
 
     public function Leer()
@@ -30,10 +37,10 @@ class Archivo extends OWN_Controller{
 
       public function ObtenerArchivosMateria()
     {
-        /*
+        
         $id = $this->rest->post('idUsuario');
-        $data = $this->extras->ObtenerArchivoUsuario($id);
-        return $this->responseJson(['datos'=>$data]);*/
+        $data = $this->bedelia->ObtenerMateria($id);
+        return $this->responseJson(['datos'=>$data]);
     }
 
 }

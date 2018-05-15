@@ -1,4 +1,4 @@
-<main class="listar-container" ng-init="getArchivos()">
+<main class="listar-container" ng-init="obtenerArchivosMateria()">
 
   <a href="#/archivo-agregar" class="btn btn-agregar">Agregar Archivo</a>
 
@@ -20,18 +20,16 @@
           <th>Título</th>
           <th>Descripción</th>
           <th>Tipo</th>
-          <th>Opciones</th>
+
       </tr>
     </thead>
 
     <tbody>
       <tr ng-repeat="archivo in archivos ">
         <td>{{archivo.titulo}}</td>
-        <td>{{archivo.descripción}}</td>
-        <td>{{archivo.tipo}}</td>
-        <td>
+        <td>{{archivo.descripcion}}</td>
+        <td>{{archivo.ruta}}</td>
 
-        </td>
       </tr>
     </tbody>
   </table>

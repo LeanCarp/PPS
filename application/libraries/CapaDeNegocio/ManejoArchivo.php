@@ -19,7 +19,7 @@ class ManejoArchivo {
     public function AgregarArchivo($data)
     {
         $this->CI->load->model('Archivo_model');
-        $this->CI->Examen_model->insert($data);
+        return $this->CI->Archivo_model->insert($data);
     }
 
       public function AgregarCategoria($data)
