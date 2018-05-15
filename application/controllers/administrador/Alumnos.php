@@ -34,6 +34,37 @@ class Alumnos extends OWN_Controller{
         return $this->responseJson(['datos'=>$this->usuario->users($group)->result()]);   
     }
 
+    public function Leer()
+    {
+        $this->load->model('User_model');
+
+        $id = $this->rest->post('idAlumno');
+                //Si se pasó un id se busca la comision correspondiente.
+                if(is_null($id))
+                    $data = $this->User_model->get_all();
+                //Si no se pasó nada, se buscan todas.
+                $data = $this->User_model->with_escuela()->get($id);
+
+        return $this->responseJson(['datos'=>$data]);
+    }
+
+    public function Actualizar(){
+
+        $this->load->model('User_model');
+        $id = $this->rest->post('id');
+		$data = array(
+                        'first_name' => $this->rest->post('first_name'),
+                        'last_name' => $this->rest->post('last_name'),
+                        'email' => $this->rest->post('email'),
+                        'phone'=> $this->rest->post('phone'),
+                        'anioIngreso'=>$this->rest->post('anioIngreso'),
+                        'carrera'=>$this->rest->post('carrera'),
+                        'idEscuela'=>$this->rest->post('escuela'),
+                        );
+
+        return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]);
+    }
+
     public function AgregarActividad()
     {
         $descripcion = $this->rest->post('descripcion');

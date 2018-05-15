@@ -268,6 +268,14 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         return  $http.get(urlAlumnosObtener, { responseType: 'json' }); 
     },
 
+    obtenerAlumno: (id) => {
+      let urlAlumnosObtener='administrador/Alumnos/Leer';
+      const alumno = {
+        'idAlumno': id
+      }
+      return  $http.post(urlAlumnosObtener, alumno, { responseType: 'json' });
+    },
+
     agregarAlumno: (alumno) => {
         const alumn = {
             'dni': alumno.dni,
@@ -283,6 +291,24 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlAlumnoAgregar, alumn, { responseType: 'json' });
 
     },
+
+    actualizarAlumno: (alumno) => {
+      const alumn = {
+          'id': alumno.id,
+          'dni': alumno.dni,
+          'first_name': alumno.nombre,
+          'last_name': alumno.apellido,
+          'email': alumno.email,
+          'phone': alumno.telefono,
+          'anioIngreso': alumno.anioIngreso,
+          'carrera': alumno.carrera,
+          'escuela': alumno.escuela
+      }
+      console.log(alumn);
+    let urlAlumnoActualizar = 'administrador/Alumnos/Actualizar';
+    return $http.post(urlAlumnoActualizar, alumn, { responseType: 'json' });
+
+  },
 
     getInformesAlumno: (dni) => {
         var informes = {};

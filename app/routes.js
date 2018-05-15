@@ -21,8 +21,13 @@ app.config(['$routeProvider', function ($routeProvider) {
       controller: "AlumnosCtr"
     })
     .when("/alumnos-listar", {
-      title: 'Estado de los pedidos',
+      title: 'Alumnos - Listar',
       templateUrl: BASE_URL + "app/views/alumno_listar.html",
+      controller: "AlumnosCtr"
+    })
+    .when("/alumnos-ver/:id", {
+      title: 'Alumnos - Ver',
+      templateUrl: BASE_URL + "app/views/alumno_ver.html",
       controller: "AlumnosCtr"
     })
     .when("/informes-agregar/:id", {
@@ -98,6 +103,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/comisiones-agregar/:id", {
       title: 'Comisiones - Modificar',
       templateUrl: BASE_URL + "app/views/comision_agregar.html",
+      controller: "ComisionesCtr"
+    })
+    .when("/comisiones-ver/:id", {
+      title: 'Comisiones - Ver',
+      templateUrl: BASE_URL + "app/views/comision_ver.html",
       controller: "ComisionesCtr"
     })
       .when("/examenes-listar/:idCursada", {
