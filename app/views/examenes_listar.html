@@ -1,5 +1,6 @@
 <main class="listar-container">
-
+        
+        <a href="#/cursadas-listar/{{idAlumno}}" class="btn btn-volver">Volver</a>
         <a href="#/examenes-agregar/{{cursada.id}}" class="btn btn-agregar">Agregar examen</a>
 
         <div class="nav-wrapper">
@@ -33,7 +34,7 @@
                 <!-- <td><a title="Ver cursada" href="#/cursada-ver/{{cursada.id}}"><i class="listar-iconos material-icons">find_in_page</i></a></td> -->
               </tr>
             </tbody>
-          </table>
+          </table>    
     </main>
     
     <style>
@@ -52,6 +53,9 @@
         .btn-agregar{
           margin-top: 20px;
           margin-left: 20px;
+        }
+        .btn-volver{
+          margin-top: 20px;
         }
         @media screen and (max-width:800px){
           .listar-container{
