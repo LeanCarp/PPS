@@ -21,23 +21,29 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="input-field col s4 m4">
-                            <select name="Tipo" id="tipo" ng-model="archivo.tipo" ng-required="true">
-                                <option value="1">Video</option>
-                                <option value="2">Documento</option>
-                                <option value="3">Texto</option>                      
-                            </select>
-                            <label for="">Tipo:</label>
-                    </div>                  
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m6">
-                        <input class="elementos" id="fuente" name="fuente" type="text" class="" ng-model="archivo.fuente" ng-required="true">
-                        <label class="active" for="fuente">Fuente</label>
-                        <p class="advertencia" ng-show="formArchivo.fuente.$error.required && !formArchivo.fuente.$pristine" class="help-block">La fuente no puede ser vacía</p>
+                  <div class="row">
+                   <label for="">Seleccione el tipo de fuente</label>
+                         <div class="switch">
+                            <label>
+                            Link
+                            <input type="checkbox" ng-model="fuenteArchivo">
+                            <span class="lever"></span>
+                            Archivo
+                            </label>
+                        </div>
+                 </div>
+                <div class="row"  >
+                    <div class="input-field col s12 m6"style="height:50px;" ng-show="fuenteArchivo">                       
+                        <input class="elementos" id="ruta" name="ruta" type="file" class="" ng-model="archivo.ruta" >
+                    </div>
+                    <div class="input-field col s12 m6"  ng-show="!fuenteArchivo">
+                        <input class="elementos" id="link" name="link" type="text" class="" ng-model="archivo.link" ng-required="false">
+                        <label class="active" for="ruta">Ingrese el link</label>
+                        <p class="advertencia" ng-show="formArchivo.link.$error.required && !formArchivo.link.$pristine" class="help-block">El link no puede ser vacío</p>
                     </div>
                 </div>
+
+                
                 <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formArchivo.$invalid">
                 <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formArchivo.$invalid">
             </form>

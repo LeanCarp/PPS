@@ -60,13 +60,13 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
     agregarArchivo: (archivo) => {
       let urlArchivoAgregar = 'administrador/Archivo/AgregarArchivo';
      const archi = {
-        'id': archivo.id,
         'titulo': archivo.titulo,
         'descripcion': archivo.descripcion,
-        'fuente': archivo.fuente,
+        'ruta': archivo.ruta,
         'idMateria': archivo.idMateria,
         'tipo':archivo.tipo
       }
+      console.log(archi);
       return $http.post(urlArchivoAgregar, archi, { responseType: 'json' });
     },
 
