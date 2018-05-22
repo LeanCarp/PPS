@@ -41,7 +41,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       controller: "InformeListarCtr"
     })
     .when("/informes-modificar/:idInforme", {
-      title: 'Informes - Listar',
+      title: 'Informes - Modificar',
       templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
       controller: "InformeListarCtr"
     })
@@ -194,6 +194,21 @@ app.config(['$routeProvider', function ($routeProvider) {
       title: 'Países - Listar',
       templateUrl: BASE_URL + "app/views/escuela_listar.html",
       controller: "EscuelasCtr"
+    })
+    .when("/tutores-agregar", {
+      title: 'Tutores - Agregar',
+      templateUrl: BASE_URL + "app/views/tutores_agregar.html",
+      controller: "TutoresCtr"
+    })
+    .when("/tutores-agregar/:idTutor", {
+      title: 'Tutores - Modificar',
+      templateUrl: BASE_URL + "app/views/tutores_agregar.html",
+      controller: "TutoresCtr"
+    })
+    .when("/tutores-listar", {
+      title: 'Tutores - Listar',
+      templateUrl: BASE_URL + "app/views/tutores_listar.html",
+      controller: "TutoresCtr"
     })
 
 

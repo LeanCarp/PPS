@@ -193,15 +193,25 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlInformeAgregar, infor, { responseType: 'json' });
     },
 
-    obtenerInformes: (idInforme) => {
-      let urlInformeObtener='administrador/Informe/ObtenerInformesUsuario';
+    // Obtiene un informe por su ID.
+    obtenerInforme: (idInforme) => {
+      let urlInformeObtener='administrador/Informe/Leer';
       const id = {
-        'idUsuario': idInforme
+        'idInforme': idInforme
       }
       return  $http.post(urlInformeObtener, id, { responseType: 'json' });
     },
 
-    actualizarInforme: () => {
+    // Obtiene los informes de un usuario
+    obtenerInformes: (idUsuario) => {
+      let urlInformeObtener='administrador/Informe/ObtenerInformesUsuario';
+      const id = {
+        'idUsuario': idUsuario
+      }
+      return  $http.post(urlInformeObtener, id, { responseType: 'json' });
+    },
+
+    actualizarInforme: (informe) => {
       let urlInformeActualizar='administrador/Informe/ActualizarInforme';
       const infor = {
         'titulo': informe.titulo,
@@ -304,6 +314,42 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         'idCiudad': datos.ciudad
       }
       return $http.post(urlEscuelactualizar, escuela, { responseType: 'json' });
+    },
+    agregarTutor: (tutor) => {
+      const tut = {
+        'dni': tutor.dni,
+        'first_name': tutor.nombre,
+        'last_name': tutor.apellido,
+        'email': tutor.email,
+        'phone': tutor.telefono,
+      }
+      let urlTutorAgregar = 'administrador/Tutores/AgregarTutor';
+      return $http.post(urlTutorAgregar, tut, { responseType: 'json' });
+    },
+
+    obtenerTutor: (idTutor) => {
+      let urlTutorObtener = 'administrador/Tutores/Leer';
+      const tutor = {
+        'idTutor': idTutor
+      }
+      return $http.post(urlTutorObtener, tutor, { responseType: 'json' });
+    },
+
+    obtenerTutores: () => {
+      let urlTutoresObtener = 'administrador/Tutores/ObtenerTutores';
+      return $http.post(urlTutoresObtener, { responseType: 'json' });
+    },
+
+    actualizarTutor: (datos) => {
+      let urlEscuelactualizar = 'administrador/Tutores/ActualizarTutor';
+      const tutor = {
+        'id': datos.id,
+        'first_name': datos.nombre,
+        'last_name': datos.apellido,
+        'email': datos.email,
+        'phone': datos.telefono,
+      }
+      return $http.post(urlEscuelactualizar, tutor, { responseType: 'json' });
     },
 
 
