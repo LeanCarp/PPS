@@ -1,7 +1,8 @@
 <main id="container" class="container" ng-init="obtenerComisiones()">
     <a href="#/cursadas-listar/{{idAlumno}}" class="btn btn-volver">Volver</a>
 
-    <h2>Agregar <strong>cursada</strong></h2>
+    <h2 ng-show="!isAdding">Agregar <strong>cursada</strong></h2>
+    <h2 ng-show="isAdding">Modificar <strong>cursada</strong></h2>
     
     <div class="row">
         <form id="formCursada" name="formCursada" class="col s12" ng-submit="agregarCursada(cursada)">
@@ -35,7 +36,8 @@
                     <label class="active" for="comision">Ingrese una nota: (No obligatorio)</label>
                 </div>
             </div>
-            <input type="submit" class="btn" value="Agregar" ng-disabled="formCursada.$invalid">
+            <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formCursada.$invalid">
+            <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formComision.$invalid">
         </form>
     </div>
 </main>

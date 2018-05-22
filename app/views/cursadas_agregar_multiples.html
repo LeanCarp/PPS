@@ -1,0 +1,85 @@
+<main id="container" class="container" ng-init="obtenerDatosMultiples()">
+        <a href="#/alumnos-listar" class="btn btn-volver">Volver</a>
+    
+        <h2>Agregar <strong>cursada</strong></h2>
+        
+        <div class="row">
+            <form id="formCursada" name="formCursada" class="col s12" ng-submit="agregarMultiplesCursadas(cursada)">
+                <div class="row">
+                    <div class="input-field col s12 selects">
+                        <select id="comision" name="comision" ng-model="cursada.comision"  ng-required="true"> <!-- ng-options="comision as 'Año: '+comision.anio + '; Cuatrimestre: ' + comision.cuatrimestre + '; Profesores: ' + comision.dicta[0].nombreProfesor for comision in comisiones" -->
+                            <option ng-repeat="comision in comisiones" 
+                                    ng-selected="infoComision(comision)" 
+                                    value="{{comision.id}}">Año: {{comision.anio}}; Cuatrimestre: {{comision.cuatrimestre}}; Materia: {{comision.materia.nombre}};
+                            </option>
+                        </select>
+                        <label for="comision">Seleccione una comisión:</label>
+                        <p class="advertencia" ng-show="formCursada.comision.$error.required && !formCursada.comision.$pristine" class="help-block">Debe seleccionar una comisión</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 selects">
+                        <select id="estado" name="estado" ng-model="cursada.estado" ng-required="true">
+                            <option value="Libre">Libre</option>
+                            <option value="Cursando">Cursando</option>
+                            <option value="Desaprobado">Desaprobado</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Promocionado">Promocionado</option>
+                            <option value="Aprobado">Aprobado</option>              
+                        </select>
+                        <label for="comision">Seleccione un estado:</label>
+                        <p class="advertencia" ng-show="formCursada.estado.$error.required && !formCursada.estado.$pristine" class="help-block">Debe seleccionar un estado</p>
+                    </div>
+                    <div class="input-field col s4">
+                        <input type="number" id="nota" name="nota" ng-model="cursada.nota" ng-required="false">
+                        <label class="active" for="comision">Ingrese una nota: (No obligatorio)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <h5>Seleccionar <strong>alumnos</strong> para las cursadas</h5>
+                    <div class="input-field">
+                        <input id="search" type="search" required ng-model="buscar">
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                    <ul class="collection">
+                        <li class="collection-item" ng-repeat="alumno in alumnos | filter: buscar"><p>{{alumno.username}}</p><p>{{alumno.last_name}}, {{alumno.first_name}}</p><p>{{alumno.carrera}}</p><p>{{alumno.anioIngreso}}</p><input type="checkbox" class="filled-in" id="{{alumno.id}}" value="{{alumno.id}}" ng-model="selectedList[alumno.id]"/><label for="{{alumno.id}}"></label></li>
+                    </ul>
+                </div>
+
+                <input type="submit" class="btn" value="Agregar" ng-disabled="formCursada.$invalid">
+            </form>
+        </div>
+    </main>
+    
+    <style>
+        .collection li{
+            background: #eaeaea !important;
+        }
+        .collection-item{
+            display: flex;
+            justify-content: space-between;
+        }
+        .collection-item p{
+            margin: 0;
+            padding: 0;
+        }
+        .botonHorario{
+            margin: 17px;
+        }
+        .selects{
+            padding: 0 !important;
+        }
+    
+        .advertencia{
+            margin: 0;
+            font-size: 12px;
+            color: #EA2E49;
+        }
+        .btn-volver{
+                margin-top: 20px;
+        }
+        .elementos{
+            margin: 0 !important;
+        }
+    </style>

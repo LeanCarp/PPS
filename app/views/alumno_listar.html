@@ -1,6 +1,7 @@
 <main class="listar-container" ng-init="getCursadas()">
 
   <a href="#/alumnos-agregar" class="btn btn-agregar">Agregar alumno</a>
+  <a href="#/cursadas-agregar-multiples" class="btn btn-agregar">Generar múltiples cursadas</a>
 
   <div class="nav-wrapper">
     <form>
@@ -25,7 +26,7 @@
     </thead>
 
     <tbody>
-      <tr ng-repeat="alumno in alumnos ">
+      <tr ng-repeat="alumno in alumnos">
         <td>{{alumno.username}}</td>
         <td>{{alumno.first_name}}</td>
         <td>{{alumno.last_name}}</td>
@@ -56,6 +57,9 @@
   .btn-agregar{
     margin-top: 20px;
     margin-left: 20px;
+  }
+  th, td{
+    text-align: center;
   }
   @media screen and (max-width:800px){
     .listar-container{

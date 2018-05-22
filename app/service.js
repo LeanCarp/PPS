@@ -135,12 +135,29 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return  $http.post(urlComisionAgregar, cursa, { responseType: 'json' });
     },
 
+    // Obtiene cursadas para un Usuario.
     getCursadas: (idAlumno) => {
       let urlComisionObtener = 'administrador/Cursada/ObtenerCursadasUsuario';
       const idUsuario = {
         'idUsuario': idAlumno
       }
       return $http.post(urlComisionObtener, idUsuario, { responseType: 'json' });
+    },
+
+    // Obtiene una cursada puntual.
+    getCursada: (idCursada) => {
+      let urlComisionObtener = 'administrador/Cursada/ObtenerCursada';
+      const idCurs = {
+        'idCursada': idCursada
+      }
+      return $http.post(urlComisionObtener, idCurs, { responseType: 'json' });
+    },
+
+    actualizarCursada: (cursada) => {
+      let urlCursadaActualizar='administrador/Cursada/ActualizarCursada';
+      console.log("Cursada: ");
+      console.log(cursada);
+      return $http.post(urlCursadaActualizar, cursada, { responseType: 'json' });
     },
 
     getExamenes: (idCursada) => {

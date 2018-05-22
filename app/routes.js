@@ -31,13 +31,18 @@ app.config(['$routeProvider', function ($routeProvider) {
       controller: "AlumnosCtr"
     })
     .when("/informes-agregar/:id", {
-      title: 'Informes',
+      title: 'Informes - Agregar',
       templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
       controller: "InformeListarCtr"
     })
     .when("/informes-listar/:id", {
-      title: 'Informes',
+      title: 'Informes - Listar',
       templateUrl: BASE_URL + "app/views/alumno_informe_listar.html",
+      controller: "InformeListarCtr"
+    })
+    .when("/informes-modificar/:idInforme", {
+      title: 'Informes - Listar',
+      templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
       controller: "InformeListarCtr"
     })
     .when("/actividad-agregar/:id", {
@@ -103,6 +108,16 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/cursadas-agregar/:id", {
       title: 'Cursadas - Agregar',
       templateUrl: BASE_URL + "app/views/cursada_agregar.html",
+      controller: "CursadasCtr"
+    })
+    .when("/cursadas-modificar/:idCurs", {
+      title: 'Cursadas - Modificar',
+      templateUrl: BASE_URL + "app/views/cursada_agregar.html",
+      controller: "CursadasCtr"
+    })
+    .when("/cursadas-agregar-multiples", {
+      title: 'Cursadas - Agregar múltiples',
+      templateUrl: BASE_URL + "app/views/cursadas_agregar_multiples.html",
       controller: "CursadasCtr"
     })
     .when("/comisiones-listar", {
