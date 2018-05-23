@@ -26,7 +26,7 @@ class Informe extends OWN_Controller{
 
     public function Leer()
     {
-        $id = $this->rest->post('id');
+        $id = $this->rest->post('idInforme');
         $data = $this->extras->ObtenerInforme($id);
         return $this->responseJson(['datos'=>$data]);
     }
@@ -39,14 +39,14 @@ class Informe extends OWN_Controller{
         $idAlumno = $this->rest->post('idAlumno');
         $id = $this->rest->post('idInforme');
 
-        $insert_data = [
+        $data = [
                     'descripcion'=>$descripcion,
                     'titulo'=>$titulo,
                     'fecha'=>$fecha,
                     'idUsuario'=>$idAlumno,
         ];
         
-        return $this->responseJson(['exito'=>$this->bedelia->ActualizarProfesor($data, $id)]); 
+        return $this->responseJson(['exito'=>$this->extras->ActualizarInforme($data, $id)]); 
     }
 
     public function ObtenerInformesUsuario()

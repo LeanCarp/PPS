@@ -85,7 +85,7 @@ class Extras {
       public function ActualizarInforme($data,$id)
     {
         $this->CI->load->model('Informe_model');
-        $this->CI->Informe_model->update($data,$id);
+        return $this->CI->Informe_model->update($data,$id);
     }
 
       public function EliminarInforme($id)

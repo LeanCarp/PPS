@@ -31,7 +31,7 @@ class User extends OWN_Controller{
     public function ObtenerAlumnos()
     {
         $group = array('2');
-        return $this->responseJson(['datos'=>$this->usuario->users($group)->result()]);   
+        return $this->responseJson(['datos'=>$this->usuario->users($group)->result()]);
     }
 
 }
