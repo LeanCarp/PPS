@@ -141,13 +141,24 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
     }
 
     $scope.agregarMultiplesCursadas= function(cursada){
-      var alumnos = [];
-      angular.forEach($scope.selectedList, function (selected, value) {
-        if (selected) {
-           alumnos.push(value);
+      angular.forEach($scope.selectedList, function (selected,idAlumnoListado ) {
+        if (selected)
+        {
+          cursada.idAlumno=idAlumnoListado;
+          service.agregarCursada(cursada).success(function(data){
+            if(!data.exito)
+            {
+              Materialize.toast("No se pudo cargar la cursada", 3500);
+            }
+            else
+            {
+              Materialize.toast("Cursada cargada con éxito", 3500);
+            }
+          });
         }
-    });
+      });
     }
+
 }]);
 
 app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
