@@ -12,7 +12,6 @@ class User_model extends OWN_Model
 	{
 		parent::__construct();
 		$this->timestamps = FALSE;
-		$this->has_one['comision'] = array('foreign_model'=>'Comision_model','foreign_table'=>'comision','foreign_key'=>'id','local_key'=>'idComision');
 		$this->has_one['escuela'] = array('foreign_model'=>'Escuela_model','foreign_table'=>'escuela','foreign_key'=>'id','local_key'=>'idEscuela');
 		$this->has_many['cursada'] = array('foreign_model'=>'Cursada_model','foreign_table'=>'cursada','foreign_key'=>'idUsuario','local_key'=>'id');
 		$this->has_many['informe'] = array('foreign_model'=>'Informe_model','foreign_table'=>'informe','foreign_key'=>'idUsuario','local_key'=>'id');

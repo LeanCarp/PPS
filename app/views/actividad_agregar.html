@@ -41,14 +41,17 @@
                         <li ng-repeat="hora in horarios">Día: {{hora.dia}} - Hora inicio: {{hora.horaInicio}} Hora fin: {{hora.horaFin}} <input class="botonCancelarHorario" type="button" value="X" ng-click="eliminarHorario(horario)"></li>
                     </ul>
                 </div>
-                <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formInforme.$invalid">
-                <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formInforme.$invalid">
+                <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formActividad.$invalid">
+                <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formActividad.$invalid">
             </form>
         </div>
     </main>
     
-    <style>
+    <script>
+        $('select').material_select();
+    </script>
 
+    <style>
         .botonHorario{
             margin: 17px;
         }

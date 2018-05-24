@@ -64,7 +64,7 @@
             </div>
             <div class="input-field col s12 selects">
                     <select id="escuela" name="escuela" ng-model="alumno.escuela" ng-required="true"> <!-- No required -->
-                        <option ng-repeat="colegio in colegios" value="{{colegio.id}}">{{colegio.nombre}} </option>
+                        <option ng-repeat="colegio in colegios" value="{{colegio.id}}">{{colegio.nombre}} (Orientación: {{colegio.orientacion}})</option>
                     </select>
                     <!-- <p class="advertencia" ng-show="formAlumno.escuela.$error.required && !formAlumno.escuela.$pristine" class="help-block">Debe seleccionar una escuela</p> -->
                 </div>

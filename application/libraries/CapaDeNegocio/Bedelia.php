@@ -182,7 +182,7 @@ class Bedelia {
         public function ActualizarCursada($data,$id)
         {
                 $this->CI->load->model('Cursada_model');
-                $this->CI->Cursada_model->update($data,$id);
+                return $this->CI->Cursada_model->update($data,$id);
         }
 
         public function EliminarCursada($id)

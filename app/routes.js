@@ -21,18 +21,28 @@ app.config(['$routeProvider', function ($routeProvider) {
       controller: "AlumnosCtr"
     })
     .when("/alumnos-listar", {
-      title: 'Estado de los pedidos',
+      title: 'Alumnos - Listar',
       templateUrl: BASE_URL + "app/views/alumno_listar.html",
       controller: "AlumnosCtr"
     })
+    .when("/alumnos-ver/:id", {
+      title: 'Alumnos - Ver',
+      templateUrl: BASE_URL + "app/views/alumno_ver.html",
+      controller: "AlumnosCtr"
+    })
     .when("/informes-agregar/:id", {
-      title: 'Informes',
+      title: 'Informes - Agregar',
       templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
       controller: "InformeListarCtr"
     })
     .when("/informes-listar/:id", {
-      title: 'Informes',
+      title: 'Informes - Listar',
       templateUrl: BASE_URL + "app/views/alumno_informe_listar.html",
+      controller: "InformeListarCtr"
+    })
+    .when("/informes-modificar/:idInforme", {
+      title: 'Informes - Modificar',
+      templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
       controller: "InformeListarCtr"
     })
     .when("/actividad-agregar/:id", {
@@ -60,6 +70,21 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/materia_agregar.html",
       controller: "MateriaCtr"
     })
+    .when("/archivo-listar/:id", {
+      title: 'Archivos - Listar',
+      templateUrl: BASE_URL + "app/views/archivo_listar.html",
+      controller: "ArchivoCtr"
+    })
+    .when("/archivo-agregar", {
+      title: 'Archivo - Agregar',
+      templateUrl: BASE_URL + "app/views/archivo_agregar.html",
+      controller: "ArchivoCtr"
+    })
+    .when("/archivo-agregar/:id", {
+      title: 'Archivo - Modificar',
+      templateUrl: BASE_URL + "app/views/archivo_agregar.html",
+      controller: "ArchivoCtr"
+    })
     .when("/profesores-listar", {
       title: 'Profesor - Listar',
       templateUrl: BASE_URL + "app/views/profesor_listar.html",
@@ -85,6 +110,16 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/cursada_agregar.html",
       controller: "CursadasCtr"
     })
+    .when("/cursadas-modificar/:idCurs", {
+      title: 'Cursadas - Modificar',
+      templateUrl: BASE_URL + "app/views/cursada_agregar.html",
+      controller: "CursadasCtr"
+    })
+    .when("/cursadas-agregar-multiples", {
+      title: 'Cursadas - Agregar múltiples',
+      templateUrl: BASE_URL + "app/views/cursadas_agregar_multiples.html",
+      controller: "CursadasCtr"
+    })
     .when("/comisiones-listar", {
       title: 'Comisiones - Listar',
       templateUrl: BASE_URL + "app/views/comision_listar.html",
@@ -98,6 +133,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/comisiones-agregar/:id", {
       title: 'Comisiones - Modificar',
       templateUrl: BASE_URL + "app/views/comision_agregar.html",
+      controller: "ComisionesCtr"
+    })
+    .when("/comisiones-ver/:id", {
+      title: 'Comisiones - Ver',
+      templateUrl: BASE_URL + "app/views/comision_ver.html",
       controller: "ComisionesCtr"
     })
       .when("/examenes-listar/:idCursada", {
@@ -154,6 +194,26 @@ app.config(['$routeProvider', function ($routeProvider) {
       title: 'Países - Listar',
       templateUrl: BASE_URL + "app/views/escuela_listar.html",
       controller: "EscuelasCtr"
+    })
+    .when("/tutores-agregar", {
+      title: 'Tutores - Agregar',
+      templateUrl: BASE_URL + "app/views/tutores_agregar.html",
+      controller: "TutoresCtr"
+    })
+    .when("/tutores-agregar/:idTutor", {
+      title: 'Tutores - Modificar',
+      templateUrl: BASE_URL + "app/views/tutores_agregar.html",
+      controller: "TutoresCtr"
+    })
+    .when("/tutores-listar", {
+      title: 'Tutores - Listar',
+      templateUrl: BASE_URL + "app/views/tutores_listar.html",
+      controller: "TutoresCtr"
+    })
+        .when("/tutores-ver/:id", {
+      title: 'Tutor - Ver',
+      templateUrl: BASE_URL + "app/views/tutor_ver.html",
+      controller: "TutoresCtr"
     })
 
 
