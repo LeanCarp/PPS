@@ -837,6 +837,11 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
     })
   }
 
+    $scope.obtenerTutor = function(){
+    service.obtenerTutor($routeParams.id).success(function (data){
+      $scope.tutor = data.datos;
+    })
+  }
   $scope.agregarTutor = function(tutor){
     if ($scope.isAdding){
       service.actualizarTutor(tutor).success(function(data){

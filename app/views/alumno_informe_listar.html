@@ -17,6 +17,7 @@
               <th>Fecha</th>
               <th>Título</th>
               <th>Descripción</th>
+              <th>Autor</th>
               <th>Opciones</th>
           </tr>
         </thead>
@@ -26,6 +27,7 @@
             <td>{{informe.fecha}}</td>
             <td>{{informe.titulo}}</td>
             <td>{{informe.descripcion}}</td>
+            <td>{{informe.usuario.first_name}} {{informe.usuario.last_name}}</td>
             <td>
                 <a href="#/informes-modificar/{{informe.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
             </td> 

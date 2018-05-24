@@ -79,7 +79,7 @@ class Extras {
     {
         $this->CI->load->model('Informe_model');
         //Si se pasó un id se busca el informe correspondiente.
-        return  $this->CI->Informe_model->where('idUsuario', $id)->get_all();
+        return  $this->CI->Informe_model->where('idUsuario', $id)->with_usuario()->get_all();
     }
 
       public function ActualizarInforme($data,$id)

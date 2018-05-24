@@ -29,11 +29,11 @@ class Tutores extends OWN_Controller{
         $this->load->model('User_model');
 
         $id = $this->rest->post('idTutor');
-                //Si se pasó un id se busca la comision correspondiente.
-                if(is_null($id))
+            if(is_null($id))
+                 //Si no se pasó nada, se buscan todas.
                     $data = $this->User_model->get_all();
-                //Si no se pasó nada, se buscan todas.
-                $data = $this->User_model->with_escuela()->get($id);
+            //Si se pasó un id se busca la comision correspondiente.
+                $data = $this->User_model->with_informe()->get($id);
 
         return $this->responseJson(['datos'=>$data]);
     }
