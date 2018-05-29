@@ -362,6 +362,11 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
       $scope.informes = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
+    $scope.obtenerInformesTutor = function(){
+    service.obtenerInformesTutor($scope.idAlumno).success(function(data){
+      $scope.informes = data.datos;
+    }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
 
 }]);
 
@@ -523,14 +528,16 @@ if ($routeParams.id){
       });
     }
     else{
-      
+      //Si es link
       if (archivo.link!= undefined)
       {
         archivo.ruta=archivo.link;
         archivo.tipo=1;
       }
+      //si es un documento.
       else
       {
+        //wachin
         archivo.tipo=2;
       }
       

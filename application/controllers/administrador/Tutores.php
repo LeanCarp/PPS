@@ -56,4 +56,11 @@ class Tutores extends OWN_Controller{
 
         return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]);
     }
+
+    public function ObtenerInformes()
+    {
+        $id = $this->rest->post('idUsuario');
+        
+        return $this->responseJson(['datos'=>$this->usuario->users($group)->result()]);
+    }
 }
