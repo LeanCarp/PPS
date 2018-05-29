@@ -426,6 +426,40 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         // post>>
     },
 
+
+
+    // MÉTODOS PARA EL USUARIO TIPO ALUMNO
+    AlumnoObtenerCursadas: (idAlumno) => {
+      let urlComisionObtener = 'alumno/Cursada/ObtenerCursadasUsuario';
+      const idUsuario = {
+        'idUsuario': idAlumno
+      }
+      return $http.post(urlComisionObtener, idUsuario, { responseType: 'json' });
+    },
+
+    AlumnoObtenerExamenes: (idCursada) => {
+        const id = {
+          'idCursada':idCursada,
+        }
+        let urlExamenesObtener = 'alumno/Examen/ObtenerExamenesCursada';
+        return $http.post(urlExamenesObtener, id,{ responseType: 'json' });
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       /*
         Tickets = Obtiene los tickets con sus respectivas lineas y sus conceptos aplicados
         code    = 200 | 0 

@@ -786,6 +786,45 @@ app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service',
 
 }]);
 
+// Controlador para el usuario logeado ALUMNO.
+app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
+
+  $rootScope.alumnoLog = $("#usuarioLog").val();
+  $scope.alumnoLog = $rootScope.alumnoLog;
+
+  if ($routeParams.idCurs){
+    service.AlumnoObtenerExamenes($routeParams.idCurs).success(function (data){
+      if (data.datos.examen == null){
+        Materialize.toast('No hay resultados', 3500);
+      }
+      else{
+        $scope.examenes = data.datos.examen;
+      }
+    }).error( () => Materialize.toast('Error al obtener los examenes', 3500) );
+  }
+
+  $scope.obtenerCursadasAlumno = function(id){
+    service.AlumnoObtenerCursadas(id).success(function (data){
+      $scope.cursadas = data.datos;
+    })
+  }
+
+}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.controller('PedidosCtr', ['$scope','service', function ($scope, service) {
   service.getNotificaciones().success(function(data){
     if(data.code===200){

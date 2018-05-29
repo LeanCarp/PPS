@@ -212,6 +212,18 @@ app.config(['$routeProvider', function ($routeProvider) {
     })
 
 
+    .when("/alumno-cursadas-listar", {
+      title: 'Cursadas - Listar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_cursadas.html",
+      controller: "UserAlumnoCtr"
+    })
+    .when("/alumno-examenes-listar/:idCurs", {
+      title: 'Exámenes - Listar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_examenes.html",
+      controller: "UserAlumnoCtr"
+    })
+
+
 
 
 
