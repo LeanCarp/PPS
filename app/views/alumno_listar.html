@@ -19,6 +19,7 @@
     <thead>
       <tr>
           <th>DNI</th>
+          <th>Carrera</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Opciones</th>
@@ -26,8 +27,9 @@
     </thead>
 
     <tbody>
-      <tr ng-repeat="alumno in alumnos">
+      <tr class="collection-item" ng-repeat="alumno in alumnos | filter: buscar">
         <td>{{alumno.username}}</td>
+        <td>{{alumno.carrera}}</td>
         <td>{{alumno.first_name}}</td>
         <td>{{alumno.last_name}}</td>
         <td>

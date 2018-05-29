@@ -55,6 +55,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/actividad_listar.html",
       controller: "ActividadCtr"
     })
+       .when("/actividades-ver/:id", {
+      title: 'Actividad - Ver',
+      templateUrl: BASE_URL + "app/views/actividad_ver.html",
+      controller: "ActividadCtr"
+    })
     .when("/materias-listar", {
       title: 'Materias - Listar',
       templateUrl: BASE_URL + "app/views/materia_listar.html",
@@ -208,6 +213,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/tutores-listar", {
       title: 'Tutores - Listar',
       templateUrl: BASE_URL + "app/views/tutores_listar.html",
+      controller: "TutoresCtr"
+    })
+     .when("/tutores-listar-informes/:idTutor", {
+      title: 'Informes Tutor',
+      templateUrl: BASE_URL + "app/views/tutores_listar_informes.html",
       controller: "TutoresCtr"
     })
         .when("/tutores-ver/:id", {

@@ -50,7 +50,7 @@ class Extras {
       public function ObtenerActividadesUsuario($id)
     {
         $this->CI->load->model('Actividad_model');
-         return  $this->CI->Actividad_model->where('idUsuario', $id)->get_all();
+         return  $this->CI->Actividad_model->where('idUsuario', $id)->with_horario()->get_all();
     }
 
     public function EliminarActividad($id)
