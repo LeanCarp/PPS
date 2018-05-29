@@ -210,6 +210,14 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return  $http.post(urlInformeObtener, id, { responseType: 'json' });
     },
+        // Obtiene los informes realizados por un tutor
+    obtenerInformesTutor: (idUsuario) => {
+      let urlInformeObtener='administrador/Tutores/ObtenerInformes';
+      const id = {
+        'idUsuario': idUsuario
+      }
+      return  $http.post(urlInformeObtener, id, { responseType: 'json' });
+    },
 
     actualizarInforme: (informe) => {
       let urlInformeActualizar='administrador/Informe/ActualizarInforme';
@@ -244,7 +252,15 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return  $http.post(urActividadAgregar, id, { responseType: 'json' });
     },
+    
 
+    obtenerActividad: (idActividad) => {
+      let urActividadAgregar='administrador/Actividad/ObtenerActividad';
+      const id = {
+        'idActividad': idActividad
+      }
+      return  $http.post(urActividadAgregar, id, { responseType: 'json' });
+    },
     obtenerPaises: (idPais) => {
       let urlPaisObtener = 'administrador/Pais/Leer';
       const id = {
@@ -425,6 +441,124 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         // obtener informe por id
         // post>>
     },
+
+
+
+    // MÉTODOS PARA EL USUARIO TIPO ALUMNO
+    AlumnoObtenerCursadas: (idAlumno) => {
+      let urlComisionObtener = 'alumno/Cursada/ObtenerCursadasUsuario';
+      const idUsuario = {
+        'idUsuario': idAlumno
+      }
+      return $http.post(urlComisionObtener, idUsuario, { responseType: 'json' });
+    },
+
+    AlumnoObtenerExamenes: (idCursada) => {
+      const id = {
+        'idCursada':idCursada,
+      }
+      let urlExamenesObtener = 'alumno/Examen/ObtenerExamenesCursada';
+      return $http.post(urlExamenesObtener, id,{ responseType: 'json' });
+    },
+
+    AlumnoObtenerInformes: (idUsuario) => {
+      const id = {
+        'idUsuario':idUsuario,
+      }
+      let urlInformesObtener = 'alumno/Informe/ObtenerInformesUsuario';
+      return $http.post(urlInformesObtener, id,{ responseType: 'json' });
+    },
+
+    AlumnoObtenerActividades: (idUsuario) => {
+      const id = {
+        'idUsuario':idUsuario,
+      }
+      let urlActividadesObtener = 'alumno/Actividad/ObtenerActividadesUsuario';
+      return $http.post(urlActividadesObtener, id,{ responseType: 'json' });
+    },
+
+    AlumnoObtenerAlumno: (idAlumno) => {
+      const id = {
+        'idAlumno':idAlumno,
+      }
+      let urlAlumnoObtener = 'alumno/Alumno/Leer';
+      return $http.post(urlAlumnoObtener, id,{ responseType: 'json' });
+    },
+
+    TutorObtenerAlumnos: () =>{
+      let urlAlumnoObtener = 'tutor/Alumno/ObtenerAlumnos';
+      return $http.post(urlAlumnoObtener, { responseType: 'json' });
+    },
+
+    TutorObtenerCursadas: (idUsuario) =>{
+      let urlCursadasObtener = 'tutor/Cursada/ObtenerCursadasUsuario';
+      const id = {
+        'idUsuario': idUsuario
+      }
+      return $http.post(urlCursadasObtener, id, { responseType: 'json' });
+    },
+
+    TutorObtenerExamenes: (idCursada) =>{
+      let urlCursadasObtener = 'tutor/Examen/ObtenerExamenesCursada';
+      const id = {
+        'idCursada': idCursada
+      }
+      return $http.post(urlCursadasObtener, id, { responseType: 'json' });
+    },
+
+    TutorObtenerInformes: (idUsuario) =>{
+      let urlInformesObtener = 'tutor/Informe/ObtenerInformesUsuario';
+      const id = {
+        'idUsuario': idUsuario
+      }
+      return $http.post(urlInformesObtener, id, { responseType: 'json' });
+    },
+
+    TutorObtenerInforme: (idInforme) =>{
+      let urlInformeObtener = 'tutor/Informe/Leer';
+      const id = {
+        'idInforme': idInforme
+      }
+      return $http.post(urlInformeObtener, id, { responseType: 'json' });
+    },
+
+    TutorAgregarInforme: (informe) => {
+      let urlInformeAgregar='tutor/Informe/AgregarInforme';
+      const infor = {
+        'titulo': informe.titulo,
+        'fecha': informe.fecha,
+        'descripcion': informe.descripcion,
+        'idAlumno': informe.idAlumno
+      }
+      return $http.post(urlInformeAgregar, infor, { responseType: 'json' });
+    },
+
+    TutorActualizarInforme: (informe) => {
+      let urlInformeActualizar='tutor/Informe/ActualizarInforme';
+      const infor = {
+        'titulo': informe.titulo,
+        'fecha': informe.fecha,
+        'descripcion': informe.descripcion,
+        'idAlumno': informe.idAlumno,
+        'idInforme': informe.id
+      }
+      return $http.post(urlInformeActualizar, infor, { responseType: 'json' });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       /*
         Tickets = Obtiene los tickets con sus respectivas lineas y sus conceptos aplicados

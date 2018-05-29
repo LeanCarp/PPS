@@ -42,9 +42,22 @@
     
   </head>
   <body>
-    <div ng-include='"<?php echo BASE_URL()?>app/views/header.html"'></div>
-    <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_agregar.html"'></div>
-    <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_listar.html"'></div> -->
+    <input id="usuarioLog" type="text" value="<?php echo $idUsuario ?>" hidden>
+    <div ng-include="'
+    <?php 
+      $url = "";
+      switch ($idGrupo[0]->id){
+        case 1: $url = "app/views/header.html";
+          break;
+        case 2: $url = "app/views/headerAlumno.html";
+          break;
+        case 3: $url = "app/views/headerTutor.html";
+          break;
+      }
+      echo BASE_URL().$url;
+    ?>'"></div>
+    <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/header.html"'></div> -->
+    <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_listar.html"'></div> -->
     <div ng-view></div>
   </body>
 </html>

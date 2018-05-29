@@ -224,6 +224,21 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
       }
       
       $scope.comision = comision;
+
+
+      $scope.diaDeSemana=function(numero)
+      {
+        var weekday = new Array(7);
+        weekday[1] =  "Lunes";
+        weekday[2] = "Martes";
+        weekday[3] = "Miércoles";
+        weekday[4] = "Jueves";
+        weekday[5] = "Viernes";
+        weekday[6] = "Sábado";
+        weekday[7] = "Domingo";
+        
+        return weekday[numero];
+      }
     });
   }
 
@@ -362,18 +377,23 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
       $scope.informes = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
+    $scope.obtenerInformesTutor = function(){
+    service.obtenerInformesTutor($scope.idAlumno).success(function(data){
+      $scope.informes = data.datos;
+    }).error( () => Materialize.toast('Erro al obtener', 3500) );
+  }
 
 }]);
 
-app.controller('ActividadCtr', ['$scope', '$routeParams','$location', 'service', function ($scope, $routeParams,$location, service) {
+app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location', 'service', function ($scope, $rootScope, $routeParams,$location, service) {
   $scope.isAdding = false;
 
-  $scope.idAlumno = $routeParams.id;
+  $rootScope.idAlumno=  $rootScope.idAlumno !=undefined ?   $rootScope.idAlumno :  $routeParams.id;
 
   var horarios = [];
   
   $scope.agregarActividad = function(actividad){
-    actividad.idAlumno = $routeParams.id;
+    actividad.idAlumno = $rootScope.idAlumno;
     if($scope.isAdding){
       service.actualizarActividad(informe).success(function(data){
         if (!data.exito){
@@ -398,11 +418,19 @@ app.controller('ActividadCtr', ['$scope', '$routeParams','$location', 'service',
   
   }
 
-  $scope.obtenerActividades = function(idActividad){
-    service.obtenerActividades(idActividad).success(function(data){
+  $scope.obtenerActividades = function(){
+    service.obtenerActividades($rootScope.idAlumno).success(function(data){
       $scope.actividades = data.datos;
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
   }
+  $scope.obtenerActividad = function(){
+    service.obtenerActividad($routeParams.id).success(function(data){
+      $scope.actividad = data.datos;
+    }).error( () => Materialize.toast('Error al obtener actividad', 3500) );
+  }
+
+
+  
 
   $scope.agregarHorario = function(dias, horaDesde, horaHasta){
     console.log(dias);
@@ -523,14 +551,16 @@ if ($routeParams.id){
       });
     }
     else{
-      
+      //Si es link
       if (archivo.link!= undefined)
       {
         archivo.ruta=archivo.link;
         archivo.tipo=1;
       }
+      //si es un documento.
       else
       {
+        //wachin
         archivo.tipo=2;
       }
       
@@ -786,6 +816,142 @@ app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service',
 
 }]);
 
+// Controlador para el usuario logeado ALUMNO.
+app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
+
+  $rootScope.alumnoLog = $("#usuarioLog").val();
+  $scope.alumnoLog = $rootScope.alumnoLog;
+
+  if ($routeParams.idCurs){
+    service.AlumnoObtenerExamenes($routeParams.idCurs).success(function (data){
+      if (data.datos.examen == null){
+        Materialize.toast('No hay resultados', 3500);
+      }
+      else{
+        $scope.examenes = data.datos.examen;
+      }
+    }).error( () => Materialize.toast('Error al obtener los examenes', 3500) );
+  }
+
+  $scope.obtenerCursadasAlumno = function(id){
+    service.AlumnoObtenerCursadas(id).success(function (data){
+      $scope.cursadas = data.datos;
+    })
+  }
+
+  $scope.obtenerInformesAlumno = function(id){
+    service.AlumnoObtenerInformes(id).success(function (data){
+      $scope.informes = data.datos;
+    })
+  }
+
+  $scope.obtenerActividadesAlumno = function(id){
+    service.AlumnoObtenerActividades(id).success(function (data){
+      $scope.actividades = data.datos;
+    })
+  }
+
+  $scope.obtenerAlumno = function(id){
+    service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
+    })
+  }
+
+}]);
+
+// Controlador para el usuario logeado TUTOR.
+app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
+  $scope.isAdding = false;
+
+  $rootScope.alumnoLog = $("#usuarioLog").val();
+  $scope.alumnoLog = $rootScope.alumnoLog;
+
+  $rootScope.idAlumno = $routeParams.id != undefined ? $routeParams.id : $rootScope.idAlumno;
+
+  if($routeParams.idCurs){
+    service.TutorObtenerExamenes($routeParams.idCurs).success(function (data){
+      $scope.examenes = data.datos.examen;
+    })
+  }
+
+  if($routeParams.idModif){
+    $scope.isAdding = true;
+
+    service.TutorObtenerInforme($routeParams.idModif).success(function (data){
+      var fecha = new Date(data.datos.fecha);
+      var date = new Date();
+      date.setDate(fecha.getDate() + 1);
+      //
+      var informe = {
+        'id': data.datos.id,
+        'idAlumno': data.datos.idAlumno,
+        'titulo': data.datos.titulo,
+        'fecha': date,
+        'descripcion': data.datos.descripcion
+      }
+      $scope.informe = informe;
+    })
+  }
+
+  $scope.obtenerAlumnos = function(){
+    service.TutorObtenerAlumnos().success(function (data){
+      $scope.alumnos = data.datos;
+    })
+  }
+
+  $scope.obtenerCursadas = function(id){
+    service.TutorObtenerCursadas(id).success(function (data){
+      $scope.cursadas = data.datos;
+    })
+  }
+
+  $scope.obtenerInformes = function(id){
+    service.TutorObtenerInformes(id).success(function (data){
+      $scope.informes = data.datos;
+    })
+  }
+
+  $scope.agregarInforme = function(informe){
+    informe.idAlumno = $rootScope.idAlumno;
+    if($scope.isAdding){
+      service.TutorActualizarInforme(informe).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe modificado con éxito", 3500);
+        }
+      });
+    }
+    else{
+      service.TutorAgregarInforme(informe).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe cargado con éxito", 3500);
+        }
+      });
+    }
+    $location.path('tutor-informes/'+$rootScope.idAlumno);
+  }
+
+}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.controller('PedidosCtr', ['$scope','service', function ($scope, service) {
   service.getNotificaciones().success(function(data){
     if(data.code===200){
@@ -871,6 +1037,12 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
     service.obtenerTutores().success(function (data){
       $scope.tutores = data.datos;
     })
+  }
+
+  $scope.obtenerInformesTutor = function(){
+      service.obtenerInformesTutor($rootScope.idTutor).success(function (data){
+        $scope.informes = data.datos;
+      })
   }
 
 }]);

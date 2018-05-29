@@ -25,14 +25,14 @@
       </thead>
   
       <tbody>
-        <tr ng-repeat="tutor in tutores">
+        <tr class="collection-item" ng-repeat="tutor in tutores| filter: buscar">
           <td>{{tutor.username}}</td>
           <td>{{tutor.first_name}}</td>
           <td>{{tutor.last_name}}</td>
           <td>
             <a href="#/tutores-agregar/{{tutor.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
             <a href="#/tutores-ver/{{tutor.id}}"><i title="Ver tutor" class="listar-iconos material-icons">search</i></a>
-            <a href="#/tutores-ver-informes/{{tutor.id}}"><i title="Ver informes realizados" class="listar-iconos material-icons">assignment</i></a>
+            <a href="#/tutores-listar-informes/{{tutor.id}}"><i title="Ver informes realizados" class="listar-iconos material-icons">assignment</i></a>
           </td>
          </tr>
       </tbody>

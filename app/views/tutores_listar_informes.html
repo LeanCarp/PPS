@@ -1,6 +1,6 @@
-<main class="listar-container" ng-init="obtenerActividades()">
-    <a href="#/alumnos-listar" class="btn btn-volver">Volver</a>
-    <a href="#/actividad-agregar/{{idAlumno}}" class="btn btn-agregar">Agregar actividad</a>
+<main class="listar-container" ng-init="obtenerInformesTutor()">
+    <a href="#/tutores-listar" class="btn btn-volver">Volver</a>
+      <h3> <strong>Informes</strong> realizados por <strong> {{tutor.nombre}} {{tutor.apellido}}</strong> </h3>
     <div class="nav-wrapper">
         <form>
           <div class="input-field">
@@ -14,15 +14,23 @@
       <table>
         <thead>
           <tr>
+              <th>Fecha</th>
+              <th>Alumno</th>
+              <th>Título</th>
               <th>Descripción</th>
               <th>Opciones</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr ng-repeat="actividad in actividades"> <!--  | filter: buscar -->
-            <td>{{actividad.descripcion}}</td>
-            <td><a title="Ver actividad" href="#/actividades-ver/{{actividad.id}}"><i class="listar-iconos material-icons">find_in_page</i></a></td>
+          <tr ng-repeat="informe in informes"> <!--  | filter: buscar -->
+            <td>{{informe.fecha}}</td>
+            <td>{{informe.usuario.first_name}} {{informe.usuario.last_name}}</td>
+            <td>{{informe.titulo}}</td>
+            <td>{{informe.descripcion}}</td>
+            <td>
+                <!-- <a href="#/informes-modificar/{{informe.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a> -->
+            </td> 
           </tr>
         </tbody>
       </table>

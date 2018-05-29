@@ -50,7 +50,7 @@ class Extras {
       public function ObtenerActividadesUsuario($id)
     {
         $this->CI->load->model('Actividad_model');
-         return  $this->CI->Actividad_model->where('idUsuario', $id)->get_all();
+         return  $this->CI->Actividad_model->where('idUsuario', $id)->with_horario()->get_all();
     }
 
     public function EliminarActividad($id)
@@ -76,6 +76,12 @@ class Extras {
     }
 
     public function ObtenerInformesUsuario($id)
+    {
+        $this->CI->load->model('Informe_model');
+        //Si se pasó un id se busca el informe correspondiente.
+        return  $this->CI->Informe_model->where('idUsuario', $id)->with_usuario()->get_all();
+    }
+        public function ObtenerInformesTutor($id)
     {
         $this->CI->load->model('Informe_model');
         //Si se pasó un id se busca el informe correspondiente.
