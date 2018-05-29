@@ -6,6 +6,7 @@ class Informe extends OWN_Controller{
         parent::__construct();
         $this->load->library('CapaDeNegocio/Bedelia');
         $this->load->library('CapaDeNegocio/Extras');
+        $this->load->library('CapaDeNegocio/Usuario');
     }
 
     public function AgregarInforme()
@@ -14,6 +15,7 @@ class Informe extends OWN_Controller{
         $titulo = $this->rest->post('titulo');
         $fecha = $this->rest->post('fecha');
         $idAlumno = $this->rest->post('idAlumno');
+        $idAutor= $this->usuario->user()->row()->id;
 
         $insert_data = [
                             'descripcion'=>$descripcion,
