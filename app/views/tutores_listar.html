@@ -25,7 +25,7 @@
       </thead>
   
       <tbody>
-        <tr ng-repeat="tutor in tutores">
+        <tr class="collection-item" ng-repeat="tutor in tutores| filter: buscar">
           <td>{{tutor.username}}</td>
           <td>{{tutor.first_name}}</td>
           <td>{{tutor.last_name}}</td>

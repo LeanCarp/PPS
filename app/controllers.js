@@ -224,6 +224,21 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
       }
       
       $scope.comision = comision;
+
+
+      $scope.diaDeSemana=function(numero)
+      {
+        var weekday = new Array(7);
+        weekday[1] =  "Lunes";
+        weekday[2] = "Martes";
+        weekday[3] = "Miércoles";
+        weekday[4] = "Jueves";
+        weekday[5] = "Viernes";
+        weekday[6] = "Sábado";
+        weekday[7] = "Domingo";
+        
+        return weekday[numero];
+      }
     });
   }
 
@@ -370,15 +385,15 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
 
 }]);
 
-app.controller('ActividadCtr', ['$scope', '$routeParams','$location', 'service', function ($scope, $routeParams,$location, service) {
+app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location', 'service', function ($scope, $rootScope, $routeParams,$location, service) {
   $scope.isAdding = false;
 
-  $scope.idAlumno = $routeParams.id;
+  $rootScope.idAlumno=  $rootScope.idAlumno !=undefined ?   $rootScope.idAlumno :  $routeParams.id;
 
   var horarios = [];
   
   $scope.agregarActividad = function(actividad){
-    actividad.idAlumno = $routeParams.id;
+    actividad.idAlumno = $rootScope.idAlumno;
     if($scope.isAdding){
       service.actualizarActividad(informe).success(function(data){
         if (!data.exito){
@@ -403,11 +418,19 @@ app.controller('ActividadCtr', ['$scope', '$routeParams','$location', 'service',
   
   }
 
-  $scope.obtenerActividades = function(idActividad){
-    service.obtenerActividades(idActividad).success(function(data){
+  $scope.obtenerActividades = function(){
+    service.obtenerActividades($rootScope.idAlumno).success(function(data){
       $scope.actividades = data.datos;
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
   }
+  $scope.obtenerActividad = function(){
+    service.obtenerActividad($routeParams.id).success(function(data){
+      $scope.actividad = data.datos;
+    }).error( () => Materialize.toast('Error al obtener actividad', 3500) );
+  }
+
+
+  
 
   $scope.agregarHorario = function(dias, horaDesde, horaHasta){
     console.log(dias);
@@ -917,6 +940,12 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
     service.obtenerTutores().success(function (data){
       $scope.tutores = data.datos;
     })
+  }
+
+  $scope.obtenerInformesTutor = function(){
+      service.obtenerInformesTutor($rootScope.idTutor).success(function (data){
+        $scope.informes = data.datos;
+      })
   }
 
 }]);
