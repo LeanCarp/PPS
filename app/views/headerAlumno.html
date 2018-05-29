@@ -5,24 +5,31 @@
           <ul class="right hide-on-med-and-down">
               <li><a class="">Foro<i class="material-icons right">forum</i></a></li>
               <li><a class="dropdown-button" data-activates="dropdownAlumnos">Alumno<i class="material-icons right">arrow_drop_down</i></a></li>
-              <li><a class="dropdown-button" data-activates="dropdownConfiguracion">Configuración<i class="material-icons right">menu</i></a></li>
+              <!-- <li><a class="dropdown-button" data-activates="dropdownConfiguracion">Configuración<i class="material-icons right">menu</i></a></li> -->
               <li><a class="dropdown-button" data-activates="dropdownUsuario"><img src="assets/img/default-user-image.png" alt="" class="circle img-profile-small"><i class="material-icons right">arrow_drop_down</i></a></li>
           </ul>
           <ul class="side-nav" id="mobile-demo">
               <li><a href="#!" class="disabled">Foro</a></li>
               <li><a href="#!" class="disabled">Alumno</a></li>
-              <li><a href="#!" class="subitem">Administrar</a></li>
-              <li><a href="#!" class="disabled">Configuración</a></li>
-              <li><a href="#!" class="subitem">Ejemplo</a></li>
+              <li><a href="#/alumno-cursadas-listar" class="subitem">Cursadas</a></li>
+              <li><a href="#/alumno-informes-listar" class="subitem">Informes</a></li>
+              <li><a href="#/alumno-actividades-listar" class="subitem">Actividades</a></li>
+              <!-- <li><a href="#!" class="disabled">Configuración</a></li>
+              <li><a href="#!" class="subitem">Ejemplo</a></li> -->
+              <li><a href="#!" class="disabled">Usuario</a></li>
+              <li><a href="#/alumno-perfil" class="subitem">Perfil</a></li>
+              <li><a href="javascript:void(0)" onclick="location.href=(BASE_URL+'auth/logout');" class="subitem">Salir</a></li>
             </ul>
         </div>
       </nav>    
       
       <ul id="dropdownAlumnos" class="dropdown-content">
             <li><a href="#/alumno-cursadas-listar">Cursadas</a></li>
+            <li><a href="#/alumno-informes-listar">Informes</a></li>
+            <li><a href="#/alumno-actividades-listar">Actividades</a></li>
       </ul>
       <ul id="dropdownUsuario" class="dropdown-content">
-        <li><a href="#!">Perfil</a></li>
+        <li><a href="#/alumno-perfil">Perfil</a></li>
         <li class="divider"></li>
         <li><a href="javascript:void(0)" onclick="location.href=(BASE_URL+'auth/logout');">Salir</a></li>
       </ul>

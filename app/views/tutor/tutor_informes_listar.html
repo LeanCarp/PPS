@@ -1,4 +1,6 @@
-<main class="listar-container" ng-init="obtenerCursadasAlumno(alumnoLog)">
+<main class="listar-container" ng-init="obtenerInformes(idAlumno)">
+        <a href="#/tutor-alumnos" class="btn btn-volver">Volver</a>
+        <a href="#/tutor-informes-agregar/{{idAlumno}}" class="btn btn-agregar">Agregar informe</a>
         <div class="nav-wrapper">
             <form>
               <div class="input-field">
@@ -12,21 +14,23 @@
           <table>
             <thead>
               <tr>
-                  <th>Año</th>
-                  <th>Cuatrimestre</th>
-                  <th>Materia</th>
-                  <th>Estado</th>
+                  <th>Fecha</th>
+                  <th>Título</th>
+                  <th>Descripción</th>
+                  <th>Autor</th>
                   <th>Opciones</th>
               </tr>
             </thead>
     
             <tbody>
-              <tr ng-repeat="cursada in cursadas ">
-                <td>{{cursada.comision.anio}}</td>
-                <td>{{cursada.comision.cuatrimestre}}</td>
-                <td>{{cursada.comision.nombreMateria}}</td>
-                <td>{{cursada.estado}}</td>
-                <td><a title="Ver Examenes" href="#/alumno-examenes-listar/{{cursada.id}}"><i class="listar-iconos material-icons">find_in_page</i></a></td>
+              <tr ng-repeat="informe in informes"> <!--  | filter: buscar -->
+                <td>{{informe.fecha}}</td>
+                <td>{{informe.titulo}}</td>
+                <td>{{informe.descripcion}}</td>
+                <td>{{informe.usuario.first_name}} {{informe.usuario.last_name}}</td>
+                <td>
+                    <a href="#/tutor-informes-modificar/{{informe.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
+                </td> 
               </tr>
             </tbody>
           </table>
@@ -46,11 +50,11 @@
           padding: 5px;
         }
         .btn-agregar{
-          margin-top: 20px;
-          margin-left: 20px;
+                margin-top: 20px;
+                margin-left: 20px;
         }
         .btn-volver{
-          margin-top: 20px;
+                margin-top: 20px;
         }
         @media screen and (max-width:800px){
           .listar-container{

@@ -227,6 +227,53 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno/alumno_examenes.html",
       controller: "UserAlumnoCtr"
     })
+    .when("/alumno-informes-listar", {
+      title: 'Informes - Listar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_informes.html",
+      controller: "UserAlumnoCtr"
+    })
+    .when("/alumno-actividades-listar", {
+      title: 'Actividades - Listar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_actividades.html",
+      controller: "UserAlumnoCtr"
+    })
+    .when("/alumno-perfil", {
+      title: 'Alumno - Perfil',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_perfil.html",
+      controller: "UserAlumnoCtr"
+    })
+
+
+    .when("/tutor-alumnos", {
+      title: 'Alumnos - Listar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_alumnos_listar.html",
+      controller: "UserTutorCtr"
+    })
+    .when("/tutor-cursadas/:id", {
+      title: 'Cursadas - Listar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_cursadas_listar.html",
+      controller: "UserTutorCtr"
+    })
+    .when("/tutor-examenes/:idCurs", {
+      title: 'Exámenes - Listar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_examenes_listar.html",
+      controller: "UserTutorCtr"
+    })
+    .when("/tutor-informes/:id", {
+      title: 'Informes - Listar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_informes_listar.html",
+      controller: "UserTutorCtr"
+    })
+    .when("/tutor-informes-agregar/:id", {
+      title: 'Informes - Agregar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_informes_agregar.html",
+      controller: "UserTutorCtr"
+    })
+    .when("/tutor-informes-modificar/:idModif", {
+      title: 'Informes - Modificar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_informes_agregar.html",
+      controller: "UserTutorCtr"
+    })
 
 
 
