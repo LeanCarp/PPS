@@ -418,6 +418,20 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
   
   }
 
+   $scope.diaDeSemana=function(numero)
+      {
+        var weekday = new Array(7);
+        weekday[1] =  "Lunes";
+        weekday[2] = "Martes";
+        weekday[3] = "Miércoles";
+        weekday[4] = "Jueves";
+        weekday[5] = "Viernes";
+        weekday[6] = "Sábado";
+        weekday[7] = "Domingo";
+        
+        return weekday[numero];
+      };
+
   $scope.obtenerActividades = function(){
     service.obtenerActividades($rootScope.idAlumno).success(function(data){
       $scope.actividades = data.datos;
