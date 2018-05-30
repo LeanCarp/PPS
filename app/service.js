@@ -1,6 +1,6 @@
 app.factory('service', ['$http','$rootScope','$location', function($http,$rootScope,$location) { 
-    //Guardo en el $rootScope el id de la casa de comida
-    //$rootScope.casaDeComidas = angular.copy(CASADECOMIDAID);
+    //Guardo en el $rootScope el id dl usuario logueado
+    $rootScope.alumnoLog = angular.copy(USER_ID_LOG);
   
     //Elimino la etiqueta script visible facilmente al usuario
     $('#relevantData').remove();

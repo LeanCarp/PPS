@@ -833,7 +833,7 @@ app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service',
 // Controlador para el usuario logeado ALUMNO.
 app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
 
-  $rootScope.alumnoLog = $("#usuarioLog").val();
+  $rootScope.alumnoLog = USER_ID_LOG;
   $scope.alumnoLog = $rootScope.alumnoLog;
 
   if ($routeParams.idCurs){
@@ -877,7 +877,7 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
 app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
-  $rootScope.alumnoLog = $("#usuarioLog").val();
+  $rootScope.alumnoLog = USER_ID_LOG;
   $scope.alumnoLog = $rootScope.alumnoLog;
 
   $rootScope.idAlumno = $routeParams.id != undefined ? $routeParams.id : $rootScope.idAlumno;

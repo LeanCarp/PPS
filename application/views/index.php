@@ -29,7 +29,8 @@
 
     <!-- //var CASADECOMIDAID = <?= $casadecomidaID ?>; -->
     <script id="relevantData">
-      var BASE_URL='<?= BASE_URL() ?>';
+      var BASE_URL    = '<?= BASE_URL() ?>';
+      var USER_ID_LOG = <?= $idUsuario ?>;
     
     </script>
 
@@ -42,19 +43,16 @@
     
   </head>
   <body>
-    <input id="usuarioLog" type="text" value="<?php echo $idUsuario ?>" hidden>
     <div ng-include="'
     <?php 
-      $url = "";
-      switch ($idGrupo[0]->id){
-        case 1: $url = "app/views/header.html";
-          break;
-        case 2: $url = "app/views/headerAlumno.html";
-          break;
-        case 3: $url = "app/views/headerTutor.html";
-          break;
+      $url = BASE_URL()."app/views/";
+      switch ($idGrupo[0]->id)
+      {
+        case 1: $url .= "header.html";        break;
+        case 2: $url .= "headerAlumno.html";  break;
+        case 3: $url .= "headerTutor.html";   break;
       }
-      echo BASE_URL().$url;
+      echo $url;
     ?>'"></div>
     <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/header.html"'></div> -->
     <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_listar.html"'></div> -->
