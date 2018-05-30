@@ -18,7 +18,7 @@
                         </ul>
                         <h5>Horario:</h5>
                         <ul>
-                            <li ng-repeat="hora in comisiones.horario"><h5>- <strong>{{hora.dia}}</strong> de {{hora.horaInicio}} a {{hora.horaFin}} </h5></li>
+                            <li ng-repeat="hora in comisiones.horario"><h5>- <strong>{{diaDeSemana(hora.dia)}}</strong> de {{hora.horaInicio}} a {{hora.horaFin}} </h5></li>
                         </ul>
                     </div>
                     <div class="input-field col s6">
