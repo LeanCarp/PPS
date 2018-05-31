@@ -87,15 +87,15 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
 
     actualizarArchivo: (archivo) => {
       let urlArchivoctualizar = 'administrador/Archivo/ActualizarArchivo';
-      const archi = {
-        'id': archivo.id,
+      const Archivo = {
+        'id':archivo.id,
         'titulo': archivo.titulo,
         'descripcion': archivo.descripcion,
-        'fuente': archivo.fuente,
+        'ruta': archivo.ruta,
         'idMateria': archivo.idMateria,
-        'tipo':archivo.tipo
+        'tipo':archivo.idCategoriaArchivo
       }
-      return $http.post(urlArchivoctualizar, archi, { responseType: 'json' });
+      return $http.post(urlArchivoctualizar, Archivo, { responseType: 'json' });
     },
 
     agregarComision: (comision) => {

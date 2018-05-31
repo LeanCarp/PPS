@@ -22,6 +22,18 @@ class ManejoArchivo {
         return $this->CI->Archivo_model->insert($data);
     }
 
+     public function ObtenerArchivo($id)
+    {
+        $this->CI->load->model('Archivo_model');
+        return  $this->CI->Archivo_model->get($id);
+    }
+
+    public function ActualizarArchivo($data,$id)
+    {
+        $this->CI->load->model('Archivo_model');
+        return $this->CI->Archivo_model->update($data,$id);
+    }
+
       public function AgregarCategoria($data)
     {
         $this->CI->load->model('Categoriaarchivo_model');

@@ -56,10 +56,10 @@ class Archivo extends OWN_Controller{
     }
 
     public function Leer()
-    {/*
+    {
         $id = $this->rest->post('id');
-        $data = $this->extras->ObtenerArchivo($id);
-        return $this->responseJson(['datos'=>$data]);*/
+        $data = $this->manejoarchivo->ObtenerArchivo($id);
+        return $this->responseJson(['datos'=>$data]);
         
     }
 
@@ -69,6 +69,26 @@ class Archivo extends OWN_Controller{
         $id = $this->rest->post('idUsuario');
         $data = $this->bedelia->ObtenerMateria($id);
         return $this->responseJson(['datos'=>$data]);
+    }
+
+      public function ActualizarArchivo()
+    {
+        $id = $this->rest->post('id');
+        $titulo = $this->rest->post('titulo');
+        $descripcion = $this->rest->post('descripcion');
+        $ruta = $this->rest->post('ruta');
+        $idMateria = $this->rest->post('idMateria');
+        $tipo=$this->rest->post('tipo');
+
+        $update_data = [
+                    'titulo'=>$titulo,
+                    'descripcion'=>$descripcion,
+                    'idMateria'=>$idMateria,
+                    'ruta'=>$ruta,
+                    'idCategoriaArchivo'=> $tipo                        
+                ];
+        return $this->responseJson(['exito'=>$this->manejoarchivo->ActualizarArchivo($update_data,$id)]);
+
     }
 
     

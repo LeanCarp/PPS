@@ -539,32 +539,20 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
 app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   $scope.isAdding = false;
  
-   $rootScope.idMateria =$routeParams.id !=undefined ?  $routeParams.id  : $rootScope.idMateria;
+   $rootScope.idMateria =$rootScope.idMateria!=undefined ?   $rootScope.idMateria : $routeParams.id ;
 
-if ($routeParams.id){
-    $scope.isAdding = true;
-    var idMateria = $routeParams.id;
 
-    service.obtenerArchivosMateria(idMateria).success(function(data){
-      $scope.archivo = data.datos[0].archivo;
+  $scope.obtenerDatosArchivoAgregar = function(){
+    service.obtenerArchivo($routeParams.id).success(function(data){
+        $scope.archivo = data.datos;
+        if ($scope.archivo.idCategoriaArchivo==1)
+        $scope.archivo.link=$scope.archivo.ruta;
     });
   }
 
   $scope.agregarArchivo= function(archivo){
     // Si está modificando actualiza
       archivo.idMateria=$rootScope.idMateria;
-
-    if ($scope.isAdding){
-      service.actualizarArchivo(archivo).success(function(data){
-        if (!data.exito){
-          Materialize.toast("No se pudo modificar el archivo", 3500);
-        }
-        else{
-          Materialize.toast("Archivo modificado con éxito", 3500);
-        }
-      });
-    }
-    else{
       //Si es link
       if (archivo.link!= undefined)
       {
@@ -577,6 +565,19 @@ if ($routeParams.id){
         //wachin
         archivo.tipo=2;
       }
+
+    if ($scope.isAdding){
+      service.actualizarArchivo(archivo).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar el archivo", 3500);
+        }
+        else{
+          Materialize.toast("Archivo modificado con éxito", 3500);
+        }
+      });
+    }
+    else{
+      
       
       service.agregarArchivo(archivo).success(function(data){
         if (!data.exito){
@@ -592,7 +593,7 @@ if ($routeParams.id){
   }
 
   $scope.obtenerArchivosMateria = function(){
-    service.obtenerArchivosMateria($routeParams.id).success(function(data){
+    service.obtenerArchivosMateria($rootScope.idMateria).success(function(data){
         $scope.archivos =data.datos[0].archivo;
     }).error( () => Materialize.toast('Error al obtener Archivos', 3500) );
   }
