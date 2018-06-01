@@ -482,17 +482,11 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
 
 }]);
 
-app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
-  if ($routeParams.id){
-    $scope.isAdding = true;
-    var idMateria = $routeParams.id;
-
-    service.obtenerMaterias(idMateria).success(function(data){
-      $scope.materia = data.datos;
-    });
-  }
+  
+ 
 
   $scope.agregarMateria = function(materia){
     // Si está modificando actualiza
@@ -519,6 +513,14 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
     $scope.obtenerMaterias();
     $location.path('/materias-listar');
   }
+  
+  $scope.obtenerDatosMateriaAgregar = function(){
+     $scope.isAdding = true;
+    service.obtenerMaterias($routeParams.id).success(function(data){
+        $scope.materia = data.datos;
+    });
+  }
+
 
   $scope.obtenerMaterias = function(){
     service.obtenerMaterias(null).success(function(data){
@@ -538,11 +540,11 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
 
 app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   $scope.isAdding = false;
- 
-   $rootScope.idMateria =$rootScope.idMateria!=undefined ?   $rootScope.idMateria : $routeParams.id ;
+
 
 
   $scope.obtenerDatosArchivoAgregar = function(){
+     $scope.isAdding = true;
     service.obtenerArchivo($routeParams.id).success(function(data){
         $scope.archivo = data.datos;
         if ($scope.archivo.idCategoriaArchivo==1)
@@ -593,8 +595,9 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
   }
 
   $scope.obtenerArchivosMateria = function(){
+    $rootScope.idMateria = $routeParams.id!=undefined ?   $routeParams.id : $rootScope.idMateria ;
     service.obtenerArchivosMateria($rootScope.idMateria).success(function(data){
-        $scope.archivos =data.datos[0].archivo;
+        $scope.archivos =data.datos.archivo;
     }).error( () => Materialize.toast('Error al obtener Archivos', 3500) );
   }
 
