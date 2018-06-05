@@ -57,7 +57,7 @@ class Foro {
         if(is_null($id))
                 return  $this->CI->Tema_model->with_categoria()->with_mensajeForo()->get_all();
         //Si no se pasó nada, se buscan todas.
-            return  $this->CI->Tema_model->with_categoria()->with_mensajeForo()->get($id);
+            return  $this->CI->Tema_model->where('idCategoriaForo', $id)->with_categoria()->with_mensajeForo()->get();
     }
 
      public function ActualizarTema($data,$id)
@@ -81,7 +81,7 @@ class Foro {
     public function ObtenerMensaje($id)
     {
         $this->CI->load->model('Mensajeforo_model');
-        return  $this->CI->Mensajeforo_model->with_usuario()->with_tema()->get($id);
+        return  $this->CI->Mensajeforo_model->where('idTema', $id)->with_usuario()->with_tema()->get();
     }
 
       public function EliminarMensaje($id)

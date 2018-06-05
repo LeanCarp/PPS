@@ -484,6 +484,15 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       let urlAlumnoObtener = 'alumno/Alumno/Leer';
       return $http.post(urlAlumnoObtener, id,{ responseType: 'json' });
     },
+    AlumnoModificar: (alumno) => {
+      const alumn = {
+          'id': alumno.id,
+          'email': alumno.email,
+          'phone': alumno.telefono,
+      }
+      let urlAlumnoActualizar = 'alumno/Alumno/Actualizar';
+      return $http.post(urlAlumnoActualizar, alumn, { responseType: 'json' });
+    },
 
     TutorObtenerAlumnos: () =>{
       let urlAlumnoObtener = 'tutor/Alumno/ObtenerAlumnos';
@@ -543,6 +552,56 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         'idInforme': informe.id
       }
       return $http.post(urlInformeActualizar, infor, { responseType: 'json' });
+    },
+
+    AdminObtenerAdministrador: (idAdmin) => {
+        let urlAdminObtener='administrador/Alumnos/Leer';
+        const id = {
+          'idAlumno': idAdmin,
+        }
+        return $http.post(urlAdminObtener, id, { responseType: 'json' });
+    },
+
+    foroAgregarCategoria: (categoria) => {
+      let urlForoAgregar='administrador/ForoAd/AgregarCategoria';
+      const cat = {
+        'nombre': categoria.nombre,
+      }
+      return $http.post(urlForoAgregar, cat, { responseType: 'json' });
+    },
+
+    foroObtenerCategorias: (id) => {
+      let urlForoObtener='administrador/ForoAd/LeerCategoria';
+      const idCat = {
+        'id': id
+      }
+      return $http.post(urlForoObtener, idCat, { responseType: 'json' });
+    },
+
+    foroAgregarTema: (tema) => {
+      let urlForoAgregar='administrador/ForoAd/AgregarTema';
+      return $http.post(urlForoAgregar, tema, { responseType: 'json' });
+    },
+
+    foroObtenerTemas: (id) => {
+      let urlForoObtener='administrador/ForoAd/LeerTema';
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoObtener, idTema, { responseType: 'json' });
+    },
+
+    foroAgregarMensaje: (mensaje) => {
+      let urlForoAgregar='administrador/ForoAd/AgregarMensaje';
+      return $http.post(urlForoAgregar, mensaje, { responseType: 'json' });
+    },
+
+    foroObtenerMensajes: (id) => {
+      let urlForoObtener='administrador/ForoAd/LeerMensaje';
+      const idMensaje = {
+        'id': id
+      }
+      return $http.post(urlForoObtener, idMensaje, { responseType: 'json' });
     },
 
 

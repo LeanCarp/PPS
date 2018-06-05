@@ -23,4 +23,18 @@ class Alumno extends OWN_Controller{
 
         return $this->responseJson(['datos'=>$data]);
     }
+
+    public function Actualizar(){
+        
+        $this->load->model('User_model');
+        $id = $this->rest->post('id');
+		$data = array(
+                        'email' => $this->rest->post('email'),
+                        'phone'=> $this->rest->post('phone'),
+                        );
+
+        return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]);
+    }
+
+
 }
