@@ -1,6 +1,12 @@
 app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
+    $scope.getAlumnos= function(id){
+    service.getAlumnos().success(function (data){
+      $scope.alumnos = data.datos;
+    })
+  }
+
   if ($routeParams.id)
   {
     $scope.isAdding = true;
@@ -22,10 +28,9 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
     })
   }
   else{
-    service.getAlumnos().success(function (data){
-      $scope.alumnos = data.datos;
-    })
+   $scope.getAlumnos();
   }
+
 
 
   $scope.agregarAlumno = function(alumno){
@@ -50,7 +55,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
         }
       }).error( () => Materialize.toast('Erro al obtener alumnos', 3500) );
     }
-
+    $scope.getAlumnos();
     $location.path('/alumnos-listar');
   }
 
@@ -1003,7 +1008,7 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
   $scope.isAdding = false;
   
   // HACER LA REDIRECCION POR SI EL ID ES VACIO
-  $rootScope.idTutor = $routeParams.id != undefined ?  $routeParams.id : $rootScope.idTutor;
+  $rootScope.idTutor = $routeParams.idTutor != undefined ?  $routeParams.idTutor: $rootScope.idTutor;
 
   if ($routeParams.idTutor){
     $scope.isAdding = true;
@@ -1047,7 +1052,7 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
         }
       }).error( () => Materialize.toast('Error al obtener Cursadas', 3500) );
     }
-
+    $scope.obtenerTutores();
     $location.path('/tutores-listar');
   }
 
