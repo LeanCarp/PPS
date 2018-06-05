@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-05-2018 a las 03:24:47
+-- Tiempo de generación: 05-06-2018 a las 16:27:47
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 5.6.33
 
@@ -34,32 +34,6 @@ CREATE TABLE `actividad` (
   `idUsuario` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `actividad`
---
-
-INSERT INTO `actividad` (`id`, `descripcion`, `idUsuario`) VALUES
-(1, 'futbol', 3),
-(2, 'probando a ver', 3),
-(3, 'probando a ver', 3),
-(4, 'probando a ver', 3),
-(5, 'probando a ver', 3),
-(6, 'probando a ver', 3),
-(7, 'asdasdasdsdasd', 3),
-(8, 'jojojojojo', 3),
-(9, 'jejejejejejejeje', 3),
-(10, 'gegegegege', 3),
-(11, 'asdasdasdasdas', 3),
-(12, 'dedededede', 3),
-(13, 'dedededede', 3),
-(14, 'fefefefefefefe', 3),
-(15, 'gegegegegege', 3),
-(16, 'eheheheheheehe', 3),
-(17, 'jejejeje', 3),
-(18, 'dasdasdasd', 3),
-(19, 'dasdasdasdas', 3),
-(20, 'gegegege', 3);
-
 -- --------------------------------------------------------
 
 --
@@ -80,10 +54,12 @@ CREATE TABLE `archivo` (
 --
 
 INSERT INTO `archivo` (`id`, `titulo`, `descripcion`, `ruta`, `idMateria`, `idCategoriaArchivo`) VALUES
-(1, 'video de vectores', 'parcial 1 bla bla', 'mi tube .com', 1, 1),
+(1, 'ex video de vectores ahora es otra cosa', 'parcial 1 bla bla', 'youtube.com.ar', 1, 1),
 (2, 'probando titutlo', 'probando descrip', 'documento probando fuente', 1, 1),
 (3, 'jojode', 'fefefefefe', 'a ver ga', 1, 1),
-(4, 'probando title', 'descrip', 'www.hotmail.com', 1, 1);
+(4, 'probando title', 'descrip', 'www.hotmail.com', 1, 1),
+(5, 'queseyoo', 'probnado', 'localhost', 2, 1),
+(6, 'gegege', 'parcial 1 bla bla', 'adasdasde.com.ar', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -133,7 +109,19 @@ CREATE TABLE `ciudad` (
 --
 
 INSERT INTO `ciudad` (`id`, `nombre`, `idPais`) VALUES
-(6, 'Habana', 1);
+(6, 'Habana', 1),
+(7, 'Gualeguaychú', 2),
+(8, 'Concepción del Uruguay', 2),
+(9, 'Concordia', 2),
+(10, 'Colón', 2),
+(11, 'San José', 2),
+(12, 'Chajarí', 2),
+(13, 'Caseros', 2),
+(14, 'Mantero', 2),
+(15, 'Aldea San Antonio', 2),
+(16, 'Urdinarrain', 2),
+(17, 'La Roque', 2),
+(18, 'Paysandú', 3);
 
 -- --------------------------------------------------------
 
@@ -176,11 +164,7 @@ CREATE TABLE `cursada` (
 --
 
 INSERT INTO `cursada` (`id`, `estado`, `nota`, `idUsuario`, `idComision`) VALUES
-(1, 'cursando', NULL, 3, 1),
-(2, 'Libre', NULL, 1, 1),
-(3, 'Promocionado', NULL, 3, 2),
-(4, 'Regular', NULL, 3, 2),
-(5, 'Libre', NULL, 3, 2);
+(2, 'Libre', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -220,7 +204,9 @@ CREATE TABLE `escuela` (
 --
 
 INSERT INTO `escuela` (`id`, `nombre`, `orientacion`, `idCiudad`) VALUES
-(1, 'Pio 12', 'humanidades', 6);
+(1, 'Pio 12', 'humanidades', 6),
+(2, 'Villa Malvina', 'Humaninades', 7),
+(3, 'Villa Malvina', 'Economía', 7);
 
 -- --------------------------------------------------------
 
@@ -237,16 +223,6 @@ CREATE TABLE `examen` (
   `comentario` text COLLATE utf8_spanish2_ci,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `examen`
---
-
-INSERT INTO `examen` (`id`, `idCursada`, `tipo`, `descripcion`, `nota`, `comentario`, `fecha`) VALUES
-(1, 1, 'Parcial', 'primer parcial', 9, NULL, '2018-05-02'),
-(2, 1, 'Diagnóstico', 'matricesde', 10, NULL, '2018-05-17'),
-(4, 1, 'Diagnóstico', 'vectores canonicos', 8, NULL, '2018-05-24'),
-(5, 1, 'Final', 'jojo', 8, 'muy buen final', '2018-05-10');
 
 -- --------------------------------------------------------
 
@@ -302,16 +278,19 @@ CREATE TABLE `informe` (
   `titulo` varchar(80) COLLATE utf8_spanish2_ci NOT NULL,
   `descripcion` text COLLATE utf8_spanish2_ci NOT NULL,
   `fecha` date NOT NULL,
-  `idUsuario` int(11) UNSIGNED NOT NULL
+  `idUsuario` int(11) UNSIGNED NOT NULL,
+  `idAutor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `informe`
 --
 
-INSERT INTO `informe` (`id`, `titulo`, `descripcion`, `fecha`, `idUsuario`) VALUES
-(1, 'informe del dia', 'se porta bien ademas se chamuya a todaas.\nle va mal en la facultad \nes un perro\nputo\ny no para de salir de joda', '2018-05-18', 3),
-(2, 'probando romper todo', 'ahi viene ramoooon la allegria de mi almaaa\nmuchachos por favor no desesperennn jejejejejejejejiiijejejejeiiii\nhoy es viernes y tu cuerpo lo sabeeee\ndasdasdasdasdasdasd jejee cartonn rompiendo todoooo a ver gastonn', '2018-05-31', 3);
+INSERT INTO `informe` (`id`, `titulo`, `descripcion`, `fecha`, `idUsuario`, `idAutor`) VALUES
+(1, 'informe del dia', 'se porta bien ademas se chamuya a todaas.\nle va mal en la facultad \nes un perro\nputo\ny no para de salir de joda', '2018-05-18', 7, 6),
+(2, 'probando romper todo', 'ahi viene ramoooon la allegria de mi almaaa\nmuchachos por favor no desesperennn jejejejejejejejiiijejejejeiiii\nhoy es viernes y tu cuerpo lo sabeeee\ndasdasdasdasdasdasd jejee cartonn rompiendo todoooo a ver gastonn', '2018-05-31', 8, 1),
+(3, 'dasdasdasdas', 'jujujuujujujujujuju', '2018-06-15', 8, 6),
+(4, 'jojojojijiujujujojuijiunijnk', 'esta es una descripcion v2', '2018-06-15', 8, 1);
 
 -- --------------------------------------------------------
 
@@ -342,7 +321,8 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id`, `nombre`) VALUES
-(1, 'Analisis 2');
+(1, 'Analisis 2'),
+(2, 'jojojo');
 
 -- --------------------------------------------------------
 
@@ -375,7 +355,12 @@ CREATE TABLE `pais` (
 --
 
 INSERT INTO `pais` (`id`, `nombre`) VALUES
-(1, 'Cuba');
+(1, 'Cuba'),
+(2, 'Argentina'),
+(3, 'Uruguay'),
+(4, 'Paraguay'),
+(5, 'Chile'),
+(6, 'Brasil');
 
 -- --------------------------------------------------------
 
@@ -444,12 +429,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `anioIngreso`, `carrera`, `idEscuela`) VALUES
-(1, '127.0.0.1', 'admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1527556425, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, NULL),
-(3, '::1', '38570363', '$2y$08$7MXvz24gDNWVQTv8zEKJ.e04m3oFvRqkX0d92YoaxSau0FxBnB47u', NULL, 'martin.cuba459@gmail.com', NULL, NULL, NULL, NULL, 1525808177, NULL, 1, 'martin', 'cuba', NULL, '3446348690', 2013, 'ISI', 1),
-(4, '::1', '38570363', '$2y$08$KqVU7fqFTCGuJGh6Fqm7UuA36GF8vBCG07.6uHBa1sn.z0HMncDNq', NULL, 'valeco@gmail.com', NULL, NULL, NULL, NULL, 1527166272, NULL, 1, 'Valentin', 'Costa', NULL, '1234', NULL, NULL, NULL),
-(5, '::1', '38570366', '$2y$08$piMf09d2ebYee3cHG7nH1ewDX5gv2JcWyHWx17hB7C0SxOKMZgljK', NULL, 'jojojo@jojo.com', NULL, NULL, NULL, NULL, 1527166323, NULL, 1, 'valentin', 'costa', NULL, '1234', NULL, NULL, NULL),
-(6, '::1', '38570367', '$2y$08$AF8MVo9FrTXuMjfpOUE4TOiykTEyRKFJgYxGdhvp0jvhTzV/z8CFa', NULL, 'martinaljeandro@g.com', NULL, NULL, NULL, NULL, 1527166470, NULL, 1, 'valentin', 'costa', NULL, '1234456', NULL, NULL, NULL),
-(7, '::1', '12345678', '$2y$08$4LAlqWb1RdPZzoIFp2zFNu6OyKMsluOoR41Dm14/qMiIskVXEpDPC', NULL, '12334567@123.com', NULL, NULL, NULL, NULL, 1527166582, 1527167066, 1, 'prueba', 'prueba', NULL, '123454567', NULL, NULL, NULL);
+(1, '127.0.0.1', 'admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1528204870, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, NULL),
+(6, '::1', '38570367', '$2y$08$AF8MVo9FrTXuMjfpOUE4TOiykTEyRKFJgYxGdhvp0jvhTzV/z8CFa', NULL, 'martinaljeandro@g.com', NULL, NULL, NULL, NULL, 1527166470, NULL, 1, 'valentiN', 'costa', NULL, '1234456', NULL, NULL, NULL),
+(7, '::1', '12345678', '$2y$08$4LAlqWb1RdPZzoIFp2zFNu6OyKMsluOoR41Dm14/qMiIskVXEpDPC', NULL, '12334567@123.com', NULL, NULL, NULL, NULL, 1527166582, 1527167066, 1, 'prueba', 'prueba', NULL, '123454567', NULL, NULL, NULL),
+(8, '::1', '303456', '$2y$08$mueSygtTJduWEtRjhQ8cIemST2cO3mYqHypkU2N8f1VYGsZgoUa5G', NULL, 'email@email.com', NULL, NULL, NULL, NULL, 1527876058, NULL, 1, 'pedro', 'rodriguez', NULL, '12121212', 2040, 'ING', 1),
+(9, '::1', '34343434', '$2y$08$j91rrsHKVtrfmvevGMw1eOK2iDPlc4fGauHicmvpAb26vy.czNqd2', NULL, '34@34.com', NULL, NULL, NULL, NULL, 1528207309, NULL, 1, 'Ricardo', 'Montaner', NULL, '3434', NULL, NULL, NULL),
+(10, '::1', '37373671', '$2y$08$vthr9qkXQty6Yq9/vwGgsO3qI6kWjKA9G0oUfwNanbUkS1FSL9oHe', NULL, 'email@email.com', NULL, NULL, NULL, NULL, 1528207591, NULL, 1, 'julio', 'Ricardo', NULL, '54549656', NULL, NULL, NULL),
+(11, '::1', '3436375', '$2y$08$PKss8FPGbxRjcCBhnBHeRekLhoyHJwytTFuzRyQ/TLn5XglSSQvdq', NULL, 'emal@email.com', NULL, NULL, NULL, NULL, 1528207671, NULL, 1, 'juan jose', 'lopez', NULL, '23245232', 2014, 'CIV', 1),
+(12, '::1', '9989889', '$2y$08$7wYqpTYea9ktxwqBs3.s0.4VI14Wfq5gfG7jLbgBIdyrdrrqDrlZi', NULL, '8982@989.com', NULL, NULL, NULL, NULL, 1528207735, NULL, 1, 'Juan Carlos', 'Aguilar', NULL, '89898989', 2015, 'ISI', 1),
+(13, '::1', '10010', '$2y$08$bXrZ7Kemm/AswoMd4053QOHkTjH4VU2fWj7eh7oTK/weZm28.AsG2', NULL, 'ldrn@chr.com', NULL, NULL, NULL, NULL, 1528208099, NULL, 1, 'Daniel', 'Pasarella', NULL, '303456', 2016, 'ISI', 1);
 
 -- --------------------------------------------------------
 
@@ -469,9 +457,14 @@ CREATE TABLE `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
-(3, 3, 2),
 (6, 6, 3),
-(8, 7, 1);
+(8, 7, 1),
+(9, 8, 2),
+(10, 9, 3),
+(11, 10, 3),
+(12, 11, 2),
+(13, 12, 2),
+(14, 13, 2);
 
 --
 -- Índices para tablas volcadas
@@ -638,7 +631,7 @@ ALTER TABLE `actividad`
 -- AUTO_INCREMENT de la tabla `archivo`
 --
 ALTER TABLE `archivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `categoriaarchivo`
@@ -656,7 +649,7 @@ ALTER TABLE `categoriaforo`
 -- AUTO_INCREMENT de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `comision`
@@ -680,7 +673,7 @@ ALTER TABLE `dicta`
 -- AUTO_INCREMENT de la tabla `escuela`
 --
 ALTER TABLE `escuela`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `examen`
@@ -698,13 +691,13 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT de la tabla `horario`
 --
 ALTER TABLE `horario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `informe`
 --
 ALTER TABLE `informe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `login_attempts`
@@ -716,7 +709,7 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajeforo`
@@ -728,7 +721,7 @@ ALTER TABLE `mensajeforo`
 -- AUTO_INCREMENT de la tabla `pais`
 --
 ALTER TABLE `pais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
@@ -746,13 +739,13 @@ ALTER TABLE `tema`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas

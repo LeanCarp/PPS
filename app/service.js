@@ -211,10 +211,10 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return  $http.post(urlInformeObtener, id, { responseType: 'json' });
     },
         // Obtiene los informes realizados por un tutor
-    obtenerInformesTutor: (idUsuario) => {
+    obtenerInformesTutor: (idTutor) => {
       let urlInformeObtener='administrador/Tutores/ObtenerInformes';
       const id = {
-        'idUsuario': idUsuario
+        'idUsuario': idTutor
       }
       return  $http.post(urlInformeObtener, id, { responseType: 'json' });
     },

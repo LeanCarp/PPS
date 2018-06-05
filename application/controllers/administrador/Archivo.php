@@ -66,7 +66,7 @@ class Archivo extends OWN_Controller{
       public function ObtenerArchivosMateria()
     {
         
-        $id = $this->rest->post('idUsuario');
+        $id = $this->rest->post('id');
         $data = $this->bedelia->ObtenerMateria($id);
         return $this->responseJson(['datos'=>$data]);
     }

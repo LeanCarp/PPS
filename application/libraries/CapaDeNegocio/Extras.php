@@ -79,13 +79,14 @@ class Extras {
     {
         $this->CI->load->model('Informe_model');
         //Si se pasó un id se busca el informe correspondiente.
-        return  $this->CI->Informe_model->where('idUsuario', $id)->with_usuario()->get_all();
+        return  $this->CI->Informe_model->where('idUsuario', $id)->with_usuario()->with_autor()->get_all();
     }
         public function ObtenerInformesTutor($id)
     {
         $this->CI->load->model('Informe_model');
-        //Si se pasó un id se busca el informe correspondiente.
-        return  $this->CI->Informe_model->where('idUsuario', $id)->with_usuario()->get_all();
+         if(is_null($id))
+            return false;
+        return  $this->CI->Informe_model->where('idAutor', $id)->with_usuario()->with_autor()->get_all();
     }
 
       public function ActualizarInforme($data,$id)

@@ -22,6 +22,7 @@ class Informe extends OWN_Controller{
                             'titulo'=>$titulo,
                             'fecha'=>$fecha,
                             'idUsuario'=>$idAlumno,
+                            'idAutor'=>$idAutor
                 ];
         return $this->responseJson(['exito'=>$this->extras->AgregarInforme($insert_data)]);
     }
