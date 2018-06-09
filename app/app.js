@@ -1,4 +1,4 @@
-var app = angular.module('AlumnosApp', [ 'ngRoute']);
+var app = angular.module('AlumnosApp', [ 'ngRoute','ngFileUpload']);
 
 app.run(['$rootScope', function($rootScope) {
   $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {

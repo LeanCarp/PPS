@@ -538,10 +538,12 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
 
 app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   $scope.isAdding = false;
- 
-   $rootScope.idMateria =$routeParams.id !=undefined ?  $routeParams.id  : $rootScope.idMateria;
+  $scope.fuenteArchivo = false;
+  $scope.archivo = {titulo:'', descripcion:'', link:''};
 
-if ($routeParams.id){
+  $rootScope.idMateria =$routeParams.id !=undefined ?  $routeParams.id  : $rootScope.idMateria;
+
+  if ($routeParams.id){
     $scope.isAdding = true;
     var idMateria = $routeParams.id;
 
@@ -590,6 +592,14 @@ if ($routeParams.id){
     $scope.obtenerArchivosMateria();
     $location.path('/archivo-listar/'+archivo.idMateria);
   }
+
+  $scope.archivoParaSubir_O_LinkNoVacio = function(){
+    return (
+      ($scope.fuenteArchivo == false && $scope.archivo.link != "" )//Link
+      ||
+      ($scope.fuenteArchivo == true && $scope.archivoAsubir != undefined )//Archivo
+    )
+  };
 
   $scope.obtenerArchivosMateria = function(){
     service.obtenerArchivosMateria($routeParams.id).success(function(data){
