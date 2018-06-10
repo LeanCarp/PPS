@@ -252,6 +252,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno/alumno_perfil.html",
       controller: "UserAlumnoCtr"
     })
+    .when("/alumnos-perfil-editar", {
+      title: 'Perfil - Editar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_editar.html",
+      controller: "UserAlumnoCtr"
+    })
 
 
     .when("/tutor-alumnos", {
@@ -283,6 +288,41 @@ app.config(['$routeProvider', function ($routeProvider) {
       title: 'Informes - Modificar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_agregar.html",
       controller: "UserTutorCtr"
+    })
+    .when("/admin-ver", {
+      title: 'Usuario - Perfil',
+      templateUrl: BASE_URL + "app/views/admin_ver.html",
+      controller: "AdminCtr"
+    })
+    .when("/foro-admin", {
+      title: 'Foro - Categorías',
+      templateUrl: BASE_URL + "app/views/admin_foro.html",
+      controller: "ForoCtr"
+    })
+    .when("/foro-agregarCat", {
+      title: 'Foro - Categorías - Agregar',
+      templateUrl: BASE_URL + "app/views/admin_foro_agregarCat.html",
+      controller: "ForoCtr"
+    })
+    .when("/foro-agregarTema/:idCat", {
+      title: 'Foro - Temas - Agregar',
+      templateUrl: BASE_URL + "app/views/admin_foro_agregarTema.html",
+      controller: "ForoCtr"
+    })
+    .when("/foro-temas/:idCat", {
+      title: 'Foro - Temas',
+      templateUrl: BASE_URL + "app/views/admin_foro_temas.html",
+      controller: "ForoCtr"
+    })
+    .when("/foro-mensajes/:idTema", {
+      title: 'Foro - Mensajes',
+      templateUrl: BASE_URL + "app/views/admin_foro_mensajes.html",
+      controller: "ForoCtr"
+    })
+    .when("/foro-agregarMensaje/:idTema", {
+      title: 'Foro - Mensajes - Agregar',
+      templateUrl: BASE_URL + "app/views/admin_foro_agregarMensaje.html",
+      controller: "ForoCtr"
     })
 
 

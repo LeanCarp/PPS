@@ -1,0 +1,17 @@
+<main class="container" ng-init="obtenerCategorias()">
+
+    <a href="#/foro-agregarCat" class="btn btn-agregar">Agregar categoría</a>
+
+    <ul class="collection with-header">
+        <li class="collection-header"><h4>Foro</h4></li>
+        <li class="collection-item" ng-repeat="categoria in categorias"><a href="#/foro-temas/{{categoria.id}}">{{categoria.nombre}}</a></li>
+    </ul>
+    
+</main>
+
+<style>
+    .btn-agregar{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>

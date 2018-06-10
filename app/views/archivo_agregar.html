@@ -1,8 +1,7 @@
-<main class="container">
+<main class="container" ng-init="initialize()">
         <a href="#/archivo-listar/{{idMateria}}" class="btn btn-agregar">Volver</a>
 
-        <h2 ng-show="!isAdding">Agregar <strong>archivo</strong></h2>
-        <h2 ng-show="isAdding">Modificar <strong>archivo</strong></h2>
+        <h2>{{ isAdding ? 'Agregar' : 'Modificar' }} <strong>archivo</strong></h2>
     
         <div class="row">
             <form id="formArchivo" name="formArchivo" class="col s12" ng-submit="agregarArchivo(archivo)">
@@ -58,9 +57,10 @@
                     </div>
                 </div>
 
-                
-                <input type="submit" class="btn" value="Agregar" ng-show="!isAdding" ng-disabled="formArchivo.$invalid || ( !formArchivo.$invalid && !archivoParaSubir_O_LinkNoVacio())">
-                <input type="submit" class="btn" value="Modificar" ng-show="isAdding" ng-disabled="formArchivo.$invalid || ( !formArchivo.$invalid && !archivoParaSubir_O_LinkNoVacio())">
+                <!-- Btn Agregar -->
+                <input type="submit" class="btn" value="Agregar" ng-show="isAdding" ng-disabled="formArchivo.$invalid || ( !formArchivo.$invalid && !archivoParaSubir_O_LinkNoVacio())">
+                <!-- Btn Modificar -->
+                <input type="submit" class="btn" value="Modificar" ng-show="!isAdding" ng-disabled="formArchivo.$invalid || ( !formArchivo.$invalid && !archivoParaSubir_O_LinkNoVacio())">
             </form>
         </div>
     </main>
@@ -69,8 +69,7 @@
         $('select').material_select();
     </script>
 
-    <style>
-       
+    <style>       
         .selects{
             padding: 0 !important;
         }

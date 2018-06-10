@@ -1,6 +1,12 @@
 app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
+    $scope.getAlumnos= function(id){
+    service.getAlumnos().success(function (data){
+      $scope.alumnos = data.datos;
+    })
+  }
+
   if ($routeParams.id)
   {
     $scope.isAdding = true;
@@ -22,10 +28,9 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
     })
   }
   else{
-    service.getAlumnos().success(function (data){
-      $scope.alumnos = data.datos;
-    })
+   $scope.getAlumnos();
   }
+
 
 
   $scope.agregarAlumno = function(alumno){
@@ -50,7 +55,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
         }
       }).error( () => Materialize.toast('Erro al obtener alumnos', 3500) );
     }
-
+    $scope.getAlumnos();
     $location.path('/alumnos-listar');
   }
 
@@ -66,6 +71,19 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
       $scope.alumno = data.datos;
     })
   }
+}]);
+
+app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
+    $scope.isAdding = false;
+
+    $rootScope.idAdmin = USER_ID_LOG;
+
+    $scope.obtenerAdministrador = function (id){
+      service.AdminObtenerAdministrador(id).success(function (data){
+        console.log(data);
+        $scope.administrador = data.datos;
+      })
+    }
 }]);
 
 app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -482,17 +500,11 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
 
 }]);
 
-app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
-  if ($routeParams.id){
-    $scope.isAdding = true;
-    var idMateria = $routeParams.id;
-
-    service.obtenerMaterias(idMateria).success(function(data){
-      $scope.materia = data.datos;
-    });
-  }
+  
+ 
 
   $scope.agregarMateria = function(materia){
     // Si está modificando actualiza
@@ -519,6 +531,14 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
     $scope.obtenerMaterias();
     $location.path('/materias-listar');
   }
+  
+  $scope.obtenerDatosMateriaAgregar = function(){
+     $scope.isAdding = true;
+    service.obtenerMaterias($routeParams.id).success(function(data){
+        $scope.materia = data.datos;
+    });
+  }
+
 
   $scope.obtenerMaterias = function(){
     service.obtenerMaterias(null).success(function(data){
@@ -537,26 +557,64 @@ app.controller('MateriaCtr', ['$scope', '$routeParams', '$location', 'service', 
 
 
 app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
-  $scope.isAdding = false;
-  $scope.fuenteArchivo = false;
-  $scope.archivo = {titulo:'', descripcion:'', link:''};
+  
+  $scope.initialize = function()
+  {
+    if( $location.url().includes('archivo-listar') )
+    {
+      $scope.archivos = [];
+      // Seteamos el ID de la Materia de la cual se mostraran los archivos/links
+      $rootScope.idMateria = $routeParams.id;
+      $scope.obtenerArchivosMateria();
+    }
+    else
+    {
+      $scope.archivo = {titulo:'', descripcion:'', link:''};
+      $scope.fuenteArchivo = false;
 
-  $rootScope.idMateria =$routeParams.id !=undefined ?  $routeParams.id  : $rootScope.idMateria;
+      //Agregar o modificar un archivo
+      if( $routeParams.id != undefined )
+      {
+        // Se obtiene el archivo correspondiente por el ID que viene en el URL
+        $scope.obtenerDatosArchivo( $routeParams.id );
+        $scope.isAdding = false;
+      }
+      else
+      {
+        $scope.isAdding = true;
+      }
+    }
+  };
 
-  if ($routeParams.id){
+  $scope.obtenerDatosArchivo = function()
+  {
     $scope.isAdding = true;
-    var idMateria = $routeParams.id;
-
-    service.obtenerArchivosMateria(idMateria).success(function(data){
-      $scope.archivo = data.datos[0].archivo;
+    service.obtenerArchivo($routeParams.id).success( function(data){
+        $scope.archivo = data.datos;
+        if ($scope.archivo.idCategoriaArchivo==1)
+          $scope.archivo.link=$scope.archivo.ruta;
     });
-  }
+  };
 
-  $scope.agregarArchivo= function(archivo){
-    // Si está modificando actualiza
-      archivo.idMateria=$rootScope.idMateria;
+  $scope.agregarArchivo = function(archivo)
+  {
+    // Seteamos la materia a la que pertenece
+    archivo.idMateria=$rootScope.idMateria;
+    //Si es link
+    if (archivo.link!= undefined)
+    {
+      archivo.ruta=archivo.link;
+      archivo.tipo=1;
+    }
+    //si es un documento.
+    else
+    {
+      //wachin
+      archivo.tipo=2;
+    }
 
-    if ($scope.isAdding){
+    if ($scope.isAdding)
+    {
       service.actualizarArchivo(archivo).success(function(data){
         if (!data.exito){
           Materialize.toast("No se pudo modificar el archivo", 3500);
@@ -566,19 +624,8 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
         }
       });
     }
-    else{
-      //Si es link
-      if (archivo.link!= undefined)
-      {
-        archivo.ruta=archivo.link;
-        archivo.tipo=1;
-      }
-      //si es un documento.
-      else
-      {
-        //wachin
-        archivo.tipo=2;
-      }
+    else
+    {      
       
       service.agregarArchivo(archivo).success(function(data){
         if (!data.exito){
@@ -589,9 +636,8 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
         }
       });
     }
-    $scope.obtenerArchivosMateria();
     $location.path('/archivo-listar/'+archivo.idMateria);
-  }
+  };
 
   $scope.archivoParaSubir_O_LinkNoVacio = function(){
     return (
@@ -601,12 +647,14 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
     )
   };
 
-  $scope.obtenerArchivosMateria = function(){
-    service.obtenerArchivosMateria($routeParams.id).success(function(data){
-        $scope.archivos =data.datos[0].archivo;
-    }).error( () => Materialize.toast('Error al obtener Archivos', 3500) );
-  }
-
+  $scope.obtenerArchivosMateria = function()
+  {
+    service.obtenerArchivosMateria( $rootScope.idMateria)
+      .success( function(data){
+          $scope.archivos =data.datos.archivo;
+      })
+      .error( () => Materialize.toast('Error al obtener Archivos', 3500) );
+  };
 
 }]);
 
@@ -881,6 +929,17 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
     })
   }
 
+  $scope.modificarAlumno = function(alumno){
+    service.AlumnoModificar(alumno).success(function (data){
+      if (!data.exito){
+        Materialize.toast("No se pudieron modificar los datos", 3500);
+      }
+      else{
+        Materialize.toast("Datos modificados con éxito", 3500);
+      }
+    })
+  }
+
 }]);
 
 // Controlador para el usuario logeado TUTOR.
@@ -962,6 +1021,88 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
 
 }]);
 
+app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
+
+  $rootScope.idCategoria = $routeParams.idCat != undefined ? $routeParams.idCat : $rootScope.idCategoria;
+  $rootScope.idTema = $routeParams.idTema != undefined ? $routeParams.idTema : $rootScope.idCategoria;
+
+  if ($routeParams.idCat){
+    $rootScope.idCategoria = $routeParams.idCat;
+  }
+
+  if ($routeParams.idTema){
+    $rootScope.idTema = $routeParams.idTema;
+  }
+
+  $scope.agregarCategoria = function(categoria) {
+    service.foroAgregarCategoria(categoria).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo agregar la categoría", 3500);
+      }
+      else{
+        Materialize.toast("Categoría cargada con éxito", 3500);
+      }
+    });
+    $location.path('foro-admin');
+  }
+
+  $scope.obtenerCategorias = function(id) {
+    service.foroObtenerCategorias(id).success(function(data){
+      $scope.categorias = data.datos;
+    });
+  }
+
+  $scope.agregarTema = function(tema) {
+    temaAgregar = {
+      'idCategoria': $rootScope.idCategoria,
+      'titulo': tema.titulo,
+      'estado': 'abierto',
+      'visitas': 0
+    }
+    service.foroAgregarTema(temaAgregar).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo agregar el tema", 3500);
+      }
+      else{
+        Materialize.toast("Tema cargado con éxito", 3500);
+      }
+    });
+    $location.path('foro-temas/'+$rootScope.idCategoria);
+  }
+
+  $scope.obtenerTemas = function(id) {
+    service.foroObtenerTemas(id).success(function(data){
+      console.log(data.datos.mensajeForo.length);
+      $scope.temas = data;
+    });
+  }
+
+  $scope.agregarMensaje = function(mensaje) {
+    mensajeAgregar = {
+      'contenido': mensaje.contenido,
+      'fecha': new Date().getDay(),
+      'idUsuario': USER_ID_LOG,
+      'posicion': 1,
+      'idTema': $rootScope.idTema
+    }
+    service.foroAgregarMensaje(mensajeAgregar).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo agregar el mensaje", 3500);
+      }
+      else{
+        Materialize.toast("Mensaje cargado con éxito", 3500);
+      }
+    });
+    $location.path('foro-mensajes/'+$rootScope.idTema);
+  }
+
+  $scope.obtenerMensajes = function(id) {
+    service.foroObtenerMensajes(id).success(function(data){
+      $scope.mensajes = data;
+    });
+  }
+
+}]);
 
 
 
@@ -1009,7 +1150,7 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
   $scope.isAdding = false;
   
   // HACER LA REDIRECCION POR SI EL ID ES VACIO
-  $rootScope.idTutor = $routeParams.id != undefined ?  $routeParams.id : $rootScope.idTutor;
+  $rootScope.idTutor = $routeParams.idTutor != undefined ?  $routeParams.idTutor: $rootScope.idTutor;
 
   if ($routeParams.idTutor){
     $scope.isAdding = true;
@@ -1053,7 +1194,7 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
         }
       }).error( () => Materialize.toast('Error al obtener Cursadas', 3500) );
     }
-
+    $scope.obtenerTutores();
     $location.path('/tutores-listar');
   }
 

@@ -34,5 +34,10 @@ class User extends OWN_Controller{
         return $this->responseJson(['datos'=>$this->usuario->users($group)->result()]);
     }
 
+    public function ObtenerAdmin(){
+        $group = array('1');
+        return $this->responseJson(['datos'=>$this->usuario->users($group)->result()]);
+    }
+
 }
 ?>
