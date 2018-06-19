@@ -21,6 +21,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="<?php echo BASE_URL().'app/libraries/ng-file-upload/ng-file-upload-shim.min.js'?>"></script>
+    <script src="<?php echo BASE_URL().'app/libraries/ng-file-upload/ng-file-upload-all.min.js'?>"></script>
 
 <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
  -->

@@ -556,36 +556,64 @@ app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location'
 
 
 app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
-  $scope.isAdding = false;
+  
+  $scope.initialize = function()
+  {
+    if( $location.url().includes('archivo-listar') )
+    {
+      $scope.archivos = [];
+      // Seteamos el ID de la Materia de la cual se mostraran los archivos/links
+      $rootScope.idMateria = $routeParams.id;
+      $scope.obtenerArchivosMateria();
+    }
+    else
+    {
+      $scope.archivo = {titulo:'', descripcion:'', link:''};
+      $scope.fuenteArchivo = false;
 
-
-
-  $scope.obtenerDatosArchivoAgregar = function(){
-     $scope.isAdding = true;
-    service.obtenerArchivo($routeParams.id).success(function(data){
-        $scope.archivo = data.datos;
-        if ($scope.archivo.idCategoriaArchivo==1)
-        $scope.archivo.link=$scope.archivo.ruta;
-    });
-  }
-
-  $scope.agregarArchivo= function(archivo){
-    // Si está modificando actualiza
-      archivo.idMateria=$rootScope.idMateria;
-      //Si es link
-      if (archivo.link!= undefined)
+      //Agregar o modificar un archivo
+      if( $routeParams.id != undefined )
       {
-        archivo.ruta=archivo.link;
-        archivo.tipo=1;
+        // Se obtiene el archivo correspondiente por el ID que viene en el URL
+        $scope.obtenerDatosArchivo( $routeParams.id );
+        $scope.isAdding = false;
       }
-      //si es un documento.
       else
       {
-        //wachin
-        archivo.tipo=2;
+        $scope.isAdding = true;
       }
+    }
+  };
 
-    if ($scope.isAdding){
+  $scope.obtenerDatosArchivo = function()
+  {
+    $scope.isAdding = true;
+    service.obtenerArchivo($routeParams.id).success( function(data){
+        $scope.archivo = data.datos;
+        if ($scope.archivo.idCategoriaArchivo==1)
+          $scope.archivo.link=$scope.archivo.ruta;
+    });
+  };
+
+  $scope.agregarArchivo = function(archivo)
+  {
+    // Seteamos la materia a la que pertenece
+    archivo.idMateria=$rootScope.idMateria;
+    //Si es link
+    if (archivo.link!= undefined)
+    {
+      archivo.ruta=archivo.link;
+      archivo.tipo=1;
+    }
+    //si es un documento.
+    else
+    {
+      //wachin
+      archivo.tipo=2;
+    }
+
+    if ($scope.isAdding)
+    {
       service.actualizarArchivo(archivo).success(function(data){
         if (!data.exito){
           Materialize.toast("No se pudo modificar el archivo", 3500);
@@ -595,8 +623,8 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
         }
       });
     }
-    else{
-      
+    else
+    {      
       
       service.agregarArchivo(archivo).success(function(data){
         if (!data.exito){
@@ -607,17 +635,25 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
         }
       });
     }
-    $scope.obtenerArchivosMateria();
     $location.path('/archivo-listar/'+archivo.idMateria);
-  }
+  };
 
-  $scope.obtenerArchivosMateria = function(){
-    $rootScope.idMateria = $routeParams.id!=undefined ?   $routeParams.id : $rootScope.idMateria ;
-    service.obtenerArchivosMateria($rootScope.idMateria).success(function(data){
-        $scope.archivos =data.datos.archivo;
-    }).error( () => Materialize.toast('Error al obtener Archivos', 3500) );
-  }
+  $scope.archivoParaSubir_O_LinkNoVacio = function(){
+    return (
+      ($scope.fuenteArchivo == false && $scope.archivo.link != "" )//Link
+      ||
+      ($scope.fuenteArchivo == true && $scope.archivoAsubir != undefined )//Archivo
+    )
+  };
 
+  $scope.obtenerArchivosMateria = function()
+  {
+    service.obtenerArchivosMateria( $rootScope.idMateria)
+      .success( function(data){
+          $scope.archivos =data.datos.archivo;
+      })
+      .error( () => Materialize.toast('Error al obtener Archivos', 3500) );
+  };
 
 }]);
 

@@ -1,4 +1,4 @@
-<main class="listar-container" ng-init="obtenerArchivosMateria()">
+<main class="listar-container" ng-init="initialize()">
   <a href="#/materias-listar" class="btn btn-agregar">Volver</a>
   <a href="#/archivo-agregar" class="btn btn-agregar">Agregar Archivo</a>
 
@@ -21,7 +21,6 @@
           <th>Descripción</th>
           <th>Ruta</th>
           <th>Opciones</th>
-
       </tr>
     </thead>
 
@@ -32,7 +31,6 @@
         <td>{{archivo.ruta}}</td>
         <td>
             <a href="#/archivo-agregar/{{archivo.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
-
         </td>
       </tr>
     </tbody>
