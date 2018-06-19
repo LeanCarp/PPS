@@ -289,6 +289,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_agregar.html",
       controller: "UserTutorCtr"
     })
+    .when("/tutor-ver", {
+      title: 'Usuario - Perfil',
+      templateUrl: BASE_URL + "app/views/tutor_ver.html",
+      controller: "AdminCtr"
+    })
     .when("/admin-ver", {
       title: 'Usuario - Perfil',
       templateUrl: BASE_URL + "app/views/admin_ver.html",
@@ -304,8 +309,18 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/admin_foro_agregarCat.html",
       controller: "ForoCtr"
     })
+    .when("/foro-modificarCat/:idCatMod", {
+      title: 'Foro - Categorías - Modificar',
+      templateUrl: BASE_URL + "app/views/admin_foro_agregarCat.html",
+      controller: "ForoCtr"
+    })
     .when("/foro-agregarTema/:idCat", {
       title: 'Foro - Temas - Agregar',
+      templateUrl: BASE_URL + "app/views/admin_foro_agregarTema.html",
+      controller: "ForoCtr"
+    })
+    .when("/foro-modificarTema/:idTemaMod", {
+      title: 'Foro - Temas - Modificar',
       templateUrl: BASE_URL + "app/views/admin_foro_agregarTema.html",
       controller: "ForoCtr"
     })
@@ -324,6 +339,47 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/admin_foro_agregarMensaje.html",
       controller: "ForoCtr"
     })
+    .when("/foro-alumno", {
+      title: 'Foro - Categorías',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_foro.html",
+      controller: "ForoAlumnoCtr"
+    })
+    .when("/foro-alumno-temas/:idCat", {
+      title: 'Foro - Temas',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_foro_temas.html",
+      controller: "ForoAlumnoCtr"
+    })
+    .when("/foro-alumno-mensajes/:idTema", {
+      title: 'Foro - Mensajes',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_foro_mensajes.html",
+      controller: "ForoAlumnoCtr"
+    })
+    .when("/foro-alumno-agregarMensaje/:idTema", {
+      title: 'Foro - Mensajes - Agregar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_foro_agregarMensaje.html",
+      controller: "ForoAlumnoCtr"
+    })
+    .when("/foro-tutor", {
+      title: 'Foro - Categorías',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_foro.html",
+      controller: "ForoTutorCtr"
+    })
+    .when("/foro-tutor-temas/:idCat", {
+      title: 'Foro - Temas',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_foro_temas.html",
+      controller: "ForoTutorCtr"
+    })
+    .when("/foro-tutor-mensajes/:idTema", {
+      title: 'Foro - Mensajes',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_foro_mensajes.html",
+      controller: "ForoTutorCtr"
+    })
+    .when("/foro-tutor-agregarMensaje/:idTema", {
+      title: 'Foro - Mensajes - Agregar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_foro_agregarMensaje.html",
+      controller: "ForoTutorCtr"
+    })
+    
 
 
 

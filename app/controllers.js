@@ -80,7 +80,6 @@ app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location',
 
     $scope.obtenerAdministrador = function (id){
       service.AdminObtenerAdministrador(id).success(function (data){
-        console.log(data);
         $scope.administrador = data.datos;
       })
     }
@@ -986,7 +985,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
 }]);
 
 app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
-
+  $scope.isAdding = false;
   $rootScope.idCategoria = $routeParams.idCat != undefined ? $routeParams.idCat : $rootScope.idCategoria;
   $rootScope.idTema = $routeParams.idTema != undefined ? $routeParams.idTema : $rootScope.idCategoria;
 
@@ -994,19 +993,51 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
     $rootScope.idCategoria = $routeParams.idCat;
   }
 
+  if ($routeParams.idCatMod){
+    $scope.isAdding = true;
+
+    service.foroObtenerCategorias($routeParams.idCatMod).success(function(data){
+      $scope.categoria = data.datos;
+    });
+  }
+
   if ($routeParams.idTema){
     $rootScope.idTema = $routeParams.idTema;
   }
 
-  $scope.agregarCategoria = function(categoria) {
-    service.foroAgregarCategoria(categoria).success(function(data){
-      if (!data.exito){
-        Materialize.toast("No se pudo agregar la categoría", 3500);
-      }
-      else{
-        Materialize.toast("Categoría cargada con éxito", 3500);
-      }
+  if ($routeParams.idTemaMod){
+    $scope.isAdding = true;
+
+    service.foroObtenerTemas($routeParams.idTemaMod).success(function(data){
+      $scope.tema = data.datos;
     });
+  }
+
+  $scope.prueba = function(){
+    alert("Probando");
+  }
+
+  $scope.agregarCategoria = function(categoria) {
+    if ($scope.isAdding){
+      service.foroActualizarCategoria(categoria).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo modificar la categoría", 3500);
+        }
+        else{
+          Materialize.toast("Categoría modificada con éxito", 3500);
+        }
+      });
+    }
+    else{
+      service.foroAgregarCategoria(categoria).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar la categoría", 3500);
+        }
+        else{
+          Materialize.toast("Categoría cargada con éxito", 3500);
+        }
+      });
+    }
     $location.path('foro-admin');
   }
 
@@ -1017,26 +1048,37 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
   }
 
   $scope.agregarTema = function(tema) {
-    temaAgregar = {
-      'idCategoria': $rootScope.idCategoria,
-      'titulo': tema.titulo,
-      'estado': 'abierto',
-      'visitas': 0
+    if ($scope.isAdding){
+      service.foroActualizarTema(tema).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo actualizar el tema", 3500);
+        }
+        else{
+          Materialize.toast("Tema actualizado con éxito", 3500);
+        }
+      });
     }
-    service.foroAgregarTema(temaAgregar).success(function(data){
-      if (!data.exito){
-        Materialize.toast("No se pudo agregar el tema", 3500);
+    else{
+      temaAgregar = {
+        'idCategoria': $rootScope.idCategoria,
+        'titulo': tema.titulo,
+        'estado': 'abierto',
+        'visitas': 0
       }
-      else{
-        Materialize.toast("Tema cargado con éxito", 3500);
-      }
-    });
+      service.foroAgregarTema(temaAgregar).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar el tema", 3500);
+        }
+        else{
+          Materialize.toast("Tema cargado con éxito", 3500);
+        }
+      });
+    }
     $location.path('foro-temas/'+$rootScope.idCategoria);
   }
 
   $scope.obtenerTemas = function(id) {
     service.foroObtenerTemas(id).success(function(data){
-      console.log(data.datos.mensajeForo.length);
       $scope.temas = data;
     });
   }
@@ -1044,7 +1086,7 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
   $scope.agregarMensaje = function(mensaje) {
     mensajeAgregar = {
       'contenido': mensaje.contenido,
-      'fecha': new Date().getDay(),
+      'fecha': new Date(),
       'idUsuario': USER_ID_LOG,
       'posicion': 1,
       'idTema': $rootScope.idTema
@@ -1062,7 +1104,161 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
 
   $scope.obtenerMensajes = function(id) {
     service.foroObtenerMensajes(id).success(function(data){
-      $scope.mensajes = data;
+      var nuevo = [];
+      angular.forEach(data.datos, function(value, key) {
+        // Suma un día porque la conversión a Date le resta uno.
+        var fecha = new Date(value.fecha);
+        var date = new Date();
+        date.setDate(fecha.getDate() + 1);
+        //
+        this.push(value);
+      }, nuevo);
+      $scope.mensajes = nuevo;
+    });
+  }
+
+  $scope.eliminarTema = function(id) {
+    service.foroEliminarTema(id).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo eliminar el tema", 3500);
+      }
+      else{
+        Materialize.toast("Tema eliminado con éxito", 3500);
+      }
+    });
+    $location.path('foro-temas/'+$rootScope.idCategoria);
+  }
+
+}]);
+
+app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
+
+  $rootScope.idCategoria = $routeParams.idCat != undefined ? $routeParams.idCat : $rootScope.idCategoria;
+  $rootScope.idTema = $routeParams.idTema != undefined ? $routeParams.idTema : $rootScope.idTema;
+
+  $scope.isAbierto = true;
+
+  if ($routeParams.idCat){
+    $rootScope.idCategoria = $routeParams.idCat;
+  }
+
+  if ($routeParams.idTema){
+    $rootScope.idTema = $routeParams.idTema;
+  }
+
+  $scope.obtenerCategorias = function(id) {
+    service.foroAlumnoObtenerCategorias(id).success(function(data){
+      $scope.categorias = data.datos;
+    });
+  }
+
+  $scope.obtenerTemas = function(id) {
+    service.foroAlumnoObtenerTemas(id).success(function(data){
+      $scope.temas = data;
+    });
+  }
+
+  $scope.agregarMensaje = function(mensaje) {
+    mensajeAgregar = {
+      'contenido': mensaje.contenido,
+      'fecha': new Date(),
+      'idUsuario': USER_ID_LOG,
+      'posicion': 1,
+      'idTema': $rootScope.idTema
+    }
+    service.foroAlumnoAgregarMensaje(mensajeAgregar).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo agregar el mensaje", 3500);
+      }
+      else{
+        Materialize.toast("Mensaje cargado con éxito", 3500);
+      }
+    });
+    $location.path('foro-alumno-mensajes/'+$rootScope.idTema);
+  }
+
+  $scope.obtenerMensajes = function(id) {
+    service.foroAlumnoObtenerMensajes(id).success(function(data){
+      var nuevo = [];
+      angular.forEach(data.datos, function(value, key) {
+        // Suma un día porque la conversión a Date le resta uno.
+        var fecha = new Date(value.fecha);
+        var date = new Date();
+        date.setDate(fecha.getDate() + 1);
+        //
+        this.push(value);
+      }, nuevo);
+      $scope.mensajes = nuevo;
+
+      if (nuevo[0].tema.estado == "cerrado"){
+        $scope.isAbierto = false;
+      }
+    });
+  }
+
+}]);
+
+app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
+
+  $rootScope.idCategoria = $routeParams.idCat != undefined ? $routeParams.idCat : $rootScope.idCategoria;
+  $rootScope.idTema = $routeParams.idTema != undefined ? $routeParams.idTema : $rootScope.idTema;
+
+  $scope.isAbierto = true;
+
+  if ($routeParams.idCat){
+    $rootScope.idCategoria = $routeParams.idCat;
+  }
+
+  if ($routeParams.idTema){
+    $rootScope.idTema = $routeParams.idTema;
+  }
+
+  $scope.obtenerCategorias = function(id) {
+    service.foroTutorObtenerCategorias(id).success(function(data){
+      $scope.categorias = data.datos;
+    });
+  }
+
+  $scope.obtenerTemas = function(id) {
+    service.foroTutorObtenerTemas(id).success(function(data){
+      $scope.temas = data;
+    });
+  }
+
+  $scope.agregarMensaje = function(mensaje) {
+    mensajeAgregar = {
+      'contenido': mensaje.contenido,
+      'fecha': new Date(),
+      'idUsuario': USER_ID_LOG,
+      'posicion': 1,
+      'idTema': $rootScope.idTema
+    }
+    service.foroTutorAgregarMensaje(mensajeAgregar).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo agregar el mensaje", 3500);
+      }
+      else{
+        Materialize.toast("Mensaje cargado con éxito", 3500);
+      }
+    });
+    $location.path('foro-alumno-mensajes/'+$rootScope.idTema);
+  }
+
+  $scope.obtenerMensajes = function(id) {
+    service.foroTutorObtenerMensajes(id).success(function(data){
+      var nuevo = [];
+      angular.forEach(data.datos, function(value, key) {
+        // Suma un día porque la conversión a Date le resta uno.
+        var fecha = new Date(value.fecha);
+        var date = new Date();
+        date.setDate(fecha.getDate() + 1);
+        //
+        this.push(value);
+      }, nuevo);
+      $scope.mensajes = nuevo;
+/*       if (nuevo[0].tema.estado == "cerrado"){
+        $scope.isAbierto = false;
+      } */
     });
   }
 

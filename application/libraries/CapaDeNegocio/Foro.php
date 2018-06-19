@@ -35,7 +35,7 @@ class Foro {
      public function ActualizarCategoria($data,$id)
     {
         $this->CI->load->model('Categoriaforo_model');
-        $this->CI->Categoriaforo_model->update($data,$id);
+        return $this->CI->Categoriaforo_model->update($data,$id);
     }
 
      public function EliminarCategoria($id)
@@ -63,13 +63,13 @@ class Foro {
      public function ActualizarTema($data,$id)
     {
         $this->CI->load->model('Tema_model');
-        $this->CI->Tema_model->update($data,$id);
+        return $this->CI->Tema_model->update($data,$id);
     }
 
      public function EliminarTema($id)
     {
         $this->CI->load->model('Tema_model');
-        $this->CI->Tema_model->delete($id);
+        return $this->CI->Tema_model->delete($id);
     }
 
     public function AgregarMensaje($data)
@@ -81,7 +81,7 @@ class Foro {
     public function ObtenerMensaje($id)
     {
         $this->CI->load->model('Mensajeforo_model');
-        return  $this->CI->Mensajeforo_model->where('idTema', $id)->with_usuario()->with_tema()->get();
+        return  $this->CI->Mensajeforo_model->where('idTema', $id)->with_usuario()->with_tema()->get_all();
     }
 
       public function EliminarMensaje($id)

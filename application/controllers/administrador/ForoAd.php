@@ -16,6 +16,16 @@ class ForoAd extends OWN_Controller{
         return $this->responseJson(['exito'=>$this->foro->AgregarCategoria($insert_data)]);
     }
 
+    public function ActualizarCategoria()
+    {
+        $nombre = $this->rest->post('nombre');
+        $id = $this->rest->post('id');
+
+        $insert_data = array('nombre' => $nombre);
+       
+        return $this->responseJson(['exito'=>$this->foro->ActualizarCategoria($insert_data, $id)]);
+    }
+
     public function LeerCategoria()
     {
         $id = $this->rest->post('id');
@@ -33,6 +43,22 @@ class ForoAd extends OWN_Controller{
         $insert_data = array('titulo' => $titulo, 'estado' => $estado, 'visitas' => $visitas, 'idCategoriaForo' => $idCategoriaForo);
        
         return $this->responseJson(['exito'=>$this->foro->AgregarTema($insert_data)]);
+    }
+
+    public function ActualizarTema()
+    {
+        $titulo = $this->rest->post('titulo');
+        $id = $this->rest->post('id');
+
+        $insert_data = array('titulo' => $titulo);
+       
+        return $this->responseJson(['exito'=>$this->foro->ActualizarTema($insert_data, $id)]);
+    }
+
+    public function EliminarTema()
+    {
+        $id = $this->rest->post('id');
+        return $this->responseJson(['exito'=>$this->foro->EliminarTema($id)]);
     }
 
     public function LeerTema()
