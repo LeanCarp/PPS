@@ -607,7 +607,10 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
 
     foroEliminarTema: (id) => {
       let urlForoEliminar='administrador/ForoAd/EliminarTema';
-      return $http.post(urlForoEliminar, id, { responseType: 'json' });
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoEliminar, idTema, { responseType: 'json' });
     },
 
     foroAgregarMensaje: (mensaje) => {
