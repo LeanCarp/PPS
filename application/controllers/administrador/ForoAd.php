@@ -61,6 +61,20 @@ class ForoAd extends OWN_Controller{
         return $this->responseJson(['exito'=>$this->foro->EliminarTema($id)]);
     }
 
+    public function ObtenerTema()
+    {
+        $id = $this->rest->post('id');
+        $data = $this->foro->ObtenerTema($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
+    public function ObtenerTemasCategoria()
+    {
+        $id = $this->rest->post('id');
+        $data = $this->foro->ObtenerTemasPorCategoria($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
     public function LeerTema()
     {
         $id = $this->rest->post('id');

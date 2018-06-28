@@ -50,14 +50,15 @@ class Foro {
         return $this->CI->Tema_model->insert($data);
     }
     
-    public function ObtenerTema($id=NULL)
+    public function ObtenerTema($id)
     {
         $this->CI->load->model('Tema_model');
-        //Si se pasó un id se busca el tema correspondiente.
-        if(is_null($id))
-                return  $this->CI->Tema_model->with_categoria()->with_mensajeForo()->get_all();
-        //Si no se pasó nada, se buscan todas.
-            return  $this->CI->Tema_model->where('idCategoriaForo', $id)->with_categoria()->with_mensajeForo()->get();
+        return  $this->CI->Tema_model->with_categoria()->with_mensajeForo()->get($id);
+    }
+
+    public function ObtenerTemasPorCategoria($id){
+        $this->CI->load->model('Tema_model');
+        return  $this->CI->Tema_model->where('idCategoriaForo', $id)->with_categoria()->with_mensajeForo()->get_all();
     }
 
      public function ActualizarTema($data,$id)
