@@ -33,6 +33,12 @@ class ForoAd extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);
     }
 
+        public function EliminarCategoria()
+    {
+        $id = $this->rest->post('id');
+        return $this->responseJson(['exito'=>$this->foro->EliminarCategoria($id)]);
+    }
+
     public function AgregarTema()
     {
         $estado = $this->rest->post('estado');

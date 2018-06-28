@@ -1049,9 +1049,7 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
     });
   }
 
-  $scope.prueba = function(){
-    alert("Probando");
-  }
+
 
   $scope.agregarCategoria = function(categoria) {
     if ($scope.isAdding){
@@ -1163,6 +1161,17 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
       }
     });
     $location.path('foro-temas/'+$rootScope.idCategoria);
+  }
+  $scope.eliminarCategoria = function(id) {
+    service.foroEliminarCategoria(id).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo eliminar la categoria", 3500);
+      }
+      else{
+        Materialize.toast("Categoría eliminada con éxito", 3500);
+      }
+    });
+    $location.path('foro-admin/');
   }
 
 }]);

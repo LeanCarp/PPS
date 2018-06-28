@@ -41,7 +41,7 @@ class Foro {
      public function EliminarCategoria($id)
     {
         $this->CI->load->model('Categoriaforo_model');
-        $this->CI->Categoriaforo_model->delete($id);
+       return  $this->CI->Categoriaforo_model->delete($id);
     }
 
     public function AgregarTema($data)
