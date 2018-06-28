@@ -88,7 +88,7 @@ class Foro {
       public function EliminarMensaje($id)
     {
         $this->CI->load->model('Mensajeforo_model');
-        $this->CI->Mensajeforo_model->delete($id);
+        return $this->CI->Mensajeforo_model->delete($id);
     }
 
 

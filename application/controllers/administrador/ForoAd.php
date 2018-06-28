@@ -107,6 +107,12 @@ class ForoAd extends OWN_Controller{
         $data = $this->foro->ObtenerMensaje($id);
         return $this->responseJson(['datos'=>$data]);
     }
+
+    public function EliminarMensaje()
+    {
+        $id = $this->rest->post('id');
+        return $this->responseJson(['exito'=>$this->foro->EliminarMensaje($id)]);
+    }
 }
 
 ?>

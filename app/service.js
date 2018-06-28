@@ -604,12 +604,21 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return $http.post(urlForoObtener, idTema, { responseType: 'json' });
     },
+
     foroEliminarCategoria: (id) => {
       let urlForoEliminar='administrador/ForoAd/EliminarCategoria';
       const idCategoria = {
         'id': id
       }
       return $http.post(urlForoEliminar, idCategoria, { responseType: 'json' });
+    },
+
+    foroEliminarMensaje: (id) => {
+      let urlForoEliminar='administrador/ForoAd/EliminarMensaje';
+      const idMensaje = {
+        'id': id
+      }
+      return $http.post(urlForoEliminar, idMensaje, { responseType: 'json' });
     },
 
     foroObtenerTema: (id) => {

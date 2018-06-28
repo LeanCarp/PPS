@@ -1162,6 +1162,7 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
     });
     $location.path('foro-temas/'+$rootScope.idCategoria);
   }
+
   $scope.eliminarCategoria = function(id) {
     service.foroEliminarCategoria(id).success(function(data){
       if (!data.exito){
@@ -1172,6 +1173,18 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
       }
     });
     $location.path('foro-admin/');
+  }
+
+  $scope.eliminarMensaje = function(id) {
+    service.foroEliminarMensaje(id).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo eliminar el mensaje", 3500);
+      }
+      else{
+        Materialize.toast("Mensaje eliminado con éxito", 3500);
+      }
+    });
+    $location.path('foro-mensajes/'+$rootScope.idTema);
   }
 
 }]);
