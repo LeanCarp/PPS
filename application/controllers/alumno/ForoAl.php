@@ -14,12 +14,26 @@ class ForoAl extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);
     }
 
-    public function LeerTema()
+    public function ObtenerTema()
     {
         $id = $this->rest->post('id');
         $data = $this->foro->ObtenerTema($id);
         return $this->responseJson(['datos'=>$data]);
     }
+
+    public function ObtenerTemasPorCategoria()
+    {
+        $id = $this->rest->post('id');
+        $data = $this->foro->ObtenerTemasPorCategoria($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
+/*     public function LeerTema()
+    {
+        $id = $this->rest->post('id');
+        $data = $this->foro->ObtenerTema($id);
+        return $this->responseJson(['datos'=>$data]);
+    } */
 
     public function AgregarMensaje()
     {

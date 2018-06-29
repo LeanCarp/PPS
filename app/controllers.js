@@ -1023,7 +1023,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
 app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
   $scope.isAdding = false;
   $rootScope.idCategoria = $routeParams.idCat != undefined ? $routeParams.idCat : $rootScope.idCategoria;
-  $rootScope.idTema = $routeParams.idTema != undefined ? $routeParams.idTema : $rootScope.idCategoria;
+  $rootScope.idTema = $routeParams.idTema != undefined ? $routeParams.idTema : $rootScope.idTema;
 
   if ($routeParams.idCat){
     $rootScope.idCategoria = $routeParams.idCat;
@@ -1044,14 +1044,12 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
   if ($routeParams.idTemaMod){
     $scope.isAdding = true;
 
-    service.foroObtenerTemas($routeParams.idTemaMod).success(function(data){
+    service.foroObtenerTema($routeParams.idTemaMod).success(function(data){
       $scope.tema = data.datos;
     });
   }
 
-  $scope.prueba = function(){
-    alert("Probando");
-  }
+
 
   $scope.agregarCategoria = function(categoria) {
     if ($scope.isAdding){
@@ -1114,8 +1112,8 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
   }
 
   $scope.obtenerTemas = function(id) {
-    service.foroObtenerTemas(id).success(function(data){
-      $scope.temas = data;
+    service.foroObtenerTemasCategoria(id).success(function(data){
+      $scope.temas = data.datos;
     });
   }
 
@@ -1165,6 +1163,30 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
     $location.path('foro-temas/'+$rootScope.idCategoria);
   }
 
+  $scope.eliminarCategoria = function(id) {
+    service.foroEliminarCategoria(id).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo eliminar la categoria", 3500);
+      }
+      else{
+        Materialize.toast("Categoría eliminada con éxito", 3500);
+      }
+    });
+    $location.path('foro-admin/');
+  }
+
+  $scope.eliminarMensaje = function(id) {
+    service.foroEliminarMensaje(id).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo eliminar el mensaje", 3500);
+      }
+      else{
+        Materialize.toast("Mensaje eliminado con éxito", 3500);
+      }
+    });
+    $location.path('foro-mensajes/'+$rootScope.idTema);
+  }
+
 }]);
 
 app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -1189,8 +1211,8 @@ app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
   }
 
   $scope.obtenerTemas = function(id) {
-    service.foroAlumnoObtenerTemas(id).success(function(data){
-      $scope.temas = data;
+    service.foroAlumnoObtenerTemasCategoria(id).success(function(data){
+      $scope.temas = data.datos;
     });
   }
 
@@ -1256,8 +1278,8 @@ app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
   }
 
   $scope.obtenerTemas = function(id) {
-    service.foroTutorObtenerTemas(id).success(function(data){
-      $scope.temas = data;
+    service.foroTutorObtenerTemasCategoria(id).success(function(data){
+      $scope.temas = data.datos;
     });
   }
 

@@ -597,8 +597,32 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlForoAgregar, tema, { responseType: 'json' });
     },
 
-    foroObtenerTemas: (id) => {
-      let urlForoObtener='administrador/ForoAd/LeerTema';
+    foroObtenerTemasCategoria: (id) => {
+      let urlForoObtener='administrador/ForoAd/ObtenerTemasCategoria';
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoObtener, idTema, { responseType: 'json' });
+    },
+
+    foroEliminarCategoria: (id) => {
+      let urlForoEliminar='administrador/ForoAd/EliminarCategoria';
+      const idCategoria = {
+        'id': id
+      }
+      return $http.post(urlForoEliminar, idCategoria, { responseType: 'json' });
+    },
+
+    foroEliminarMensaje: (id) => {
+      let urlForoEliminar='administrador/ForoAd/EliminarMensaje';
+      const idMensaje = {
+        'id': id
+      }
+      return $http.post(urlForoEliminar, idMensaje, { responseType: 'json' });
+    },
+
+    foroObtenerTema: (id) => {
+      let urlForoObtener='administrador/ForoAd/ObtenerTema';
       const idTema = {
         'id': id
       }
@@ -607,7 +631,10 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
 
     foroEliminarTema: (id) => {
       let urlForoEliminar='administrador/ForoAd/EliminarTema';
-      return $http.post(urlForoEliminar, id, { responseType: 'json' });
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoEliminar, idTema, { responseType: 'json' });
     },
 
     foroAgregarMensaje: (mensaje) => {
@@ -631,8 +658,16 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlForoObtener, idCat, { responseType: 'json' });
     },    
 
-    foroAlumnoObtenerTemas: (id) => {
-      let urlForoObtener='alumno/ForoAl/LeerTema';
+    foroAlumnoObtenerTema: (id) => {
+      let urlForoObtener='alumno/ForoAl/ObtenerTema';
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoObtener, idTema, { responseType: 'json' });
+    },
+
+    foroAlumnoObtenerTemasCategoria: (id) => {
+      let urlForoObtener='alumno/ForoAl/ObtenerTemasPorCategoria';
       const idTema = {
         'id': id
       }
@@ -660,8 +695,8 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlForoObtener, idCat, { responseType: 'json' });
     },    
 
-    foroTutorObtenerTemas: (id) => {
-      let urlForoObtener='tutor/ForoTu/LeerTema';
+    foroTutorObtenerTemasCategoria: (id) => {
+      let urlForoObtener='tutor/ForoTu/ObtenerTemasPorCategoria';
       const idTema = {
         'id': id
       }
