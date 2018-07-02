@@ -4,8 +4,7 @@ class Actividad extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
-        //$this->load->library('CapaDeNegocio/Bedelia');
-        //$this->load->library('CapaDeNegocio/Extras');
+
         $this->load->logic('Extras');
     }
 
@@ -16,9 +15,12 @@ class Actividad extends OWN_Controller{
         $idAlumno = $this->rest->post('idAlumno');
 
         $insert_data = [
-                            'actividad'=>array('descripcion'=>$descripcion,'idUsuario'=>$idAlumno),
-                            'horarios'=>$horarios,
-                        ];
+            'actividad'=> [
+                'descripcion'=>$descripcion,
+                'idUsuario'=>$idAlumno
+            ],
+            'horarios'=>$horarios,
+        ];
         return $this->responseJson(['exito'=>$this->extras->AgregarActividad($insert_data)]);
     }
 

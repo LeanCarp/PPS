@@ -4,7 +4,8 @@ class Escuela  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('CapaDeNegocio/Extras');
+
+		$this->load->logic('Extras');
 	}
 
     public function Agregar()
@@ -12,7 +13,12 @@ class Escuela  extends OWN_Controller{
         $nombre = $this->rest->post('nombre');
         $orientacion = $this->rest->post('orientacion');
         $idCiudad = $this->rest->post('idCiudad');
-        $data = array('nombre'=>$nombre, 'orientacion'=>$orientacion, 'idCiudad'=>$idCiudad);
+        $data = [
+            'nombre'=>$nombre,
+            'orientacion'=>$orientacion,
+            'idCiudad'=>$idCiudad
+        ];
+
         return $this->responseJson(['exito'=>$this->extras->AgregarEscuela($data)]);
     }
 
@@ -29,7 +35,11 @@ class Escuela  extends OWN_Controller{
         $nombre = $this->rest->post('nombre');
         $orientacion = $this->rest->post('orientacion');
         $idCiudad = $this->rest->post('idCiudad');
-        $data = array('nombre'=>$nombre, 'orientacion'=>$orientacion, 'idCiudad'=>$idCiudad);
+        $data = [
+            'nombre'=>$nombre,
+            'orientacion'=>$orientacion,
+            'idCiudad'=>$idCiudad
+        ];
         return $this->responseJson(['exito'=>$this->extras->ActualizarEscuela($data, $id)]);  
     }
 

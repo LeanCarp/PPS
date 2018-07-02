@@ -4,9 +4,10 @@ class Informe extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
-        $this->load->library('CapaDeNegocio/Bedelia');
-        $this->load->library('CapaDeNegocio/Extras');
-        $this->load->library('CapaDeNegocio/Usuario');
+        
+        $this->load->logic('Bedelia');
+        $this->load->logic('Extras');
+        $this->load->logic('Usuario');
     }
 
     public function Leer()

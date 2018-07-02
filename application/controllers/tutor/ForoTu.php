@@ -4,7 +4,8 @@ class ForoTu extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
-        $this->load->library('CapaDeNegocio/Foro');
+        
+        $this->load->logic('Foro');
     }
 
     public function LeerCategoria()
@@ -28,12 +29,14 @@ class ForoTu extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);
     }
 
-/*     public function LeerTema()
+    /*  
+    public function LeerTema()
     {
         $id = $this->rest->post('id');
         $data = $this->foro->ObtenerTema($id);
         return $this->responseJson(['datos'=>$data]);
-    } */
+    }
+    */
 
     public function AgregarMensaje()
     {
@@ -43,7 +46,13 @@ class ForoTu extends OWN_Controller{
         $idTema = $this->rest->post('idTema');
         $posicion = $this->rest->post('posicion');
 
-        $insert_data = array('contenido' => $contenido, 'fecha' => $fecha, 'idUsuario' => $idUsuario, 'idTema' => $idTema, 'posicion' => $posicion);
+        $insert_data = [
+            'contenido' => $contenido,
+            'fecha' => $fecha,
+            'idUsuario' => $idUsuario,
+            'idTema' => $idTema,
+            'posicion' => $posicion
+        ];
        
         return $this->responseJson(['exito'=>$this->foro->AgregarMensaje($insert_data)]);
     }

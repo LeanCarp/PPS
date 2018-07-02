@@ -4,13 +4,14 @@ class Pais  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('CapaDeNegocio/Extras');
+
+		$this->load->logic('Extras');
 	}
 
     public function Agregar()
     {
         $nombre = $this->rest->post('nombre');
-        $data = array('nombre'=>$nombre);
+        $data = ['nombre'=>$nombre];
         return $this->responseJson(['exito'=>$this->extras->AgregarPais($data)]);
     }
 
@@ -25,8 +26,7 @@ class Pais  extends OWN_Controller{
     {
         $id = $this->rest->post('id');
         $nombre = $this->rest->post('nombre');
-        $data = array('nombre'=> $nombre);
-        
+        $data = ['nombre'=>$nombre];        
         return $this->responseJson(['exito'=>$this->extras->ActualizarPais($data,$id)]);  
     }
 

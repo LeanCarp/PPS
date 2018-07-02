@@ -4,8 +4,9 @@ class Actividad extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
-        $this->load->library('CapaDeNegocio/Bedelia');
-        $this->load->library('CapaDeNegocio/Extras');
+        
+        $this->load->logic('Bedelia');
+        $this->load->logic('Extras');
     }
 
     public function Leer()

@@ -4,9 +4,11 @@ class Archivo extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
+
         $this->load->helper(array('form', 'url'));
-        $this->load->library('CapaDeNegocio/Bedelia');
-        $this->load->library('CapaDeNegocio/ManejoArchivo');
+
+        $this->load->logic('Bedelia');
+        $this->load->logic('ManejoArchivo');
     }
 
     public function AgregarArchivo()
@@ -45,12 +47,13 @@ class Archivo extends OWN_Controller{
         }
         
         $insert_data = [
-                            'titulo'=>$titulo,
-                            'descripcion'=>$descripcion,
-                            'idMateria'=>$idMateria,
-                            'ruta'=>$ruta,
-                            'idCategoriaArchivo'=> $tipo                        
-                        ];
+            'titulo'=>$titulo,
+            'descripcion'=>$descripcion,
+            'idMateria'=>$idMateria,
+            'ruta'=>$ruta,
+            'idCategoriaArchivo'=> $tipo                        
+        ];
+        
         return $this->responseJson(['exito'=>$this->manejoarchivo->AgregarArchivo($insert_data)]);
     
     }
@@ -81,12 +84,12 @@ class Archivo extends OWN_Controller{
         $tipo=$this->rest->post('tipo');
 
         $update_data = [
-                    'titulo'=>$titulo,
-                    'descripcion'=>$descripcion,
-                    'idMateria'=>$idMateria,
-                    'ruta'=>$ruta,
-                    'idCategoriaArchivo'=> $tipo                        
-                ];
+            'titulo'=>$titulo,
+            'descripcion'=>$descripcion,
+            'idMateria'=>$idMateria,
+            'ruta'=>$ruta,
+            'idCategoriaArchivo'=> $tipo                        
+        ];
         return $this->responseJson(['exito'=>$this->manejoarchivo->ActualizarArchivo($update_data,$id)]);
 
     }

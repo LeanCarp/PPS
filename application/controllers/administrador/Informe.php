@@ -4,9 +4,9 @@ class Informe extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
-        $this->load->library('CapaDeNegocio/Bedelia');
-        $this->load->library('CapaDeNegocio/Extras');
-        $this->load->library('CapaDeNegocio/Usuario');
+
+        $this->load->logic('Extras');
+        $this->load->logic('Usuario');
     }
 
     public function AgregarInforme()
@@ -18,12 +18,13 @@ class Informe extends OWN_Controller{
         $idAutor= $this->usuario->user()->row()->id;
 
         $insert_data = [
-                            'descripcion'=>$descripcion,
-                            'titulo'=>$titulo,
-                            'fecha'=>$fecha,
-                            'idUsuario'=>$idAlumno,
-                            'idAutor'=>$idAutor
-                ];
+            'descripcion'=>$descripcion,
+            'titulo'=>$titulo,
+            'fecha'=>$fecha,
+            'idUsuario'=>$idAlumno,
+            'idAutor'=>$idAutor
+        ];
+
         return $this->responseJson(['exito'=>$this->extras->AgregarInforme($insert_data)]);
     }
 
@@ -43,10 +44,10 @@ class Informe extends OWN_Controller{
         $id = $this->rest->post('idInforme');
 
         $data = [
-                    'descripcion'=>$descripcion,
-                    'titulo'=>$titulo,
-                    'fecha'=>$fecha,
-                    'idUsuario'=>$idAlumno,
+            'descripcion'=>$descripcion,
+            'titulo'=>$titulo,
+            'fecha'=>$fecha,
+            'idUsuario'=>$idAlumno,
         ];
         
         return $this->responseJson(['exito'=>$this->extras->ActualizarInforme($data, $id)]); 

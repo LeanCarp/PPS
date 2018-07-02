@@ -12,7 +12,11 @@ class Cursada  extends OWN_Controller{
         $estado = $this->rest->post('estado');
         $idAlumno = $this->rest->post('idAlumno');
         $idComision = $this->rest->post('comision'); 
-        $insert_data = array('estado'=>$estado ,'idUsuario'=> $idAlumno,'idComision'=> $idComision);
+        $insert_data = [
+            'estado'=>$estado,
+            'idUsuario'=> $idAlumno,
+            'idComision'=> $idComision,
+        ];
         
         return $this->responseJson(['exito'=>$this->bedelia->AgregarCursada($insert_data)]);
     }
@@ -33,7 +37,11 @@ class Cursada  extends OWN_Controller{
         $idComision = $this->rest->post('comision'); 
         $nota = $this->rest->post('nota'); 
 
-        $data = array('estado'=>$estado, 'idComision'=> $idComision, 'nota' => $nota);
+        $data = [
+            'estado'=>$estado,
+            'idComision'=> $idComision,
+            'nota' => $nota
+        ];
         
         return $this->responseJson(['exito'=>$this->bedelia->ActualizarCursada($data, $id)]);
     }
@@ -45,11 +53,7 @@ class Cursada  extends OWN_Controller{
         $data = $this->bedelia->ObtenerCursadasUsuario($id);
         return $this->responseJson(['datos'=>$data]);
 
-    }
-
-        
-
-
+    }    
 
 }
 ?>

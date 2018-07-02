@@ -4,13 +4,14 @@ class Materia  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('CapaDeNegocio/Bedelia');
+
+		$this->load->logic('Bedelia');
 	}
 
     public function AgregarMateria()
     {
         $nombre = $this->rest->post('nombre');
-        $data = array('nombre'=> $nombre);
+        $data = ['nombre'=> $nombre];
  
         return $this->responseJson(['exito'=>$this->bedelia->AgregarMateria($data)]);
     }
@@ -26,7 +27,7 @@ class Materia  extends OWN_Controller{
     {
         $id = $this->rest->post('id');
         $nombre = $this->rest->post('nombre');
-        $data = array('nombre'=> $nombre);
+        $data = ['nombre'=> $nombre];
         
         return $this->responseJson(['exito'=>$this->bedelia->ActualizarMateria($data,$id)]);  
     }

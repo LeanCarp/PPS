@@ -4,14 +4,15 @@ class ForoAd extends OWN_Controller{
 
 	public function __construct() {
         parent::__construct();
-        $this->load->library('CapaDeNegocio/Foro');
+
+        $this->load->logic('CapaDeNegocio/Foro');
     }
 
     public function AgregarCategoria()
     {
         $nombre = $this->rest->post('nombre');
 
-        $insert_data = array('nombre' => $nombre);
+        $insert_data = ['nombre' => $nombre];
        
         return $this->responseJson(['exito'=>$this->foro->AgregarCategoria($insert_data)]);
     }
@@ -21,7 +22,7 @@ class ForoAd extends OWN_Controller{
         $nombre = $this->rest->post('nombre');
         $id = $this->rest->post('id');
 
-        $insert_data = array('nombre' => $nombre);
+        $insert_data = ['nombre' => $nombre];
        
         return $this->responseJson(['exito'=>$this->foro->ActualizarCategoria($insert_data, $id)]);
     }
@@ -46,7 +47,12 @@ class ForoAd extends OWN_Controller{
         $visitas = $this->rest->post('visitas');
         $idCategoriaForo = $this->rest->post('idCategoria');
 
-        $insert_data = array('titulo' => $titulo, 'estado' => $estado, 'visitas' => $visitas, 'idCategoriaForo' => $idCategoriaForo);
+        $insert_data = [
+            'titulo' => $titulo,
+            'estado' => $estado,
+            'visitas' => $visitas,
+            'idCategoriaForo' => $idCategoriaForo
+        ];
        
         return $this->responseJson(['exito'=>$this->foro->AgregarTema($insert_data)]);
     }
@@ -56,7 +62,7 @@ class ForoAd extends OWN_Controller{
         $titulo = $this->rest->post('titulo');
         $id = $this->rest->post('id');
 
-        $insert_data = array('titulo' => $titulo);
+        $insert_data = ['titulo' => $titulo];
        
         return $this->responseJson(['exito'=>$this->foro->ActualizarTema($insert_data, $id)]);
     }
@@ -96,7 +102,13 @@ class ForoAd extends OWN_Controller{
         $idTema = $this->rest->post('idTema');
         $posicion = $this->rest->post('posicion');
 
-        $insert_data = array('contenido' => $contenido, 'fecha' => $fecha, 'idUsuario' => $idUsuario, 'idTema' => $idTema, 'posicion' => $posicion);
+        $insert_data = [
+            'contenido' => $contenido,
+            'fecha' => $fecha,
+            'idUsuario' => $idUsuario,
+            'idTema' => $idTema,
+            'posicion' => $posicion
+        ];
        
         return $this->responseJson(['exito'=>$this->foro->AgregarMensaje($insert_data)]);
     }
@@ -113,6 +125,6 @@ class ForoAd extends OWN_Controller{
         $id = $this->rest->post('id');
         return $this->responseJson(['exito'=>$this->foro->EliminarMensaje($id)]);
     }
-}
 
+}
 ?>

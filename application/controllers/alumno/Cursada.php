@@ -4,7 +4,8 @@ class Cursada  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('CapaDeNegocio/Bedelia');
+
+		$this->load->logic('Bedelia');
     }
     
     public function ObtenerCursadasUsuario()

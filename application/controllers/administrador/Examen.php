@@ -4,7 +4,8 @@ class Examen  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('CapaDeNegocio/Bedelia');
+
+		$this->load->logic('Bedelia');
 	}
 
      public function AgregarExamen()
@@ -16,7 +17,14 @@ class Examen  extends OWN_Controller{
         $idCursada = $this->rest->post('idCursada');
         $comentario = $this->rest->post('comentario'); 
 
-        $insert_data = array('nota'=>$nota,'descripcion'=>$descripcion,'tipo'=>$tipo,'fecha'=>$fecha,'idCursada'=>$idCursada,'comentario'=>$comentario);
+        $insert_data = [
+            'nota'=>$nota,
+            'descripcion'=>$descripcion,
+            'tipo'=>$tipo,
+            'fecha'=>$fecha,
+            'idCursada'=>$idCursada,
+            'comentario'=>$comentario
+        ];
        
         return $this->responseJson(['exito'=>$this->bedelia->AgregarExamen($insert_data)]);
     }
@@ -30,7 +38,14 @@ class Examen  extends OWN_Controller{
         $idCursada = $this->rest->post('idCursada');
         $comentario = $this->rest->post('comentario'); 
 
-        $update_data = array('nota'=>$nota,'descripcion'=>$descripcion,'tipo'=>$tipo,'fecha'=>$fecha,'idCursada'=>$idCursada,'comentario'=>$comentario);
+        $update_data = [
+            'nota'=>$nota,
+            'descripcion'=>$descripcion,
+            'tipo'=>$tipo,
+            'fecha'=>$fecha,
+            'idCursada'=>$idCursada,
+            'comentario'=>$comentario
+        ];
        
         return $this->responseJson(['exito'=>$this->bedelia->ActualizarExamen($update_data)]);
     }

@@ -1,17 +1,17 @@
 <?php
-
 class Profesor  extends OWN_Controller{	
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('CapaDeNegocio/Bedelia');
+
+		$this->load->logic('Bedelia');
 	}
 
     public function AgregarProfesor()
     {
         $nombre = $this->rest->post('nombre');
         $apellido = $this->rest->post('apellido');
-        $insert_data = array('nombre'=>$nombre ,'apellido'=>$apellido);
+        $insert_data = ['nombre'=>$nombre ,'apellido'=>$apellido];
          return $this->responseJson(['exito'=>$this->bedelia->AgregarProfesor($insert_data)]);
     }
 
@@ -27,7 +27,7 @@ class Profesor  extends OWN_Controller{
         $id = $this->rest->post('id');
         $nombre = $this->rest->post('nombre');
         $apellido = $this->rest->post('apellido');
-        $data = array('nombre'=> $nombre, 'apellido' => $apellido);
+        $data = ['nombre'=> $nombre, 'apellido' => $apellido];
         
         return $this->responseJson(['exito'=>$this->bedelia->ActualizarProfesor($data, $id)]); 
     }

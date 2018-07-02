@@ -4,14 +4,15 @@ class Ciudad  extends OWN_Controller{
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('CapaDeNegocio/Extras');
+
+		$this->load->logic('Extras');
 	}
 
     public function Agregar()
     {
         $nombre = $this->rest->post('nombre');
         $idPais = $this->rest->post('idPais');
-        $data = array('nombre'=>$nombre, 'idPais'=>$idPais);
+        $data = ['nombre'=>$nombre, 'idPais'=>$idPais];
         return $this->responseJson(['exito'=>$this->extras->AgregarCiudad($data)]);
     }
 
@@ -26,7 +27,7 @@ class Ciudad  extends OWN_Controller{
     {
         $id = $this->rest->post('id');
         $nombre = $this->rest->post('nombre');
-        $data = array('nombre'=> $nombre);
+        $data = ['nombre'=> $nombre];
         return $this->responseJson(['exito'=>$this->extras->ActualizarCiudad($data,$id)]);  
     }
 
