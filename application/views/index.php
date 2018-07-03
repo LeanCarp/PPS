@@ -2,7 +2,7 @@
 <!-- <html lang="es" ng-app="materializeApp"> -->
 <html lang="es" ng-app="AlumnosApp">
   <head>
-    <!--<title ng-bind="title ? title + ' • Cajero' : 'Cajero'">Cajero</title>-->
+    <title ng-bind="title"></title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

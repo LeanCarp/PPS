@@ -6,7 +6,7 @@ class User extends OWN_Controller{
 	public function __construct() {
 		parent::__construct();
 
-        $this->load->logic('CapaDeNegocio/Usuario');
+        $this->load->logic('Usuario');
 
 	}
 

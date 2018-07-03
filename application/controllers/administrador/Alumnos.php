@@ -45,7 +45,7 @@ class Alumnos extends OWN_Controller{
             ///Si se pasó un id se busca la comision correspondiente.
             $this->User_model->get_all():
             //Si se pasó un id se busca la comision correspondiente.
-            $this->User_model->with_escuela()->get($id);
+            $this->User_model->with_escuela()->get($id)
         );
 
         return $this->responseJson(['datos'=>$data]);

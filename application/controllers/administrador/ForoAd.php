@@ -5,7 +5,7 @@ class ForoAd extends OWN_Controller{
 	public function __construct() {
         parent::__construct();
 
-        $this->load->logic('CapaDeNegocio/Foro');
+        $this->load->logic('Foro');
     }
 
     public function AgregarCategoria()
