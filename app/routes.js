@@ -181,7 +181,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       controller: "CiudadesCtr"
     })
     .when("/ciudades-listar", {
-      title: 'Países - Listar',
+      title: 'Ciudades - Listar',
       templateUrl: BASE_URL + "app/views/ciudad_listar.html",
       controller: "CiudadesCtr"
     })
@@ -191,12 +191,12 @@ app.config(['$routeProvider', function ($routeProvider) {
       controller: "EscuelasCtr"
     })
     .when("/escuelas-agregar/:id", {
-      title: 'Ciudades - Modificar',
+      title: 'Escuelas - Modificar',
       templateUrl: BASE_URL + "app/views/escuela_agregar.html",
       controller: "EscuelasCtr"
     })
     .when("/escuelas-listar", {
-      title: 'Países - Listar',
+      title: 'Escuelas - Listar',
       templateUrl: BASE_URL + "app/views/escuela_listar.html",
       controller: "EscuelasCtr"
     })

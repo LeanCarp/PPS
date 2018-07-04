@@ -42,7 +42,7 @@
     <script src="<?php echo BASE_URL().'app/routes.js'?>"></script>
     <script src="<?php echo BASE_URL().'app/service.js'?>"></script>
     <script src="<?php echo BASE_URL().'app/controllers.js'?>"></script>
-    
+
   </head>
   <body>
     <div ng-include="'
