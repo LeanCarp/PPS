@@ -1,6 +1,15 @@
 app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'carrera';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
+
     $scope.getAlumnos= function(id){
     service.getAlumnos().success(function (data){
       $scope.alumnos = data.datos;
@@ -90,6 +99,15 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
     
     // HACER LA REDIRECCION POR SI EL ID ES VACIO
     $rootScope.idAlumno = $routeParams.id !=undefined ?  $routeParams.id : $rootScope.idAlumno;
+
+    // Atributos y funciones para ordenamiento
+    $scope.sortType = 'anio';
+    $scope.sortReverse = false;
+
+    $scope.revertirOrden = function(){
+    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    }
+    //
 
     $scope.selectedList = [];
 
@@ -181,10 +199,18 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
 app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
    $rootScope.idCursada =$routeParams.idCursada !=undefined ?  $routeParams.idCursada : $rootScope.idCursada;
    console.log($rootScope.idCursada);
+
+    // Atributos y funciones para ordenamiento
+    $scope.sortType = 'anio';
+    $scope.sortReverse = false;
+
+    $scope.revertirOrden = function(){
+    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    }
+    //
   
    service.getExamenes($routeParams.idCursada).success(function (data){
     $scope.examenes = data['datos'].examen;
-    console.log(data);
     $scope.idAlumno = data.datos.idUsuario;
     }).error( () => Materialize.toast('Error al obtener los examenes', 3500) );
 
@@ -208,6 +234,15 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   
   $scope.isAdding = false;
+
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'anio';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
 
   var horarios = [];
 
@@ -343,6 +378,15 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
 
   $rootScope.idAlumno = $routeParams.id !=undefined ?  $routeParams.id : $rootScope.idAlumno;
 
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'fecha';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
+
   if($routeParams.idInforme){
     $scope.isAdding = true;
 
@@ -406,6 +450,15 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
   $scope.isAdding = false;
 
   $rootScope.idAlumno=  $rootScope.idAlumno !=undefined ?   $rootScope.idAlumno :  $routeParams.id;
+
+    // Atributos y funciones para ordenamiento
+    $scope.sortType = 'carrera';
+    $scope.sortReverse = false;
+  
+    $scope.revertirOrden = function(){
+      $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    }
+    //
 
   var horarios = [];
   
@@ -502,8 +555,14 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
 app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
-  
- 
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'nombre';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
 
   $scope.agregarMateria = function(materia){
     // Si está modificando actualiza
@@ -660,6 +719,15 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
 app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'nombre';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
+
   if ($routeParams.id){
     $scope.isAdding = true;
     var idProfesor = $routeParams.id;
@@ -707,6 +775,15 @@ app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service',
 
 app.controller('PaisesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
+
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'nombre';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
 
   if ($routeParams.id){
     $scope.isAdding = true;
@@ -825,6 +902,15 @@ app.controller('CiudadesCtr', ['$scope', '$routeParams', '$location', 'service',
 app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
   $scope.isAdding = false;
 
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'nombre';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
+
   if ($routeParams.id){
     $scope.isAdding = true;
     var idEscuela = $routeParams.id;
@@ -893,6 +979,15 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
   $rootScope.alumnoLog = USER_ID_LOG;
   $scope.alumnoLog = $rootScope.alumnoLog;
 
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = '';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
+
   if ($routeParams.idCurs){
     service.AlumnoObtenerExamenes($routeParams.idCurs).success(function (data){
       if (data.datos.examen == null){
@@ -949,6 +1044,15 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
   $scope.alumnoLog = $rootScope.alumnoLog;
 
   $rootScope.idAlumno = $routeParams.id != undefined ? $routeParams.id : $rootScope.idAlumno;
+
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = '';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
 
   if($routeParams.idCurs){
     service.TutorObtenerExamenes($routeParams.idCurs).success(function (data){
@@ -1366,6 +1470,15 @@ app.controller('PedidosCtr', ['$scope','service', function ($scope, service) {
 
 app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
   $scope.isAdding = false;
+
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'username';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+  }
+  //
   
   // HACER LA REDIRECCION POR SI EL ID ES VACIO
   $rootScope.idTutor = $routeParams.idTutor != undefined ?  $routeParams.idTutor: $rootScope.idTutor;

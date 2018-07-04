@@ -11,7 +11,8 @@ class Pais_model extends OWN_Model
     public function __construct()
 	{
         parent::__construct();
-        $this->timestamps = FALSE;
+		$this->timestamps = FALSE;
+		$this->return_as = 'array';
         $this->has_many['ciudad'] = array('foreign_model'=>'Ciudad_model','foreign_table'=>'ciudad','foreign_key'=>'idPais','local_key'=>'id');
 	}
 	

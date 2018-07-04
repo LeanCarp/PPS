@@ -12,7 +12,7 @@ class Materia_model extends OWN_Model
 	{
         parent::__construct();
         $this->timestamps = FALSE;
-		
+		$this->return_as = 'array';
 		$this->has_many['comision'] = array('foreign_model'=>'Comision_model','foreign_table'=>'comision','foreign_key'=>'idMateria','local_key'=>'id');
 		$this->has_many['archivo'] = array('foreign_model'=>'Archivo_model','foreign_table'=>'archivo','foreign_key'=>'idMateria','local_key'=>'id');
 

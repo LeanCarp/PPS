@@ -4,10 +4,12 @@
 
     <div class="nav-wrapper">
       <form>
-        <div class="input-field">
-          <input id="search" type="search" required ng-model="buscar">
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
+        <div class="row">
+          <div class="input-field">
+            <input id="search" type="search" required ng-model="buscar">
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
         </div>
       </form>
     </div>
@@ -15,14 +17,26 @@
     <table>
       <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
+            <th>
+              <a ng-click="revertirOrden(); sortType = 'nombre'">
+                Nombre
+                <span ng-show="sortType == 'nombre' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                <span ng-show="sortType == 'nombre' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="revertirOrden(); sortType = 'apellido'">
+                Apellido
+                <span ng-show="sortType == 'apellido' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                <span ng-show="sortType == 'apellido' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+              </a>
+            </th>
             <th>Opciones</th>
         </tr>
       </thead>
   
       <tbody>
-        <tr ng-repeat="profesor in profesores"> <!--  | filter: buscar -->
+        <tr ng-repeat="profesor in profesores | orderBy:sortType:sortReverse | filter: buscar">
           <td>{{profesor.nombre}}</td>
           <td>{{profesor.apellido}}</td>
           <td><a title="Editar" href="#/profesores-agregar/{{profesor.id}}"><i class="listar-iconos material-icons">edit</i></a></td>

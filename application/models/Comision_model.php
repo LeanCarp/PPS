@@ -11,7 +11,8 @@ class Comision_model extends OWN_Model
     public function __construct()
 	{
         parent::__construct();
-        $this->timestamps = FALSE;
+		$this->timestamps = FALSE;
+		$this->return_as = 'array';
 		$this->has_one['materia'] = array('foreign_model'=>'Materia_model','foreign_table'=>'materia','foreign_key'=>'id','local_key'=>'idMateria');
         $this->has_many['horario'] = array('foreign_model'=>'Horario_model','foreign_table'=>'horario','foreign_key'=>'idComision','local_key'=>'id');
 		$this->has_many['cursa'] = array('foreign_model'=>'Cursada_model','foreign_table'=>'cursada','foreign_key'=>'idComision','local_key'=>'id');

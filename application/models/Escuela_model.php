@@ -11,7 +11,8 @@ class Escuela_model extends OWN_Model
     public function __construct()
 	{
         parent::__construct();
-        $this->timestamps = FALSE;
+		$this->timestamps = FALSE;
+		$this->return_as = 'array';
         $this->has_one['ciudad'] = array('foreign_model'=>'Ciudad_model','foreign_table'=>'ciudad','foreign_key'=>'id','local_key'=>'idCiudad');
 		$this->has_many['alumnos'] = array('foreign_model'=>'User_model','foreign_table'=>'user','foreign_key'=>'idEscuela','local_key'=>'id');
 

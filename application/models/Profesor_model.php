@@ -12,7 +12,7 @@ class Profesor_model extends OWN_Model
 	{
         parent::__construct();
         $this->timestamps = FALSE;
-		
+		$this->return_as = 'array';
 		$this->has_many['dicta'] = array('foreign_model'=>'Dicta_model','foreign_table'=>'dicta','foreign_key'=>'idProfesor','local_key'=>'id');
 	}
 

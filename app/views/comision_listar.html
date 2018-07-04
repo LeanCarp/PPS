@@ -4,10 +4,12 @@
     
         <div class="nav-wrapper">
           <form>
-            <div class="input-field">
-              <input id="search" type="search" required ng-model="buscar">
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
+            <div class="row">
+              <div class="input-field">
+                <input id="search" type="search" required ng-model="buscar">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
             </div>
           </form>
         </div>
@@ -15,15 +17,33 @@
         <table>
           <thead>
             <tr>
-                <th>Año</th>
-                <th>Cuatrimestre</th>
-                <th>Materia</th>
+                <th>
+                  <a ng-click="revertirOrden(); sortType = 'anio'">
+                    Año
+                    <span ng-show="sortType == 'anio' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                    <span ng-show="sortType == 'anio' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                  </a>
+                </th>
+                <th>
+                  <a ng-click="revertirOrden(); sortType = 'cuatrimestre'">
+                    Cuatrimestre
+                    <span ng-show="sortType == 'cuatrimestre' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                    <span ng-show="sortType == 'cuatrimestre' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                  </a>
+                </th>
+                <th>
+                  <a ng-click="revertirOrden(); sortType = 'nombreMateria'">
+                    Materia
+                    <span ng-show="sortType == 'nombreMateria' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                    <span ng-show="sortType == 'nombreMateria' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                  </a>
+                </th>
                 <th>Opciones</th>
             </tr>
           </thead>
       
           <tbody>
-            <tr ng-repeat="comision in comisiones">  <!-- | filter: buscar -->
+            <tr ng-repeat="comision in comisiones | orderBy:sortType:sortReverse | filter: buscar">
               <td>{{comision.anio}}</td>
               <td>{{comision.cuatrimestre}}</td>
               <td>{{comision.nombreMateria}}</td>

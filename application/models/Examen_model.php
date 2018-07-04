@@ -11,7 +11,8 @@ class Examen_model extends OWN_Model
     public function __construct()
 	{
         parent::__construct();
-        $this->timestamps = FALSE;
+		$this->timestamps = FALSE;
+		$this->return_as = 'array';
 		$this->has_one['cursada'] = array('foreign_model'=>'Cursada_model','foreign_table'=>'cursada','foreign_key'=>'id','local_key'=>'idCursada');
 		
 	}

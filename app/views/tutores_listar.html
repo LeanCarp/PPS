@@ -17,15 +17,33 @@
     <table>
       <thead>
         <tr>
-            <th>DNI</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
+            <th>
+              <a ng-click="revertirOrden(); sortType = 'username'">
+                DNI
+                <span ng-show="sortType == 'username' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                <span ng-show="sortType == 'username' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="revertirOrden(); sortType = 'first_name'">
+                Nombre
+                <span ng-show="sortType == 'first_name' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                <span ng-show="sortType == 'first_name' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="revertirOrden(); sortType = 'last_name'">
+                Apellido
+                <span ng-show="sortType == 'last_name' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                <span ng-show="sortType == 'last_name' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+              </a>
+            </th>
             <th>Opciones</th>
         </tr>
       </thead>
   
       <tbody>
-        <tr class="collection-item" ng-repeat="tutor in tutores| filter: buscar">
+        <tr class="collection-item" ng-repeat="tutor in tutores | orderBy:sortType:sortReverse | filter: buscar">
           <td>{{tutor.username}}</td>
           <td>{{tutor.first_name}}</td>
           <td>{{tutor.last_name}}</td>
