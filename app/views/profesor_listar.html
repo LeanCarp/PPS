@@ -39,7 +39,7 @@
         <tr ng-repeat="profesor in profesores | orderBy:sortType:sortReverse | filter: buscar">
           <td>{{profesor.nombre}}</td>
           <td>{{profesor.apellido}}</td>
-          <td><a title="Editar" href="#/profesores-agregar/{{profesor.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
+          <td><a title="Editar" href="#/profesores-modificar/{{profesor.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
         </tr>
       </tbody>
     </table>

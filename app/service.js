@@ -261,6 +261,15 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return  $http.post(urActividadAgregar, id, { responseType: 'json' });
     },
+     eliminarActividad: (idActividad) => {
+      let urActividadEliminar='administrador/Actividad/Eliminar';
+      const id = {
+        'idActividad': idActividad
+      }
+      return  $http.post(urActividadEliminar, id, { responseType: 'json' });
+    },
+
+
     obtenerPaises: (idPais) => {
       let urlPaisObtener = 'administrador/Pais/Leer';
       const id = {

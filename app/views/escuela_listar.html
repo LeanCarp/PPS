@@ -38,7 +38,7 @@
           <tr ng-repeat="escuela in escuelas | orderBy:sortType:sortReverse | filter: buscar">
             <td>{{escuela.nombre}}</td>
             <td>{{escuela.orientacion}}</td>
-            <td><a title="Editar" href="#/escuelas-agregar/{{escuela.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
+            <td><a title="Editar" href="#/escuelas-modificar/{{escuela.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
           </tr>
         </tbody>
       </table>
