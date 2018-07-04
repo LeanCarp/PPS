@@ -422,6 +422,7 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
       });
     }
     else{
+          actividad.horarios=horarios;
       service.agregarActividad(actividad).success(function(data){
         if (!data.exito){
           Materialize.toast("No se pudo agregar la actividad", 3500);
@@ -458,6 +459,15 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
     service.obtenerActividad($routeParams.id).success(function(data){
       $scope.actividad = data.datos;
     }).error( () => Materialize.toast('Error al obtener actividad', 3500) );
+  }
+
+    $scope.eliminarActividad = function(horario){
+
+  }
+
+    $scope.eliminarActividad = function(idActividad){
+    service.eliminarActividad(idActividad).success(function(data){
+    }).error( () => Materialize.toast('Erro al eliminar', 3500) );
   }
 
 

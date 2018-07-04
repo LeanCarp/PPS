@@ -15,7 +15,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno_agregar.html",
       controller: "AlumnosCtr"
     })
-    .when("/alumnos-agregar/:id", {
+    .when("/alumnos-modificar/:id", {
       title: 'Alumnos - Modificar',
       templateUrl: BASE_URL + "app/views/alumno_agregar.html",
       controller: "AlumnosCtr"
@@ -70,7 +70,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/materia_agregar.html",
       controller: "MateriaCtr"
     })
-    .when("/materias-agregar/:id", {
+    .when("/materias-modificar/:id", {
       title: 'Materias - Modificar',
       templateUrl: BASE_URL + "app/views/materia_agregar.html",
       controller: "MateriaCtr"
@@ -100,7 +100,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/profesor_agregar.html",
       controller: "ProfesorCtr"
     })
-    .when("/profesores-agregar/:id", {
+    .when("/profesores-modificar/:id", {
       title: 'Profesor - Modificar',
       templateUrl: BASE_URL + "app/views/profesor_agregar.html",
       controller: "ProfesorCtr"
@@ -135,7 +135,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/comision_agregar.html",
       controller: "ComisionesCtr"
     })
-    .when("/comisiones-agregar/:id", {
+    .when("/comisiones-modificar/:id", {
       title: 'Comisiones - Modificar',
       templateUrl: BASE_URL + "app/views/comision_agregar.html",
       controller: "ComisionesCtr"
@@ -160,7 +160,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/pais_agregar.html",
       controller: "PaisesCtr"
     })
-    .when("/paises-agregar/:id", {
+    .when("/paises-modificar/:id", {
       title: 'Países - Modificar',
       templateUrl: BASE_URL + "app/views/pais_agregar.html",
       controller: "PaisesCtr"
@@ -175,7 +175,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/ciudad_agregar.html",
       controller: "CiudadesCtr"
     })
-    .when("/ciudades-agregar/:id", {
+    .when("/ciudades-modificar/:id", {
       title: 'Ciudades - Modificar',
       templateUrl: BASE_URL + "app/views/ciudad_agregar.html",
       controller: "CiudadesCtr"
@@ -190,7 +190,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/escuela_agregar.html",
       controller: "EscuelasCtr"
     })
-    .when("/escuelas-agregar/:id", {
+    .when("/escuelas-modificar/:id", {
       title: 'Escuelas - Modificar',
       templateUrl: BASE_URL + "app/views/escuela_agregar.html",
       controller: "EscuelasCtr"
@@ -205,7 +205,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutores_agregar.html",
       controller: "TutoresCtr"
     })
-    .when("/tutores-agregar/:idTutor", {
+    .when("/tutores-modificar/:idTutor", {
       title: 'Tutores - Modificar',
       templateUrl: BASE_URL + "app/views/tutores_agregar.html",
       controller: "TutoresCtr"
