@@ -32,6 +32,14 @@ class Actividad extends OWN_Controller{
         
     }
 
+    public function Eliminar()
+    {
+        $id = $this->rest->post('idActividad');
+        $data = $this->extras->EliminarActividad($id);
+        return $this->responseJson(['datos'=>$data]);
+        
+    }
+
       public function ObtenerActividadesUsuario()
     {
         $id = $this->rest->post('idUsuario');

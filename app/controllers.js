@@ -429,8 +429,9 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
         }
       });
     }
-    console.log($rootScope.idAlumno);
+   
     $location.path('informes-listar/'+$rootScope.idAlumno);
+     $scope.obtenerInformes(); 
   }
 
   $scope.obtenerInformes = function(idAlumno){
@@ -450,9 +451,9 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
   $scope.isAdding = false;
 
   $rootScope.idAlumno=  $rootScope.idAlumno !=undefined ?   $rootScope.idAlumno :  $routeParams.id;
-
+  
     // Atributos y funciones para ordenamiento
-    $scope.sortType = 'carrera';
+    $scope.sortType = 'descripcion';
     $scope.sortReverse = false;
   
     $scope.revertirOrden = function(){
@@ -485,7 +486,7 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
         }
       });
     }
-  $location.path('actividades-listar/actividad.idAlumno');
+    $location.path('actividades-listar/'+$rootScope.idAlumno);
   
   }
 
@@ -504,7 +505,7 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
       };
 
   $scope.obtenerActividades = function(){
-    service.obtenerActividades($rootScope.idAlumno).success(function(data){
+    service.obtenerActividades($routeParams.id).success(function(data){
       $scope.actividades = data.datos;
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
   }
@@ -514,14 +515,18 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
     }).error( () => Materialize.toast('Error al obtener actividad', 3500) );
   }
 
-    $scope.eliminarActividad = function(horario){
-
-  }
-
     $scope.eliminarActividad = function(idActividad){
     service.eliminarActividad(idActividad).success(function(data){
-    }).error( () => Materialize.toast('Erro al eliminar', 3500) );
-  }
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar la actividad", 3500);
+        }
+        else{
+          Materialize.toast("Actividad eliminada  con éxito", 3500);
+          console.log($rootScope.idAlumno);
+         $scope.obtenerActividades();
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
 
 
   
@@ -1094,6 +1099,8 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
       $scope.alumnos = data.datos;
     })
   }
+
+    
 
   $scope.obtenerCursadas = function(id){
     service.TutorObtenerCursadas(id).success(function (data){

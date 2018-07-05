@@ -56,7 +56,7 @@ class Extras {
     public function EliminarActividad($id)
     {
         $this->CI->load->model('Actividad_model');
-        $this->CI->Actividad_model->delete($id);
+       return  $this->CI->Actividad_model->delete($id);
     }
 
     public function AgregarInforme($data)
