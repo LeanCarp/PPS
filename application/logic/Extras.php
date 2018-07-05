@@ -98,7 +98,7 @@ class Extras {
       public function EliminarInforme($id)
     {
         $this->CI->load->model('Informe_model');
-        $this->CI->Informe_model->delete($id);
+       return $this->CI->Informe_model->delete($id);
     }
 
     public function AgregarPais($data)

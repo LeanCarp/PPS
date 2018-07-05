@@ -31,7 +31,7 @@
                         <p class="advertencia" ng-show="formCursada.estado.$error.required && !formCursada.estado.$pristine" class="help-block">Debe seleccionar un estado</p>
                     </div>
                     <div class="input-field col s4">
-                        <input type="number" id="nota" name="nota" ng-model="cursada.nota" ng-required="false">
+                        <input type="number" id="nota" name="nota" min="1" max="10" maxlength = "2" ng-model="cursada.nota" ng-required="false">
                         <label class="active" for="comision">Ingrese una nota: (No obligatorio)</label>
                     </div>
                 </div>

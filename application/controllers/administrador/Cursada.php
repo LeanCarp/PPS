@@ -28,6 +28,14 @@ class Cursada  extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);
         
     }
+    
+    public function Eliminar()
+    {
+        $id = $this->rest->post('idCursada');
+        $data = $this->bedelia->EliminarCursada($id);
+        return $this->responseJson(['datos'=>$data]);
+        
+    }
 
     public function ActualizarCursada()
     {

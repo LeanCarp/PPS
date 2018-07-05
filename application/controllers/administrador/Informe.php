@@ -35,6 +35,13 @@ class Informe extends OWN_Controller{
         return $this->responseJson(['datos'=>$data]);
     }
 
+    public function Eliminar()
+    {
+        $id = $this->rest->post('idInforme');
+        $data = $this->extras->EliminarInforme($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
+
     public function ActualizarInforme()
     {
         $descripcion = $this->rest->post('descripcion');

@@ -144,6 +144,14 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlComisionObtener, idUsuario, { responseType: 'json' });
     },
 
+      eliminarCursada: (idCursada) => {
+      let urlComisionObtener = 'administrador/Cursada/Eliminar';
+     const idCurs = {
+        'idCursada': idCursada
+      }
+      return $http.post(urlComisionObtener, idCurs, { responseType: 'json' });
+    },
+
     // Obtiene una cursada puntual.
     getCursada: (idCursada) => {
       let urlComisionObtener = 'administrador/Cursada/ObtenerCursada';
@@ -192,6 +200,16 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return $http.post(urlInformeAgregar, infor, { responseType: 'json' });
     },
+    eliminarInforme: (idInforme) => {
+      let urlInformeEliminar='administrador/Informe/Eliminar';
+      const id = {
+
+        'idInforme': idInforme
+      }
+      return $http.post(urlInformeEliminar, id , { responseType: 'json' });
+    },
+
+    
 
     // Obtiene un informe por su ID.
     obtenerInforme: (idInforme) => {

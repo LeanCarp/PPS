@@ -188,7 +188,7 @@ class Bedelia {
         public function EliminarCursada($id)
         {
                 $this->CI->load->model('Cursada_model');
-                $this->CI->Cursada_model->delete($id);
+                return $this->CI->Cursada_model->delete($id);
         } 
 
 

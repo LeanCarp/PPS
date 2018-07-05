@@ -125,6 +125,18 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
       })
     }
 
+    $scope.eliminarCursada = function(idActividad){
+    service.eliminarCursada(idActividad).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar la cursada", 3500);
+        }
+        else{
+          Materialize.toast("Cursada eliminada  con éxito", 3500);
+        $scope.getCursadas($routeParams.id);
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
+
     $scope.agregarCursada = function(cursada){
       if ($scope.isAdding){
         service.actualizarCursada(cursada).success(function(data){
@@ -406,6 +418,18 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
       $scope.informe = informe;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
+
+    $scope.eliminarInforme = function(idActividad){
+    service.eliminarInforme(idActividad).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe eliminada  con éxito", 3500);
+         $scope.obtenerInformes();
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
   
   $scope.agregarInforme = function(informe){
     informe.idAlumno = $rootScope.idAlumno;
@@ -431,7 +455,7 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
     }
    
     $location.path('informes-listar/'+$rootScope.idAlumno);
-     $scope.obtenerInformes(); 
+     $scope.obtenerInformes($rootScope.idAlumno); 
   }
 
   $scope.obtenerInformes = function(idAlumno){
@@ -1282,6 +1306,7 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
       }
     });
     $location.path('foro-temas/'+$rootScope.idCategoria);
+    $scope.obtenerTemas($rootScope.idCategoria);
   }
 
   $scope.eliminarCategoria = function(id) {
@@ -1306,6 +1331,7 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
       }
     });
     $location.path('foro-mensajes/'+$rootScope.idTema);
+    $scope.obtenerMensajes($rootScope.idTema);
   }
 
 }]);
@@ -1540,10 +1566,11 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
         else{
           Materialize.toast("Tutor cargado con éxito", 3500);
         }
-      }).error( () => Materialize.toast('Error al obtener Cursadas', 3500) );
+      }).error( () => Materialize.toast('Error al obtener Tutores', 3500) );
     }
-    $scope.obtenerTutores();
+    
     $location.path('/tutores-listar');
+    $scope.obtenerTutores();
   }
 
   $scope.obtenerTutores = function(idTutor){
