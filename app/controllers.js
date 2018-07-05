@@ -166,8 +166,16 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
     $scope.getCursadas = function(idAlumno){
       service.getCursadas(idAlumno).success(function (data){
         $scope.cursadas = data.datos;
+       $scope.obtenerAlumno(idAlumno);
       })
     }
+
+    $scope.obtenerAlumno = function(id){
+    service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
+      console.log($scope.alumno);
+    })
+  }
 
     $scope.obtenerComisiones = function() {
       service.obtenerComisiones().success(function(data){
@@ -458,11 +466,18 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
      $scope.obtenerInformes($rootScope.idAlumno); 
   }
 
-  $scope.obtenerInformes = function(idAlumno){
+  $scope.obtenerInformes = function(){
     service.obtenerInformes($scope.idAlumno).success(function(data){
       $scope.informes = data.datos;
+      $scope.obtenerAlumno($scope.idAlumno);
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
+    $scope.obtenerAlumno = function(id){
+    service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
+    })
+  }
+  
     $scope.obtenerInformesTutor = function(){
     service.obtenerInformesTutor($scope.idAlumno).success(function(data){
       $scope.informes = data.datos;
@@ -531,12 +546,19 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
   $scope.obtenerActividades = function(){
     service.obtenerActividades($routeParams.id).success(function(data){
       $scope.actividades = data.datos;
+       $scope.obtenerAlumno($routeParams.id);
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
   }
   $scope.obtenerActividad = function(){
     service.obtenerActividad($routeParams.id).success(function(data){
       $scope.actividad = data.datos;
     }).error( () => Materialize.toast('Error al obtener actividad', 3500) );
+  }
+
+    $scope.obtenerAlumno = function(id){
+    service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
+    })
   }
 
     $scope.eliminarActividad = function(idActividad){
@@ -1225,6 +1247,11 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
       $scope.categorias = data.datos;
     });
   }
+   $scope.obtenerCategoria = function(id) {
+    service.foroObtenerCategorias(id).success(function(data){
+      $scope.categoria = data.datos;
+    });
+  }
 
   $scope.agregarTema = function(tema) {
     if ($scope.isAdding){
@@ -1259,6 +1286,7 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
   $scope.obtenerTemas = function(id) {
     service.foroObtenerTemasCategoria(id).success(function(data){
       $scope.temas = data.datos;
+      $scope.obtenerCategoria(id);
     });
   }
 
@@ -1293,6 +1321,9 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
         this.push(value);
       }, nuevo);
       $scope.mensajes = nuevo;
+      service.foroObtenerTema(id).success(function(data){
+        $scope.tema = data.datos;
+      });
     });
   }
 
@@ -1423,6 +1454,7 @@ app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
       $scope.categorias = data.datos;
     });
   }
+  
 
   $scope.obtenerTemas = function(id) {
     service.foroTutorObtenerTemasCategoria(id).success(function(data){

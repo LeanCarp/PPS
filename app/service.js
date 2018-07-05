@@ -457,6 +457,17 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
 
   },
 
+   modificarUsuario: (usuario) => {
+      const usr = {
+          'id': usr.id,
+          'password': usr.password,
+ 
+      }
+    let urlUsuarioActualizar = 'administrador/User/ModificarUsuario';
+    return $http.post(urlUsuarioActualizar, usr, { responseType: 'json' });
+
+  },
+
     getInformesAlumno: (dni) => {
         var informes = {};
         return informes;
@@ -613,6 +624,14 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return $http.post(urlForoObtener, idCat, { responseType: 'json' });
     },
+     foroObtenerCategoria: (id) => {
+      let urlForoObtener='administrador/ForoAd/LeerCategoria';
+      const idCat = {
+        'id': id
+      }
+      return $http.post(urlForoObtener, idCat, { responseType: 'json' });
+    },
+    
 
     foroAgregarTema: (tema) => {
       let urlForoAgregar='administrador/ForoAd/AgregarTema';

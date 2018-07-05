@@ -22,7 +22,7 @@ class Alumno extends OWN_Controller{
             //Si no se paso id se buscan todas
             $this->User_model->get_all():
             //Si se paso id se devuelve ese
-            $this->User_model->with_escuela()->get($id);
+            $this->User_model->with_escuela()->get($id)
         );
 
         return $this->responseJson(['datos'=>$data]);

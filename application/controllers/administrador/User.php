@@ -29,6 +29,18 @@ class User extends OWN_Controller{
        
     }
 
+      public function ModificarUsuario()
+    {
+        $id = $this->rest->post('id');
+		$password = $this->rest->post('password');
+        $data = array(
+                'password' => $password,
+                    );
+
+        return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]); 
+       
+    }
+
     public function ObtenerAlumnos()
     {
         $group = ['2']; // Users group alumno.
