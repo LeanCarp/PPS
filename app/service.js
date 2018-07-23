@@ -177,6 +177,16 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         return $http.post(urlExamenesObtener, id,{ responseType: 'json' });
       },
 
+      obtenerExamenes: (id) => {
+
+      const idCurs=
+      {
+        'idCursada':id,
+      }
+        let urlExamenesObtener = 'administrador/Examen/ObtenerExamenes';
+        return $http.post(urlExamenesObtener, idCurs,{ responseType: 'json' });
+      },
+
     agregarExamen: (examen) => {
     const exam = {
       'fecha': examen.fecha,

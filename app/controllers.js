@@ -92,6 +92,14 @@ app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location',
         $scope.administrador = data.datos;
       })
     }
+
+    $scope.obtenerTutor= function(){
+    service.obtenerTutor($rootScope.idAdmin).success(function (data){
+      $scope.tutor = data.datos;
+    })
+  }
+
+
 }]);
 
 app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -427,18 +435,7 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
 
-    $scope.eliminarInforme = function(idActividad){
-    service.eliminarInforme(idActividad).success(function(data){
-      if (!data.datos){
-          Materialize.toast("No se pudo eliminar el informe", 3500);
-        }
-        else{
-          Materialize.toast("Informe eliminada  con éxito", 3500);
-         $scope.obtenerInformes();
-        }        
-    }).error( () => Materialize.toast('Error al eliminar', 3500) );
-    }
-  
+ 
   $scope.agregarInforme = function(informe){
     informe.idAlumno = $rootScope.idAlumno;
     if($scope.isAdding){
@@ -482,7 +479,21 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
     service.obtenerInformesTutor($scope.idAlumno).success(function(data){
       $scope.informes = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
+      $scope.obtenerAlumno($scope.idAlumno);
+
   }
+
+    $scope.eliminarInforme = function(id){
+    service.eliminarInforme(id).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe eliminado  con éxito", 3500);
+         $scope.obtenerInformes();
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
 
 }]);
 
@@ -1146,17 +1157,37 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     })
   }
 
-    
+  $scope.obtenerExamenes=function(id) {
+    service.obtenerExamenes($routeParams.idCurs).success(function (data){
+    $scope.examenes = data.datos;
+    })
+    service.AlumnoObtenerAlumno($rootScope.idAlumno).success(function (data){
+      $scope.alumno = data.datos;
+    })
+    service.getCursada($routeParams.idCurs).success(function (data){
+      $scope.nombreMateria = data.datos.comision.nombreMateria;
+
+    })
+
+  }
+
+
 
   $scope.obtenerCursadas = function(id){
     service.TutorObtenerCursadas(id).success(function (data){
       $scope.cursadas = data.datos;
+    })
+      service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
     })
   }
 
   $scope.obtenerInformes = function(id){
     service.TutorObtenerInformes(id).success(function (data){
       $scope.informes = data.datos;
+    })
+     service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
     })
   }
 
@@ -1616,6 +1647,18 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
         $scope.informes = data.datos;
       })
   }
+
+   $scope.eliminarInforme = function(id){
+    service.eliminarInforme(id).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe eliminado  con éxito", 3500);
+         $scope.obtenerInformesTutor();
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
 
 }]);
 

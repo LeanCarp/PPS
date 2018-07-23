@@ -42,9 +42,9 @@ class Alumnos extends OWN_Controller{
 
         $data = (
             is_null($id) ?
-            ///Si se pasó un id se busca la comision correspondiente.
+            ///Si no se pasó un id se buscan todos.
             $this->User_model->get_all():
-            //Si se pasó un id se busca la comision correspondiente.
+            //Si se pasó un id se busca el usuario correspondiente.
             $this->User_model->with_escuela()->get($id)
         );
 
