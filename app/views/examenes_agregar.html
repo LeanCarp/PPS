@@ -33,6 +33,7 @@
                     <input class="elementos" id="nota" name="nota" type="number" min="1"  max="10"   class="" ng-model="examen.nota" ng-required="true">
                     <label class="active" for="nota">nota</label>
                     <p class="advertencia" ng-show="formExamen.nota.$error.required && !formExamen.nota.$pristine" class="help-block">La nota no puede ser vacía</p>
+                    <p class="advertencia" ng-show="validarNota(formExamen.nota.$viewValue) && !formExamen.nota.$pristine" class="help-block">La nota debe estar entre 0-10</p>
                 </div>
              </div>
             <div class="row">

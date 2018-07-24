@@ -257,6 +257,14 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
 
       $location.path('/examenes-listar/'+$routeParams.id);
       }
+  $scope.validarNota = function(value){
+    if (value > 10 || value < 1){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }]);
 
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
