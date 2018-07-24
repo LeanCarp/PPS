@@ -181,7 +181,7 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
     $scope.obtenerAlumno = function(id){
     service.AlumnoObtenerAlumno(id).success(function (data){
       $scope.alumno = data.datos;
-      console.log($scope.alumno);
+
     })
   }
 
@@ -226,7 +226,7 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
 
 app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
    $rootScope.idCursada =$routeParams.idCursada !=undefined ?  $routeParams.idCursada : $rootScope.idCursada;
-   console.log($rootScope.idCursada);
+
 
     // Atributos y funciones para ordenamiento
     $scope.sortType = 'anio';
@@ -255,7 +255,7 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
         }
       }).error( () => Materialize.toast('Error al agregar examen', 3500) );
 
-      $location.path('/examenes-listar/'+$routeParams.id);
+      $location.path('/examenes-listar/'+$rootScope.idCursada);
       }
   $scope.validarNota = function(value){
     if (value > 10 || value < 1){
