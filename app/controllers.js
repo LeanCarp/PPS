@@ -1161,16 +1161,28 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     service.obtenerExamenes($routeParams.idCurs).success(function (data){
     $scope.examenes = data.datos;
     })
-    service.AlumnoObtenerAlumno($rootScope.idAlumno).success(function (data){
-      $scope.alumno = data.datos;
-    })
     service.getCursada($routeParams.idCurs).success(function (data){
       $scope.nombreMateria = data.datos.comision.nombreMateria;
-
+      $rootScope.idAlumno=data.datos.idUsuario;
+      service.AlumnoObtenerAlumno(data.datos.idUsuario).success(function (alum){
+        $scope.alumno = alum.datos;
+      })
     })
 
   }
 
+
+    $scope.eliminarInforme = function(id){
+    service.eliminarInforme(id).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe eliminado  con éxito", 3500);
+         $scope.obtenerInformes($rootScope.idAlumno);
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
 
 
   $scope.obtenerCursadas = function(id){

@@ -57,6 +57,8 @@
                 <td>{{informe.usuario.first_name}} {{informe.usuario.last_name}}</td>
                 <td>
                     <a href="#/tutor-informes-modificar/{{informe.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
+                    <a title="Eliminar"  style="cursor: pointer;" ng-click="eliminarInforme(informe.id)"  ><i class="listar-iconos material-icons">delete</i></a>
+
                 </td> 
               </tr>
             </tbody>
