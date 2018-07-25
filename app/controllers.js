@@ -24,6 +24,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 
     service.obtenerAlumno($routeParams.id).success(function (data){
       var alumno = {
+        'id':data.datos.id,
         'nombre': data.datos.first_name,
         'apellido': data.datos.last_name,
         'dni': parseInt(data.datos.username),
@@ -86,6 +87,7 @@ app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location',
     $scope.isAdding = false;
 
     $rootScope.idAdmin = USER_ID_LOG;
+    $rootScope.idAlumno = $routeParams.id !=undefined ?  $routeParams.id : $rootScope.idAlumno;
 
     $scope.obtenerAdministrador = function (id){
       service.AdminObtenerAdministrador(id).success(function (data){
@@ -97,9 +99,7 @@ app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location',
     service.obtenerTutor($rootScope.idAdmin).success(function (data){
       $scope.tutor = data.datos;
     })
-  }
-
-
+    }
 }]);
 
 app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -437,7 +437,8 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
         'idAlumno': data.datos.idAlumno,
         'titulo': data.datos.titulo,
         'fecha': date,
-        'descripcion': data.datos.descripcion
+        'descripcion': data.datos.descripcion,
+        'autor': data.datos.autor
       }
       $scope.informe = informe;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
@@ -1153,7 +1154,28 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
         'idAlumno': data.datos.idAlumno,
         'titulo': data.datos.titulo,
         'fecha': date,
-        'descripcion': data.datos.descripcion
+        'descripcion': data.datos.descripcion,
+        'autor': data.datos.autor
+      }
+      $scope.informe = informe;
+    })
+  }
+
+  if($routeParams.idInforme){
+    $scope.isAdding = true;
+
+    service.TutorObtenerInforme($routeParams.idInforme).success(function (data){
+      var fecha = new Date(data.datos.fecha);
+      var date = new Date();
+      date.setDate(fecha.getDate() + 1);
+      //
+      var informe = {
+        'id': data.datos.id,
+        'idAlumno': data.datos.idAlumno,
+        'titulo': data.datos.titulo,
+        'fecha': date,
+        'descripcion': data.datos.descripcion,
+        'autor': data.datos.autor
       }
       $scope.informe = informe;
     })

@@ -54,8 +54,9 @@
                 <td>{{informe.fecha}}</td>
                 <td>{{informe.titulo}}</td>
                 <td>{{informe.descripcion}}</td>
-                <td>{{informe.usuario.first_name}} {{informe.usuario.last_name}}</td>
+                <td>{{informe.autor.first_name}} {{informe.autor.last_name}}</td>
                 <td>
+                    <a href="#/tutor-informes-ver/{{informe.id}}"><i title="Ver informe" class="listar-iconos material-icons">find_in_page</i></a>
                     <a href="#/tutor-informes-modificar/{{informe.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
                     <a title="Eliminar"  style="cursor: pointer;" ng-click="eliminarInforme(informe.id)"  ><i class="listar-iconos material-icons">delete</i></a>
 

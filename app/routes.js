@@ -45,6 +45,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
       controller: "InformeListarCtr"
     })
+    .when("/informes-ver/:idInforme", {
+      title: 'Informes - Ver',
+      templateUrl: BASE_URL + "app/views/alumno_informe_ver.html",
+      controller: "InformeListarCtr"
+    })
     .when("/actividad-agregar/:id", {
       title: 'Actividad',
       templateUrl: BASE_URL + "app/views/actividad_agregar.html",
@@ -289,6 +294,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_agregar.html",
       controller: "UserTutorCtr"
     })
+    .when("/tutor-informes-ver/:idInforme", {
+      title: 'Informes - Ver',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_informes_ver.html",
+      controller: "UserTutorCtr"
+    })
     .when("/tutor-ver", {
       title: 'Usuario - Perfil',
       templateUrl: BASE_URL + "app/views/tutor_ver.html",
@@ -378,6 +388,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       title: 'Foro - Mensajes - Agregar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_foro_agregarMensaje.html",
       controller: "ForoTutorCtr"
+    })
+    .when("/usuario-cambiar-contraseña/:id", {
+      title: 'Cambiar contraseña',
+      templateUrl: BASE_URL + "app/views/usuario_cambiar_contraseña.html",
+      controller: "AdminCtr"
     })
     
 
