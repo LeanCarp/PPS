@@ -73,6 +73,20 @@ class Foro {
         return $this->CI->Tema_model->delete($id);
     }
 
+      public function CerrarTema($id)
+    {
+        $update_data = array('estado'=>'cerrado');
+        $this->CI->load->model('Tema_model');
+        return $this->CI->Tema_model->where('id',$id)->update($update_data);
+    }
+        public function AbrirTema($id)
+    {
+        $update_data = array('estado'=>'abierto');
+        $this->CI->load->model('Tema_model');
+        return $this->CI->Tema_model->where('id',$id)->update($update_data);
+    }
+
+
     public function AgregarMensaje($data)
     {
         $this->CI->load->model('Mensajeforo_model');

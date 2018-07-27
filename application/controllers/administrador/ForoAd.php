@@ -73,6 +73,17 @@ class ForoAd extends OWN_Controller{
         return $this->responseJson(['exito'=>$this->foro->EliminarTema($id)]);
     }
 
+    public function CerrarTema()
+    {
+        $id = $this->rest->post('id');
+        return $this->responseJson(['exito'=>$this->foro->CerrarTema($id)]);
+    }
+      public function AbrirTema()
+    {
+        $id = $this->rest->post('id');
+        return $this->responseJson(['exito'=>$this->foro->AbrirTema($id)]);
+    }
+
     public function ObtenerTema()
     {
         $id = $this->rest->post('id');

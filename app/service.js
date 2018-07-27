@@ -647,6 +647,11 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       let urlForoAgregar='administrador/ForoAd/AgregarTema';
       return $http.post(urlForoAgregar, tema, { responseType: 'json' });
     },
+       foroAgregarTemaAlumno: (tema) => {
+      let urlForoAgregar='alumno/ForoAl/AgregarTema';
+      return $http.post(urlForoAgregar, tema, { responseType: 'json' });
+    },
+    
 
     foroActualizarTema: (tema) => {
       let urlForoAgregar='administrador/ForoAd/ActualizarTema';
@@ -692,6 +697,21 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       }
       return $http.post(urlForoEliminar, idTema, { responseType: 'json' });
     },
+    foroCerrarTema: (id) => {
+      let urlForoCerrar='administrador/ForoAd/CerrarTema';
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoCerrar, idTema, { responseType: 'json' });
+    },
+      foroAbrirTema: (id) => {
+      let urlForoAbrir='administrador/ForoAd/AbrirTema';
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoAbrir, idTema, { responseType: 'json' });
+    },
+    
 
     foroAgregarMensaje: (mensaje) => {
       let urlForoAgregar='administrador/ForoAd/AgregarMensaje';
