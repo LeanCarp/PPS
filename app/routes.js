@@ -269,6 +269,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_alumnos_listar.html",
       controller: "UserTutorCtr"
     })
+    .when("/tutor-alumnos-ver/:id", {
+      title: 'Alumnos - Ver',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_alumno_ver.html",
+      controller: "AlumnosCtr"
+    })
     .when("/tutor-cursadas/:id", {
       title: 'Cursadas - Listar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_cursadas_listar.html",
@@ -282,6 +287,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/tutor-informes/:id", {
       title: 'Informes - Listar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_listar.html",
+      controller: "UserTutorCtr"
+    })
+        .when("/tutor-actividades/:id", {
+      title: 'Actividades - Listar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_actividades_listar.html",
       controller: "UserTutorCtr"
     })
     .when("/tutor-informes-agregar/:id", {
@@ -369,6 +379,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno/alumno_foro_agregarMensaje.html",
       controller: "ForoAlumnoCtr"
     })
+        .when("/foro-alumno-agregarTema/:idCat", {
+      title: 'Foro - Temas - Agregar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_foro_agregarTema.html",
+      controller: "ForoAlumnoCtr"
+    })
     .when("/foro-tutor", {
       title: 'Foro - Categorías',
       templateUrl: BASE_URL + "app/views/tutor/tutor_foro.html",
@@ -387,6 +402,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/foro-tutor-agregarMensaje/:idTema", {
       title: 'Foro - Mensajes - Agregar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_foro_agregarMensaje.html",
+      controller: "ForoTutorCtr"
+    })
+        .when("/foro-tutor-agregarTema/:idCat", {
+      title: 'Foro - Temas - Agregar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_foro_agregarTema.html",
       controller: "ForoTutorCtr"
     })
     .when("/usuario-cambiar-contraseña/:id", {
