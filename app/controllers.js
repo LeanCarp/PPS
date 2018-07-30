@@ -10,10 +10,38 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
   //
 
-    $scope.getAlumnos= function(id){
-    service.getAlumnos().success(function (data){
-      $scope.alumnos = data.datos;
-    })
+/*   $scope.elementos = [];
+  $scope.currentPage = 1;
+  $scope.numPerPage = 15;
+
+  $scope.paginar = function(num){
+    $scope.elementos = [];
+    $scope.currentPage = num;
+    var inicio = ($scope.currentPage-1) * $scope.numPerPage;
+    if (inicio >= $scope.alumnos.length)
+    {
+      
+    }
+    else
+    {
+      var final = inicio + $scope.numPerPage;
+      if (final > $scope.alumnos.length)
+      {
+        final = inicio + $scope.alumnos.length-1;
+      }
+      for (var i=inicio; i<=final; i++) {
+        $scope.elementos.push($scope.alumnos[i]);
+      }
+    }
+  } */
+
+  $scope.getAlumnos= function(id){
+  service.getAlumnos().success(function (data){
+    $scope.alumnos = data.datos;
+/*     var paginas = Math.floor($scope.alumnos.length/15)+1;
+    console.log(paginas);
+    $scope.paginar(1); */
+  })
   }
 
   if ($routeParams.id)
@@ -79,6 +107,17 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   $scope.obtenerAlumnos = function(id){
     service.obtenerAlumno(id).success(function (data){
       $scope.alumno = data.datos;
+    })
+  }
+
+  $scope.resetearContrasenia = function(id){
+    service.resetearContrasenia(id).success(function (data){
+      if (!data.exito){
+        Materialize.toast("No se pudo resetear la contraseña", 3500);
+      }
+      else{
+        Materialize.toast("Contraseña reseteada con éxito", 3500);
+      }  
     })
   }
 }]);
@@ -1258,6 +1297,19 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     $location.path('tutor-informes/'+$rootScope.idAlumno);
   }
 
+  $scope.obtenerTutor = function(){
+    service.obtenerTutor($rootScope.alumnoLog).success(function (data){
+      var tutor = {
+        'id': data.datos.id,
+        'nombre': data.datos.first_name,
+        'apellido': data.datos.last_name,
+        'dni': parseInt(data.datos.username),
+        'email': data.datos.email,
+        'telefono': parseInt(data.datos.phone),
+      }
+      $scope.tutor = tutor;
+    })
+  }
 }]);
 
 app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -1700,6 +1752,17 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
          $scope.obtenerInformesTutor();
         }        
     }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
+
+    $scope.resetearContrasenia = function(id){
+      service.resetearContrasenia(id).success(function (data){
+        if (!data.exito){
+          Materialize.toast("No se pudo resetear la contraseña", 3500);
+        }
+        else{
+          Materialize.toast("Contraseña reseteada con éxito", 3500);
+        }  
+      })
     }
 
 }]);

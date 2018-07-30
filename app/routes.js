@@ -225,10 +225,10 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutores_listar_informes.html",
       controller: "TutoresCtr"
     })
-        .when("/tutores-ver/:id", {
-      title: 'Tutor - Ver',
-      templateUrl: BASE_URL + "app/views/tutor_ver.html",
-      controller: "TutoresCtr"
+    .when("/tutores-ver/:id", {
+    title: 'Tutor - Ver',
+    templateUrl: BASE_URL + "app/views/tutor_ver.html",
+    controller: "TutoresCtr"
     })
 
 
@@ -299,10 +299,10 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_ver.html",
       controller: "UserTutorCtr"
     })
-    .when("/tutor-ver", {
+    .when("/tutor-perfil", {
       title: 'Usuario - Perfil',
-      templateUrl: BASE_URL + "app/views/tutor_ver.html",
-      controller: "AdminCtr"
+      templateUrl: BASE_URL + "app/views/tutor/tutor_perfil.html",
+      controller: "UserTutorCtr"
     })
     .when("/admin-ver", {
       title: 'Usuario - Perfil',

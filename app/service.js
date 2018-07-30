@@ -772,6 +772,14 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
       return $http.post(urlForoAgregar, mensaje, { responseType: 'json' });
     },
 
+    resetearContrasenia: (id) => {
+      let urlResetear='administrador/Alumnos/resetearContrasenia';
+      const idAlumno = {
+        'id': id
+      }
+      return $http.post(urlResetear, idAlumno, { responseType: 'json' });
+    },
+
 
 
 

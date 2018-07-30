@@ -85,4 +85,14 @@ class Alumnos extends OWN_Controller{
 
         return $this->responseJson(['exito'=>$this->extras->AgregarActividad($insert_data)]);
     }
+
+    public function resetearContrasenia(){
+        $this->load->model('User_model');
+        $id = $this->rest->post('id');
+        $alumno = $this->User_model->with_escuela()->get($id);
+		$data = array(
+					'password' => $alumno->username,
+					 );
+		return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]);
+    }
 }
