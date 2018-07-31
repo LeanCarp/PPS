@@ -19,7 +19,7 @@
       <tr>
           <th>Título</th>
           <th>Descripción</th>
-          <th>Ruta</th>
+          <th>Link | Archivo</th>
           <th>Opciones</th>
       </tr>
     </thead>
@@ -28,7 +28,12 @@
       <tr ng-repeat="archivo in archivos ">
         <td>{{archivo.titulo}}</td>
         <td>{{archivo.descripcion}}</td>
-        <td>{{archivo.ruta}}</td>
+        <td>
+          <a href="{{ (archivo.idCategoriaArchivo=='1' ? archivo.ruta : archivo.ruta_web) }}" target="_blank">
+            <i title="Link" ng-if=" archivo.idCategoriaArchivo=='1' " class="material-icons">insert_link</i>
+            <i title="Archivo" ng-if=" archivo.idCategoriaArchivo=='2' " class="material-icons">file_download</i>
+          </a>
+        </td>
         <td>
             <a href="#/archivo-agregar/{{archivo.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
         </td>

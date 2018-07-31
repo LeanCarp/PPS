@@ -43,15 +43,60 @@ class ManejoArchivo {
     public function ObtenerCategoria($id=NULL)
     {
         $this->CI->load->model('Categoriaarchivo_model');
-        //Si se pasó un id se busca la categoria correspondiente.
+
         if(is_null($id))
-                return  $this->CI->Categoriaarchivo_model->with_archivo()->get_all();
-        //Si no se pasó nada, se buscan todas.
+        {
+            //Si no se pasó nada, se buscan todas.
+            return  $this->CI->Categoriaarchivo_model->with_archivo()->get_all();
+        }
+        else
+        {
+            //Si se pasó un id se busca la categoria correspondiente.
             return  $this->CI->Categoriaarchivo_model->with_archivo()->get($id);
+        }
     }
 
-    
+    public function SubirUnArchivo($nombre_campo, $nombre_base_para_guardar = '', $tipos_archivos_permitidos = "*")
+    {
+        // Configurando la libreria de upload nativ a de CodeIgniter
+        $this->CI->load->library('upload');
 
+        //Uploading configuration
+        $config = [];
+        
+        switch ($tipos_archivos_permitidos)
+        {
+            case 'image':
+                $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
+                break;
+            case 'offimatic':
+                $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pps|ppsx|pdf';
+                break;
+            default:
+                $config['allowed_types'] = $tipos_archivos_permitidos; // Todos los tipos de archivos
+                break;
+        }
 
+        $config['upload_path']      = './assets/uploads/';
+        $config['max_size']         = 50000;// En KiloBytes
+        $config['file_name']        = $nombre_base_para_guardar.'_'.uniqid().'_'.mt_rand();
+        $config['file_ext_tolower'] = true;
+        $config['detect_mime']      = true;
+
+        $this->CI->upload->initialize($config);
+
+        $result['success']      = $this->CI->upload->do_upload($nombre_campo);
+        $result['message']      = $this->CI->upload->display_errors();
+
+        $file_data = $this->CI->upload->data();
+
+        $result['file_path']    = (
+            $result['success'] ?
+            $config['upload_path'].$config['file_name'].($file_data['file_ext']!=''? $file_data['file_ext']: ".".pathinfo($_FILES[$nombre_campo]['name'], PATHINFO_EXTENSION)) :
+            ''             
+        );
+        
+        return $result;
+    }
 
 }

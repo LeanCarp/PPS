@@ -52,6 +52,15 @@ class Rest
 		{
 			return $this->CI->input->{$method}( $key );
 		}
+		// Caso particular POST, No puede ser tratado como GET o COOKIE
+		else if(
+			$method=='post' &&
+			!empty($this->CI->input->post()) &&
+			( is_null($key) || $this->CI->input->post($key) )
+		)
+		{
+			return $this->CI->input->{$method}( $key );
+		}
 		else
 		{
 			if( isSet($this->params[ $method ]) )

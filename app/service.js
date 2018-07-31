@@ -1,4 +1,4 @@
-app.factory('service', ['$http','$rootScope','$location', function($http,$rootScope,$location) { 
+app.factory('service', ['$http','$rootScope','$location','Upload', function($http,$rootScope,$location,Upload) { 
     //Guardo en el $rootScope el id dl usuario logueado
     $rootScope.alumnoLog = angular.copy(USER_ID_LOG);
   
@@ -59,15 +59,21 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
 
     agregarArchivo: (archivo) => {
       let urlArchivoAgregar = 'administrador/Archivo/AgregarArchivo';
-     const archi = {
+      
+      const archivoInsertar = {
         'titulo': archivo.titulo,
         'descripcion': archivo.descripcion,
         'ruta': archivo.ruta,
         'idMateria': archivo.idMateria,
         'tipo':archivo.tipo
       }
-      console.log(archi);
-      return $http.post(urlArchivoAgregar, archi, { responseType: 'json' });
+      
+       let archivoSubir = undefined;
+       if(archivo.tipo==2)
+        archivoSubir = archivo.archivoAsubir;
+
+        //return $http.post(urlArchivoAgregar, archi, { responseType: 'json' });
+        return Upload.upload({url:urlArchivoAgregar, method:'POST', file:archivoSubir, data:archivoInsertar});
     },
 
     obtenerArchivo: (idArchivo) => {
@@ -91,9 +97,9 @@ app.factory('service', ['$http','$rootScope','$location', function($http,$rootSc
         'id':archivo.id,
         'titulo': archivo.titulo,
         'descripcion': archivo.descripcion,
-        'ruta': archivo.ruta,
-        'idMateria': archivo.idMateria,
-        'tipo':archivo.idCategoriaArchivo
+        //'ruta': archivo.ruta,
+        //'idMateria': archivo.idMateria,
+        //'tipo':archivo.idCategoriaArchivo
       }
       return $http.post(urlArchivoctualizar, Archivo, { responseType: 'json' });
     },

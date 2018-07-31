@@ -6,7 +6,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverue;
   }
   //
 
@@ -105,7 +105,7 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
     $scope.sortReverse = false;
 
     $scope.revertirOrden = function(){
-    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+      $scope.sortReverse = ! $scope.sortReverse;
     }
     //
 
@@ -225,7 +225,7 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
     $scope.sortReverse = false;
 
     $scope.revertirOrden = function(){
-    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+      $scope.sortReverse = ! $scope.sortReverse;
     }
     //
   
@@ -260,7 +260,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -403,7 +403,7 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -496,7 +496,7 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
     $scope.sortReverse = false;
   
     $scope.revertirOrden = function(){
-      $scope.sortReverse = $scope.sortReverse == true ? false : true;
+      $scope.sortReverse = ! $scope.sortReverue;
     }
     //
 
@@ -621,7 +621,7 @@ app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location'
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -684,34 +684,46 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
       $scope.archivos = [];
       // Seteamos el ID de la Materia de la cual se mostraran los archivos/links
       $rootScope.idMateria = $routeParams.id;
-      $scope.obtenerArchivosMateria();
+      $scope.obtenerArchivosMateria($rootScope.idMateria);
     }
     else
     {
-      $scope.archivo = {titulo:'', descripcion:'', link:''};
-      $scope.fuenteArchivo = false;
+      let materia = $rootScope.idMateria;
+
+      if(materia==undefined)
+      {
+        $location.path('/');
+        Materialize.toast("Debe seleccionar una materia.<br>No recargue la página por favor !", 3500);
+      }
+
+      $scope.archivo = {id: $routeParams.id, titulo:'', descripcion:'', link:'', idMateria:materia, fuenteArchivo:false, archivoAsubir:null};
 
       //Agregar o modificar un archivo
-      if( $routeParams.id != undefined )
+      if( $scope.archivo.id != undefined )
       {
         // Se obtiene el archivo correspondiente por el ID que viene en el URL
-        $scope.obtenerDatosArchivo( $routeParams.id );
+        $scope.obtenerDatosArchivo( archivoId );
         $scope.isAdding = false;
       }
       else
       {
         $scope.isAdding = true;
       }
+      
     }
   };
 
-  $scope.obtenerDatosArchivo = function()
+  $scope.obtenerDatosArchivo = function(idArchivo)
   {
-    $scope.isAdding = true;
-    service.obtenerArchivo($routeParams.id).success( function(data){
+    //$scope.isAdding = true;
+    service.obtenerArchivo(idArchivo).success( function(data){
         $scope.archivo = data.datos;
+
         if ($scope.archivo.idCategoriaArchivo==1)
-          $scope.archivo.link=$scope.archivo.ruta;
+          $scope.archivo.link = $scope.archivo.ruta;
+        
+        // Para el check Link<->Archivo
+        $scope.archivo.fuenteArchivo = ($scope.archivo.idCategoriaArchivo==2);
     });
   };
 
@@ -719,8 +731,9 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
   {
     // Seteamos la materia a la que pertenece
     archivo.idMateria=$rootScope.idMateria;
+
     //Si es link
-    if (archivo.link!= undefined)
+    if ( ! $scope.archivo.fuenteArchivo )
     {
       archivo.ruta=archivo.link;
       archivo.tipo=1;
@@ -728,12 +741,26 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
     //si es un documento.
     else
     {
-      //wachin
       archivo.tipo=2;
+      //archivo.file=$scope.archivoAsubir;
     }
 
     if ($scope.isAdding)
     {
+
+      service.agregarArchivo(archivo).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar el archivo."+"<br>"+data.mensaje_error, 3500);
+        }
+        else{
+          Materialize.toast("Archivo cargado con éxito", 3500);
+        }
+      });
+
+    }
+    else
+    {
+
       service.actualizarArchivo(archivo).success(function(data){
         if (!data.exito){
           Materialize.toast("No se pudo modificar el archivo", 3500);
@@ -743,32 +770,28 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
         }
       });
     }
-    else
-    {      
-      
-      service.agregarArchivo(archivo).success(function(data){
-        if (!data.exito){
-          Materialize.toast("No se pudo agregar el archivo", 3500);
-        }
-        else{
-          Materialize.toast("Archivo cargado con éxito", 3500);
-        }
-      });
-    }
     $location.path('/archivo-listar/'+archivo.idMateria);
   };
 
   $scope.archivoParaSubir_O_LinkNoVacio = function(){
-    return (
-      ($scope.fuenteArchivo == false && $scope.archivo.link != "" )//Link
-      ||
-      ($scope.fuenteArchivo == true && $scope.archivoAsubir != undefined )//Archivo
-    )
+    if($scope.isAdding)
+    {
+      return (
+        ($scope.archivo.fuenteArchivo == false && $scope.archivo.link != "" )//Link
+        ||
+        ($scope.archivo.fuenteArchivo == true && $scope.archivo.archivoAsubir != undefined )//Archivo
+      );
+    }
+    else
+    {
+      //Porque no se permite cambiar link o archivo al modificar
+      return true;      
+    }
   };
 
-  $scope.obtenerArchivosMateria = function()
+  $scope.obtenerArchivosMateria = function( idMateria)
   {
-    service.obtenerArchivosMateria( $rootScope.idMateria)
+    service.obtenerArchivosMateria( idMateria)
       .success( function(data){
           $scope.archivos =data.datos.archivo;
       })
@@ -785,7 +808,7 @@ app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service',
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -842,7 +865,7 @@ app.controller('PaisesCtr', ['$scope', '$routeParams', '$location', 'service', f
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -968,7 +991,7 @@ app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service',
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -1045,7 +1068,7 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -1111,7 +1134,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-  $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
@@ -1551,7 +1574,7 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-    $scope.sortReverse = $scope.sortReverse == true ? false : true;
+    $scope.sortReverse = ! $scope.sortReverue;
   }
   //
   

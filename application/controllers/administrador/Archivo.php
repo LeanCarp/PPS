@@ -13,39 +13,14 @@ class Archivo extends OWN_Controller{
 
     public function AgregarArchivo()
     {
+        $accion_exitosa = true;
+
         $titulo = $this->rest->post('titulo');
         $descripcion = $this->rest->post('descripcion');
         $ruta = $this->rest->post('ruta');
         $idMateria = $this->rest->post('idMateria');
-        $tipo=$this->rest->post('tipo');
+        $tipo = $this->rest->post('tipo');
 
-        if ($tipo==2)
-        {
-            $config['upload_path']          = './uploads/';
-            $config['allowed_types']        = 'txt|xls|xlsx|doc|docx|pdf';
-            $config['max_size']             = 10000;
-
-            $this->load->library('upload', $config);
-
-
-            if ( ! $this->upload->do_upload($ruta))
-            {
-                    echo("ERROR CARGANDO ARCHIVO");
-                    /*
-                    $error = array('error' => $this->upload->display_errors());
-
-                    $this->load->view('upload_form', $error);*/
-            }
-            else
-            {
-                    $data = array('upload_data' => $this->upload->data());
-                    var_dump($data);
-                    /*
-                    $this->load->view('upload_success', $data);*/
-            
-            }
-        }
-        
         $insert_data = [
             'titulo'=>$titulo,
             'descripcion'=>$descripcion,
@@ -53,13 +28,24 @@ class Archivo extends OWN_Controller{
             'ruta'=>$ruta,
             'idCategoriaArchivo'=> $tipo                        
         ];
-        
-        return $this->responseJson(['exito'=>$this->manejoarchivo->AgregarArchivo($insert_data)]);
-    
+
+        $uploading = null;
+        if ($tipo==2)//Tipo 1=Link | 2=Archivo
+        {            
+            $uploading = $this->manejoarchivo->SubirUnArchivo('file','materia','offimatic');
+            $accion_exitosa = $uploading['success'];
+            $insert_data['ruta'] = $uploading['file_path'];
+        }
+                
+        return $this->responseJson([
+            'exito'         => ( $accion_exitosa && $this->manejoarchivo->AgregarArchivo($insert_data) ),
+            'mensaje_error' => $uploading['message'] 
+        ]);    
     }
 
     public function Leer()
     {
+        var_dump($this->rest->post('id'));die();
         $id = $this->rest->post('id');
         $data = $this->manejoarchivo->ObtenerArchivo($id);
         return $this->responseJson(['datos'=>$data]);
@@ -79,16 +65,16 @@ class Archivo extends OWN_Controller{
         $id = $this->rest->post('id');
         $titulo = $this->rest->post('titulo');
         $descripcion = $this->rest->post('descripcion');
-        $ruta = $this->rest->post('ruta');
-        $idMateria = $this->rest->post('idMateria');
-        $tipo=$this->rest->post('tipo');
+        //$ruta = $this->rest->post('ruta');
+        //$idMateria = $this->rest->post('idMateria');
+        //$tipo=$this->rest->post('tipo');
 
         $update_data = [
             'titulo'=>$titulo,
             'descripcion'=>$descripcion,
-            'idMateria'=>$idMateria,
-            'ruta'=>$ruta,
-            'idCategoriaArchivo'=> $tipo                        
+            //'idMateria'=>$idMateria,
+            //'ruta'=>$ruta,
+            //'idCategoriaArchivo'=> $tipo                        
         ];
         return $this->responseJson(['exito'=>$this->manejoarchivo->ActualizarArchivo($update_data,$id)]);
 

@@ -20,43 +20,52 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col s12 m6" 
-                        <label for="">Seleccione el tipo de fuente</label>
-                        <div class="switch">
-                            <label>
-                            Link
-                            <input class="input-field" type="checkbox" ng-model="fuenteArchivo">
-                            <span class="lever"></span>
-                            Archivo
-                            </label>
+                <div ng-if="isAdding">
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <label for="">Seleccione el tipo de fuente</label>
+                            <div class="switch">
+                                <label>
+                                Link
+                                <input class="input-field" type="checkbox" ng-model="archivo.fuenteArchivo">
+                                <span class="lever"></span>
+                                Archivo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row"  >
+                        <div class="input-field col s12 m6" ng-show="archivo.fuenteArchivo">    
+                            <div class="file-field input-field">
+                              <div class="btn">
+                                <span>Archivo</span>
+                                <input id="archivoAsubir" name="archivoAsubir" type="file" ngf-select="" ngf-multiple="false" ng-model="archivo.archivoAsubir" ng-required="false" ng-click=" archivo.ruta='' ">
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input id="ruta" name="ruta" class="file-path validate" type="text" placeholder="Seleccione un archivo..." ng-model="archivo.ruta">
+                              </div>
+                            </div>
+
+                            <!--p class="advertencia" ng-show="formArchivo.archivo_a_subir.$error.required && !formArchivo.link.$pristine" class="help-block">Se debe seleccionar al menos un archivo</p-->
+
+                            <!--<input class="elementos" id="ruta" name="ruta" type="file" class="" ng-model="archivo.ruta" -->
+                        </div>
+                        <div class="input-field col s12 m6"  style="height:66px;" ng-show="!archivo.fuenteArchivo">
+                            <input class="elementos" id="link" name="link" type="url" class="" ng-model="archivo.link" placeholder="http(s)://dominio.com/ejemplo-1/">
+                            <label class="active" for="ruta">Ingrese el link</label>
+                            <p class="advertencia" ng-show="formArchivo.link.$error.required && !formArchivo.link.$pristine" class="help-block">El link no puede ser vacío</p>
+                            <p class="advertencia" ng-show="formArchivo.link.$error.url && !formArchivo.link.$pristine">No es un URL válido</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="row"  >
-                    <div class="input-field col s12 m6" ng-show="fuenteArchivo">    
-                        <div class="file-field input-field">
-                          <div class="btn">
-                            <span>Archivo</span>
-                            <input id="archivoAsubir" name="archivoAsubir" type="file" ngf-select="" ngf-multiple="false" ng-model="archivoAsubir" ng-required="false">
-                          </div>
-                          <div class="file-path-wrapper">
-                            <input id="ruta" name="ruta" class="file-path validate" type="text" placeholder="Seleccione un archivo..." ng-model="archivo.ruta">
-                          </div>
-                        </div>
-
-                        <!--p class="advertencia" ng-show="formArchivo.archivo_a_subir.$error.required && !formArchivo.link.$pristine" class="help-block">Se debe seleccionar al menos un archivo</p-->
-
-                        <!--<input class="elementos" id="ruta" name="ruta" type="file" class="" ng-model="archivo.ruta" -->
-                    </div>
-                    <div class="input-field col s12 m6"  style="height:66px;" ng-show="!fuenteArchivo">
-                        <input class="elementos" id="link" name="link" type="text" class="" ng-model="archivo.link" ng-required="false">
-                        <label class="active" for="ruta">Ingrese el link</label>
-                        <p class="advertencia" ng-show="formArchivo.link.$error.required && !formArchivo.link.$pristine" class="help-block">El link no puede ser vacío</p>
-                    </div>
-                </div>
-
+                <input type="hidden" id="idMateria" name="idMateria" ng-model="archivo.idMateria">
+                {{ "fuente="+( archivo.fuenteArchivo?"archivo":"link")}}
+                {{ "linkCntenido="+archivo.link }}
+                {{ "archivoSeleccionado="+($scope.archivo.archivoAsubir!=undefined?"SI":"NO") }}
+                {{ "esLink="+((archivo.fuenteArchivo == false && archivo.link != "" )?"True":"False")+" OR esArchivo="+((archivo.fuenteArchivo == true && archivoAsubir != undefined )?"True":"False") }}
+                {{ "disableButton="+(archivoParaSubir_O_LinkNoVacio()?"True":"False")+" isAdding="+(isAdding?"True":"False") }}
                 <!-- Btn Agregar -->
                 <input type="submit" class="btn" value="Agregar" ng-show="isAdding" ng-disabled="formArchivo.$invalid || ( !formArchivo.$invalid && !archivoParaSubir_O_LinkNoVacio())">
                 <!-- Btn Modificar -->
