@@ -1,7 +1,6 @@
-<main class="listar-container" ng-init="initialize()">
-  <a href="#/materias-listar" class="btn btn-agregar">Volver</a>
-  <a href="#/archivo-agregar" class="btn btn-agregar">Agregar Archivo</a>
-
+<main class="listar-container" ng-init="obtenerArchivosMateria()">
+  <a href="#/alumno-cursadas-listar" class="btn btn-agregar">Volver</a>
+   <h3> <strong>Archivos </strong> de la materia <strong> {{nombreMateria}} </strong> </h3>
   <div class="nav-wrapper">
     <form>
         <div class="row">
@@ -20,7 +19,6 @@
           <th>Título</th>
           <th>Descripción</th>
           <th>Abrir</th>
-          <th>Opciones</th>
       </tr>
     </thead>
 
@@ -33,9 +31,6 @@
             <i title="Link" ng-if=" archivo.idCategoriaArchivo=='1' " class="material-icons">insert_link</i>
             <i title="Archivo" ng-if=" archivo.idCategoriaArchivo=='2' " class="material-icons">file_download</i>
           </a>
-        </td>
-        <td>
-            <a href="#/archivo-agregar/{{archivo.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
         </td>
       </tr>
     </tbody>

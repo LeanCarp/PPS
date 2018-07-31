@@ -14,5 +14,14 @@ class Cursada  extends OWN_Controller{
         $data = $this->bedelia->ObtenerCursadasUsuario($id);
         return $this->responseJson(['datos'=>$data]);
     }
+
+
+        public function ObtenerArchivosMateria()
+    {
+        
+        $id = $this->rest->post('id');
+        $data = $this->bedelia->ObtenerMateria($id);
+        return $this->responseJson(['datos'=>$data]);
+    }
 }
 ?>

@@ -507,6 +507,14 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       return $http.post(urlComisionObtener, idUsuario, { responseType: 'json' });
     },
 
+        alumnoObtenerArchivosMateria: (idMateria) => {
+      let urlArchivoObtener = 'alumno/Cursada/ObtenerArchivosMateria';
+      const id = {
+        'id':idMateria
+      }
+      return $http.post(urlArchivoObtener, id, { responseType: 'json' });
+    },
+
     AlumnoObtenerExamenes: (idCursada) => {
       const id = {
         'idCursada':idCursada,

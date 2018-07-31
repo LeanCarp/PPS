@@ -740,13 +740,16 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
   {
     if( $location.url().includes('archivo-listar') )
     {
+      
       $scope.archivos = [];
       // Seteamos el ID de la Materia de la cual se mostraran los archivos/links
       $rootScope.idMateria = $routeParams.id;
       $scope.obtenerArchivosMateria($rootScope.idMateria);
+      
     }
     else
     {
+  
       let materia = $rootScope.idMateria;
 
       if(materia==undefined)
@@ -1176,6 +1179,16 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
       }
     })
   }
+
+  $scope.obtenerArchivosMateria = function()
+  {
+    service.alumnoObtenerArchivosMateria( $routeParams.id)
+      .success( function(data){
+          $scope.nombreMateria=data.datos.nombre;
+          $scope.archivos =data.datos.archivo;
+      })
+      .error( () => Materialize.toast('Error al obtener Archivos', 3500) );
+  };
 
 }]);
 
