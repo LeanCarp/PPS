@@ -58,6 +58,14 @@ class Examen  extends OWN_Controller{
         
     }
 
+      public function ObtenerExamenes()
+    {
+        $id= $this->rest->post('idCursada');
+        $data = $this->bedelia->ObtenerExamen($id);
+        return $this->responseJson(['datos'=>$data]);
+        
+    }
+
         
 
 

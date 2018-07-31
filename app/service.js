@@ -183,6 +183,16 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
         return $http.post(urlExamenesObtener, id,{ responseType: 'json' });
       },
 
+      obtenerExamenes: (id) => {
+
+      const idCurs=
+      {
+        'idCursada':id,
+      }
+        let urlExamenesObtener = 'administrador/Examen/ObtenerExamenes';
+        return $http.post(urlExamenesObtener, idCurs,{ responseType: 'json' });
+      },
+
     agregarExamen: (examen) => {
     const exam = {
       'fecha': examen.fecha,
@@ -643,6 +653,11 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       let urlForoAgregar='administrador/ForoAd/AgregarTema';
       return $http.post(urlForoAgregar, tema, { responseType: 'json' });
     },
+       foroAgregarTemaAlumno: (tema) => {
+      let urlForoAgregar='alumno/ForoAl/AgregarTema';
+      return $http.post(urlForoAgregar, tema, { responseType: 'json' });
+    },
+    
 
     foroActualizarTema: (tema) => {
       let urlForoAgregar='administrador/ForoAd/ActualizarTema';
@@ -688,6 +703,21 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       }
       return $http.post(urlForoEliminar, idTema, { responseType: 'json' });
     },
+    foroCerrarTema: (id) => {
+      let urlForoCerrar='administrador/ForoAd/CerrarTema';
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoCerrar, idTema, { responseType: 'json' });
+    },
+      foroAbrirTema: (id) => {
+      let urlForoAbrir='administrador/ForoAd/AbrirTema';
+      const idTema = {
+        'id': id
+      }
+      return $http.post(urlForoAbrir, idTema, { responseType: 'json' });
+    },
+    
 
     foroAgregarMensaje: (mensaje) => {
       let urlForoAgregar='administrador/ForoAd/AgregarMensaje';
@@ -766,6 +796,14 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
     foroTutorAgregarMensaje: (mensaje) => {
       let urlForoAgregar='tutor/ForoTu/AgregarMensaje';
       return $http.post(urlForoAgregar, mensaje, { responseType: 'json' });
+    },
+
+    resetearContrasenia: (id) => {
+      let urlResetear='administrador/Alumnos/resetearContrasenia';
+      const idAlumno = {
+        'id': id
+      }
+      return $http.post(urlResetear, idAlumno, { responseType: 'json' });
     },
 
 

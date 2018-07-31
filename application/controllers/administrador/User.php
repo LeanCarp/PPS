@@ -7,6 +7,7 @@ class User extends OWN_Controller{
 		parent::__construct();
 
         $this->load->logic('Usuario');
+        $this->load->library('ion_auth');
 
 	}
 

@@ -57,6 +57,23 @@ class ForoAl extends OWN_Controller{
         return $this->responseJson(['exito'=>$this->foro->AgregarMensaje($insert_data)]);
     }
 
+        public function AgregarTema()
+    {
+        $estado = $this->rest->post('estado');
+        $titulo = $this->rest->post('titulo');
+        $visitas = $this->rest->post('visitas');
+        $idCategoriaForo = $this->rest->post('idCategoria');
+
+        $insert_data = [
+            'titulo' => $titulo,
+            'estado' => $estado,
+            'visitas' => $visitas,
+            'idCategoriaForo' => $idCategoriaForo
+        ];
+       
+        return $this->responseJson(['exito'=>$this->foro->AgregarTema($insert_data)]);
+    }
+
     public function LeerMensaje()
     {
         $id = $this->rest->post('id');

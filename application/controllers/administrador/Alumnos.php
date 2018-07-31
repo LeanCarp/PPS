@@ -42,9 +42,9 @@ class Alumnos extends OWN_Controller{
 
         $data = (
             is_null($id) ?
-            ///Si se pasó un id se busca la comision correspondiente.
+            ///Si no se pasó un id se buscan todos.
             $this->User_model->get_all():
-            //Si se pasó un id se busca la comision correspondiente.
+            //Si se pasó un id se busca el usuario correspondiente.
             $this->User_model->with_escuela()->get($id)
         );
 
@@ -84,5 +84,15 @@ class Alumnos extends OWN_Controller{
         ];
 
         return $this->responseJson(['exito'=>$this->extras->AgregarActividad($insert_data)]);
+    }
+
+    public function resetearContrasenia(){
+        $this->load->model('User_model');
+        $id = $this->rest->post('id');
+        $alumno = $this->User_model->with_escuela()->get($id);
+		$data = array(
+					'password' => $alumno->username,
+					 );
+		return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]);
     }
 }

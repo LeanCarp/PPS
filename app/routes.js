@@ -45,6 +45,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno_informe_agregar.html",
       controller: "InformeListarCtr"
     })
+    .when("/informes-ver/:idInforme", {
+      title: 'Informes - Ver',
+      templateUrl: BASE_URL + "app/views/alumno_informe_ver.html",
+      controller: "InformeListarCtr"
+    })
     .when("/actividad-agregar/:id", {
       title: 'Actividad',
       templateUrl: BASE_URL + "app/views/actividad_agregar.html",
@@ -220,10 +225,10 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutores_listar_informes.html",
       controller: "TutoresCtr"
     })
-        .when("/tutores-ver/:id", {
-      title: 'Tutor - Ver',
-      templateUrl: BASE_URL + "app/views/tutor_ver.html",
-      controller: "TutoresCtr"
+    .when("/tutores-ver/:id", {
+    title: 'Tutor - Ver',
+    templateUrl: BASE_URL + "app/views/tutor_ver.html",
+    controller: "TutoresCtr"
     })
 
 
@@ -264,6 +269,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_alumnos_listar.html",
       controller: "UserTutorCtr"
     })
+    .when("/tutor-alumnos-ver/:id", {
+      title: 'Alumnos - Ver',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_alumno_ver.html",
+      controller: "AlumnosCtr"
+    })
     .when("/tutor-cursadas/:id", {
       title: 'Cursadas - Listar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_cursadas_listar.html",
@@ -279,6 +289,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_listar.html",
       controller: "UserTutorCtr"
     })
+        .when("/tutor-actividades/:id", {
+      title: 'Actividades - Listar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_actividades_listar.html",
+      controller: "UserTutorCtr"
+    })
     .when("/tutor-informes-agregar/:id", {
       title: 'Informes - Agregar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_agregar.html",
@@ -289,10 +304,15 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_informes_agregar.html",
       controller: "UserTutorCtr"
     })
-    .when("/tutor-ver", {
+    .when("/tutor-informes-ver/:idInforme", {
+      title: 'Informes - Ver',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_informes_ver.html",
+      controller: "UserTutorCtr"
+    })
+    .when("/tutor-perfil", {
       title: 'Usuario - Perfil',
-      templateUrl: BASE_URL + "app/views/tutor_ver.html",
-      controller: "AdminCtr"
+      templateUrl: BASE_URL + "app/views/tutor/tutor_perfil.html",
+      controller: "UserTutorCtr"
     })
     .when("/admin-ver", {
       title: 'Usuario - Perfil',
@@ -359,6 +379,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/alumno/alumno_foro_agregarMensaje.html",
       controller: "ForoAlumnoCtr"
     })
+        .when("/foro-alumno-agregarTema/:idCat", {
+      title: 'Foro - Temas - Agregar',
+      templateUrl: BASE_URL + "app/views/alumno/alumno_foro_agregarTema.html",
+      controller: "ForoAlumnoCtr"
+    })
     .when("/foro-tutor", {
       title: 'Foro - Categorías',
       templateUrl: BASE_URL + "app/views/tutor/tutor_foro.html",
@@ -378,6 +403,16 @@ app.config(['$routeProvider', function ($routeProvider) {
       title: 'Foro - Mensajes - Agregar',
       templateUrl: BASE_URL + "app/views/tutor/tutor_foro_agregarMensaje.html",
       controller: "ForoTutorCtr"
+    })
+        .when("/foro-tutor-agregarTema/:idCat", {
+      title: 'Foro - Temas - Agregar',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_foro_agregarTema.html",
+      controller: "ForoTutorCtr"
+    })
+    .when("/usuario-cambiar-contraseña/:id", {
+      title: 'Cambiar contraseña',
+      templateUrl: BASE_URL + "app/views/usuario_cambiar_contraseña.html",
+      controller: "AdminCtr"
     })
     
 

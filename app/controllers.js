@@ -10,10 +10,38 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
   //
 
-    $scope.getAlumnos= function(id){
-    service.getAlumnos().success(function (data){
-      $scope.alumnos = data.datos;
-    })
+/*   $scope.elementos = [];
+  $scope.currentPage = 1;
+  $scope.numPerPage = 15;
+
+  $scope.paginar = function(num){
+    $scope.elementos = [];
+    $scope.currentPage = num;
+    var inicio = ($scope.currentPage-1) * $scope.numPerPage;
+    if (inicio >= $scope.alumnos.length)
+    {
+      
+    }
+    else
+    {
+      var final = inicio + $scope.numPerPage;
+      if (final > $scope.alumnos.length)
+      {
+        final = inicio + $scope.alumnos.length-1;
+      }
+      for (var i=inicio; i<=final; i++) {
+        $scope.elementos.push($scope.alumnos[i]);
+      }
+    }
+  } */
+
+  $scope.getAlumnos= function(id){
+  service.getAlumnos().success(function (data){
+    $scope.alumnos = data.datos;
+/*     var paginas = Math.floor($scope.alumnos.length/15)+1;
+    console.log(paginas);
+    $scope.paginar(1); */
+  })
   }
 
   if ($routeParams.id)
@@ -24,6 +52,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 
     service.obtenerAlumno($routeParams.id).success(function (data){
       var alumno = {
+        'id':data.datos.id,
         'nombre': data.datos.first_name,
         'apellido': data.datos.last_name,
         'dni': parseInt(data.datos.username),
@@ -80,17 +109,35 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
       $scope.alumno = data.datos;
     })
   }
+
+  $scope.resetearContrasenia = function(id){
+    service.resetearContrasenia(id).success(function (data){
+      if (!data.exito){
+        Materialize.toast("No se pudo resetear la contraseña", 3500);
+      }
+      else{
+        Materialize.toast("Contraseña reseteada con éxito", 3500);
+      }  
+    })
+  }
 }]);
 
 app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
     $scope.isAdding = false;
 
     $rootScope.idAdmin = USER_ID_LOG;
+    $rootScope.idAlumno = $routeParams.id !=undefined ?  $routeParams.id : $rootScope.idAlumno;
 
     $scope.obtenerAdministrador = function (id){
       service.AdminObtenerAdministrador(id).success(function (data){
         $scope.administrador = data.datos;
       })
+    }
+
+    $scope.obtenerTutor= function(){
+    service.obtenerTutor($rootScope.idAdmin).success(function (data){
+      $scope.tutor = data.datos;
+    })
     }
 }]);
 
@@ -173,7 +220,7 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
     $scope.obtenerAlumno = function(id){
     service.AlumnoObtenerAlumno(id).success(function (data){
       $scope.alumno = data.datos;
-      console.log($scope.alumno);
+
     })
   }
 
@@ -218,7 +265,7 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
 
 app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
    $rootScope.idCursada =$routeParams.idCursada !=undefined ?  $routeParams.idCursada : $rootScope.idCursada;
-   console.log($rootScope.idCursada);
+
 
     // Atributos y funciones para ordenamiento
     $scope.sortType = 'anio';
@@ -247,8 +294,16 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
         }
       }).error( () => Materialize.toast('Error al agregar examen', 3500) );
 
-      $location.path('/examenes-listar/'+$routeParams.id);
+      $location.path('/examenes-listar/'+$rootScope.idCursada);
       }
+  $scope.validarNota = function(value){
+    if (value > 10 || value < 1){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }]);
 
 app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
@@ -421,24 +476,14 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
         'idAlumno': data.datos.idAlumno,
         'titulo': data.datos.titulo,
         'fecha': date,
-        'descripcion': data.datos.descripcion
+        'descripcion': data.datos.descripcion,
+        'autor': data.datos.autor
       }
       $scope.informe = informe;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
 
-    $scope.eliminarInforme = function(idActividad){
-    service.eliminarInforme(idActividad).success(function(data){
-      if (!data.datos){
-          Materialize.toast("No se pudo eliminar el informe", 3500);
-        }
-        else{
-          Materialize.toast("Informe eliminada  con éxito", 3500);
-         $scope.obtenerInformes();
-        }        
-    }).error( () => Materialize.toast('Error al eliminar', 3500) );
-    }
-  
+ 
   $scope.agregarInforme = function(informe){
     informe.idAlumno = $rootScope.idAlumno;
     if($scope.isAdding){
@@ -482,7 +527,21 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
     service.obtenerInformesTutor($scope.idAlumno).success(function(data){
       $scope.informes = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
+      $scope.obtenerAlumno($scope.idAlumno);
+
   }
+
+    $scope.eliminarInforme = function(id){
+    service.eliminarInforme(id).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe eliminado  con éxito", 3500);
+         $scope.obtenerInformes();
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
 
 }]);
 
@@ -1157,7 +1216,28 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
         'idAlumno': data.datos.idAlumno,
         'titulo': data.datos.titulo,
         'fecha': date,
-        'descripcion': data.datos.descripcion
+        'descripcion': data.datos.descripcion,
+        'autor': data.datos.autor
+      }
+      $scope.informe = informe;
+    })
+  }
+
+  if($routeParams.idInforme){
+    $scope.isAdding = true;
+
+    service.TutorObtenerInforme($routeParams.idInforme).success(function (data){
+      var fecha = new Date(data.datos.fecha);
+      var date = new Date();
+      date.setDate(fecha.getDate() + 1);
+      //
+      var informe = {
+        'id': data.datos.id,
+        'idAlumno': data.datos.idAlumno,
+        'titulo': data.datos.titulo,
+        'fecha': date,
+        'descripcion': data.datos.descripcion,
+        'autor': data.datos.autor
       }
       $scope.informe = informe;
     })
@@ -1169,17 +1249,62 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     })
   }
 
-    
+  $scope.obtenerExamenes=function(id) {
+    service.obtenerExamenes($routeParams.idCurs).success(function (data){
+    $scope.examenes = data.datos;
+    })
+    service.getCursada($routeParams.idCurs).success(function (data){
+      $scope.nombreMateria = data.datos.comision.nombreMateria;
+      $rootScope.idAlumno=data.datos.idUsuario;
+      service.AlumnoObtenerAlumno(data.datos.idUsuario).success(function (alum){
+        $scope.alumno = alum.datos;
+      })
+    })
+
+  }
+  $scope.obtenerAlumno = function(id){
+      service.AlumnoObtenerAlumno(id).success(function (alum){
+        $scope.alumno = alum.datos;
+      })
+  }
+
+  
+    $scope.obtenerActividades = function(){
+    service.obtenerActividades($routeParams.id).success(function(data){
+      $scope.actividades = data.datos;  
+    }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
+     $scope.obtenerAlumno($routeParams.id);
+  }
+
+
+    $scope.eliminarInforme = function(id){
+    service.eliminarInforme(id).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe eliminado  con éxito", 3500);
+         $scope.obtenerInformes($rootScope.idAlumno);
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
+
 
   $scope.obtenerCursadas = function(id){
     service.TutorObtenerCursadas(id).success(function (data){
       $scope.cursadas = data.datos;
+    })
+      service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
     })
   }
 
   $scope.obtenerInformes = function(id){
     service.TutorObtenerInformes(id).success(function (data){
       $scope.informes = data.datos;
+    })
+     service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
     })
   }
 
@@ -1208,6 +1333,19 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     $location.path('tutor-informes/'+$rootScope.idAlumno);
   }
 
+  $scope.obtenerTutor = function(){
+    service.obtenerTutor($rootScope.alumnoLog).success(function (data){
+      var tutor = {
+        'id': data.datos.id,
+        'nombre': data.datos.first_name,
+        'apellido': data.datos.last_name,
+        'dni': parseInt(data.datos.username),
+        'email': data.datos.email,
+        'telefono': parseInt(data.datos.phone),
+      }
+      $scope.tutor = tutor;
+    })
+  }
 }]);
 
 app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -1313,6 +1451,10 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
     });
   }
 
+  $scope.agregarMensajeNuevo = function (idTema){
+    $location.path('foro-agregarMensaje/'+idTema);
+  }
+
   $scope.agregarMensaje = function(mensaje) {
     mensajeAgregar = {
       'contenido': mensaje.contenido,
@@ -1346,8 +1488,12 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
       $scope.mensajes = nuevo;
       service.foroObtenerTema(id).success(function(data){
         $scope.tema = data.datos;
+        if ($scope.tema.estado=='cerrado')
+        $scope.cerrado=true;
       });
+      
     });
+   
   }
 
   $scope.eliminarTema = function(id) {
@@ -1388,6 +1534,33 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
     $scope.obtenerMensajes($rootScope.idTema);
   }
 
+
+
+  $scope.cerrarTema=   function(id) {
+    service.foroCerrarTema(id).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo cerrar el tema", 3500);
+      }
+      else{
+        Materialize.toast("Tema cerrado con éxito", 3500);
+      }
+    });
+    $location.path('foro-temas/'+$rootScope.idCategoria);
+    $scope.obtenerTemas($rootScope.idCategoria);
+  }
+    $scope.abrirTema=   function(id) {
+    service.foroAbrirTema(id).success(function(data){
+      if (!data.exito){
+        Materialize.toast("No se pudo abrir el tema", 3500);
+      }
+      else{
+        Materialize.toast("Tema abierto con éxito", 3500);
+      }
+    });
+    $location.path('foro-temas/'+$rootScope.idCategoria);
+    $scope.obtenerTemas($rootScope.idCategoria);
+  }
+
 }]);
 
 app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -1415,6 +1588,10 @@ app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
     service.foroAlumnoObtenerTemasCategoria(id).success(function(data){
       $scope.temas = data.datos;
     });
+  }
+
+    $scope.agregarMensajeNuevo = function (idTema){
+    $location.path('foro-alumno-agregarMensaje/'+idTema);
   }
 
   $scope.agregarMensaje = function(mensaje) {
@@ -1455,6 +1632,27 @@ app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
     });
   }
 
+
+    $scope.agregarTema = function(tema) {
+    console.log('jojo');
+      temaAgregar = {
+        'idCategoria': $rootScope.idCategoria,
+        'titulo': tema.titulo,
+        'estado': 'abierto',
+        'visitas': 0
+      }
+      service.foroAgregarTemaAlumno(temaAgregar).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar el tema", 3500);
+        }
+        else{
+          Materialize.toast("Tema cargado con éxito", 3500);
+        }
+      });
+      $scope.obtenerTemas();
+    $location.path('foro-alumno-temas/'+$rootScope.idCategoria);
+  }
+
 }]);
 
 app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -1485,6 +1683,10 @@ app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     });
   }
 
+  $scope.agregarMensajeNuevo = function (idTema){
+    $location.path('foro-tutor-agregarMensaje/'+idTema);
+  }
+
   $scope.agregarMensaje = function(mensaje) {
     mensajeAgregar = {
       'contenido': mensaje.contenido,
@@ -1501,7 +1703,37 @@ app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
         Materialize.toast("Mensaje cargado con éxito", 3500);
       }
     });
-    $location.path('foro-alumno-mensajes/'+$rootScope.idTema);
+    $location.path('foro-tutor-mensajes/'+$rootScope.idTema);
+  }
+
+  $scope.agregarTema = function(tema) {
+    if ($scope.isAdding){
+      service.foroActualizarTema(tema).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo actualizar el tema", 3500);
+        }
+        else{
+          Materialize.toast("Tema actualizado con éxito", 3500);
+        }
+      });
+    }
+    else{
+      temaAgregar = {
+        'idCategoria': $rootScope.idCategoria,
+        'titulo': tema.titulo,
+        'estado': 'abierto',
+        'visitas': 0
+      }
+      service.foroAgregarTema(temaAgregar).success(function(data){
+        if (!data.exito){
+          Materialize.toast("No se pudo agregar el tema", 3500);
+        }
+        else{
+          Materialize.toast("Tema cargado con éxito", 3500);
+        }
+      });
+    }
+    $location.path('foro-tutor-temas/'+$rootScope.idCategoria);
   }
 
   $scope.obtenerMensajes = function(id) {
@@ -1639,6 +1871,29 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
         $scope.informes = data.datos;
       })
   }
+
+   $scope.eliminarInforme = function(id){
+    service.eliminarInforme(id).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el informe", 3500);
+        }
+        else{
+          Materialize.toast("Informe eliminado  con éxito", 3500);
+         $scope.obtenerInformesTutor();
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
+    }
+
+    $scope.resetearContrasenia = function(id){
+      service.resetearContrasenia(id).success(function (data){
+        if (!data.exito){
+          Materialize.toast("No se pudo resetear la contraseña", 3500);
+        }
+        else{
+          Materialize.toast("Contraseña reseteada con éxito", 3500);
+        }  
+      })
+    }
 
 }]);
 

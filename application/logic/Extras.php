@@ -70,9 +70,9 @@ class Extras {
         $this->CI->load->model('Informe_model');
         //Si se pasó un id se busca el informe correspondiente.
         if(is_null($id))
-                return  $this->CI->Informe_model->get_all();
+                return  $this->CI->Informe_model->with_autor()->get_all();
         //Si no se pasó nada, se buscan todos.
-            return  $this->CI->Informe_model->get($id);
+            return  $this->CI->Informe_model->with_autor()->get($id);
     }
 
     public function ObtenerInformesUsuario($id)

@@ -210,6 +210,12 @@ class Bedelia {
                 $this->CI->Examen_model->delete($id);
         }
 
+        public function ObtenerExamen($id)
+        {
+                $this->CI->load->model('Examen_model');
+                return  $this->CI->Examen_model->where('idCursada', $id)->get_all();     
+        }
+
 
         //Devuelve cursada del usuario
         public function ObtenerCursadasUsuario($id=NULL)

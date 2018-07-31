@@ -34,7 +34,7 @@ class Tutores extends OWN_Controller{
             //Si no se pasó nada, se buscan todas.
             $this->User_model->get_all():
             //Si se pasó un id se busca la comision correspondiente.
-            $this->User_model->with_informe()->get($id)
+            $this->User_model->get($id)
         );
 
         return $this->responseJson(['datos'=>$data]);

@@ -1,7 +1,7 @@
 <main class="container" ng-init="obtenerMensajes(idTema)">
 
         <a href="#/foro-alumno-temas/{{idCategoria}}" class="btn btn-volver">Volver</a>
-        <a href="#/foro-alumno-agregarMensaje/{{idTema}}" class="btn btn-agregar" ng-show="isAbierto">Agregar mensaje</a>
+        <button title="Agregar mensaje" class="waves-effect waves-light btn" ng-show="!cerrado" ng-click="agregarMensajeNuevo(idTema)">Agregar mensaje</button>
     
         <ul class="collection with-header">
             <li class="collection-header"><h4>Mensajes</h4></li>

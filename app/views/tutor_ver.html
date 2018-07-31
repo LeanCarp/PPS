@@ -1,7 +1,7 @@
 <main class="container" ng-init="obtenerTutor()">
     
-    <a href="#/tutores-listar" class="btn btn-volver">Volver</a>
-    <h2>Ver <strong>tutor</strong></h2>
+    <a href="#/tutor-alumnos" class="btn btn-volver">Volver</a>
+    <h2> <strong>Perfil</strong></h2>
 
     <div class="row">
             <div class="row">
@@ -15,7 +15,8 @@
                     <h5>Email: <strong>{{tutor.email}}</strong></h5>
                     <br>
                     <h5>Teléfono: <strong>{{tutor.phone}}</strong></h5>
-                  
+                    <br>
+                    <a title="Resetear contraseña" href="javascript:void(0)" ng-click="resetearContrasenia(tutor.id)" class="btn btn-agregar">Resetear contraseña</a>
                 </div>
             </div>
     </div>
