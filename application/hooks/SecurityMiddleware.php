@@ -6,7 +6,7 @@ class SecurityMiddleware {
   protected $CI;
   protected $adminGroup = "admin";
   protected $alumnoGroup = "alumnos";
-  //protected $tutorGroup = "tutor";
+  protected $tutorGroup = "tutor";
 
   public function __construct()
   {
@@ -46,6 +46,9 @@ class SecurityMiddleware {
         if( ! $this->CI->ion_auth->in_group($this->adminGroup) )
         {
           if( $this->CI->ion_auth->in_group($this->alumnoGroup) && ( $primerParametroUrl != '' && $primerParametroUrl != 'alumno' ) )
+            redirect('auth/login', 'refresh'); // echo "ACA1"; // redirect them to the login page
+
+          if( $this->CI->ion_auth->in_group($this->tutorGroup) && ( $primerParametroUrl != '' && $primerParametroUrl != 'tutor' ) )
             redirect('auth/login', 'refresh'); // echo "ACA1"; // redirect them to the login page
         }
       }

@@ -61,11 +61,7 @@
                 </div>
 
                 <input type="hidden" id="idMateria" name="idMateria" ng-model="archivo.idMateria">
-                {{ "fuente="+( archivo.fuenteArchivo?"archivo":"link")}}
-                {{ "linkCntenido="+archivo.link }}
-                {{ "archivoSeleccionado="+($scope.archivo.archivoAsubir!=undefined?"SI":"NO") }}
-                {{ "esLink="+((archivo.fuenteArchivo == false && archivo.link != "" )?"True":"False")+" OR esArchivo="+((archivo.fuenteArchivo == true && archivoAsubir != undefined )?"True":"False") }}
-                {{ "disableButton="+(archivoParaSubir_O_LinkNoVacio()?"True":"False")+" isAdding="+(isAdding?"True":"False") }}
+                
                 <!-- Btn Agregar -->
                 <input type="submit" class="btn" value="Agregar" ng-show="isAdding" ng-disabled="formArchivo.$invalid || ( !formArchivo.$invalid && !archivoParaSubir_O_LinkNoVacio())">
                 <!-- Btn Modificar -->
