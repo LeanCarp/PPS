@@ -1,7 +1,11 @@
 <main class="container" ng-init="obtenerAlumnos(idAlumno)">
     <a href="#/alumnos-listar" class="btn btn-volver">Volver</a>
+     <a href="https://api.whatsapp.com/send?phone={{alumno.phone}}"  target="_blank" class="btn btn-volver">Enviar Mensaje   <i class="fa fa-whatsapp"></i> </a>
 
-    <h2>Ver <strong>Alumno</strong></h2>
+    <!--Para el icono de whatsapp-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <h2>{{alumno.first_name}} {{alumno.last_name}}</h2>
 
     <div class="row">
             <div class="row">
@@ -9,10 +13,6 @@
                     <h5>DNI: <strong>{{alumno.username}}</strong></h5>
                     <br>
                     <h5>Carrera: <strong>{{alumno.carrera}}</strong></h5>
-                    <br>
-                    <h5>Nombre: <strong>{{alumno.first_name}}</strong></h5>
-                    <br>
-                    <h5>Apellido: <strong>{{alumno.last_name}}</strong></h5>
                     <br>
                     <h5>Email: <strong>{{alumno.email}}</strong></h5>
                     <br>

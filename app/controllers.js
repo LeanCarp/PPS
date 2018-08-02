@@ -69,11 +69,22 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
    $scope.getAlumnos();
   }
 
-
+ $scope.validarTelefono = function(value){
+   
+    if ((value > 9999999999999 || value < 1111111111111) & value!='') 
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
   $scope.agregarAlumno = function(alumno){
     if($scope.isAdding){
       alumno.id = $scope.idAlumno;
+      alumno.telefono=alumno.caracteristica+alumno.telefono;
       service.actualizarAlumno(alumno).success(function(data){
         if(!data.exito){
           Materialize.toast("No se pudo modificar el almuno", 3500);
@@ -297,7 +308,8 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
       $location.path('/examenes-listar/'+$rootScope.idCursada);
       }
   $scope.validarNota = function(value){
-    if (value > 10 || value < 1){
+    
+    if ((value > 10 || value < 1)& value!='') {
       return true;
     }
     else{
