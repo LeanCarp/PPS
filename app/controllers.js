@@ -10,31 +10,6 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
   //
 
-/*   $scope.elementos = [];
-  $scope.currentPage = 1;
-  $scope.numPerPage = 15;
-
-  $scope.paginar = function(num){
-    $scope.elementos = [];
-    $scope.currentPage = num;
-    var inicio = ($scope.currentPage-1) * $scope.numPerPage;
-    if (inicio >= $scope.alumnos.length)
-    {
-      
-    }
-    else
-    {
-      var final = inicio + $scope.numPerPage;
-      if (final > $scope.alumnos.length)
-      {
-        final = inicio + $scope.alumnos.length-1;
-      }
-      for (var i=inicio; i<=final; i++) {
-        $scope.elementos.push($scope.alumnos[i]);
-      }
-    }
-  } */
-
   $scope.getAlumnos= function(id){
   service.getAlumnos().success(function (data){
     $scope.alumnos = data.datos;
@@ -51,18 +26,27 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
     $scope.idAlumno = $routeParams.id;
 
     service.obtenerAlumno($routeParams.id).success(function (data){
-      var alumno = {
-        'id':data.datos.id,
-        'nombre': data.datos.first_name,
-        'apellido': data.datos.last_name,
-        'dni': parseInt(data.datos.username),
-        'email': data.datos.email,
-        'telefono': parseInt(data.datos.phone),
-        'anioIngreso': parseInt(data.datos.anioIngreso),
-        'carrera': data.datos.carrera,
-        'escuela': data.datos.idEscuela,
-      }
+      service.obtenerEscuelas(data.datos.escuela.id).success(function(data2){  
+        var alumno = {
+          'id':data.datos.id,
+          'nombre': data.datos.first_name,
+          'apellido': data.datos.last_name,
+          'dni': parseInt(data.datos.username),
+          'email': data.datos.email,
+          'telefono': parseInt(data.datos.phone),
+          'anioIngreso': parseInt(data.datos.anioIngreso),
+          'carrera': data.datos.carrera,
+          'pais':data2.datos.ciudad.idPais,
+          'ciudad':data2.datos.ciudad.id,
+          'escuela': data.datos.escuela.id,
+        }
+
       $scope.alumno = alumno;
+      
+      //Se cargan los selects
+      $scope.cargarCiudades(data2.datos.ciudad.idPais);
+      $scope.cargarColegios(data2.datos.ciudad.id);
+      })
     })
   }
   else{
@@ -71,7 +55,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 
  $scope.validarTelefono = function(value){
    
-    if ((value > 9999999999999 || value < 1111111111111) & value!='') 
+    if ((value > 9999999999999 || value < 11111111111) & value!='') 
     {
       return true;
     }
@@ -84,7 +68,6 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   $scope.agregarAlumno = function(alumno){
     if($scope.isAdding){
       alumno.id = $scope.idAlumno;
-      alumno.telefono=alumno.caracteristica+alumno.telefono;
       service.actualizarAlumno(alumno).success(function(data){
         if(!data.exito){
           Materialize.toast("No se pudo modificar el almuno", 3500);
@@ -109,8 +92,26 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
 
   $scope.obtenerDatosAlumnoAgregar = function(){
-    service.obtenerEscuelas().success(function(data){
-        $scope.colegios = data.datos;
+
+    service.obtenerPaises().success(function(data){
+      $scope.paises=data.datos;
+       setTimeout(() => $('select').material_select() , 100);
+       });
+       if($scope.isAdding){
+         // console.log($scope.alumno);
+       }
+  }
+
+ $scope.cargarCiudades = function(idPais){
+      service.obtenerPaises(idPais).success(function(data){
+      $scope.ciudades=data.datos.ciudad;
+     setTimeout(() => $('select').material_select() , 100);
+       });
+  }
+
+   $scope.cargarColegios = function(idCiudad){
+    service.obtenerCiudades(idCiudad).success(function(data){
+        $scope.colegios = data.datos.escuela;
         setTimeout(() => $('select').material_select() , 100);
     });
   }
@@ -118,6 +119,9 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   $scope.obtenerAlumnos = function(id){
     service.obtenerAlumno(id).success(function (data){
       $scope.alumno = data.datos;
+        service.obtenerCiudades($scope.alumno.escuela.idCiudad).success(function(data2){
+          $scope.ciudad = data2.datos;
+        })
     })
   }
 

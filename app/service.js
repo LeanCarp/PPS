@@ -467,7 +467,6 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
           'carrera': alumno.carrera,
           'escuela': alumno.escuela
       }
-      console.log(alumn);
     let urlAlumnoActualizar = 'administrador/Alumnos/Actualizar';
     return $http.post(urlAlumnoActualizar, alumn, { responseType: 'json' });
 
