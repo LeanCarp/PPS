@@ -18,40 +18,44 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
     $scope.paginar(1); */
   })
   }
+  $scope.cargarAlumno= function(){
+    if ($routeParams.id )
+    {
 
-  if ($routeParams.id)
-  {
-    $scope.isAdding = true;
+      $scope.isAdding = true;
 
-    $scope.idAlumno = $routeParams.id;
+      $scope.idAlumno = $routeParams.id;
 
-    service.obtenerAlumno($routeParams.id).success(function (data){
-      service.obtenerEscuelas(data.datos.escuela.id).success(function(data2){  
-        var alumno = {
-          'id':data.datos.id,
-          'nombre': data.datos.first_name,
-          'apellido': data.datos.last_name,
-          'dni': parseInt(data.datos.username),
-          'email': data.datos.email,
-          'telefono': parseInt(data.datos.phone),
-          'anioIngreso': parseInt(data.datos.anioIngreso),
-          'carrera': data.datos.carrera,
-          'pais':data2.datos.ciudad.idPais,
-          'ciudad':data2.datos.ciudad.id,
-          'escuela': data.datos.escuela.id,
-        }
+      service.obtenerAlumno($routeParams.id).success(function (data){
+        service.obtenerEscuelas(data.datos.escuela.id).success(function(data2){  
+          var alumno = {
+            'id':data.datos.id,
+            'nombre': data.datos.first_name,
+            'apellido': data.datos.last_name,
+            'dni': parseInt(data.datos.username),
+            'email': data.datos.email,
+            'telefono': parseInt(data.datos.phone),
+            'anioIngreso': parseInt(data.datos.anioIngreso),
+            'carrera': data.datos.carrera,
+            'pais':data2.datos.ciudad.idPais,
+            'ciudad':data2.datos.ciudad.id,
+            'escuela': data.datos.escuela.id,
+          }
 
-      $scope.alumno = alumno;
-      
-      //Se cargan los selects
-      $scope.cargarCiudades(data2.datos.ciudad.idPais);
-      $scope.cargarColegios(data2.datos.ciudad.id);
+        $scope.alumno = alumno;
+        
+        //Se cargan los selects
+        $scope.cargarCiudades(data2.datos.ciudad.idPais);
+        $scope.cargarColegios(data2.datos.ciudad.id);
+
+        })
       })
-    })
+    }
+    else{
+    $scope.getAlumnos();
+    }
   }
-  else{
-   $scope.getAlumnos();
-  }
+
 
  $scope.validarTelefono = function(value){
    
@@ -92,14 +96,12 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
 
   $scope.obtenerDatosAlumnoAgregar = function(){
-
+    $scope.cargarAlumno();
     service.obtenerPaises().success(function(data){
       $scope.paises=data.datos;
        setTimeout(() => $('select').material_select() , 100);
        });
-       if($scope.isAdding){
-         // console.log($scope.alumno);
-       }
+
   }
 
  $scope.cargarCiudades = function(idPais){
@@ -117,7 +119,8 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
 
   $scope.obtenerAlumnos = function(id){
-    service.obtenerAlumno(id).success(function (data){
+    service.obtenerAlumno($routeParams.id).success(function (data){
+
       $scope.alumno = data.datos;
         service.obtenerCiudades($scope.alumno.escuela.idCiudad).success(function(data2){
           $scope.ciudad = data2.datos;
@@ -227,6 +230,9 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
 
     $scope.getCursadas = function(idAlumno){
       service.getCursadas(idAlumno).success(function (data){
+        if (!data.datos)
+          $scope.cursadas=[];
+          else
         $scope.cursadas = data.datos;
        $scope.obtenerAlumno(idAlumno);
       })
@@ -528,8 +534,13 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
   }
 
   $scope.obtenerInformes = function(){
+
     service.obtenerInformes($scope.idAlumno).success(function(data){
+      if (!data.datos)
+        $scope.informes=[];
+      else
       $scope.informes = data.datos;
+          
       $scope.obtenerAlumno($scope.idAlumno);
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
@@ -541,6 +552,9 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
   
     $scope.obtenerInformesTutor = function(){
     service.obtenerInformesTutor($scope.idAlumno).success(function(data){
+      if (!data.datos)
+        $scope.informes=[];
+      else
       $scope.informes = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
       $scope.obtenerAlumno($scope.idAlumno);
@@ -736,13 +750,9 @@ app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location'
 
   $scope.obtenerMaterias = function(){
     service.obtenerMaterias(null).success(function(data){
-/*         var materias = [];
-
-        angular.forEach(data.datos, function(value, key) {
-          this.push(value);
-        }, materias);
-        console.log(materias);
-        $scope.materias = materias; */
+        if (!data.datos)
+        $scope.materias=[];
+        else
         $scope.materias = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
@@ -871,6 +881,9 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
   {
     service.obtenerArchivosMateria( idMateria)
       .success( function(data){
+        if (!data.datos)
+        $scope.archivos=[];
+        else
           $scope.archivos =data.datos.archivo;
       })
       .error( () => Materialize.toast('Error al obtener Archivos', 3500) );
@@ -1122,13 +1135,9 @@ app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service',
 
   $scope.obtenerEscuelas = function(){
     service.obtenerEscuelas(null).success(function(data){
-/*         var materias = [];
-
-        angular.forEach(data.datos, function(value, key) {
-          this.push(value);
-        }, materias);
-        console.log(materias);
-        $scope.materias = materias; */
+        if (!data.datos)
+        $scope.escuelas=[];
+        else
         $scope.escuelas = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
@@ -1897,7 +1906,11 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
 
   $scope.obtenerInformesTutor = function(){
       service.obtenerInformesTutor($rootScope.idTutor).success(function (data){
-        $scope.informes = data.datos;
+        
+       if (!data.datos)
+        $scope.informes=[];
+      else
+      $scope.informes = data.datos;
       })
   }
 
