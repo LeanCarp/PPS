@@ -393,6 +393,13 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       }
       return $http.post(urlTutorObtener, tutor, { responseType: 'json' });
     },
+     obtenerPerfilTutor: (idTutor) => {
+      let urlTutorObtener = 'tutor/Tutor/Leer';
+      const tutor = {
+        'idTutor': idTutor
+      }
+      return $http.post(urlTutorObtener, tutor, { responseType: 'json' });
+    },
 
     obtenerTutores: () => {
       let urlTutoresObtener = 'administrador/Tutores/ObtenerTutores';
@@ -556,8 +563,16 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
     },
 
     TutorObtenerAlumnos: () =>{
+
       let urlAlumnoObtener = 'tutor/Alumno/ObtenerAlumnos';
       return $http.post(urlAlumnoObtener, { responseType: 'json' });
+    },
+        TutorObtenerAlumno: (idAlumno) =>{
+          const id = {
+        'idAlumno':idAlumno,
+      }
+      let urlAlumnoObtener = 'tutor/Alumno/Leer';
+      return $http.post(urlAlumnoObtener, id,{ responseType: 'json' });
     },
 
     TutorObtenerCursadas: (idUsuario) =>{

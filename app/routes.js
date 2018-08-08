@@ -277,7 +277,7 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/tutor-alumnos-ver/:id", {
       title: 'Alumnos - Ver',
       templateUrl: BASE_URL + "app/views/tutor/tutor_alumno_ver.html",
-      controller: "AlumnosCtr"
+      controller: "UserTutorCtr"
     })
     .when("/tutor-cursadas/:id", {
       title: 'Cursadas - Listar',

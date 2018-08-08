@@ -1286,6 +1286,8 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
       $scope.alumnos = data.datos;
     })
   }
+  
+
 
   $scope.obtenerExamenes=function(id) {
     service.obtenerExamenes($routeParams.idCurs).success(function (data){
@@ -1294,14 +1296,14 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     service.getCursada($routeParams.idCurs).success(function (data){
       $scope.nombreMateria = data.datos.comision.nombreMateria;
       $rootScope.idAlumno=data.datos.idUsuario;
-      service.AlumnoObtenerAlumno(data.datos.idUsuario).success(function (alum){
+      service.TutorObtenerAlumno(data.datos.idUsuario).success(function (alum){
         $scope.alumno = alum.datos;
       })
     })
 
   }
   $scope.obtenerAlumno = function(id){
-      service.AlumnoObtenerAlumno(id).success(function (alum){
+      service.TutorObtenerAlumno(id).success(function (alum){
         $scope.alumno = alum.datos;
       })
   }
@@ -1372,7 +1374,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
   }
 
   $scope.obtenerTutor = function(){
-    service.obtenerTutor($rootScope.alumnoLog).success(function (data){
+    service.obtenerPerfilTutor($rootScope.alumnoLog).success(function (data){
       var tutor = {
         'id': data.datos.id,
         'nombre': data.datos.first_name,
@@ -1936,6 +1938,17 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
         }  
       })
     }
+
+    $scope.validarTelefono = function(value){
+    if ((value > 9999999999999 || value < 11111111111) & value!='') 
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
 }]);
 

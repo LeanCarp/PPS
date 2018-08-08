@@ -15,8 +15,8 @@ class Alumno extends OWN_Controller{
     {
         $this->load->model('User_model');
 
+        
         $id = $this->rest->post('idAlumno');
-
         $data = (
             is_null($id) ?
             //Si no se paso id se buscan todas

@@ -1,6 +1,11 @@
 <main class="container" ng-init="obtenerTutor()">
     
-    <a href="#/tutor-alumnos" class="btn btn-volver">Volver</a>
+    <a href="#/tutores-listar" class="btn btn-volver">Volver</a>
+    <a href="https://api.whatsapp.com/send?phone={{tutor.phone}}"  target="_blank" class="btn btn-volver">Enviar Mensaje   <i class="fa fa-whatsapp"></i> </a>
+
+    <!--Para el icono de whatsapp-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <h2> <strong>Perfil</strong></h2>
 
     <div class="row">
