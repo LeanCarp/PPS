@@ -18,7 +18,7 @@ class Materia  extends OWN_Controller{
 
     public function Leer()
     {
-        $id = $this->rest->post('id');
+        $id = $this->rest->post('idMateria');
         $data = $this->bedelia->obtenerMateria($id);
         return $this->responseJson(['datos'=>$data]);  
     }

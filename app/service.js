@@ -43,7 +43,7 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
     obtenerMaterias: (idMateria) => {
       let urlMateriaObtener = 'administrador/Materia/Leer';
       const id = {
-        'id':idMateria
+        'idMateria':idMateria
       }
       return $http.post(urlMateriaObtener, id, { responseType: 'json' });
     },
@@ -582,6 +582,13 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       }
       return $http.post(urlCursadasObtener, id, { responseType: 'json' });
     },
+        TutorObtenerCursada: (idCursada) =>{
+      let urlCursadasObtener = 'tutor/Cursada/ObtenerCursada';
+      const id = {
+        'idCursada': idCursada
+      }
+      return $http.post(urlCursadasObtener, id, { responseType: 'json' });
+    },
 
     TutorObtenerExamenes: (idCursada) =>{
       let urlCursadasObtener = 'tutor/Examen/ObtenerExamenesCursada';
@@ -616,6 +623,13 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
         'idAlumno': informe.idAlumno
       }
       return $http.post(urlInformeAgregar, infor, { responseType: 'json' });
+    },
+        TutorObtenerActividades: (idUsuario) => {
+      const id = {
+        'idUsuario':idUsuario,
+      }
+      let urlActividadesObtener = 'tutor/Actividad/ObtenerActividadesUsuario';
+      return $http.post(urlActividadesObtener, id,{ responseType: 'json' });
     },
 
     TutorActualizarInforme: (informe) => {
