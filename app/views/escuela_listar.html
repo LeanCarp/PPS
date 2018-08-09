@@ -30,6 +30,13 @@
                   <span ng-show="sortType == 'orientacion' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
                 </a>
               </th>
+              <th>
+                <a ng-click="revertirOrden(); sortType = 'ciudad.nombre'">
+                  Ciudad
+                  <span ng-show="sortType == 'orientacion' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                  <span ng-show="sortType == 'orientacion' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                </a>
+              </th>
               <th>Opciones</th>
           </tr>
         </thead>
@@ -38,6 +45,7 @@
           <tr ng-repeat="escuela in escuelas | orderBy:sortType:sortReverse | filter: buscar">
             <td>{{escuela.nombre}}</td>
             <td>{{escuela.orientacion}}</td>
+            <td>{{escuela.ciudad.nombre}}</td>
             <td><a title="Editar" href="#/escuelas-modificar/{{escuela.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
           </tr>
         </tbody>

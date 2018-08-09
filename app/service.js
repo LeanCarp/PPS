@@ -556,7 +556,7 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       const alumn = {
           'id': alumno.id,
           'email': alumno.email,
-          'phone': alumno.telefono,
+          'phone': alumno.phone,
       }
       let urlAlumnoActualizar = 'alumno/Alumno/Actualizar';
       return $http.post(urlAlumnoActualizar, alumn, { responseType: 'json' });

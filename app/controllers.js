@@ -362,7 +362,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
       angular.forEach(data.datos.dicta, function(value, key) {
         this.push(value.idProfesor+'-'+value.nombreProfesor);
       }, profesores);
-
+      console.log(data);
       // Crea un objeto "manejable" para la vista y lo asigna
       var comision = {
         'id': data.datos.id,
@@ -1097,25 +1097,34 @@ app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service',
   }
   //
 
+  $scope.cargarCiudades = function(idPais){
+    service.obtenerPaises(idPais).success(function(data){
+    $scope.ciudades=data.datos.ciudad;
+   setTimeout(() => $('select').material_select() , 100);
+    });
+  }
+
+  $scope.obtenerDatosAgregarEscuela = function() {
+    service.obtenerPaises().success(function(data){
+      $scope.paises=data.datos;
+      setTimeout(() => $('select').material_select() , 100);
+    });
+  }
+
   if ($routeParams.id){
     $scope.isAdding = true;
     var idEscuela = $routeParams.id;
     
     service.obtenerEscuelas(idEscuela).success(function(data){
+      $scope.cargarCiudades(data.datos.ciudad.idPais);
       const escuela = {
         'nombre': data.datos.nombre,
         'orientacion': data.datos.orientacion,
+        'pais': data.datos.ciudad.idPais,
         'ciudad': data.datos.idCiudad
       }
       $scope.escuela = escuela;
     });
-  }
-
-  $scope.obtenerDatosAgregarEscuela = function() {
-    service.obtenerCiudades().success(function(data){
-      $scope.ciudades = data.datos;
-      setTimeout(() => $('select').material_select() , 100);
-      }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
 
   $scope.agregarEscuela = function(escuela){
@@ -1201,7 +1210,18 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
 
   $scope.obtenerAlumno = function(id){
     service.AlumnoObtenerAlumno(id).success(function (data){
-      $scope.alumno = data.datos;
+      var alumno = {
+        'id': data.datos.id,
+        'first_name': data.datos.first_name,
+        'last_name': data.datos.last_name,
+        'username': parseInt(data.datos.username),
+        'email': data.datos.email,
+        'phone': parseInt(data.datos.phone),
+        'anioIngreso': data.datos.anioIngreso,
+        'escuela': data.datos.escuela
+      }
+      //$scope.alumno = data.datos;
+      $scope.alumno = alumno;
     })
   }
 
@@ -1214,6 +1234,7 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
         Materialize.toast("Datos modificados con éxito", 3500);
       }
     })
+    $location.path('/alumno-perfil');
   }
 
   $scope.obtenerArchivosMateria = function()
@@ -1225,6 +1246,17 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
       })
       .error( () => Materialize.toast('Error al obtener Archivos', 3500) );
   };
+
+  $scope.validarTelefono = function(value){
+    if ((value > 9999999999999 || value < 11111111111) & value!='') 
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
 }]);
 

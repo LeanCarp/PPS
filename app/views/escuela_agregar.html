@@ -22,6 +22,15 @@
             </div>
             <div class="row">
                 <div class="input-field col s8 m6">
+                    <select id="pais" name="pais" ng-model="escuela.pais" ng-change="cargarCiudades(escuela.pais)" ng-required="true"> <!-- No required -->
+                        <option ng-repeat="pais in paises" value="{{pais.id}}">{{pais.nombre}}</option>
+                    </select>
+                    <label for="pais">Seleccione un pais:</label>
+                    <!-- <p class="advertencia" ng-show="formAlumno.escuela.$error.required && !formAlumno.escuela.$pristine" class="help-block">Debe seleccionar una escuela</p> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s8 m6">
                     <select id="ciudad" name="ciudad" ng-required="true" ng-model="escuela.ciudad">
                         <option ng-repeat="ciudad in ciudades" value="{{ciudad.id}}">{{ciudad.nombre}}</option>
                     </select>

@@ -15,9 +15,9 @@
             </div>
             <div class="row">
                     <div class="input-field col s6">
-                      <input class="elementos" id="telefono" name="telefono" min="1" type="text" class="" ng-model="alumno.phone"> <!-- No required -->
+                      <input class="elementos" id="telefono" name="telefono" min="11111111111"  max="9999999999999" type="text" class="" ng-model="alumno.phone"> <!-- No required -->
                       <label class="active" for="icon_telephone">Teléfono</label>
-                      <!-- <p class="advertencia" ng-show="formAlumno.telefono.$error.required && !formAlumno.telefono.$pristine" class="help-block">El teléfono no puede ser vacío</p> -->
+                      <p class="advertencia" ng-show="validarTelefono(formAlumno.telefono.$viewValue) && !formAlumno.telefono.$pristine" class="help-block">Telefono inválido. Formato: XX X XXX XXX-XXXX sin espacios ni guiones. Ej 5493442348688</p>
                       <p class="advertencia" ng-show="formAlumno.telefono.$invalid && !formAlumno.telefono.$pristine" class="help-block">El teléfono debe ser numérico</p>
                     </div>
                   </div>
