@@ -319,6 +319,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/tutor/tutor_perfil.html",
       controller: "UserTutorCtr"
     })
+    .when("/tutor-perfil-editar", {
+      title: 'Usuario - Perfil',
+      templateUrl: BASE_URL + "app/views/tutor/tutor_editar.html",
+      controller: "UserTutorCtr"
+    })
     .when("/admin-ver", {
       title: 'Usuario - Perfil',
       templateUrl: BASE_URL + "app/views/admin_ver.html",

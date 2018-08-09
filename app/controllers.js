@@ -1394,6 +1394,29 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
       $scope.tutor = tutor;
     })
   }
+
+  $scope.validarTelefono = function(value){
+    if ((value > 9999999999999 || value < 11111111111) & value!='') 
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  $scope.modificarTutor = function(tutor){
+    service.TutorModificar(tutor).success(function (data){
+      if (!data.exito){
+        Materialize.toast("No se pudieron modificar los datos", 3500);
+      }
+      else{
+        Materialize.toast("Datos modificados con éxito", 3500);
+      }
+    })
+    $location.path('tutor-perfil');
+  }
 }]);
 
 app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {

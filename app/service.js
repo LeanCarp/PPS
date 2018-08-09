@@ -644,6 +644,16 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       return $http.post(urlInformeActualizar, infor, { responseType: 'json' });
     },
 
+    TutorModificar: (tutor) => {
+      const tut = {
+          'id': tutor.id,
+          'email': tutor.email,
+          'phone': tutor.telefono,
+      }
+      let urlTutorActualizar = 'tutor/Tutor/ActualizarDatosContacto';
+      return $http.post(urlTutorActualizar, tut, { responseType: 'json' });
+    },
+
     AdminObtenerAdministrador: (idAdmin) => {
         let urlAdminObtener='administrador/Alumnos/Leer';
         const id = {
