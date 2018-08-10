@@ -663,6 +663,16 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
         return $http.post(urlAdminObtener, id, { responseType: 'json' });
     },
 
+    AdminModificarAdministrador: (datos) => {
+      let urlAdminActualizar = 'administrador/User/ModificarAdministrador';
+      const admin = {
+        'id': datos.id,
+        'email': datos.email,
+        'phone': datos.phone,
+      }
+      return $http.post(urlAdminActualizar, admin, { responseType: 'json' });
+    },
+
     foroAgregarCategoria: (categoria) => {
       let urlForoAgregar='administrador/ForoAd/AgregarCategoria';
       const cat = {

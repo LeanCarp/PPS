@@ -39,7 +39,17 @@ class User extends OWN_Controller{
                     );
 
         return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]); 
-       
+    }
+
+    public function ModificarAdministrador(){
+
+        $id = $this->rest->post('id');
+		$data = [
+            'email' => $this->rest->post('email'),
+            'phone'=> $this->rest->post('phone'),
+        ];
+
+        return $this->responseJson(['exito'=>$this->usuario->update($id, $data)]);
     }
 
     public function ObtenerAlumnos()

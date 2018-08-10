@@ -148,7 +148,15 @@ app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location',
 
     $scope.obtenerAdministrador = function (id){
       service.AdminObtenerAdministrador(id).success(function (data){
-        $scope.administrador = data.datos;
+        var admin = {
+          'id': data.datos.id,
+          'first_name': data.datos.first_name,
+          'last_name': data.datos.last_name,
+          'username': data.datos.username,
+          'email': data.datos.email,
+          'phone': parseInt(data.datos.phone),
+        }
+        $scope.administrador = admin;
       })
     }
 
@@ -157,6 +165,33 @@ app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location',
       $scope.tutor = data.datos;
     })
     }
+
+    $scope.modificarAdministrador = function(param){
+      console.log(param);
+      service.AdminModificarAdministrador(param).success(function (data){
+        if (!data.exito){
+          Materialize.toast("No se pudieron modificar los datos", 3500);
+        }
+        else{
+          Materialize.toast("Datos modificados con éxito", 3500);
+        }
+      })
+      $location.path('admin-ver');
+    }
+
+    
+    $scope.validarTelefono = function(value){
+      
+        if ((value > 9999999999999 || value < 11111111111) & value!='') 
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+    }
+
 }]);
 
 app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {

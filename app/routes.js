@@ -329,6 +329,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "app/views/admin_ver.html",
       controller: "AdminCtr"
     })
+    .when("/admin-perfil-editar", {
+      title: 'Usuario - Perfil - Editar',
+      templateUrl: BASE_URL + "app/views/admin_editar.html",
+      controller: "AdminCtr"
+    })
     .when("/foro-admin", {
       title: 'Foro - Categorías',
       templateUrl: BASE_URL + "app/views/admin_foro.html",
