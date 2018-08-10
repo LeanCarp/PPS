@@ -1381,6 +1381,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
 
   $scope.obtenerInformes = function(id){
     service.TutorObtenerInformes(id).success(function (data){
+      console.log(data);
       $scope.informes = data.datos;
     })
      service.TutorObtenerAlumno(id).success(function (data){
@@ -1389,6 +1390,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
   }
 
   $scope.agregarInforme = function(informe){
+    informe.idAutor = $rootScope.alumnoLog;
     informe.idAlumno = $rootScope.idAlumno;
     if($scope.isAdding){
       service.TutorActualizarInforme(informe).success(function(data){

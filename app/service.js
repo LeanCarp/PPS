@@ -620,7 +620,8 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
         'titulo': informe.titulo,
         'fecha': informe.fecha,
         'descripcion': informe.descripcion,
-        'idAlumno': informe.idAlumno
+        'idAlumno': informe.idAlumno,
+        'idAutor': informe.idAutor
       }
       return $http.post(urlInformeAgregar, infor, { responseType: 'json' });
     },

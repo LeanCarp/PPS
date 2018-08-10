@@ -16,12 +16,14 @@ class Informe extends OWN_Controller{
         $titulo = $this->rest->post('titulo');
         $fecha = $this->rest->post('fecha');
         $idAlumno = $this->rest->post('idAlumno');
+        $idAutor = $this->rest->post('idAutor');
 
         $insert_data = [
             'descripcion'=>$descripcion,
             'titulo'=>$titulo,
             'fecha'=>$fecha,
             'idUsuario'=>$idAlumno,
+            'idAutor'=>$idAutor
         ];
         return $this->responseJson(['exito'=>$this->extras->AgregarInforme($insert_data)]);
     }
