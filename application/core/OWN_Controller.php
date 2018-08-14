@@ -6,6 +6,8 @@ class OWN_Controller extends CI_Controller {
 	{
 		parent::__construct();
 		//$this->tienePermisos();
+		$this->angularPath = "../../app/";
+		$this->angularViews = "views/";
 	}
 	/*
 	private function tienePermisos()
@@ -22,6 +24,12 @@ class OWN_Controller extends CI_Controller {
 		header('Content-Type: application/json');
 		echo json_encode( $obj );
 		return true;
+	}
+
+	protected function loadAngularView($viewName, $viewData = [], $viewSubFolders = "")
+	{
+		$pathToView = $this->angularPath.$this->angularViews.$viewSubFolders.$viewName;
+		$this->load->view($pathToView, $viewData);
 	}
 
 }

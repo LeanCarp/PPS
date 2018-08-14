@@ -29,7 +29,6 @@
     <!-- QRCode -->
     <!-- <script src="<?php echo BASE_URL().'assets/js/qrcode.min.js'?>"></script> -->
 
-    <!-- //var CASADECOMIDAID = <?= $casadecomidaID ?>; -->
     <script id="relevantData">
       var BASE_URL    = '<?= BASE_URL() ?>';
       var USER_ID_LOG = <?= $idUsuario ?>;
@@ -47,17 +46,15 @@
   <body>
     <div ng-include="'
     <?php 
-      $url = BASE_URL()."app/views/";
+      $url = BASE_URL()."runAngular/view/";
       switch ($idGrupo[0]->id)
       {
-        case 1: $url .= "header.html";        break;
-        case 2: $url .= "headerAlumno.html";  break;
-        case 3: $url .= "headerTutor.html";   break;
+        case 1: $url .= "header";        break;
+        case 2: $url .= "headerAlumno";  break;
+        case 3: $url .= "headerTutor";   break;
       }
       echo $url;
     ?>'"></div>
-    <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/header.html"'></div> -->
-    <!-- <div ng-include='"<?php echo BASE_URL()?>app/views/alumno_listar.html"'></div> -->
     <div ng-view></div>
   </body>
 </html>
