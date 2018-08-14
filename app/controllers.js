@@ -403,7 +403,8 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
         'id': data.datos.id,
         'anio': parseInt(data.datos.anio),
         'cuatrimestre': data.datos.cuatrimestre,
-        'materia': data.datos.idMateria+'-'+data.datos.nombreMateria,
+        'idMateria':data.datos.idMateria,
+        'materia': data.datos.idMateria,
         'profesores': profesores
       }
       
@@ -424,6 +425,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
         return weekday[numero];
       }
     });
+    console.log($scope);
   }
 
   $scope.obtenerDatosAgregarComision = function() {
@@ -440,6 +442,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
 
   $scope.obtenerComisiones = function(id) {
     service.obtenerComisiones(id).success(function(data){
+      console.log(data.datos);
         $scope.comisiones = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
@@ -476,6 +479,11 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
         console.log(comision);
       }
       else{
+        service.obtenerMaterias(comision.materia).success(function(data2){
+          comision.nombreMateria = data2.datos.nombre;
+
+      });
+
         service.agregarComision(comision).success(function(data){
           if(!data.exito){
             Materialize.toast("No se pudo cargar la comisión", 3500);
@@ -483,7 +491,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
           else{
             Materialize.toast("Comisión cargada con éxito", 3500);
           }
-        }).error( () => Materialize.toast('Erro al guardar', 3500) );
+        }).error( () => Materialize.toast('Error al guardar', 3500) );
       }
     }
 

@@ -13,7 +13,6 @@ class Comision  extends OWN_Controller{
         $cuatrimestre = $this->rest->post('cuatrimestre');
         $anio = $this->rest->post('anio');
         $idMateria = $this->rest->post('idMateria'); 
-        $nombreMateria = $this->rest->post('nombreMateria');
         $horarios = $this->rest->post('horarios');
         $profesores = $this->rest->post('profesores');
         
@@ -22,7 +21,6 @@ class Comision  extends OWN_Controller{
                 'cuatrimestre'=>$cuatrimestre ,
                 'anio'=>$anio,
                 'idMateria'=>$idMateria,
-                'nombreMateria'=>$nombreMateria
             ],
             'horarios'=>$horarios,
             'profesores'=>$profesores,

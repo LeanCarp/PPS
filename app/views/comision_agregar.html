@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <select id="materia" name="materia" ng-model="comision.materia"  ng-required="true">       
-                            <option ng-repeat="materia in materias" value="{{materia.id}}-{{materia.nombre}}">{{materia.nombre}}</option>
+                            <option ng-repeat="materia in materias" value="{{materia.id}}">{{materia.nombre}}</option>
                         </select>
                         <label for="materia">Materia:</label>
                         <p class="advertencia" ng-show="formComision.materia.$error.required && !formComision.materia.$pristine" class="help-block">Debe seleccionar una materia</p>

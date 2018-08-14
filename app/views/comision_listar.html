@@ -46,7 +46,7 @@
             <tr ng-repeat="comision in comisiones | orderBy:sortType:sortReverse | filter: buscar">
               <td>{{comision.anio}}</td>
               <td>{{comision.cuatrimestre}}</td>
-              <td>{{comision.nombreMateria}}</td>
+              <td>{{comision.materia.nombre}}</td>
               <td><a title="Editar" href="#/comisiones-modificar/{{comision.id}}"><i class="listar-iconos material-icons">edit</i></a>
                   <a href="#/comisiones-ver/{{comision.id}}"><i title="Ver" class="listar-iconos material-icons">search</i></a> </td>
             </tr>

@@ -105,20 +105,21 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
     },
 
     agregarComision: (comision) => {
-      var materia = comision.materia.split('-');
+
       var profesores = [];
       angular.forEach(comision.profesores, function(value, key) {
         var profe = value.split('-');
         this.push([profe[0], profe[1]]);
       }, profesores);
+
       const comis = {
         'anio': comision.anio,
         'cuatrimestre': comision.cuatrimestre,
-        'idMateria': materia[0],
-        'nombreMateria': materia[1],
+        'idMateria': comision.materia,
         'horarios': comision.horarios,
         'profesores': profesores
       }
+
       let urlComisionAgregar='administrador/Comision/Agregar';
       return  $http.post(urlComisionAgregar, comis, { responseType: 'json' });
     },
