@@ -42,7 +42,60 @@
                         <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                         <i class="material-icons">close</i>
                     </div>
-                    <ul class="collection">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>
+                                <a ng-click="revertirOrden(); sortType = 'dni'">
+                                DNI
+                                <span ng-show="sortType == 'dni' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                                <span ng-show="sortType == 'dni' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="revertirOrden(); sortType = 'carrera'">
+                                Carrera
+                                <span ng-show="sortType == 'carrera' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                                <span ng-show="sortType == 'carrera' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="revertirOrden(); sortType = 'nombre'">
+                                Nombre
+                                <span ng-show="sortType == 'nombre' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                                <span ng-show="sortType == 'nombre' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="revertirOrden(); sortType = 'apellido'">
+                                Apellido
+                                <span ng-show="sortType == 'apellido' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                                <span ng-show="sortType == 'apellido' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="revertirOrden(); sortType = ''">
+                                Año de ingreso
+                                <span ng-show="sortType == 'apellido' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                                <span ng-show="sortType == 'apellido' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+                                </a>
+                            </th>
+                            <th>Seleccionar</th>
+                        </tr>
+                        </thead>
+                        
+                        <tbody>
+                        <tr ng-repeat="alumno in alumnos | orderBy:sortType:sortReverse | filter: buscar">
+                            <td>{{alumno.username}}</td>
+                            <td>{{alumno.carrera}}</td>
+                            <td>{{alumno.first_name}}</td>
+                            <td>{{alumno.last_name}}</td>
+                            <td>{{alumno.anioIngreso}}</td>
+                            <td><input type="checkbox" class="filled-in" id="{{alumno.id}}" value="{{alumno.id}}"  ng-model="selectedList[alumno.id]"/><label for="{{alumno.id}}"></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+<!--                     <ul class="collection">
                         <li class="collection-item" ng-repeat="alumno in alumnos | filter: buscar">
                             <p>{{alumno.username}}</p>
                             <p>{{alumno.last_name}}, {{alumno.first_name}}</p>
@@ -50,12 +103,13 @@
                             <input type="checkbox" class="filled-in" id="{{alumno.id}}" value="{{alumno.id}}"  ng-model="selectedList[alumno.id]"/>
                             <label for="{{alumno.id}}"></label>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
 
                 <input type="submit" class="btn" value="Agregar" ng-disabled="formCursada.$invalid">
             </form>
         </div>
+
     </main>
     
     <style>
