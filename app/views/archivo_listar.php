@@ -17,15 +17,25 @@
   <table>
     <thead>
       <tr>
-          <th>Título</th>
-          <th>Descripción</th>
+          <th><a ng-click="revertirOrden(); sortType = 'titulo'">
+                Título
+                <span ng-show="sortType == 'nombre' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                <span ng-show="sortType == 'nombre' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+              </a>
+          </th>
+          <th><a ng-click="revertirOrden(); sortType = 'descripcion'">
+                Descripción
+                <span ng-show="sortType == 'nombre' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
+                <span ng-show="sortType == 'nombre' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
+              </a>
+          </th>
           <th>Abrir</th>
           <th>Opciones</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr ng-repeat="archivo in archivos ">
+      <tr ng-repeat="archivo in archivos | orderBy:sortType:sortReverse | filter: buscar">
         <td>{{archivo.titulo}}</td>
         <td>{{archivo.descripcion}}</td>
         <td>

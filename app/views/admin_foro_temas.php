@@ -5,13 +5,18 @@
 
     <ul class="collection with-header">
         <li class="collection-header"><h4>Temas de categoria <strong> {{categoria.nombre}}</strong> </h4></li>
-        <li class="collection-item" ng-repeat="tema in temas">
-            <a href="#/foro-mensajes/{{tema.id}}">{{tema.titulo}}</a> Estado: {{tema.estado}} | Visitas: {{tema.visitas}} 
-            <a title="Editar" href="#/foro-modificarTema/{{tema.id}}"> <i class="material-icons btn-opciones">edit</i></a>
-            <button title="Eliminar" class="btn-remove" ng-click="eliminarTema(tema.id)"><i class="material-icons btn-opciones" style="color: red;">close</i></button>
-            <button title="Cerrar" class="btn-remove" ng-show="tema.estado =='abierto'" ng-click="cerrarTema(tema.id)"><i class="material-icons btn-opciones" style="color: gray;">speaker_notes_off</i></button>
-            <button title="Abrir" class="btn-remove" ng-show="tema.estado =='cerrado'" ng-click="abrirTema(tema.id)"><i class="material-icons btn-opciones" style="color: green;">loop</i></button>
-
+        <li class="collection-item probador" ng-repeat="tema in temas">
+            <div class="foro-titulo">
+                <div>
+                    <a href="#/foro-mensajes/{{tema.id}}">{{tema.titulo}}</a> Estado: {{tema.estado}}
+                </div>    
+                <div class="foro-opciones">
+                    <a title="Editar" href="#/foro-modificarTema/{{tema.id}}"> <i class="material-icons btn-opciones">edit</i></a>
+                    <button title="Eliminar" class="btn-remove" ng-click="eliminarTema(tema.id)"><i class="material-icons btn-opciones" style="color: red;">close</i></button>
+                    <button title="Cerrar" class="btn-remove" ng-show="tema.estado =='abierto'" ng-click="cerrarTema(tema.id)"><i class="material-icons btn-opciones" style="color: gray;">speaker_notes_off</i></button>
+                    <button title="Abrir" class="btn-remove" ng-show="tema.estado =='cerrado'" ng-click="abrirTema(tema.id)"><i class="material-icons btn-opciones" style="color: green;">loop</i></button>
+                </div>
+            </div>
         </li>
     </ul>
 </main>
@@ -37,5 +42,20 @@
     .btn-volver{
         margin-top: 20px;
         margin-bottom: 20px;
+    }
+
+    .foro-titulo{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @media screen and (max-width:800px){
+        .foro-titulo{
+            flex-direction: column;
+        }
+
+        .foro-opciones{
+            margin-top: 10px;
+        }
     }
 </style>

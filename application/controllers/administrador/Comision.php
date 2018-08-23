@@ -12,7 +12,10 @@ class Comision  extends OWN_Controller{
     {
         $cuatrimestre = $this->rest->post('cuatrimestre');
         $anio = $this->rest->post('anio');
-        $idMateria = $this->rest->post('idMateria'); 
+        $idMateria = $this->rest->post('idMateria');
+        // Obtengo el nombre de la materia.
+        $materia = $this->bedelia->ObtenerMateria($idMateria);
+        $nombreMateria = $materia['nombre'];
         $horarios = $this->rest->post('horarios');
         $profesores = $this->rest->post('profesores');
         
@@ -21,6 +24,7 @@ class Comision  extends OWN_Controller{
                 'cuatrimestre'=>$cuatrimestre ,
                 'anio'=>$anio,
                 'idMateria'=>$idMateria,
+                'nombreMateria'=>$nombreMateria
             ],
             'horarios'=>$horarios,
             'profesores'=>$profesores,

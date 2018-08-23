@@ -299,6 +299,7 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
     }
 
     $scope.agregarMultiplesCursadas= function(cursada){
+      cargados = true;
       angular.forEach($scope.selectedList, function (selected,idAlumnoListado ) {
         if (selected)
         {
@@ -306,15 +307,20 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
           service.agregarCursada(cursada).success(function(data){
             if(!data.exito)
             {
-              Materialize.toast("No se pudo cargar la cursada", 3500);
+              cargados = false;
+              //Materialize.toast("No se pudo cargar la cursada", 3500);
             }
             else
             {
-              Materialize.toast("Cursada cargada con éxito", 3500);
+              //Materialize.toast("Cursada cargada con éxito", 3500);
             }
           });
         }
       });
+      if (cargados)
+      {
+          Materialize.toast("Cursadas cargadas con éxito", 3500);
+      }
     }
 
 }]);
@@ -333,8 +339,15 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
     //
   
    service.getExamenes($routeParams.idCursada).success(function (data){
-    $scope.examenes = data['datos'].examen;
-    $scope.idAlumno = data.datos.idUsuario;
+    //$scope.examenes = data['datos'].examen;
+    //$scope.idAlumno = data.datos.idUsuario;
+    if (data.datos.examen == null){
+      Materialize.toast('No hay resultados', 3500);
+    }
+    else{
+      $scope.examenes = data['datos'].examen;
+      $scope.idAlumno = data.datos.idUsuario;
+    }
     }).error( () => Materialize.toast('Error al obtener los examenes', 3500) );
 
     $scope.isAdding = false;
@@ -494,8 +507,8 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
         }).error( () => Materialize.toast('Error al guardar', 3500) );
       }
     }
-
     $location.path('/comisiones-listar');
+    $scope.obtenerComisiones();
   }
 
   // Da un formato "correcto" a la hora. (EJ: 10:1 => 10:01)
@@ -579,8 +592,10 @@ app.controller('InformeListarCtr', ['$scope', '$rootScope', '$routeParams', '$lo
   $scope.obtenerInformes = function(){
 
     service.obtenerInformes($scope.idAlumno).success(function(data){
-      if (!data.datos)
-        $scope.informes=[];
+      if (!data.datos){
+        Materialize.toast('No hay resultados', 1500);
+        $scope.informes=[]
+      }
       else
       $scope.informes = data.datos;
           
@@ -678,11 +693,14 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
 
   $scope.obtenerActividades = function(){   
     service.obtenerActividades($routeParams.id).success(function(data){
-       if (!data.datos)
+      if (!data.datos){
+        Materialize.toast('No hay resultados', 1500)
         $scope.actividades=[];
-        else
-      $scope.actividades = data.datos;
-       $scope.obtenerAlumno($routeParams.id);
+      }
+      else
+        $scope.actividades = data.datos;
+
+      $scope.obtenerAlumno($routeParams.id);
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
   }
 
@@ -816,6 +834,16 @@ app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location'
 
 app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
   
+  
+  // Atributos y funciones para ordenamiento
+  $scope.sortType = 'titulo';
+  $scope.sortReverse = false;
+
+  $scope.revertirOrden = function(){
+    $scope.sortReverse = ! $scope.sortReverse;
+  }
+  //
+
   $scope.initialize = function()
   {
     if( $location.url().includes('archivo-listar') )
@@ -913,6 +941,7 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
       });
     }
     $location.path('/archivo-listar/'+archivo.idMateria);
+    $scope.obtenerArchivosMateria($rootScope.idMateria);
   };
 
   $scope.archivoParaSubir_O_LinkNoVacio = function(){
@@ -1590,12 +1619,20 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
       });
     }
     $location.path('foro-temas/'+$rootScope.idCategoria);
+    $scope.obtenerTemas($rootScope.idCategoria);
   }
 
   $scope.obtenerTemas = function(id) {
+    $scope.obtenerCategoria(id);
+    
     service.foroObtenerTemasCategoria(id).success(function(data){
-      $scope.temas = data.datos;
-      $scope.obtenerCategoria(id);
+      if (data.datos == false){
+        Materialize.toast("No hay resultados", 1500);
+        $scope.temas = [];
+      }
+      else{
+        $scope.temas = data.datos;
+      }
     });
   }
 
@@ -1623,22 +1660,28 @@ app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 
   }
 
   $scope.obtenerMensajes = function(id) {
-    service.foroObtenerMensajes(id).success(function(data){
-      var nuevo = [];
-      angular.forEach(data.datos, function(value, key) {
-        // Suma un día porque la conversión a Date le resta uno.
-        var fecha = new Date(value.fecha);
-        var date = new Date();
-        date.setDate(fecha.getDate() + 1);
-        //
-        this.push(value);
-      }, nuevo);
-      $scope.mensajes = nuevo;
-      service.foroObtenerTema(id).success(function(data){
-        $scope.tema = data.datos;
-        if ($scope.tema.estado=='cerrado')
+    service.foroObtenerTema(id).success(function(data){
+      $scope.tema = data.datos;
+      if ($scope.tema.estado=='cerrado')
         $scope.cerrado=true;
-      });
+    });
+
+    service.foroObtenerMensajes(id).success(function(data){
+      if (data.datos == false){
+        Materialize.toast("No hay resultados", 1500);
+      }
+      else{
+        var nuevo = [];
+        angular.forEach(data.datos, function(value, key) {
+          // Suma un día porque la conversión a Date le resta uno.
+          var fecha = new Date(value.fecha);
+          var date = new Date();
+          date.setDate(fecha.getDate() + 1);
+          //
+          this.push(value);
+        }, nuevo);
+        $scope.mensajes = nuevo;
+    }
       
     });
    
@@ -2017,10 +2060,12 @@ app.controller('TutoresCtr', ['$scope', '$rootScope', '$routeParams', '$location
   $scope.obtenerInformesTutor = function(){
       service.obtenerInformesTutor($rootScope.idTutor).success(function (data){
         
-       if (!data.datos)
+      if (!data.datos){
+        Materialize.toast('No hay resultados', 1500)
         $scope.informes=[];
+      }
       else
-      $scope.informes = data.datos;
+        $scope.informes = data.datos;
       })
   }
 

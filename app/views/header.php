@@ -11,7 +11,7 @@
       </ul>
       <ul class="side-nav" id="mobile-demo">
           <li><a href="#!" class="disabled">Foro</a></li>
-          <li><a href="#/" class="subitem">Administrar</a></li>
+          <li><a href="#/foro-admin" class="subitem">Administrar</a></li>
           <li><a href="#!" class="disabled">Tutores</a></li>
           <li><a href="#/tutores-listar" class="subitem">Administrar</a></li>
           <li><a href="#!" class="disabled">Alumnos</a></li>

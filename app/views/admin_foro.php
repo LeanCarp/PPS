@@ -4,9 +4,16 @@
 
     <ul class="collection with-header">
         <li class="collection-header"><h4><i class="material-icons left centrado" style="padding-top: 6px;">forum</i> Foro</h4></li>
-        <li class="collection-item" ng-repeat="categoria in categorias"><a href="#/foro-temas/{{categoria.id}}">{{categoria.nombre}}</a>
-            <a title="Editar" href="#/foro-modificarCat/{{categoria.id}}">
-            <i class="material-icons btn-opciones">edit</i></a><button title="Eliminar" class="btn-remove" ng-click="eliminarCategoria(categoria.id)"><i class="material-icons btn-opciones" style="color: red;">close</i></button>
+        <li class="collection-item" ng-repeat="categoria in categorias">
+            <div class="foro-titulo">
+                <div>
+                    <a href="#/foro-temas/{{categoria.id}}">{{categoria.nombre}}</a>
+                </div>
+                <div class="foro-opciones">
+                    <a title="Editar" href="#/foro-modificarCat/{{categoria.id}}">
+                    <i class="material-icons btn-opciones">edit</i></a><button title="Eliminar" class="btn-remove" ng-click="eliminarCategoria(categoria.id)"><i class="material-icons btn-opciones" style="color: red;">close</i></button>
+                </div>
+            </div>
         </li>
     </ul>
     
@@ -28,5 +35,20 @@
     .btn-agregar{
         margin-top: 20px;
         margin-bottom: 20px;
+    }
+
+    .foro-titulo{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @media screen and (max-width:800px){
+        .foro-titulo{
+            flex-direction: column;
+        }
+
+        .foro-opciones{
+            margin-top: 10px;
+        }
     }
 </style>
