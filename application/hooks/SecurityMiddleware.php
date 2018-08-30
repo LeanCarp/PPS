@@ -28,13 +28,16 @@ class SecurityMiddleware {
   }
 
   public function applySecurityRoutesByUser()
-  {      
-    //echo "fddfdf<br/>"; 
+  {
     $primerParametroUrl = strtolower($this->CI->uri->segment(1, ''));
+    $segundoParametroUrl = strtolower($this->CI->uri->segment(2, 'index'));
     //var_dump( $primerParametroUrl );
     
     // Si la ruta no es la del controlador de AUTENTICACIÓN, que gestiona de forma independiente si el usuario esta logueado o no
-    if( $primerParametroUrl != 'auth' )
+    if(
+      $primerParametroUrl != 'auth' /* && 
+      ( $primerParametroUrl == 'runangular' && $segundoParametroUrl != 'view') */
+    )
     {
       $logueado = $this->CI->ion_auth->logged_in();
       //echo "Esta logueado ";
@@ -43,7 +46,7 @@ class SecurityMiddleware {
       if( $logueado )
       {
         //Si NO es usuario administrador
-        if( ! $this->CI->ion_auth->in_group($this->adminGroup) )
+        if( $primerParametroUrl != 'runangular' && !$this->CI->ion_auth->in_group($this->adminGroup) )
         {
           if( $this->CI->ion_auth->in_group($this->alumnoGroup) && ( $primerParametroUrl != '' && $primerParametroUrl != 'alumno' ) )
             redirect('auth/login', 'refresh'); // echo "ACA1"; // redirect them to the login page
