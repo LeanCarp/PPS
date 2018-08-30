@@ -6,16 +6,14 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   $scope.sortReverse = false;
 
   $scope.revertirOrden = function(){
-    $scope.sortReverse = ! $scope.sortReverue;
+    $scope.sortReverse = ! $scope.sortReverse;
   }
   //
 
   $scope.getAlumnos= function(id){
   service.getAlumnos().success(function (data){
     $scope.alumnos = data.datos;
-/*     var paginas = Math.floor($scope.alumnos.length/15)+1;
-    console.log(paginas);
-    $scope.paginar(1); */
+    $scope.paginar();
   })
   }
   $scope.cargarAlumno= function(){
@@ -137,6 +135,36 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
         Materialize.toast("Contraseña reseteada con éxito", 3500);
       }  
     })
+  }
+
+  // Variable global para la paginación
+  $scope.vm = {};
+
+  $scope.paginar = function(){
+    
+    $scope.vm.dummyItems = $scope.alumnos; // dummy array of items to be paged
+    $scope.vm.pager = {};
+    $scope.vm.setPage = setPage;
+
+    initController();
+
+    function initController() {
+      // initialize to page 1
+      $scope.vm.setPage(1);
+    }
+
+    function setPage(page) {
+      if (page < 1 || page > $scope.vm.pager.totalPages) {
+          return;
+      }
+
+      // get pager object from service
+      $scope.vm.pager = service.GetPager($scope.vm.dummyItems.length, page);
+
+      // get current page of items
+      $scope.vm.items = $scope.vm.dummyItems.slice($scope.vm.pager.startIndex, $scope.vm.pager.endIndex + 1);
+
+    }
   }
 }]);
 

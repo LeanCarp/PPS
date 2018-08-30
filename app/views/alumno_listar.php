@@ -7,7 +7,7 @@
     <form>
         <div class="row">
             <div class="input-field col s8 m4">
-                <input id="search" type="search" required ng-model="buscar">
+                <input id="search" type="search" required ng-model="buscar" ng-change="activarBusqueda();">
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
             </div>
@@ -19,7 +19,7 @@
     <thead>
       <tr>
           <th>
-            <a ng-click="revertirOrden(); sortType = 'dni'">
+            <a ng-click="revertirOrden(); sortType = 'username'">
               DNI
               <span ng-show="sortType == 'dni' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
               <span ng-show="sortType == 'dni' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
@@ -33,14 +33,14 @@
             </a>
           </th>
           <th>
-            <a ng-click="revertirOrden(); sortType = 'nombre'">
+            <a ng-click="revertirOrden(); sortType = 'first_name'">
               Nombre
               <span ng-show="sortType == 'nombre' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
               <span ng-show="sortType == 'nombre' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
             </a>
           </th>
           <th>
-            <a ng-click="revertirOrden(); sortType = 'apellido'">
+            <a ng-click="revertirOrden(); sortType = 'last_name'">
               Apellido
               <span ng-show="sortType == 'apellido' && sortReverse == true" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_up</i></span>
               <span ng-show="sortType == 'apellido' && sortReverse == false" class="fa fa-caret-down"><i class="tiny material-icons">arrow_drop_down</i></span>
@@ -49,9 +49,9 @@
           <th>Opciones</th>
       </tr>
     </thead>
-    
+
     <tbody>
-      <tr class="collection-item" ng-repeat="alumno in alumnos | orderBy:sortType:sortReverse | filter: buscar">
+      <tr class="collection-item" ng-repeat="alumno in vm.items | orderBy:sortType:sortReverse | filter: buscar">
         <td>{{alumno.username}}</td>
         <td>{{alumno.carrera}}</td>
         <td>{{alumno.first_name}}</td>
@@ -65,16 +65,29 @@
         </tr>
     </tbody>
   </table>
-  
-<!--   <ul class="pagination">
-    <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="" ng-click="paginar(1);">1</a></li>
-    <li class="waves-effect"><a href="" ng-click="paginar(2);">2</a></li>
-    <li class="waves-effect"><a ng-click="paginar(3);">3</a></li>
-    <li class="waves-effect"><a ng-click="paginar(4);">4</a></li>
-    <li class="waves-effect"><a ng-click="paginar(5);">5</a></li>
-    <li class="waves-effect"><a href=""><i class="material-icons">chevron_right</i></a></li>
-  </ul> -->
+
+<!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+  <div class="text-center menuPaginacion">     
+        <!-- pager -->
+        <ul class="pagination"><!-- ng-if="vm.pager.pages.length" -->
+            <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                <a class="botones" ng-click="vm.setPage(1)">Primero</a>
+            </li>
+            <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage - 1)">Anterior</a>
+            </li>
+            <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+                <a class="botones indicesPaginacion" ng-click="vm.setPage(page)">{{page}}</a>
+            </li>                
+            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage + 1)">Siguiente</a>
+            </li>
+            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                <a class="botones" ng-click="vm.setPage(vm.pager.totalPages)">Último</a>
+            </li>
+        </ul>
+    </div>
               
 </main>
 
@@ -96,6 +109,23 @@
     margin-left: 20px;
   }
   th, td{
+    text-align: center;
+  }
+
+  .botones{
+    cursor: pointer;
+  }
+
+  .botones:hover{
+    background: gray;
+    color: white;
+  }
+
+  .pagination li.active a{
+    background: #123;
+  }
+
+  .menuPaginacion{
     text-align: center;
   }
   @media screen and (max-width:800px){
