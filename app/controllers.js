@@ -137,7 +137,20 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
     })
   }
 
-  // Variable global para la paginación
+  // Atributos y métodos para la búsqueda sobre todos los resultados.
+  $scope.busqueda = false;
+
+  $scope.activarBusqueda = function(){
+    if ($scope.buscar.length < 3){
+      $scope.busqueda = false;
+    }
+    else{
+      $scope.busqueda = true;
+    }
+  }
+  // Fin Búsqueda ---
+
+  // Paginación
   $scope.vm = {};
 
   $scope.paginar = function(){
@@ -166,6 +179,8 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 
     }
   }
+  // Fin Paginación ---
+
 }]);
 
 app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
@@ -1809,7 +1824,7 @@ app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
     });
   }
 
-    $scope.agregarMensajeNuevo = function (idTema){
+  $scope.agregarMensajeNuevo = function (idTema){
     $location.path('foro-alumno-agregarMensaje/'+idTema);
   }
 
@@ -1846,14 +1861,13 @@ app.controller('ForoAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
       $scope.mensajes = nuevo;
 
       if (nuevo[0].tema.estado == "cerrado"){
-        $scope.isAbierto = false;
+        $scope.cerrado = true;
       }
     });
   }
 
 
     $scope.agregarTema = function(tema) {
-    console.log('jojo');
       temaAgregar = {
         'idCategoria': $rootScope.idCategoria,
         'titulo': tema.titulo,
@@ -1923,6 +1937,7 @@ app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
       }
     });
     $location.path('foro-tutor-mensajes/'+$rootScope.idTema);
+    $scope.obtenerTemas($rootScope.idCategoria);
   }
 
   $scope.agregarTema = function(tema) {
@@ -1967,9 +1982,10 @@ app.controller('ForoTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
         this.push(value);
       }, nuevo);
       $scope.mensajes = nuevo;
-/*       if (nuevo[0].tema.estado == "cerrado"){
-        $scope.isAbierto = false;
-      } */
+
+      if (nuevo[0].tema.estado == "cerrado"){
+        $scope.cerrado = true;
+      }
     });
   }
 

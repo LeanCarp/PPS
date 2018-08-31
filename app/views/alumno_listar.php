@@ -13,9 +13,37 @@
             </div>
         </div>
     </form>
+    <!-- <ul>
+      <li ng-show="busqueda" ng-repeat="alumno in alumnos | filter: buscar">{{alumno.username}}</li>
+    </ul> -->
+    <table ng-show="busqueda">
+      <thead>
+        <tr>
+            <th>DNI</th>
+            <th>Carrera</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="collection-item"  ng-repeat="alumno in alumnos | filter: buscar">
+          <td>{{alumno.username}}</td>
+          <td>{{alumno.carrera}}</td>
+          <td>{{alumno.first_name}}</td>
+          <td>{{alumno.last_name}}</td>
+          <td>
+            <a title="Cursadas" href="#/cursadas-listar/{{alumno.id}}"><i class="listar-iconos material-icons">class</i></a>
+            <a title="Ver informes" href="#/informes-listar/{{alumno.id}}"><i class="listar-iconos material-icons">library_books</i></a>
+            <a title="Ver Actividades" href="#/actividades-listar/{{alumno.id}}"><i class="listar-iconos material-icons">watch_later</i></a>
+            <a href="#/alumnos-modificar/{{alumno.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
+            <a href="#/alumnos-ver/{{alumno.id}}"><i title="Ver" class="listar-iconos material-icons">search</i></a></td>
+          </tr>
+      </tbody>
+    </table>
   </div>
 
-  <table>
+  <table ng-show="!busqueda">
     <thead>
       <tr>
           <th>
@@ -51,7 +79,7 @@
     </thead>
 
     <tbody>
-      <tr class="collection-item" ng-repeat="alumno in vm.items | orderBy:sortType:sortReverse | filter: buscar">
+      <tr class="collection-item" ng-repeat="alumno in vm.items | orderBy:sortType:sortReverse">
         <td>{{alumno.username}}</td>
         <td>{{alumno.carrera}}</td>
         <td>{{alumno.first_name}}</td>
@@ -68,7 +96,7 @@
 
 <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
-  <div class="text-center menuPaginacion">     
+  <div class="text-center menuPaginacion" ng-show="!busqueda">     
         <!-- pager -->
         <ul class="pagination"><!-- ng-if="vm.pager.pages.length" -->
             <li ng-class="{disabled:vm.pager.currentPage === 1}">
