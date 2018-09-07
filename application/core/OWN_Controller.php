@@ -8,6 +8,7 @@ class OWN_Controller extends CI_Controller {
 		//$this->tienePermisos();
 		$this->angularPath = "../../app/";
 		$this->angularViews = "views/";
+		$this->angularControllers = "controllers/";
 	}
 	/*
 	private function tienePermisos()
@@ -23,13 +24,39 @@ class OWN_Controller extends CI_Controller {
 	{
 		header('Content-Type: application/json');
 		echo json_encode( $obj );
-		return true;
 	}
 
 	protected function loadAngularView($viewName, $viewData = [], $viewSubFolders = "")
 	{
+		//Si no es vcio, hay que adicionar la barra divisoria carpeta/file
+		if($viewSubFolders != "")
+			$viewSubFolders = $viewSubFolders.DIRECTORY_SEPARATOR;//'/';
+
 		$pathToView = $this->angularPath.$this->angularViews.$viewSubFolders.$viewName;
 		$this->load->view($pathToView, $viewData);
+	}
+
+	protected function responseJavascript( $arrayOfPathToFiles, $isFilePath = true)
+	{
+		header('Content-Type: application/javascript');
+
+		$javascriptBuffer = "";
+
+		if($isFilePath) //Es una ruta o un array de rutas a archivos
+		{
+			if( ! is_array($arrayOfPathToFiles) && is_string($arrayOfPathToFiles) )
+				$arrayOfPathToFiles = [$arrayOfPathToFiles];
+			
+			foreach ($arrayOfPathToFiles as $filePath)
+			{
+				$filePathJS = APPPATH."..".DIRECTORY_SEPARATOR.".".$filePath;
+				$javascriptBuffer .= (" ".file_get_contents($filePathJS));
+			}
+		}
+		else //Es un string que representa el contenido de un archivo js
+			$javascriptBuffer = $arrayOfPathToFiles;
+					
+		echo $javascriptBuffer;
 	}
 
 }

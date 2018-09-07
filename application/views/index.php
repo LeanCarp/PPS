@@ -32,13 +32,16 @@
     <script id="relevantData">
       var BASE_URL    = '<?= BASE_URL() ?>';
       var USER_ID_LOG = <?= $idUsuario ?>;
-    
+      /*
+        <?php var_dump($idGrupo); ?>
+      */
     </script>
 
     <!-- App JS -->
     <script src="<?php echo BASE_URL().'app/app.js'?>"></script>
     <script src="<?php echo BASE_URL().'app/filters.js'?>"></script>
-    <script src="<?php echo BASE_URL().'app/routes.js'?>"></script>
+    <!--script src="<?php //echo BASE_URL().'app/routes.js'?>"></script-->
+    <script src="<?php echo BASE_URL().'runAngular/routes'?>"></script>
     <script src="<?php echo BASE_URL().'app/service.js'?>"></script>
     <script src="<?php echo BASE_URL().'app/controllers.js'?>"></script>
 
