@@ -347,6 +347,7 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
     else{
       $scope.examenes = data['datos'].examen;
       $scope.idAlumno = data.datos.idUsuario;
+      $scope.obtenerAlumno($scope.idAlumno);
     }
     }).error( () => Materialize.toast('Error al obtener los examenes', 3500) );
 
@@ -373,6 +374,13 @@ app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location
     else{
       return false;
     }
+  }
+
+  $scope.obtenerAlumno = function(id){
+    service.AlumnoObtenerAlumno(id).success(function (data){
+      $scope.alumno = data.datos;
+
+    })
   }
 }]);
 
@@ -410,7 +418,7 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
       angular.forEach(data.datos.dicta, function(value, key) {
         this.push(value.idProfesor+'-'+value.nombreProfesor);
       }, profesores);
-      console.log(data);
+      
       // Crea un objeto "manejable" para la vista y lo asigna
       var comision = {
         'id': data.datos.id,
@@ -438,7 +446,61 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
         return weekday[numero];
       }
     });
-    console.log($scope);
+    
+  }
+
+  $scope.obtenerComision= function(){
+    var horarios = [];
+
+    if ($routeParams.id){
+      $scope.isAdding = true;
+
+      var idComision = $routeParams.id;
+      $scope.idComision = idComision;
+
+      service.obtenerComisiones(idComision).success(function(data){
+
+        //Carga los horarios en un arreglo y luego en el scope.
+        angular.forEach(data.datos.horario, function(value, key) {
+          this.push(value);
+        }, horarios);
+        $scope.horarios = horarios;
+
+        // Carga los profesores en un arreglo
+        var profesores = [];
+        angular.forEach(data.datos.dicta, function(value, key) {
+          this.push(value.idProfesor+'-'+value.nombreProfesor);
+        }, profesores);
+       
+        // Crea un objeto "manejable" para la vista y lo asigna
+        var comision = {
+          'id': data.datos.id,
+          'anio': parseInt(data.datos.anio),
+          'cuatrimestre': data.datos.cuatrimestre,
+          'idMateria':data.datos.idMateria,
+          'materia': data.datos.materia,
+          'profesores': profesores
+        }
+        
+        $scope.comision = comision;
+
+
+        $scope.diaDeSemana=function(numero)
+        {
+          var weekday = new Array(7);
+          weekday[1] =  "Lunes";
+          weekday[2] = "Martes";
+          weekday[3] = "Miércoles";
+          weekday[4] = "Jueves";
+          weekday[5] = "Viernes";
+          weekday[6] = "Sábado";
+          weekday[7] = "Domingo";
+          
+          return weekday[numero];
+        }
+      });
+      
+    }
   }
 
   $scope.obtenerDatosAgregarComision = function() {
@@ -455,7 +517,6 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
 
   $scope.obtenerComisiones = function(id) {
     service.obtenerComisiones(id).success(function(data){
-      console.log(data.datos);
         $scope.comisiones = data.datos;
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
@@ -920,9 +981,12 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
 
       service.agregarArchivo(archivo).success(function(data){
         if (!data.exito){
+          $location.path('/archivo-listar/'+archivo.idMateria);
           Materialize.toast("No se pudo agregar el archivo."+"<br>"+data.mensaje_error, 3500);
         }
         else{
+          $scope.obtenerArchivosMateria($rootScope.idMateria);
+          $location.path('/archivo-listar/'+archivo.idMateria);
           Materialize.toast("Archivo cargado con éxito", 3500);
         }
       });
@@ -933,15 +997,17 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
 
       service.actualizarArchivo(archivo).success(function(data){
         if (!data.exito){
+          $location.path('/archivo-listar/'+archivo.idMateria);
           Materialize.toast("No se pudo modificar el archivo", 3500);
         }
         else{
+          $scope.obtenerArchivosMateria($rootScope.idMateria);
+          $location.path('/archivo-listar/'+archivo.idMateria);
           Materialize.toast("Archivo modificado con éxito", 3500);
         }
       });
     }
-    $location.path('/archivo-listar/'+archivo.idMateria);
-    $scope.obtenerArchivosMateria($rootScope.idMateria);
+    
   };
 
   $scope.archivoParaSubir_O_LinkNoVacio = function(){
@@ -1057,38 +1123,54 @@ app.controller('PaisesCtr', ['$scope', '$routeParams', '$location', 'service', f
     if ($scope.isAdding){
       service.actualizarPais(pais).success(function(data){
         if (!data.exito){
+          $location.path('/paises-listar');
           Materialize.toast("No se pudo modificar el país", 3500);
         }
         else{
+          $scope.obtenerPaises();
+          $location.path('/paises-listar');
           Materialize.toast("País modificado con éxito", 3500);
         }
       });
     }
     else{
-      service.agregarPais(pais).success(function(data){
-        if (!data.exito){
-          Materialize.toast("No se pudo agregar el país", 3500);
-        }
+        //Se valida antes si no existe ya otro pais guardado.
+      service.validarPais(pais).success(function(validacion){
+        if (!validacion.exito)
+         Materialize.toast("No se puede agregar un pais que ya existe", 3500);
         else{
-          Materialize.toast("País cargado con éxito", 3500);
-        }
-      });
+            service.agregarPais(pais).success(function(data){
+              if (!data.exito){
+                $location.path('/paises-listar');
+                Materialize.toast("No se pudo agregar el país", 3500);
+              }
+              else{
+                $scope.obtenerPaises();
+                $location.path('/paises-listar');
+                Materialize.toast("País cargado con éxito", 3500);
+              }
+            });
+        }  
+      }).error( () => Materialize.toast('Error al validar el pais', 3500) );
     }
-    $scope.obtenerPaises();
-    $location.path('/paises-listar');
   }
 
   $scope.obtenerPaises = function(){
     service.obtenerPaises(null).success(function(data){
-/*         var materias = [];
-
-        angular.forEach(data.datos, function(value, key) {
-          this.push(value);
-        }, materias);
-        console.log(materias);
-        $scope.materias = materias; */
         $scope.paises = data.datos;
-    }).error( () => Materialize.toast('Erro al obtener', 3500) );
+    }).error( () => Materialize.toast('Error al obtener paises', 3500) );
+  }
+ 
+  $scope.eliminarPais = function(id){
+    service.eliminarPais(id).success(function(data){
+      if (!data.datos){
+          Materialize.toast("No se pudo eliminar el pais", 3500);
+        }
+        else{
+          Materialize.toast("Pais eliminado  con éxito", 3500);
+         $scope.obtenerPaises();
+        }        
+    }).error( () => Materialize.toast('Error al eliminar', 3500) );
   }
 
 }]);

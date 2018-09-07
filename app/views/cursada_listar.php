@@ -53,7 +53,7 @@
               <tr ng-repeat="cursada in cursadas | orderBy:sortType:sortReverse | filter: buscar">
                 <td>{{cursada.comision.anio}}</td>
                 <td>{{cursada.comision.cuatrimestre}}</td>
-                <td>{{cursada.comision.nombreMateria}}</td>
+                <td>{{cursada.comision.materia.nombre}}</td>
                 <td>{{cursada.estado}}</td>
                 <td>
                     <a title="Ver Examenes" href="#/examenes-listar/{{cursada.id}}"><i class="listar-iconos material-icons">find_in_page</i></a><a title="Editar" href="#/cursadas-modificar/{{cursada.id}}"><i class="listar-iconos material-icons">edit</i></a>

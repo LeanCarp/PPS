@@ -269,6 +269,18 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       let urlPaisAgregar = 'administrador/Pais/Agregar';
       return $http.post(urlPaisAgregar, pais, { responseType: 'json' });
     },
+    validarPais: (pais) => {
+      let urlPaisValidar = 'administrador/Pais/Validar';
+      return $http.post(urlPaisValidar, pais, { responseType: 'json' });
+    },
+     eliminarPais: (idPais) => {
+      let urlPaisEliminar='administrador/Pais/Eliminar';
+      const id = {
+
+        'idPais': idPais
+      }
+      return $http.post(urlPaisEliminar, id , { responseType: 'json' });
+    },
 
        agregarActividad: (actividad) => {
       let urActividadAgregar='administrador/Actividad/AgregarActividad';
