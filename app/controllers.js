@@ -365,7 +365,6 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
           Materialize.toast("Cursadas cargadas con éxito", 3500);
       }
     }
-
 }]);
 
 app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {

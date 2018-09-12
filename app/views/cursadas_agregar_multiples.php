@@ -42,6 +42,16 @@
                         <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                         <i class="material-icons">close</i>
                     </div>
+                    <div class="input-field col s6 m3">
+                        <input id="search" type="search" ng-model="filtro1">
+                        <label class="" for="search">Filtro 1</label>
+                        <i class="material-icons">close</i>
+                    </div>
+                    <div class="input-field col s6 m3">
+                        <input id="search" type="search" ng-model="filtro2">
+                        <label class="" for="search">Filtro 2</label>
+                        <i class="material-icons">close</i>
+                    </div>
                     <table>
                         <thead>
                         <tr>
@@ -85,7 +95,7 @@
                         </thead>
                         
                         <tbody>
-                        <tr ng-repeat="alumno in alumnos | orderBy:sortType:sortReverse | filter: buscar">
+                        <tr ng-repeat="alumno in alumnos | orderBy:sortType:sortReverse | filter: buscar | filter: filtro1 | filter: filtro2">
                             <td>{{alumno.username}}</td>
                             <td>{{alumno.carrera}}</td>
                             <td>{{alumno.first_name}}</td>
