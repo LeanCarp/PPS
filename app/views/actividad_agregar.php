@@ -14,6 +14,16 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="input-field col s3 m3">
+                        <input type="date" name="fechaInicio" ng-model="actividad.fechaInicio" ng-required="true">
+                        <label class="active" for="horaInicio">Fecha inicio:</label>
+                    </div>
+                    <div class="input-field col s3 m3">
+                        <input type="date" name="fechaFin" ng-model="actividad.fechaFin" ng-required="false">
+                        <label class="active" for="fechaFin">Fecha fin:</label>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s4 m4">
                             <select name="dias" id="dias" ng-model="dias" ng-required="true">
                                 <option value="" disabled selected>Elige un día</option>

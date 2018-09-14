@@ -741,7 +741,7 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
   $scope.isAdding = false;
 
   $rootScope.idAlumno=  $rootScope.idAlumno !=undefined ?   $rootScope.idAlumno :  $routeParams.id;
-  
+
     // Atributos y funciones para ordenamiento
     $scope.sortType = 'descripcion';
     $scope.sortReverse = false;
@@ -803,7 +803,6 @@ app.controller('ActividadCtr', ['$scope', '$rootScope','$routeParams','$location
       }
       else
         $scope.actividades = data.datos;
-
       $scope.obtenerAlumno($routeParams.id);
     }).error( () => Materialize.toast('Error al obtener actividades', 3500) );
   }

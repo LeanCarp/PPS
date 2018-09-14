@@ -287,6 +287,8 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       const acti = {
         'horarios':actividad.horarios,
         'descripcion': actividad.descripcion,
+        'fechaInicio': actividad.fechaInicio,
+        'fechaFin': actividad.fechaFin,
         'idAlumno': actividad.idAlumno
       }
       return $http.post(urActividadAgregar, acti, { responseType: 'json' });
