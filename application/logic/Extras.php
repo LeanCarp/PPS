@@ -126,7 +126,7 @@ class Extras {
      public function EliminarPais($id)
     {
         $this->CI->load->model('Pais_model');
-        $this->CI->Pais_model->delete($id);
+        return $this->CI->Pais_model->delete($id);
     }
 
     public function AgregarCiudad($data)

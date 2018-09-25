@@ -30,7 +30,10 @@
             <tbody>
               <tr ng-repeat="pais in paises | orderBy:sortType:sortReverse | filter: buscar">
                 <td>{{pais.nombre}}</td>
-                <td><a title="Editar" href="#/paises-modificar/{{pais.id}}"><i class="listar-iconos material-icons">edit</i></a></td>
+                <td>
+                    <a title="Editar" href="#/paises-modificar/{{pais.id}}"><i class="listar-iconos material-icons">edit</i></a>
+                    <a title="Eliminar"  style="cursor: pointer;" ng-show="pais.ciudad==undefined" ng-click="eliminarPais(pais.id)"  ><i class="listar-iconos material-icons">delete</i></a>
+                </td>
               </tr>
             </tbody>
           </table>

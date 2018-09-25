@@ -218,7 +218,7 @@ class Bedelia {
 
 
         //Devuelve cursada del usuario
-        public function ObtenerCursadasUsuario($id=NULL)
+        public function ObtenerCursadasUsuario($id)
         {
                 //$this->CI->load->model('User_model');
                 //Si se pasó un id se busca la comision correspondiente.
@@ -227,7 +227,8 @@ class Bedelia {
                 //Si no se pasó nada, se buscan todas.
                 //return  $this->CI->User_model->with_cursada()->get($id);
                 $this->CI->load->model('Cursada_model');
-                return $this->CI->Cursada_model->where('idUsuario', $id)->with_comision()->get_all();
+               // return $this->CI->Cursada_model->where('idUsuario', $id)->with_comision()->get_all();
+                return $this->CI->Cursada_model->where('idUsuario', $id)->with_comision(array('with'=>array('relation'=>'materia')))->get_all();
         
         }
 

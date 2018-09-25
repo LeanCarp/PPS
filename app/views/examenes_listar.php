@@ -2,7 +2,7 @@
         
         <a href="#/cursadas-listar/{{idAlumno}}" class="btn btn-volver">Volver</a>
         <a href="#/examenes-agregar/{{cursada.id}}" class="btn btn-agregar">Agregar examen</a>
-
+       <h3> <strong>Examenes</strong> de <strong> {{alumno.first_name}} {{alumno.last_name}}</strong> </h3>
         <div class="nav-wrapper">
             <form>
               <div class="row">

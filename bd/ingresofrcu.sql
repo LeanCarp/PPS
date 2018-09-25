@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-08-2018 a las 02:34:08
+-- Tiempo de generación: 14-09-2018 a las 02:33:22
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 5.6.33
 
@@ -31,17 +31,22 @@ SET time_zone = "+00:00";
 CREATE TABLE `actividad` (
   `id` int(11) NOT NULL,
   `descripcion` text COLLATE utf8_spanish2_ci NOT NULL,
-  `idUsuario` int(10) UNSIGNED NOT NULL
+  `idUsuario` int(10) UNSIGNED NOT NULL,
+  `fechaInicio` date DEFAULT NULL,
+  `fechaFin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `actividad`
 --
 
-INSERT INTO `actividad` (`id`, `descripcion`, `idUsuario`) VALUES
-(25, 'wewewewew', 11),
-(26, 'tetetetetete', 11),
-(27, 'parcial 1 bla bla', 11);
+INSERT INTO `actividad` (`id`, `descripcion`, `idUsuario`, `fechaInicio`, `fechaFin`) VALUES
+(25, 'wewewewew', 11, NULL, NULL),
+(26, 'tetetetetete', 11, NULL, NULL),
+(27, 'parcial 1 bla bla', 11, NULL, NULL),
+(28, 'jejejejej', 8, NULL, NULL),
+(29, 'jejejeje', 8, '2018-09-01', '2018-09-01'),
+(32, 'jejejejeje', 8, '2018-09-01', '2018-09-15');
 
 -- --------------------------------------------------------
 
@@ -67,7 +72,14 @@ INSERT INTO `archivo` (`id`, `titulo`, `descripcion`, `ruta`, `idMateria`, `idCa
 (8, 'kikijijiji', 'huhuhuhuhu', './assets/uploads/materia_5b605c3042496_536721328.docx', 1, 2),
 (9, 'fefefefefefefefeererrrrrqqq', 'tttttttttttttttttttttttttttttttt', 'http://www.google.com', 1, 1),
 (10, 'wqeqweqwe', 'qweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwewqeqw', 'https://twitter.com/', 1, 1),
-(11, 'deberia mostrar solo esto', 'y tambiennsolo esto', 'https://web.whatsapp.com/', 2, 1);
+(11, 'deberia mostrar solo esto', 'y tambiennsolo esto', 'https://web.whatsapp.com/', 2, 1),
+(12, 'queria probar', 'esto', './assets/uploads/materia_5b81c52ba5b48_966727865.pdf', 3, 2),
+(13, 'proban222', 'gggggggg', './assets/uploads/materia_5b81c96794205_749579046.pdf', 3, 2),
+(14, 'jojojojojoeeee', 'tetetetete', './assets/uploads/materia_5b81c9fd42f6e_541367542.pdf', 3, 2),
+(15, 'tetegegegsdf1123123', '1231232455ggg', './assets/uploads/materia_5b81ca46b1da7_280308758.pdf', 3, 2),
+(16, 'twitter', 'tetetetetww', 'https://twitter.com/', 3, 1),
+(17, 'luciano', 'tomas gini', './assets/uploads/materia_5b8328ffb8f46_421343073.pdf', 1, 2),
+(18, 'a ver esto probando', 'prueba nro 505550', './assets/uploads/materia_5b8329595cf1c_269841257.pdf', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -295,24 +307,29 @@ CREATE TABLE `horario` (
   `horaInicio` time NOT NULL,
   `horaFin` time NOT NULL,
   `idComision` int(11) DEFAULT NULL,
-  `idActividad` int(11) DEFAULT NULL
+  `idActividad` int(11) DEFAULT NULL,
+  `fechaInicio` date DEFAULT NULL,
+  `fechaFin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `horario`
 --
 
-INSERT INTO `horario` (`id`, `dia`, `horaInicio`, `horaFin`, `idComision`, `idActividad`) VALUES
-(1, 3, '10:10:00', '18:18:00', 2, NULL),
-(22, 1, '21:02:00', '23:25:00', NULL, 25),
-(23, 1, '21:02:00', '23:23:00', NULL, 26),
-(24, 5, '12:12:00', '14:14:00', NULL, 27),
-(25, 5, '12:12:00', '14:14:00', NULL, 27),
-(26, 3, '12:12:00', '14:14:00', NULL, 27),
-(27, 6, '12:12:00', '14:14:00', NULL, 27),
-(28, 5, '12:12:00', '14:14:00', NULL, 27),
-(29, 1, '10:10:00', '22:22:00', 3, NULL),
-(30, 4, '10:10:00', '15:15:00', 4, NULL);
+INSERT INTO `horario` (`id`, `dia`, `horaInicio`, `horaFin`, `idComision`, `idActividad`, `fechaInicio`, `fechaFin`) VALUES
+(1, 3, '10:10:00', '18:18:00', 2, NULL, NULL, NULL),
+(22, 1, '21:02:00', '23:25:00', NULL, 25, NULL, NULL),
+(23, 1, '21:02:00', '23:23:00', NULL, 26, NULL, NULL),
+(24, 5, '12:12:00', '14:14:00', NULL, 27, NULL, NULL),
+(25, 5, '12:12:00', '14:14:00', NULL, 27, NULL, NULL),
+(26, 3, '12:12:00', '14:14:00', NULL, 27, NULL, NULL),
+(27, 6, '12:12:00', '14:14:00', NULL, 27, NULL, NULL),
+(28, 5, '12:12:00', '14:14:00', NULL, 27, NULL, NULL),
+(29, 1, '10:10:00', '22:22:00', 3, NULL, NULL, NULL),
+(30, 4, '10:10:00', '15:15:00', 4, NULL, NULL, NULL),
+(31, 2, '01:00:00', '02:00:00', NULL, 28, NULL, NULL),
+(32, 4, '11:11:00', '12:12:00', NULL, 29, NULL, NULL),
+(33, 6, '11:11:00', '12:01:00', NULL, 32, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -421,12 +438,13 @@ CREATE TABLE `pais` (
 --
 
 INSERT INTO `pais` (`id`, `nombre`) VALUES
-(1, 'Cuba'),
 (2, 'Argentina'),
-(3, 'Uruguay'),
-(4, 'Paraguay'),
+(6, 'Brasil'),
+(1, 'Cuba'),
 (5, 'Chile'),
-(6, 'Brasil');
+(4, 'Paraguay'),
+(3, 'Uruguay'),
+(12, 'wachin');
 
 -- --------------------------------------------------------
 
@@ -510,7 +528,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `anioIngreso`, `carrera`, `idEscuela`) VALUES
-(1, '127.0.0.1', 'admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1534196530, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, NULL),
+(1, '127.0.0.1', 'admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1536875736, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, NULL),
 (6, '::1', '38570367', '$2y$08$AF8MVo9FrTXuMjfpOUE4TOiykTEyRKFJgYxGdhvp0jvhTzV/z8CFa', NULL, 'martinaljeandro@g.com', NULL, NULL, NULL, NULL, 1527166470, NULL, 1, 'valentiN', 'costa', NULL, '1234456', NULL, NULL, NULL),
 (7, '::1', '12345678', '$2y$08$4LAlqWb1RdPZzoIFp2zFNu6OyKMsluOoR41Dm14/qMiIskVXEpDPC', NULL, '12334567@123.com', NULL, NULL, NULL, NULL, 1527166582, 1527167066, 1, 'prueba', 'prueba', NULL, '123454567', NULL, NULL, NULL),
 (8, '::1', '303456', '$2y$08$mueSygtTJduWEtRjhQ8cIemST2cO3mYqHypkU2N8f1VYGsZgoUa5G', NULL, 'email@email.com', NULL, NULL, NULL, NULL, 1527876058, 1533047423, 1, 'pedro', 'rodriguez', NULL, '5493446660025', 2040, 'ING', 1),
@@ -518,7 +536,7 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`
 (10, '::1', '37373671', '$2y$08$vthr9qkXQty6Yq9/vwGgsO3qI6kWjKA9G0oUfwNanbUkS1FSL9oHe', NULL, 'email@email.com', NULL, NULL, NULL, NULL, 1528207591, NULL, 1, 'julio', 'Ricardo', NULL, '54549656', NULL, NULL, NULL),
 (11, '::1', '3436375', '$2y$08$PKss8FPGbxRjcCBhnBHeRekLhoyHJwytTFuzRyQ/TLn5XglSSQvdq', NULL, 'valentincostam@gmail.com', NULL, NULL, NULL, NULL, 1528207671, 1532723567, 1, 'Valentín', 'Costa', NULL, '5493446576794', 2013, 'ISI', 2),
 (12, '::1', '9989889', '$2y$08$7wYqpTYea9ktxwqBs3.s0.4VI14Wfq5gfG7jLbgBIdyrdrrqDrlZi', NULL, '8982@989.com', NULL, NULL, NULL, NULL, 1528207735, 1532440577, 1, 'Juan Carlos', 'Aguilar', NULL, '89898989', 2015, 'ISI', 1),
-(13, '::1', '10010', '$2y$08$bXrZ7Kemm/AswoMd4053QOHkTjH4VU2fWj7eh7oTK/weZm28.AsG2', NULL, 'ldrn@chr.com', NULL, NULL, NULL, NULL, 1528208099, 1533824477, 1, 'Daniel', 'Pasarella', NULL, '303456', 2016, 'ISI', 1),
+(13, '::1', '10010', '$2y$08$bXrZ7Kemm/AswoMd4053QOHkTjH4VU2fWj7eh7oTK/weZm28.AsG2', NULL, 'ldrn@chr.com', NULL, NULL, NULL, NULL, 1528208099, 1536365997, 1, 'Daniel', 'Pasarella', NULL, '303456', 2016, 'ISI', 1),
 (14, '::1', '2331231231', '$2y$08$GoDjxjrjvUMN9Tr9XUcc/uN4FgTueSuRh/ekwbSeKbZIJwbIkHCcK', NULL, 'jojo@sadasda.com', NULL, NULL, NULL, NULL, 1530794963, NULL, 1, 'wepa', 'wopa wopa', NULL, '12312312312', NULL, NULL, NULL),
 (15, '::1', '12312312312312', '$2y$08$hwNzU1H4FsqjqRip/3175em5HX6EXe8DOj5uA9qBJIMvvR/VsFgRK', NULL, 'asdasdasdas@asddas.com', NULL, NULL, NULL, NULL, 1530795123, NULL, 1, 'qweqweqw', 'qweqweqweqw', NULL, '123123123123120', NULL, NULL, NULL),
 (16, '::1', '1', '$2y$08$uVK62RAun2mzDNahE9TbHuu1Qhz20J3vM9Wyxh78bPcyFoFIF7TMq', NULL, 'asdasda2@asdasd.com', NULL, NULL, NULL, NULL, 1530795204, NULL, 1, 'sadqweqw', 'sadasdasd', NULL, '121212', NULL, NULL, NULL),
@@ -679,7 +697,8 @@ ALTER TABLE `mensajeforo`
 -- Indices de la tabla `pais`
 --
 ALTER TABLE `pais`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `profesor`
@@ -718,13 +737,13 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT de la tabla `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `archivo`
 --
 ALTER TABLE `archivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `categoriaarchivo`
@@ -784,7 +803,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT de la tabla `horario`
 --
 ALTER TABLE `horario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `informe`
@@ -814,7 +833,7 @@ ALTER TABLE `mensajeforo`
 -- AUTO_INCREMENT de la tabla `pais`
 --
 ALTER TABLE `pais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
