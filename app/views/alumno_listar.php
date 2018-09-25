@@ -145,12 +145,12 @@
   }
 
   .botones:hover{
-    background: gray;
+    background: #333333;
     color: white;
   }
 
   .pagination li.active a{
-    background: #123;
+    background: #26A69A;
   }
 
   .menuPaginacion{

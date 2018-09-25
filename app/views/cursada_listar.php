@@ -50,7 +50,7 @@
             </thead>
     
             <tbody>
-              <tr ng-repeat="cursada in cursadas | orderBy:sortType:sortReverse | filter: buscar">
+              <tr ng-repeat="cursada in vm.items | orderBy:sortType:sortReverse | filter: buscar">
                 <td>{{cursada.comision.anio}}</td>
                 <td>{{cursada.comision.cuatrimestre}}</td>
                 <td>{{cursada.comision.materia.nombre}}</td>
@@ -63,6 +63,27 @@
               </tr>
             </tbody>
           </table>
+
+          <div class="text-center menuPaginacion">     
+          <!-- pager -->
+            <ul class="pagination"><!-- ng-if="vm.pager.pages.length" -->
+              <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                <a class="botones" ng-click="vm.setPage(1)">Primero</a>
+              </li>
+              <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage - 1)">Anterior</a>
+              </li>
+              <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+                <a class="botones indicesPaginacion" ng-click="vm.setPage(page)">{{page}}</a>
+              </li>                
+              <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage + 1)">Siguiente</a>
+              </li>
+              <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                <a class="botones" ng-click="vm.setPage(vm.pager.totalPages)">Último</a>
+            </li>
+            </ul>
+          </div>
     </main>
     
     <style>
@@ -84,6 +105,22 @@
         }
         .btn-volver{
           margin-top: 20px;
+        }
+        .botones{
+          cursor: pointer;
+        }
+
+        .botones:hover{
+          background: #333333;
+          color: white;
+        }
+
+        .pagination li.active a{
+          background: #26A69A;
+        }
+
+        .menuPaginacion{
+          text-align: center;
         }
         @media screen and (max-width:800px){
           .listar-container{

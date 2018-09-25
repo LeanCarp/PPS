@@ -312,7 +312,9 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
           $scope.cursadas=[];
           else
         $scope.cursadas = data.datos;
+        console.log(data.datos);
        $scope.obtenerAlumno(idAlumno);
+       $scope.paginar();
       })
     }
 
@@ -365,6 +367,37 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
           Materialize.toast("Cursadas cargadas con éxito", 3500);
       }
     }
+
+    // Paginación
+    $scope.vm = {};
+
+    $scope.paginar = function(){
+      
+      $scope.vm.dummyItems = $scope.cursadas; // dummy array of items to be paged
+      $scope.vm.pager = {};
+      $scope.vm.setPage = setPage;
+
+      initController();
+
+      function initController() {
+        // initialize to page 1
+        $scope.vm.setPage(1);
+      }
+
+      function setPage(page) {
+        if (page < 1 || page > $scope.vm.pager.totalPages) {
+            return;
+        }
+
+        // get pager object from service
+        $scope.vm.pager = service.GetPager($scope.vm.dummyItems.length, page);
+
+        // get current page of items
+        $scope.vm.items = $scope.vm.dummyItems.slice($scope.vm.pager.startIndex, $scope.vm.pager.endIndex + 1);
+
+      }
+    }
+    // Fin Paginación ---
 }]);
 
 app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
