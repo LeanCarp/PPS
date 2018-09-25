@@ -312,7 +312,6 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
           $scope.cursadas=[];
           else
         $scope.cursadas = data.datos;
-        console.log(data.datos);
        $scope.obtenerAlumno(idAlumno);
        $scope.paginar();
       })
@@ -366,6 +365,10 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
       {
           Materialize.toast("Cursadas cargadas con éxito", 3500);
       }
+      else{
+        Materialize.toast("No se pudieron cargar algunas cursadas", 3500);
+      }
+      $location.path('/alumnos-listar');
     }
 
     // Paginación
@@ -961,8 +964,40 @@ app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location'
         $scope.materias=[];
         else
         $scope.materias = data.datos;
+        $scope.paginar();
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
+
+  // Paginación
+  $scope.vm = {};
+
+  $scope.paginar = function(){
+    
+    $scope.vm.dummyItems = $scope.materias; // dummy array of items to be paged
+    $scope.vm.pager = {};
+    $scope.vm.setPage = setPage;
+
+    initController();
+
+    function initController() {
+      // initialize to page 1
+      $scope.vm.setPage(1);
+    }
+
+    function setPage(page) {
+      if (page < 1 || page > $scope.vm.pager.totalPages) {
+          return;
+      }
+
+      // get pager object from service
+      $scope.vm.pager = service.GetPager($scope.vm.dummyItems.length, page);
+
+      // get current page of items
+      $scope.vm.items = $scope.vm.dummyItems.slice($scope.vm.pager.startIndex, $scope.vm.pager.endIndex + 1);
+
+    }
+  }
+  // Fin Paginación ---
 
 }]);
 
