@@ -26,9 +26,3 @@
             </div>
     </div>
 </main>
-
-<style>
-    .btn-volver{
-        margin-top: 20px;
-    }
-</style>

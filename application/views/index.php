@@ -14,6 +14,7 @@
     
     <!-- App CSS -->
     <link rel="stylesheet" href="<?php echo BASE_URL()?>assets/css/main.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL()?>assets/css/styles.css">
  
     <!-- jQuery, Angular, Angular Route, Materialize, Angular-Materialize. -->
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->

@@ -2,7 +2,7 @@
 
     <a href="#/foro-temas/{{idCategoria}}" class="btn btn-volver">Volver</a>
     <!-- <a href="#/foro-agregarMensaje/{{idTema}}" ng-show="false" class="btn btn-agregar">Agregar mensaje</a> -->
-    <button title="Agregar mensaje" class="waves-effect waves-light btn" ng-show="!cerrado" ng-click="agregarMensajeNuevo(idTema)">Agregar mensaje</button>
+    <button title="Agregar mensaje" class="waves-effect waves-light btn btn-agregar" ng-show="!cerrado" ng-click="agregarMensajeNuevo(idTema)">Agregar mensaje</button>
 
 
     <ul class="collection with-header">
@@ -15,7 +15,7 @@
     
 </main>
 
-<style>
+<!-- <style>
     .btn-opciones{
         font-size: 13px;
     }
@@ -37,4 +37,4 @@
         margin-top: 20px;
         margin-bottom: 20px;
     }
-</style>
+</style> -->

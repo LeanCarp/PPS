@@ -19,7 +19,7 @@
     </div>
 </main>
 
-<style>
+<!-- <style>
     .botonHorario{
         margin: 17px;
     }
@@ -40,4 +40,4 @@
     .elementos{
         margin: 0 !important;
     }
-</style>
+</style> -->

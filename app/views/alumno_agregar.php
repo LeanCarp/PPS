@@ -89,7 +89,7 @@
     </div>
 </main>
 
-<style>
+<!-- <style>
     .selects{
         padding:  0 .75rem;
 
@@ -107,6 +107,6 @@
     .elementos{
         margin: 0 !important;
     }
-</style>
+</style> -->
       
           

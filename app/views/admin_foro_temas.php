@@ -21,7 +21,7 @@
     </ul>
 </main>
 
-<style>
+<!-- <style>
     .btn-opciones{
         font-size: 20px;
     }
@@ -58,4 +58,4 @@
             margin-top: 10px;
         }
     }
-</style>
+</style> -->

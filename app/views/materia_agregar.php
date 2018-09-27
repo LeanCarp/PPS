@@ -27,7 +27,7 @@
     
     </script>
     
-    <style>
+<!--     <style>
         .selects{
             padding: 0 !important;
         }
@@ -43,4 +43,4 @@
         .elementos{
             margin: 0 !important;
         }
-    </style>
+    </style> -->

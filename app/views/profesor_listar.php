@@ -45,7 +45,7 @@
     </table>
   </main>
   
-  <style>
+<!--   <style>
     .listar-container{
       margin: 0 auto;
       width: 80% !important;
@@ -67,4 +67,4 @@
         width:100% !important;
       }
     }
-  </style>
+  </style> -->

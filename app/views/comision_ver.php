@@ -28,8 +28,8 @@
         </div>
     </main>
     
-    <style>
+<!--     <style>
         .btn-volver{
             margin-top: 20px;
         }
-    </style>
+    </style> -->
