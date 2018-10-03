@@ -95,25 +95,34 @@
                         </thead>
                         
                         <tbody>
-                        <tr ng-repeat="alumno in alumnos | orderBy:sortType:sortReverse | filter: buscar | filter: filtro1 | filter: filtro2">
-                            <td>{{alumno.username}}</td>
-                            <td>{{alumno.carrera}}</td>
-                            <td>{{alumno.first_name}}</td>
-                            <td>{{alumno.last_name}}</td>
-                            <td>{{alumno.anioIngreso}}</td>
-                            <td><input type="checkbox" class="filled-in" id="{{alumno.id}}" value="{{alumno.id}}"  ng-model="selectedList[alumno.id]"/><label for="{{alumno.id}}"></label></td>
+                            <tr ng-repeat="alumno in items | orderBy:sortType:sortReverse | filter:buscar | startFrom:currentPage*pageSize | limitTo:pageSize">                           
+                                <td>{{alumno.username}}</td>
+                                <td>{{alumno.carrera}}</td>
+                                <td>{{alumno.first_name}}</td>
+                                <td>{{alumno.last_name}}</td>
+                                <td>{{alumno.anioIngreso}}</td>
+                                <td><input type="checkbox" class="filled-in" id="{{alumno.id}}" value="{{alumno.id}}"  ng-model="selectedList[alumno.id]"/><label for="{{alumno.id}}"></label></td>
                             </tr>
                         </tbody>
                     </table>
-<!--                     <ul class="collection">
-                        <li class="collection-item" ng-repeat="alumno in alumnos | filter: buscar">
-                            <p>{{alumno.username}}</p>
-                            <p>{{alumno.last_name}}, {{alumno.first_name}}</p>
-                            <p>{{alumno.carrera}}</p><p>{{alumno.anioIngreso}}</p>
-                            <input type="checkbox" class="filled-in" id="{{alumno.id}}" value="{{alumno.id}}"  ng-model="selectedList[alumno.id]"/>
-                            <label for="{{alumno.id}}"></label>
-                        </li>
-                    </ul> -->
+                    <div class="text-center menuPaginacion">     
+                        <ul class="pagination">
+                            <li ng-class="{disabled:currentPage == 0}">
+                            <a class="botones" ng-click="currentPage=0" ng-disabled="currentPage == 0">Primero</a>
+                            </li>
+                            <li ng-class="{disabled:currentPage == 0}">
+                                <a class="botones" ng-click="currentPage=currentPage-1" ng-disabled="currentPage == 0">Anterior</a>
+                            </li>
+                            <li class="indicePaginacion">{{currentPage+1}}/{{numberOfPages()}} </li>     
+                            <li ng-repeat="num in numberOfPages()"></li>      
+                            <li ng-class="{disabled:currentPage >= numberOfPages()}">
+                                <a class="botones" ng-click="currentPage=currentPage+1" ng-disabled="currentPage >= numberOfPages()">Siguiente</a> <!-- getData().length/pageSize - 1 -->
+                            </li>
+                            <li ng-class="{disabled:currentPage >= numberOfPages()-1}">
+                                <a class="botones" ng-click="currentPage=numberOfPages()-1" ng-disabled="currentPage >= numberOfPages()-1">Último</a> <!-- getData().length/pageSize - 1 -->
+                            </li>
+                        </ul>
+                    </div>  
                 </div>
 
                 <input type="submit" class="btn" value="Agregar" ng-disabled="formCursada.$invalid">

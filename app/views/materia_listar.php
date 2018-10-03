@@ -29,7 +29,7 @@
       </thead>
   
       <tbody>
-        <tr ng-repeat="materia in vm.items | orderBy:sortType:sortReverse | filter: buscar">
+        <tr ng-repeat="materia in materias | orderBy:sortType:sortReverse | filter:buscar | startFrom:currentPage*pageSize | limitTo:pageSize">
           <td>{{materia.nombre}}</td>
           <td>
             <a title="Editar" href="#/materias-modificar/{{materia.id}}"><i class="listar-iconos material-icons">edit</i></a>
@@ -40,62 +40,22 @@
     </table>
 
     <div class="text-center menuPaginacion">     
-        <ul class="pagination"><!-- ng-if="vm.pager.pages.length" -->
-            <li ng-class="{disabled:vm.pager.currentPage === 1}">
-                <a class="botones" ng-click="vm.setPage(1)">Primero</a>
+        <ul class="pagination">
+            <li ng-class="{disabled:currentPage == 0}">
+              <a class="botones" ng-click="currentPage=0" ng-disabled="currentPage == 0">Primero</a>
             </li>
-            <li ng-class="{disabled:vm.pager.currentPage === 1}">
-                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage - 1)">Anterior</a>
+            <li ng-class="{disabled:currentPage == 0}">
+                <a class="botones" ng-click="currentPage=currentPage-1" ng-disabled="currentPage == 0">Anterior</a>
             </li>
-            <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
-                <a class="botones indicesPaginacion" ng-click="vm.setPage(page)">{{page}}</a>
-            </li>                
-            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage + 1)">Siguiente</a>
+            <li class="indicePaginacion">{{currentPage+1}}/{{numberOfPages()}} </li>     
+            <li ng-repeat="num in numberOfPages()"></li>      
+            <li ng-class="{disabled:currentPage >= numberOfPages()}">
+                <a class="botones" ng-click="currentPage=currentPage+1" ng-disabled="currentPage >= numberOfPages()">Siguiente</a> <!-- getData().length/pageSize - 1 -->
             </li>
-            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-                <a class="botones" ng-click="vm.setPage(vm.pager.totalPages)">Último</a>
+            <li ng-class="{disabled:currentPage >= numberOfPages()-1}">
+                <a class="botones" ng-click="currentPage=numberOfPages()-1" ng-disabled="currentPage >= numberOfPages()-1">Último</a> <!-- getData().length/pageSize - 1 -->
             </li>
         </ul>
-    </div>
+    </div>     
+
   </main>
-  
-<!--   <style>
-    .listar-container{
-      margin: 0 auto;
-      width: 80% !important;
-    }
-    .elemento-lista{
-      display: flex;
-      justify-content: space-between;
-    }
-    .listar-iconos{
-      margin-top: 10px;
-      padding: 5px;
-    }
-    .btn-agregar{
-        margin-top: 20px;
-        margin-left: 20px;
-    }
-    .botones{
-      cursor: pointer;
-    }
-
-    .botones:hover{
-      background: #333333;
-      color: white;
-    }
-
-    .pagination li.active a{
-      background: #26A69A;
-    }
-
-    .menuPaginacion{
-      text-align: center;
-    }
-    @media screen and (max-width:800px){
-      .listar-container{
-        width:100% !important;
-      }
-    }
-  </style> -->

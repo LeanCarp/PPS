@@ -137,56 +137,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$filter', '$location', 
     })
   }
 
-  // Atributos y métodos para la búsqueda sobre todos los resultados.
-/*   $scope.busqueda = false;
-
-  $scope.$watch('buscar', function(newValue,oldValue){                       
-    if(oldValue!=newValue){
-      $scope.vm.currentPage = 0;
-    }
-  },true);
-
-  $scope.activarBusqueda = function(){
-    if ($scope.buscar.length < 3){
-      $scope.busqueda = false;
-    }
-    else{
-      $scope.busqueda = true;
-    }
-  } */
-  // Fin Búsqueda ---
-
   // Paginación
-/*   $scope.vm = {};
-
-  $scope.paginar = function(){
-    
-    $scope.vm.dummyItems = $scope.alumnos; // dummy array of items to be paged
-    $scope.vm.pager = {};
-    $scope.vm.setPage = setPage;
-
-    initController();
-
-    function initController() {
-      // initialize to page 1
-      $scope.vm.setPage(1);
-    }
-
-    function setPage(page) {
-      if (page < 1 || page > $scope.vm.pager.totalPages) {
-          return;
-      }
-
-      // get pager object from service
-      $scope.vm.pager = service.GetPager($scope.vm.dummyItems.length, page);
-      console.log($scope.vm.pager);
-      // get current page of items
-      $scope.vm.items = $scope.vm.dummyItems.slice($scope.vm.pager.startIndex, $scope.vm.pager.endIndex + 1);
-
-    }
-  } */
-  // Fin Paginación ---
-
   $scope.currentPage = 0;
   $scope.pageSize = 10;
   $scope.alumnos = [];
@@ -205,6 +156,8 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$filter', '$location', 
       $scope.currentPage = 0;
     }
   },true);
+
+  // Fin Paginación ---
 }]);
 
 app.filter('startFrom', function() {
@@ -343,9 +296,9 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
         if (!data.datos)
           $scope.cursadas=[];
           else
-        $scope.cursadas = data.datos;
+       $scope.cursadas = data.datos;
+       $scope.items = data.datos;
        $scope.obtenerAlumno(idAlumno);
-       $scope.paginar();
       })
     }
 
@@ -371,6 +324,7 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
 
       service.getAlumnos().success(function(data){
         $scope.alumnos = data.datos;
+        $scope.items = data.datos;
       }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
 
@@ -403,36 +357,28 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
       $location.path('/alumnos-listar');
     }
 
-    // Paginación
-    $scope.vm = {};
+      // Paginación
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.items = [];
+    $scope.buscar = '';
 
-    $scope.paginar = function(){
-      
-      $scope.vm.dummyItems = $scope.cursadas; // dummy array of items to be paged
-      $scope.vm.pager = {};
-      $scope.vm.setPage = setPage;
-
-      initController();
-
-      function initController() {
-        // initialize to page 1
-        $scope.vm.setPage(1);
-      }
-
-      function setPage(page) {
-        if (page < 1 || page > $scope.vm.pager.totalPages) {
-            return;
-        }
-
-        // get pager object from service
-        $scope.vm.pager = service.GetPager($scope.vm.dummyItems.length, page);
-
-        // get current page of items
-        $scope.vm.items = $scope.vm.dummyItems.slice($scope.vm.pager.startIndex, $scope.vm.pager.endIndex + 1);
-
-      }
+    $scope.getData = function () {
+      return $filter('filter')($scope.items, $scope.buscar)
     }
+
+    $scope.numberOfPages=function(){
+      return Math.ceil($scope.items.length/$scope.pageSize);
+    }
+
+    $scope.$watch('buscar', function(newValue,oldValue){                       
+      if(oldValue!=newValue){
+        $scope.currentPage = 0;
+      }
+    },true);
+
     // Fin Paginación ---
+    
 }]);
 
 app.controller('ExamenesCtr', ['$rootScope','$scope', '$routeParams', '$location', 'service', function ($rootScope,$scope, $routeParams, $location, service) {
@@ -694,6 +640,28 @@ app.controller('ComisionesCtr', ['$scope', '$routeParams', '$location', 'service
       return minutos;
     }
   }
+
+  // Paginación
+  $scope.currentPage = 0;
+  $scope.pageSize = 10;
+  $scope.comisiones = [];
+  $scope.buscar = '';
+
+  $scope.getData = function () {
+    return $filter('filter')($scope.comisiones, $scope.buscar)
+  }
+
+  $scope.numberOfPages=function(){
+    return Math.ceil($scope.comisiones.length/$scope.pageSize);
+  }
+
+  $scope.$watch('buscar', function(newValue,oldValue){                       
+    if(oldValue!=newValue){
+      $scope.currentPage = 0;
+    }
+  },true);
+
+  // Fin Paginación ---
 
 }]);
 
@@ -996,40 +964,29 @@ app.controller('MateriaCtr', ['$rootScope','$scope', '$routeParams', '$location'
         $scope.materias=[];
         else
         $scope.materias = data.datos;
-        $scope.paginar();
     }).error( () => Materialize.toast('Erro al obtener', 3500) );
   }
 
-  // Paginación
-  $scope.vm = {};
-
-  $scope.paginar = function(){
-    
-    $scope.vm.dummyItems = $scope.materias; // dummy array of items to be paged
-    $scope.vm.pager = {};
-    $scope.vm.setPage = setPage;
-
-    initController();
-
-    function initController() {
-      // initialize to page 1
-      $scope.vm.setPage(1);
+    // Paginación
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.materias = [];
+    $scope.buscar = '';
+  
+    $scope.getData = function () {
+      return $filter('filter')($scope.materias, $scope.buscar)
     }
-
-    function setPage(page) {
-      if (page < 1 || page > $scope.vm.pager.totalPages) {
-          return;
+  
+    $scope.numberOfPages=function(){
+      return Math.ceil($scope.materias.length/$scope.pageSize);
+    }
+  
+    $scope.$watch('buscar', function(newValue,oldValue){                       
+      if(oldValue!=newValue){
+        $scope.currentPage = 0;
       }
-
-      // get pager object from service
-      $scope.vm.pager = service.GetPager($scope.vm.dummyItems.length, page);
-
-      // get current page of items
-      $scope.vm.items = $scope.vm.dummyItems.slice($scope.vm.pager.startIndex, $scope.vm.pager.endIndex + 1);
-
-    }
-  }
-  // Fin Paginación ---
+    },true);
+    // Fin Paginación ---
 
 }]);
 

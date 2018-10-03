@@ -51,7 +51,7 @@
     </thead>
 
     <tbody>
-      <tr class="collection-item" ng-repeat="alumno in alumnos | filter:buscar | startFrom:currentPage*pageSize | limitTo:pageSize">
+      <tr class="collection-item" ng-repeat="alumno in alumnos | orderBy:sortType:sortReverse | filter:buscar | startFrom:currentPage*pageSize | limitTo:pageSize">
         <td>{{alumno.username}}</td>
         <td>{{alumno.carrera}}</td>
         <td>{{alumno.first_name}}</td>
@@ -69,12 +69,18 @@
     <div class="text-center menuPaginacion">     
         <ul class="pagination">
             <li ng-class="{disabled:currentPage == 0}">
+              <a class="botones" ng-click="currentPage=0" ng-disabled="currentPage == 0">Primero</a>
+            </li>
+            <li ng-class="{disabled:currentPage == 0}">
                 <a class="botones" ng-click="currentPage=currentPage-1" ng-disabled="currentPage == 0">Anterior</a>
             </li>
-            {{currentPage+1}}/{{numberOfPages()}}      
+            <li class="indicePaginacion">{{currentPage+1}}/{{numberOfPages()}} </li>     
             <li ng-repeat="num in numberOfPages()"></li>      
             <li ng-class="{disabled:currentPage >= numberOfPages()-1}">
                 <a class="botones" ng-click="currentPage=currentPage+1" ng-disabled="currentPage >= numberOfPages()-1">Siguiente</a> <!-- getData().length/pageSize - 1 -->
+            </li>
+            <li ng-class="{disabled:currentPage >= numberOfPages()-1}">
+                <a class="botones" ng-click="currentPage=numberOfPages()-1" ng-disabled="currentPage >= numberOfPages()-1">Último</a> <!-- getData().length/pageSize - 1 -->
             </li>
         </ul>
     </div>              
