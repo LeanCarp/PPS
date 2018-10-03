@@ -44,12 +44,12 @@
                     </div>
                     <div class="input-field col s6 m3">
                         <input id="search" type="search" ng-model="filtro1">
-                        <label class="" for="search">Filtro 1</label>
+                        <label class="" for="search">Año ingreso</label>
                         <i class="material-icons">close</i>
                     </div>
                     <div class="input-field col s6 m3">
                         <input id="search" type="search" ng-model="filtro2">
-                        <label class="" for="search">Filtro 2</label>
+                        <label class="" for="search">Carrera</label>
                         <i class="material-icons">close</i>
                     </div>
                     <table>

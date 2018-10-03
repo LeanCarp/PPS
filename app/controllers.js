@@ -1,4 +1,4 @@
-app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', function ($scope, $routeParams, $location, service) {
+app.controller('AlumnosCtr', ['$scope', '$routeParams', '$filter', '$location', 'service', function ($scope, $routeParams, $filter, $location, service) {
   $scope.isAdding = false;
 
   // Atributos y funciones para ordenamiento
@@ -13,7 +13,7 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   $scope.getAlumnos= function(id){
   service.getAlumnos().success(function (data){
     $scope.alumnos = data.datos;
-    $scope.paginar();
+    //$filter('filter')($scope.alumnos, $scope.buscar)
   })
   }
   $scope.cargarAlumno= function(){
@@ -138,7 +138,13 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
   }
 
   // Atributos y métodos para la búsqueda sobre todos los resultados.
-  $scope.busqueda = false;
+/*   $scope.busqueda = false;
+
+  $scope.$watch('buscar', function(newValue,oldValue){                       
+    if(oldValue!=newValue){
+      $scope.vm.currentPage = 0;
+    }
+  },true);
 
   $scope.activarBusqueda = function(){
     if ($scope.buscar.length < 3){
@@ -147,11 +153,11 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
     else{
       $scope.busqueda = true;
     }
-  }
+  } */
   // Fin Búsqueda ---
 
   // Paginación
-  $scope.vm = {};
+/*   $scope.vm = {};
 
   $scope.paginar = function(){
     
@@ -173,15 +179,41 @@ app.controller('AlumnosCtr', ['$scope', '$routeParams', '$location', 'service', 
 
       // get pager object from service
       $scope.vm.pager = service.GetPager($scope.vm.dummyItems.length, page);
-
+      console.log($scope.vm.pager);
       // get current page of items
       $scope.vm.items = $scope.vm.dummyItems.slice($scope.vm.pager.startIndex, $scope.vm.pager.endIndex + 1);
 
     }
-  }
+  } */
   // Fin Paginación ---
 
+  $scope.currentPage = 0;
+  $scope.pageSize = 10;
+  $scope.alumnos = [];
+  $scope.buscar = '';
+
+  $scope.getData = function () {
+    return $filter('filter')($scope.alumnos, $scope.buscar)
+  }
+
+  $scope.numberOfPages=function(){
+    return Math.ceil($scope.alumnos.length/$scope.pageSize);
+  }
+
+  $scope.$watch('buscar', function(newValue,oldValue){                       
+    if(oldValue!=newValue){
+      $scope.currentPage = 0;
+    }
+  },true);
 }]);
+
+app.filter('startFrom', function() {
+  return function(input, start) {
+    if (!input || !input.length) { return; }
+      start = +start; //parse to int
+      return input.slice(start);
+  }
+});
 
 app.controller('AdminCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
     $scope.isAdding = false;
