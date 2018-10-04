@@ -308,8 +308,11 @@ app.controller('CursadasCtr', ['$scope', '$rootScope', '$routeParams', '$locatio
 
     $scope.getCursadas = function(idAlumno){
       service.getCursadas(idAlumno).success(function (data){
-        if (!data.datos)
-          $scope.cursadas=[];
+        if (!data.datos){
+            Materialize.toast('No hay resultados', 1500);
+            $scope.cursadas=[];
+        }
+         
           else
         $scope.cursadas = data.datos;
        $scope.obtenerAlumno(idAlumno);
