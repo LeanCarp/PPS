@@ -37,6 +37,9 @@ th, td{
 .menuPaginacion{
     text-align: center;
 }
+.indicePaginacion{
+    padding: 5px;
+}
 .selects{
     padding: 0 !important;
 }

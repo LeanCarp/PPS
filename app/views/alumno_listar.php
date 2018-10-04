@@ -13,37 +13,9 @@
             </div>
         </div>
     </form>
-    <!-- <ul>
-      <li ng-show="busqueda" ng-repeat="alumno in alumnos | filter: buscar">{{alumno.username}}</li>
-    </ul> -->
-    <table ng-show="busqueda">
-      <thead>
-        <tr>
-            <th>DNI</th>
-            <th>Carrera</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="collection-item"  ng-repeat="alumno in alumnos | filter: buscar">
-          <td>{{alumno.username}}</td>
-          <td>{{alumno.carrera}}</td>
-          <td>{{alumno.first_name}}</td>
-          <td>{{alumno.last_name}}</td>
-          <td>
-            <a title="Cursadas" href="#/cursadas-listar/{{alumno.id}}"><i class="listar-iconos material-icons">class</i></a>
-            <a title="Ver informes" href="#/informes-listar/{{alumno.id}}"><i class="listar-iconos material-icons">library_books</i></a>
-            <a title="Ver Actividades" href="#/actividades-listar/{{alumno.id}}"><i class="listar-iconos material-icons">watch_later</i></a>
-            <a href="#/alumnos-modificar/{{alumno.id}}"><i title="Editar" class="listar-iconos material-icons">edit</i></a>
-            <a href="#/alumnos-ver/{{alumno.id}}"><i title="Ver" class="listar-iconos material-icons">search</i></a></td>
-          </tr>
-      </tbody>
-    </table>
   </div>
 
-  <table ng-show="!busqueda">
+  <table>
     <thead>
       <tr>
           <th>
@@ -79,7 +51,7 @@
     </thead>
 
     <tbody>
-      <tr class="collection-item" ng-repeat="alumno in vm.items | orderBy:sortType:sortReverse">
+      <tr class="collection-item" ng-repeat="alumno in alumnos | orderBy:sortType:sortReverse | filter:buscar | startFrom:currentPage*pageSize | limitTo:pageSize">
         <td>{{alumno.username}}</td>
         <td>{{alumno.carrera}}</td>
         <td>{{alumno.first_name}}</td>
@@ -94,71 +66,22 @@
     </tbody>
   </table>
 
-<!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
-  <div class="text-center menuPaginacion" ng-show="!busqueda">     
-        <!-- pager -->
-        <ul class="pagination"><!-- ng-if="vm.pager.pages.length" -->
-            <li ng-class="{disabled:vm.pager.currentPage === 1}">
-                <a class="botones" ng-click="vm.setPage(1)">Primero</a>
+    <div class="text-center menuPaginacion">     
+        <ul class="pagination">
+            <li ng-class="{disabled:currentPage == 0}">
+              <a class="botones" ng-click="currentPage=0" ng-disabled="currentPage == 0">Primero</a>
             </li>
-            <li ng-class="{disabled:vm.pager.currentPage === 1}">
-                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage - 1)">Anterior</a>
+            <li ng-class="{disabled:currentPage == 0}">
+                <a class="botones" ng-click="currentPage=currentPage-1" ng-disabled="currentPage == 0">Anterior</a>
             </li>
-            <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
-                <a class="botones indicesPaginacion" ng-click="vm.setPage(page)">{{page}}</a>
-            </li>                
-            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-                <a class="botones" ng-click="vm.setPage(vm.pager.currentPage + 1)">Siguiente</a>
+            <li class="indicePaginacion">{{currentPage+1}}/{{numberOfPages()}} </li>     
+            <li ng-repeat="num in numberOfPages()"></li>      
+            <li ng-class="{disabled:currentPage >= numberOfPages()-1}">
+                <a class="botones" ng-click="currentPage=currentPage+1" ng-disabled="currentPage >= numberOfPages()-1">Siguiente</a> <!-- getData().length/pageSize - 1 -->
             </li>
-            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-                <a class="botones" ng-click="vm.setPage(vm.pager.totalPages)">Último</a>
+            <li ng-class="{disabled:currentPage >= numberOfPages()-1}">
+                <a class="botones" ng-click="currentPage=numberOfPages()-1" ng-disabled="currentPage >= numberOfPages()-1">Último</a> <!-- getData().length/pageSize - 1 -->
             </li>
         </ul>
-    </div>
-              
+    </div>              
 </main>
-
-<!-- <style>
-  .listar-container{
-    margin: 0 auto;
-    width: 80% !important;
-  }
-  .elemento-lista{
-    display: flex;
-    justify-content: space-between;
-  }
-  .listar-iconos{
-    margin-top: 10px;
-    padding: 5px;
-  }
-  .btn-agregar{
-    margin-top: 20px;
-    margin-left: 20px;
-  }
-  th, td{
-    text-align: center;
-  }
-
-  .botones{
-    cursor: pointer;
-  }
-
-  .botones:hover{
-    background: #333333;
-    color: white;
-  }
-
-  .pagination li.active a{
-    background: #26A69A;
-  }
-
-  .menuPaginacion{
-    text-align: center;
-  }
-  @media screen and (max-width:800px){
-    .listar-container{
-      width:100% !important;
-    }
-  }
-</style> -->
