@@ -1,6 +1,7 @@
 <main class="listar-container" ng-init="obtenerContactos()">
    <h3> <strong>Contactos </strong> </h3>
-
+    <!--Para el icono de whatsapp-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
  <table>
     <thead>
