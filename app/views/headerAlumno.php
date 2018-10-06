@@ -5,13 +5,15 @@
           <ul class="right hide-on-med-and-down">
               <li><a href="#/foro-alumno" class="">Foro<i class="material-icons right">forum</i></a></li>
             <li><a href="#/alumno-cursadas-listar" class="">Cursadas<i class="material-icons right">class</i></a></li>
+             <li><a href="#/alumno-contactos-listar" class="">Contacto<i class="material-icons right">contact_phone</i></a></li>           
               <!-- <li><a class="dropdown-button" data-activates="dropdownConfiguracion">Configuración<i class="material-icons right">menu</i></a></li> -->
               <li><a class="dropdown-button" data-activates="dropdownUsuario"><img src="assets/img/default-user-image.png" alt="" class="circle img-profile-small"><i class="material-icons right">arrow_drop_down</i></a></li>
           </ul>
           <ul class="side-nav" id="mobile-demo">
-              <li><a href="#!" class="disabled">Foro</a></li>
-              <li><a href="#!" class="disabled">Alumno</a></li>
-              <li><a href="#/alumno-cursadas-listar" class="subitem">Cursadas</a></li>
+              <!--  <li><a href="#!" class="disabled">Foro</a></li>
+              <li><a href="#!" class="disabled">Alumno</a></li>-->
+              <li><a href="#/alumno-cursadas-listar" class="">Cursadas<i class="material-icons right">class</i></a></li>
+              <li><a href="#/alumno-cursadas-listar" class="">Contacto<i class="material-icons right">contact_phone</i></a></li>  
               <!-- <li><a href="#!" class="disabled">Configuración</a></li>
               <li><a href="#!" class="subitem">Ejemplo</a></li> -->
               <li><a href="#!" class="disabled">Usuario</a></li>

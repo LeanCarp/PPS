@@ -1513,6 +1513,12 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
     }
   }
 
+  $scope.obtenerContactos = function(){
+    service.AlumnoObtenerContactos().success(function(data){
+      $scope.personas=data.datos;     
+    }).error(()=>Materialize.toast('Error al obtener contactos', 3500));
+  }
+
 }]);
 
 // Controlador para el usuario logeado TUTOR.

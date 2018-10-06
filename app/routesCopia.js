@@ -199,6 +199,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       templateUrl: BASE_URL + "runAngular/view/alumno/alumno_editar",
       controller: "UserAlumnoCtr"
     })
+      .when("/alumno-contactos-listar", {
+      title: 'Contactos - Listar',
+      templateUrl: BASE_URL + "runAngular/view/alumno/alumno_contactos_listar",
+      controller: "UserAlumnoCtr"
+    })
 
 
     .when("/tutor-alumnos", {

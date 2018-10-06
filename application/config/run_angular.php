@@ -469,6 +469,12 @@ $config['general_data'] = [
 			"title"		=> "Archivos - Listar",
 		],
 		[
+			"url"		=> "/alumno-contactos-listar",
+			"view"		=> "/alumno/alumno_contactos_listar",
+			"controller"=> "UserAlumnoCtr",
+			"title"		=> "Contactos - Listar",
+		],
+		[
 			"url"		=> "/alumno-examenes-listar/:idCurs",
 			"view"		=> "/alumno/alumno_examenes",
 			"controller"=> "UserAlumnoCtr",

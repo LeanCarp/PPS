@@ -544,6 +544,11 @@ app.factory('service', ['$http','$rootScope','$location','Upload', function($htt
       return $http.post(urlExamenesObtener, id,{ responseType: 'json' });
     },
 
+        AlumnoObtenerContactos: () => {
+      let urlContactosObtener = 'alumno/Alumno/ObtenerContactos';
+      return $http.post(urlContactosObtener,{ responseType: 'json' });
+    },
+
     AlumnoObtenerInformes: (idUsuario) => {
       const id = {
         'idUsuario':idUsuario,
