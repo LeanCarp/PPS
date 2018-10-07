@@ -8,9 +8,24 @@
       </div>
       <div class="pagInicio-contenido">
         <h4><strong>Sitios de utilidad UTN CDU:</strong></h4>
-        <h5><a href="http://www.frcu.utn.edu.ar/" target="_blank">Sitio Oficial</a></h5>
-        <h5><a href="http://virtual.frcu.utn.edu.ar" target="_blank">Campus Virtual</a></h5>
-        <h5><a href="http://www2.frcu.utn.edu.ar/deptoalumnos/guarani3w/inicial.php?lang=1" target="_blank">Autogestión - Guaraní</a></h5>
+        <h5>
+          <a href="http://www.frcu.utn.edu.ar/" target="_blank">
+          <i class="material-icons">open_in_browser</i>
+          Sitio Web Oficial          
+          </a>
+        </h5>
+        <h5>
+          <a href="http://virtual.frcu.utn.edu.ar" target="_blank">
+            <i class="material-icons">account_balance</i>
+            Campus Virtual          
+          </a>
+        </h5>
+        <h5>
+          <a href="http://www2.frcu.utn.edu.ar/deptoalumnos/guarani3w/inicial.php?lang=1" target="_blank">
+            <i class="material-icons">school</i>
+            Autogestión - Guaraní
+          </a>
+        </h5>
       </div> 
     </div>
   </div>
