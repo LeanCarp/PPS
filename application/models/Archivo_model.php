@@ -23,6 +23,13 @@ class Archivo_model extends OWN_Model
 	// Para formatear la url base
 	protected function parse_file_path_to_link($data_array)
 	{
+		$getOnlyOneRow = (
+			is_array($data_array) && !empty($data_array) && isSet($data_array[$this->primary_key])
+		);
+
+		if($getOnlyOneRow)
+			$data_array = [$data_array]; //it is a row and for that we make that trick
+
 		for ($i=0; $i < count($data_array); $i++)
 		{
 			$rowIsAnArray = is_array($data_array[$i]);
@@ -46,6 +53,8 @@ class Archivo_model extends OWN_Model
 				}
 			}
 		}
+
+		$data_array = ($getOnlyOneRow? $data_array[0]: $data_array);
 
     	return $data_array;
 	}

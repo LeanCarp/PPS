@@ -1019,7 +1019,6 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
     }
     else
     {
-  
       let materia = $rootScope.idMateria;
 
       if(materia==undefined)
@@ -1029,12 +1028,12 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
       }
 
       $scope.archivo = {id: $routeParams.id, titulo:'', descripcion:'', link:'', idMateria:materia, fuenteArchivo:false, archivoAsubir:null};
-
+      
       //Agregar o modificar un archivo
       if( $scope.archivo.id != undefined )
       {
         // Se obtiene el archivo correspondiente por el ID que viene en el URL
-        $scope.obtenerDatosArchivo( archivoId );
+        $scope.obtenerDatosArchivo( $scope.archivo.id );
         $scope.isAdding = false;
       }
       else
@@ -1047,8 +1046,10 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
 
   $scope.obtenerDatosArchivo = function(idArchivo)
   {
+
     //$scope.isAdding = true;
     service.obtenerArchivo(idArchivo).success( function(data){
+        
         $scope.archivo = data.datos;
 
         if ($scope.archivo.idCategoriaArchivo==1)
