@@ -1520,6 +1520,28 @@ app.controller('UserAlumnoCtr', ['$scope', '$rootScope', '$routeParams', '$locat
     }).error(()=>Materialize.toast('Error al obtener contactos', 3500));
   }
 
+    // Paginación
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.cursadas = [];
+    $scope.buscar = '';
+  
+    $scope.getData = function () {
+      return $filter('filter')($scope.cursadas, $scope.buscar)
+    }
+  
+    $scope.numberOfPages=function(){
+      return Math.ceil($scope.cursadas.length/$scope.pageSize);
+    }
+  
+    $scope.$watch('buscar', function(newValue,oldValue){                       
+      if(oldValue!=newValue){
+        $scope.currentPage = 0;
+      }
+    },true);
+  
+    // Fin Paginación ---
+
 }]);
 
 // Controlador para el usuario logeado TUTOR.
@@ -1584,6 +1606,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
   $scope.obtenerAlumnos = function(){
     service.TutorObtenerAlumnos().success(function (data){
       $scope.alumnos = data.datos;
+      $scope.datos = data.datos;
     })
   }
   
@@ -1635,6 +1658,7 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
   $scope.obtenerCursadas = function(id){
     service.TutorObtenerCursadas(id).success(function (data){
       $scope.cursadas = data.datos;
+      $scope.datos = data.datos;
     })
       service.TutorObtenerAlumno(id).success(function (data){
       $scope.alumno = data.datos;
@@ -1643,7 +1667,6 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
 
   $scope.obtenerInformes = function(id){
     service.TutorObtenerInformes(id).success(function (data){
-      console.log(data);
       $scope.informes = data.datos;
     })
      service.TutorObtenerAlumno(id).success(function (data){
@@ -1713,6 +1736,28 @@ app.controller('UserTutorCtr', ['$scope', '$rootScope', '$routeParams', '$locati
     })
     $location.path('tutor-perfil');
   }
+
+    // Paginación
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.datos = [];
+    $scope.buscar = '';
+  
+    $scope.getData = function () {
+      return $filter('filter')($scope.datos, $scope.buscar)
+    }
+  
+    $scope.numberOfPages=function(){
+      return Math.ceil($scope.datos.length/$scope.pageSize);
+    }
+  
+    $scope.$watch('buscar', function(newValue,oldValue){                       
+      if(oldValue!=newValue){
+        $scope.currentPage = 0;
+      }
+    },true);
+  
+    // Fin Paginación ---
 }]);
 
 app.controller('ForoCtr', ['$scope', '$rootScope', '$routeParams', '$location', 'service', function ($scope, $rootScope, $routeParams, $location, service) {
