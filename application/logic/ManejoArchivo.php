@@ -70,7 +70,7 @@ class ManejoArchivo {
                 $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
                 break;
             case 'offimatic':
-                $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pps|ppsx|pdf';
+                $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pps|ppt|ppsx|pdf';
                 break;
             default:
                 $config['allowed_types'] = $tipos_archivos_permitidos; // Todos los tipos de archivos

@@ -1034,7 +1034,7 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
       if( $scope.archivo.id != undefined )
       {
         // Se obtiene el archivo correspondiente por el ID que viene en el URL
-        $scope.obtenerDatosArchivo( archivoId );
+        $scope.obtenerDatosArchivo( $scope.archivo.id );
         $scope.isAdding = false;
       }
       else
@@ -1049,6 +1049,7 @@ app.controller('ArchivoCtr', ['$rootScope','$scope', '$routeParams', '$location'
   {
     //$scope.isAdding = true;
     service.obtenerArchivo(idArchivo).success( function(data){
+      console.log(data);
         $scope.archivo = data.datos;
 
         if ($scope.archivo.idCategoriaArchivo==1)
