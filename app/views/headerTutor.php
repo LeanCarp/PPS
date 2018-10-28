@@ -1,6 +1,6 @@
 <nav>
         <div class="nav-wrapper menu">
-          <a href="#!" class="brand-logo"><img src="assets/img/logo-utn.png" alt=""></a>
+          <a href="#/" class="brand-logo"><img src="assets/img/logo-utn.png" alt=""></a>
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> <!-- Icono menú responsive -->
           <ul class="right hide-on-med-and-down">
               <li><a href="#/foro-tutor" class="">Foro<i class="material-icons right">forum</i></a></li>

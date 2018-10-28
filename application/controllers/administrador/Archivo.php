@@ -43,10 +43,10 @@ class Archivo extends OWN_Controller{
         ]);    
     }
 
-    public function Leer()
+    public function Leer($id=null)
     {
-       // var_dump($this->rest->post('id'));die();
-        $id = $this->rest->post('id');
+        //var_dump($this->rest->post('id'));die();
+        $id = is_null($id)? $this->rest->post('id'): $id;
         $data = $this->manejoarchivo->ObtenerArchivo($id);
         return $this->responseJson(['datos'=>$data]);
         

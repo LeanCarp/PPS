@@ -7,7 +7,7 @@
     <form>
         <div class="row">
             <div class="input-field col s8 m4">
-                <input id="search" type="search" required ng-model="buscar" ng-change="activarBusqueda();">
+                <input id="search" type="search" required ng-model="buscar">
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
             </div>
