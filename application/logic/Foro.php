@@ -53,6 +53,9 @@ class Foro {
     public function ObtenerTema($id)
     {
         $this->CI->load->model('Tema_model');
+        $tema=$this->CI->Tema_model->with_categoria()->with_mensajeForo()->get($id);
+        $update_data=array('visitas' => $tema->visitas+1);
+        $this->ActualizarTema($update_data,$id);
         return  $this->CI->Tema_model->with_categoria()->with_mensajeForo()->get($id);
     }
 
@@ -64,7 +67,7 @@ class Foro {
      public function ActualizarTema($data,$id)
     {
         $this->CI->load->model('Tema_model');
-        return $this->CI->Tema_model->update($data,$id);
+        return  return $this->CI->Tema_model->where('id',$id)->update($data);
     }
 
      public function EliminarTema($id)

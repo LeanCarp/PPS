@@ -10,7 +10,7 @@
 
     <!-- Materialize y Material Icons. -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     <!-- App CSS -->
     <link rel="stylesheet" href="<?php echo BASE_URL()?>assets/css/main.css">

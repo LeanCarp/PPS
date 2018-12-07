@@ -8,7 +8,7 @@
         <li class="collection-item probador" ng-repeat="tema in temas">
             <div class="foro-titulo">
                 <div>
-                    <a href="#/foro-mensajes/{{tema.id}}">{{tema.titulo}}</a> Estado: {{tema.estado}}
+                    <a href="#/foro-mensajes/{{tema.id}}">{{tema.titulo}}</a> Estado: {{tema.estado}} | Visitas: {{tema.visitas}}
                 </div>    
                 <div class="foro-opciones">
                     <a title="Editar" href="#/foro-modificarTema/{{tema.id}}"> <i class="material-icons btn-opciones">edit</i></a>
