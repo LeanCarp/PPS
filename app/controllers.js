@@ -1181,9 +1181,8 @@ app.controller('ProfesorCtr', ['$scope', '$routeParams', '$location', 'service',
         }
       }).error( () => Materialize.toast('Erro al obtener', 3500) );
     }
-
-      $location.path('/profesores-listar');
-      $scope.obtenerProfesores();
+       $scope.obtenerProfesores();
+      $location.path('/profesores-listar');   
   }
 
   $scope.obtenerProfesores = function(){
@@ -1284,7 +1283,8 @@ app.controller('CiudadesCtr', ['$scope', '$routeParams', '$location', 'service',
     service.obtenerCiudades(idCiudad).success(function(data){
       const ciudad = {
         'nombre': data.datos.nombre,
-        'pais': data.datos.idPais
+        'pais': data.datos.idPais,
+        'id':  data.datos.id
       }
       $scope.ciudad = ciudad;
     });
@@ -1374,7 +1374,8 @@ app.controller('EscuelasCtr', ['$scope', '$routeParams', '$location', 'service',
         'nombre': data.datos.nombre,
         'orientacion': data.datos.orientacion,
         'pais': data.datos.ciudad.idPais,
-        'ciudad': data.datos.idCiudad
+        'ciudad': data.datos.idCiudad,
+        'id': data.datos.id
       }
       $scope.escuela = escuela;
     });

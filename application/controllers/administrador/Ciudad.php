@@ -27,6 +27,9 @@ class Ciudad  extends OWN_Controller{
     {
         $id = $this->rest->post('id');
         $nombre = $this->rest->post('nombre');
+        var_dump($id);
+        echo("asd");
+        var_dump($nombre);
         $data = ['nombre'=> $nombre];
         return $this->responseJson(['exito'=>$this->extras->ActualizarCiudad($data,$id)]);  
     }
